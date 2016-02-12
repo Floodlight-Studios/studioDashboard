@@ -1,0 +1,29 @@
+{
+  "compilerOptions": {
+    "target": "ES5",
+    "module": "commonjs",
+    "moduleResolution": "node",
+    "removeComments": true,
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "noEmitHelpers": false,
+    "sourceMap": true,
+    "noResolve": false
+  },
+  "filesGlob": [
+    "./**/*.ts",
+    "!./node_modules"
+  ],
+  "exclude": [
+    "src/comps/app4/in_dev",
+    "node_modules",
+    "jspm_packages",
+    "typings",
+    "dist",
+    "typings/*",
+    "typings/main.d.ts",
+    "typings/main"
+  ],
+  "compileOnSave": true,
+  "buildOnSave": true
+}
