@@ -34,6 +34,7 @@ import films from "./comps/app3/starwars/reducers/films-reducer"
 import users from "./comps/app3/starwars/reducers/users-reducer"
 import notify from "./reducers/NotifyReducer"
 import appdb from "./reducers/AppdbReducer"
+import {business} from "./reducers/BusinessReducer"
 import {todos} from "./comps/app1/todos/reducers/TodoReducer"
 import {AppdbAction} from "./actions/AppdbAction";
 import {Welcome} from "./comps/welcome/Welcome";
@@ -111,7 +112,7 @@ export class App {
 
 //enableProdMode();
 bootstrap(App, [ROUTER_PROVIDERS, HTTP_PROVIDERS, JSONP_PROVIDERS,
-    provide(AppStore, {useFactory: Lib.StoreFactory({notify, appdb, parts, cart, films, users, todos})}),
+    provide(AppStore, {useFactory: Lib.StoreFactory({notify, appdb, business, parts, cart, films, users, todos})}),
     provide(CommBroker, {useClass: CommBroker}),
     provide(Consts, {useClass: Consts}),
     provide(LocationStrategy, {useClass: HashLocationStrategy})]);

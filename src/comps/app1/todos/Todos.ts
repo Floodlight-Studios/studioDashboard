@@ -3,10 +3,11 @@ import {Sliderpanel} from "../../sliderpanel/Sliderpanel";
 import {Todo1} from "./Todo1";
 import {Todo2} from "./Todo2";
 import {TodoList} from "./Todolist";
+import {BusinessView} from "../business/BusinessView";
 
 @Component({
     selector: 'Todos',
-    directives: [Sliderpanel, Todo1, Todo2, TodoList],
+    directives: [Sliderpanel, Todo1, Todo2, TodoList, BusinessView],
     template: `
         <br/>
         <br/>
@@ -16,6 +17,7 @@ import {TodoList} from "./Todolist";
             <div class="campaignSlider noScroll">
               <Todo1 class="page center todo1 selected">
                 <div class="yScroll">
+                    <BusinessView></BusinessView>
                   <hr/>
                   <h3>To do sample application with remote server save</h3>
                   <h5>uses your ip address as unique token and keeps data on server for 2 days</h5>
