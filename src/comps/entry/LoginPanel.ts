@@ -68,7 +68,6 @@ export class LoginPanel {
 
     constructor(private appStore:AppStore, router:Router, private commBroker:CommBroker) {
         this.myRouter = router;
-        console.log('this is a test 4');
         var user = commBroker.getValue(Consts.Values().USER_NAME);
         this.user = user || '';
         this.pass = user || '';
