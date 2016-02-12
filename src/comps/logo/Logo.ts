@@ -15,6 +15,7 @@ import 'rxjs/add/operator/distinctUntilChanged';
  **/
 @Component({
     selector: 'Logo',
+    styles: [`#logoContainer { padding-left: 10px; }`],
     template: `
             <div id="logoContainer" class="reshid flip">
               <div class="flipcard">
