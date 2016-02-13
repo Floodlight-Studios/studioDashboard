@@ -18,6 +18,9 @@ import {Subject} from "rxjs/Subject";
 import {BehaviorSubject} from "rxjs/subject/BehaviorSubject";
 import {Observable} from "rxjs/Observable";
 import {AppStore} from "angular2-redux-util";
+import {BusinessAction} from "../../actions/BusinessAction";
+import {AppdbAction} from "../../actions/AppdbAction";
+import Map = Immutable.Map;
 
 export class User {
     public id:string;
@@ -37,6 +40,7 @@ export class User {
 @Component({
     selector: 'LoginPanel',
     directives: [ROUTER_DIRECTIVES, RouterLink],
+    providers: [BusinessAction],
     template: `
                 <MyChart></MyChart>
                 <div id="appLogin" style="">
@@ -65,12 +69,16 @@ export class LoginPanel {
     private user:string;
     private pass:string;
     private myRouter:Router;
+    authUserAction;
+    ubsub;
 
-    constructor(private appStore:AppStore, router:Router, private commBroker:CommBroker) {
+    constructor(private appStore:AppStore, router:Router, private commBroker:CommBroker, private appdbAction:AppdbAction) {
         this.myRouter = router;
         var user = commBroker.getValue(Consts.Values().USER_NAME);
         this.user = user || '';
         this.pass = user || '';
+        // this.authUserAction = this.appStore.createDispatcher(appdbAction.authenticateUser, this)
+        this.authUserAction = this.appdbAction.createDispatcher(this.appStore, this.appdbAction.authenticateUser);
 
         appStore.subscribe((objectPath, oldVal, newVal) => {
             console.log('%s changed from %s to %s', objectPath, oldVal, newVal)
@@ -79,25 +87,31 @@ export class LoginPanel {
         var ubsub = appStore.subscribe((objectPath, oldVal, newVal) => {
         }, 'notify.data', false);
 
+        this.ubsub = appStore.subscribe((objectPath, oldVal, newVal:Map<string,any>) => {
+            var status = newVal.get('credentials')
+            if (status.authenticated)
+                this.onLogin();
+        }, 'appdb', false);
+
         var ubsub = appStore.subscribe((state)=> {
         })
     }
 
-    private authUser(i_user:string, i_pass:string){
-        this.onLogin();
-    }
-
-    private onLogin() {
+    private authUser(i_user:string, i_pass:string) {
         bootbox.dialog({
             closeButton: false,
             title: "Please wait, Authenticating...",
             message: " "
         });
-        setTimeout((e)=> {
-            this.myRouter.navigate(['/AppManager']);
-            bootbox.hideAll();
-        }, 200);
-        event.preventDefault();
+        this.authUserAction(i_user,i_pass);
+
+        // this.appdbAction.authenticateUser(i_user,i_pass);
+    }
+
+    private onLogin() {
+        this.myRouter.navigate(['/AppManager']);
+        bootbox.hideAll();
+        //event.preventDefault();
         return false;
     }
 
@@ -106,6 +120,10 @@ export class LoginPanel {
     }
 
     toString() {
+    }
+
+    ngOnDestroy() {
+        this.ubsub();
     }
 }
 

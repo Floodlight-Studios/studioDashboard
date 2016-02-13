@@ -12,8 +12,7 @@ export const RECEIVE_FILM = 'RECEIVE_FILM';
 export const CURRENT_FILMS = 'CURRENT_FILMS';
 export const RECEIVE_NUMBER_OF_FILMS = 'RECEIVE_NUMBER_OF_FILMS';
 export const SET_BUSINESS_DATA = 'SET_BUSINESS_DATA';
-export const AUTH_USER = 'AUTH_USER';
-export const AUTH_PASS = 'AUTH_PASS';
+
 
 
 
@@ -27,22 +26,6 @@ export class BusinessAction extends Actions {
 
     constructor(private _http:Http, private jsonp:Jsonp) {
         super();
-    }
-
-    authenticateUser(i_user, i_pass) {
-        var self = this;
-        console.log('Auth user ' + i_user + ' ' + i_pass)
-        return (dispatch:Redux.Dispatch)=> {
-            dispatch({type: AUTH_USER});
-            // fake server call until backend is ready with CORS
-            dispatch({type: AUTH_PASS, user: i_user, pass: i_pass});
-            return;
-            // disabled for now
-            //this._http.get(`${BASE_URL}`)
-            //    .map(result => {
-            //        dispatch({type: AUTH_PASS, user: i_user, pass: i_pass});
-            //    }).subscribe();
-        }
     }
 
     /**
