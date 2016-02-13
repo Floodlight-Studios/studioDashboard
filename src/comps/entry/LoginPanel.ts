@@ -77,8 +77,8 @@ export class LoginPanel {
         var user = commBroker.getValue(Consts.Values().USER_NAME);
         this.user = user || '';
         this.pass = user || '';
-        // this.authUserAction = this.appStore.createDispatcher(appdbAction.authenticateUser, this)
-        this.authUserAction = this.appdbAction.createDispatcher(this.appStore, this.appdbAction.authenticateUser);
+        //this.authUserAction = this.appStore.createDispatcher(appdbAction.authenticateUser, this)
+        // this.authUserAction = this.appdbAction.createDispatcher(this.appStore, this.appdbAction.authenticateUser);
 
         appStore.subscribe((objectPath, oldVal, newVal) => {
             console.log('%s changed from %s to %s', objectPath, oldVal, newVal)
@@ -103,8 +103,8 @@ export class LoginPanel {
             title: "Please wait, Authenticating...",
             message: " "
         });
-        this.authUserAction(i_user,i_pass);
-
+        // this.authUserAction(i_user,i_pass);
+        this.appStore.createDispatcher(this.appdbAction.authenticateUser, this)(i_user,i_pass)
         // this.appdbAction.authenticateUser(i_user,i_pass);
     }
 
