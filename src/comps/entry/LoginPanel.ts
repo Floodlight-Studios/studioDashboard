@@ -1,4 +1,4 @@
-///<reference path="../../../typings/app.d.ts" />
+///<reference path="typings/app.d.ts" />
 
 import {Component, Injectable} from 'angular2/core';
 import {ROUTER_DIRECTIVES} from 'angular2/router';
@@ -69,7 +69,6 @@ export class LoginPanel {
     private user:string;
     private pass:string;
     private myRouter:Router;
-    authUserAction;
     ubsub;
 
     constructor(private appStore:AppStore, router:Router, private commBroker:CommBroker, private appdbAction:AppdbAction) {
@@ -77,19 +76,21 @@ export class LoginPanel {
         var user = commBroker.getValue(Consts.Values().USER_NAME);
         this.user = user || '';
         this.pass = user || '';
-        //this.authUserAction = this.appStore.createDispatcher(appdbAction.authenticateUser, this)
-        // this.authUserAction = this.appdbAction.createDispatcher(this.appStore, this.appdbAction.authenticateUser);
+        //this.authUserAction = this.appStore.createDispatcher(appdbAction.authenticateUser, this);
+        //this.authUserAction = this.appdbAction.createDispatcher(this.appStore, this.appdbAction.authenticateUser);
+        //this.appStore.createDispatcher(this.appdbAction.authenticateUser, this)(i_user,i_pass);
+        //this.authUserAction(i_user,i_pass);
+        //this.authUserAction(i_user,i_pass);
 
-        appStore.subscribe((objectPath, oldVal, newVal) => {
-            console.log('%s changed from %s to %s', objectPath, oldVal, newVal)
-        }, 'notify', true);
+        // appStore.subscribe((objectPath, oldVal, newVal) => {
+        //     console.log('%s changed from %s to %s', objectPath, oldVal, newVal)
+        // }, 'notify', true);
+        //
+        // var ubsub = appStore.subscribe((objectPath, oldVal, newVal) => {
+        // }, 'notify.data', false);
 
-        var ubsub = appStore.subscribe((objectPath, oldVal, newVal) => {
-        }, 'notify.data', false);
-
-        this.ubsub = appStore.subscribe((objectPath, oldVal, newVal:Map<string,any>) => {
-            var status = newVal.get('credentials')
-            if (status.authenticated)
+        this.ubsub = appStore.subscribe((path, prev, value:Map<string,any>) => {
+            if (value.get('credentials').authenticated)
                 this.onLogin();
         }, 'appdb', false);
 
@@ -103,9 +104,7 @@ export class LoginPanel {
             title: "Please wait, Authenticating...",
             message: " "
         });
-        // this.authUserAction(i_user,i_pass);
-        this.appStore.createDispatcher(this.appdbAction.authenticateUser, this)(i_user,i_pass)
-        // this.appdbAction.authenticateUser(i_user,i_pass);
+        this.appStore.createDispatcher(this.appdbAction.authenticateUser, this)(i_user,i_pass);
     }
 
     private onLogin() {
