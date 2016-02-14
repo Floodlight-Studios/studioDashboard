@@ -1,4 +1,4 @@
-///<reference path="typings/app.d.ts" />
+///<reference path="../../../typings/app.d.ts" />
 
 import {Component, Injectable} from 'angular2/core';
 import {ROUTER_DIRECTIVES} from 'angular2/router';
@@ -89,8 +89,16 @@ export class LoginPanel {
         // var ubsub = appStore.subscribe((objectPath, oldVal, newVal) => {
         // }, 'notify.data', false);
 
-        this.ubsub = appStore.subscribe((path, prev, value:Map<string,any>) => {
-            if (value.get('credentials').authenticated)
+        // this.ubsub = appStore.subscribe((path, prev, value:Map<string,any>) => {
+        //     if (value.get('credentials').authenticated)
+        //         this.onLogin();
+        // }, 'appdb', false);
+
+        this.ubsub = appStore.sub((appdb:Map<string,any>) => {
+            var status = appdb.get('credentials').get('authenticated');
+            var user = appdb.get('credentials').get('user');
+            var pass = appdb.get('credentials').get('pass');
+            if (status)
                 this.onLogin();
         }, 'appdb', false);
 

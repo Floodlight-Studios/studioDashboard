@@ -1,4 +1,4 @@
-import {Injectable} from 'angular2/core';
+import {Component, Injectable, Inject, provide} from 'angular2/core';
 import {Http} from 'angular2/http';
 import {Lib} from "../../../Lib";
 import 'rxjs/add/operator/share';
@@ -38,19 +38,25 @@ export interface IDataStore {
     todos: Array<TodoItemModel>
 }
 
-@Injectable()
+@Component({
+    providers: [
+        provide(TodoAction, {useClass: TodoAction}),
+        // provide(TodosService, {
+        //     useFactory: () => {
+        //         return function () {
+        //             return new TodosService()
+        //         }
+        //     }
+        // })
+    ]
+})
 export class TodosService {
     private m_dataStore:IDataStore;
     private m_addTodoDispatch:Function;
     private m_clearTodoDispatch:Function;
-    public m_actionTodo:TodoAction;
 
-    constructor(private _http:Http, private todoStatsModel:TodoStatsModel, private appStore:AppStore) {
+    constructor(@Inject(TodoAction) private m_actionTodo:TodoAction, private _http:Http, private todoStatsModel:TodoStatsModel, private appStore:AppStore) {
         this.m_dataStore = {todos: []};
-    }
-
-    public set action(i_actionTodo) {
-        this.m_actionTodo = i_actionTodo;
         this.m_addTodoDispatch = this.m_actionTodo.createDispatcher(this.appStore, this.m_actionTodo.addTodoDispatch);
         this.m_clearTodoDispatch = this.m_actionTodo.createDispatcher(this.appStore, this.m_actionTodo.clearTodoDispatch);
     }

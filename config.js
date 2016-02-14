@@ -48,7 +48,7 @@ System.config({
   map: {
     "angular2": "npm:angular2@2.0.0-beta.6",
     "angular2-polyfill": "npm:angular2-polyfill@0.0.2",
-    "angular2-redux-util": "npm:angular2-redux-util@0.5.38",
+    "angular2-redux-util": "npm:angular2-redux-util@0.5.41",
     "angular2-uuid": "npm:angular2-uuid@1.0.6",
     "bootbox": "npm:bootbox@4.4.0",
     "bootstrap": "github:twbs/bootstrap@3.3.6",
@@ -66,7 +66,7 @@ System.config({
     "ng2-bootstrap": "npm:ng2-bootstrap@1.0.3",
     "ng2-bs3-modal/dist/ng2-bs3-modal": "github:born2net/ng2-bs3-modal@0.1.0",
     "plugin-typescript": "github:frankwallis/plugin-typescript@2.5.6",
-    "redux": "npm:redux@3.2.1",
+    "redux": "npm:redux@3.3.1",
     "redux-thunk": "npm:redux-thunk@1.0.3",
     "reflect-metadata": "npm:reflect-metadata@0.1.3",
     "reselect": "npm:reselect@2.0.3",
@@ -150,10 +150,10 @@ System.config({
       "camelcase": "npm:camelcase@2.1.0",
       "dot-prop": "npm:dot-prop@2.2.0"
     },
-    "npm:angular2-redux-util@0.5.38": {
+    "npm:angular2-redux-util@0.5.41": {
       "is-equal": "npm:is-equal@1.4.2",
       "object-path": "npm:object-path@0.9.2",
-      "redux": "npm:redux@3.2.1"
+      "redux": "npm:redux@3.3.1"
     },
     "npm:angular2@2.0.0-beta.6": {
       "crypto": "github:jspm/nodelibs-crypto@0.1.0",
@@ -548,6 +548,10 @@ System.config({
     "npm:lodash@4.2.1": {
       "process": "github:jspm/nodelibs-process@0.1.2"
     },
+    "npm:lodash@4.3.0": {
+      "buffer": "github:jspm/nodelibs-buffer@0.1.0",
+      "process": "github:jspm/nodelibs-process@0.1.2"
+    },
     "npm:loose-envify@1.1.0": {
       "js-tokens": "npm:js-tokens@1.0.2",
       "process": "github:jspm/nodelibs-process@0.1.2",
@@ -712,8 +716,9 @@ System.config({
       "indent-string": "npm:indent-string@2.1.0",
       "strip-indent": "npm:strip-indent@1.0.1"
     },
-    "npm:redux@3.2.1": {
-      "lodash": "npm:lodash@4.2.1",
+    "npm:redux@3.3.1": {
+      "lodash": "npm:lodash@4.3.0",
+      "lodash-es": "npm:lodash-es@4.3.0",
       "loose-envify": "npm:loose-envify@1.1.0",
       "process": "github:jspm/nodelibs-process@0.1.2"
     },
