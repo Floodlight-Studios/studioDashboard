@@ -2,8 +2,8 @@ import {Http, Jsonp} from "angular2/http";
 import {Injectable} from "angular2/core";
 import {Actions} from "angular2-redux-util";
 import 'rxjs/add/operator/map';
-import {BusinessModel} from "../comps/app1/business/BusinesModel";
-import {Lib} from "../Lib";
+import {BusinessModel} from "./BusinesModel";
+import {Lib} from "../../../Lib";
 
 export const REQUEST_BUSINESSES = 'REQUEST_BUSINESSES';
 export const RECEIVE_BUSINESSES = 'RECEIVE_BUSINESSES';
@@ -12,8 +12,6 @@ export const RECEIVE_FILM = 'RECEIVE_FILM';
 export const CURRENT_FILMS = 'CURRENT_FILMS';
 export const RECEIVE_NUMBER_OF_FILMS = 'RECEIVE_NUMBER_OF_FILMS';
 export const SET_BUSINESS_DATA = 'SET_BUSINESS_DATA';
-
-
 
 
 //const BASE_URL = "https://galaxy.signage.me/WebService/ResellerService.ashx?command=GetBusinessUsers&resellerUserName=rs@ms.com&resellerPassword=rrr&businessList=385360&callback=JSONP_CALLBACK";

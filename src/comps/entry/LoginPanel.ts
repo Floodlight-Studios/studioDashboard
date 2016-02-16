@@ -18,7 +18,7 @@ import {Subject} from "rxjs/Subject";
 import {BehaviorSubject} from "rxjs/subject/BehaviorSubject";
 import {Observable} from "rxjs/Observable";
 import {AppStore} from "angular2-redux-util";
-import {BusinessAction} from "../../actions/BusinessAction";
+import {BusinessAction} from "../app1/business/BusinessAction";
 import {AppdbAction} from "../../actions/AppdbAction";
 import Map = Immutable.Map;
 

@@ -1,5 +1,5 @@
 import {Component} from "angular2/core";
-import {BusinessAction} from "../../../actions/BusinessAction";
+import {BusinessAction} from "./BusinessAction";
 import {AppStore} from "angular2-redux-util";
 import List = _.List;
 import {BusinessModel} from "./BusinesModel";

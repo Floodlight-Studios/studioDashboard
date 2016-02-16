@@ -34,7 +34,7 @@ import films from "./comps/app3/starwars/reducers/films-reducer"
 import users from "./comps/app3/starwars/reducers/users-reducer"
 import notify from "./reducers/NotifyReducer"
 import appdb from "./reducers/AppdbReducer"
-import {business} from "./reducers/BusinessReducer"
+import {business} from "./comps/app1/business/BusinessReducer"
 import {todos} from "./comps/app1/todos/reducers/TodoReducer"
 import {AppdbAction} from "./actions/AppdbAction";
 import {Welcome} from "./comps/welcome/Welcome";
