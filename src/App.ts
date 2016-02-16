@@ -1,6 +1,6 @@
 ///<reference path="../typings/app.d.ts"/>
-
 //import {enableProdMode} from 'angular2/core';
+import childStartsOnTheSameLineWithElseInIfStatement = SmartIndenter.childStartsOnTheSameLineWithElseInIfStatement;
 require('bootstrap');
 import Immutable = require('immutable');
 import 'zone.js/dist/zone.min.js';
@@ -79,7 +79,6 @@ import {Welcome} from "./comps/welcome/Welcome";
 export class App {
     private m_styleService:StyleService;
 
-
     constructor(private appStore:AppStore, private commBroker:CommBroker, styleService:StyleService, private appdbAction:AppdbAction) {
         appStore.dispatch(appdbAction.appStartTime());
         this.m_styleService = styleService;
@@ -90,10 +89,6 @@ export class App {
         });
     }
 
-    /**
-     On application resize deal with height changes
-     @method appResized
-     **/
     public appResized():void {
         var appHeight = document.body.clientHeight;
         var appWidth = document.body.clientWidth;
