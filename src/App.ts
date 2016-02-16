@@ -1,16 +1,19 @@
 ///<reference path="../typings/app.d.ts"/>
 
 //import {enableProdMode} from 'angular2/core';
+require('bootstrap');
+import Immutable = require('immutable');
 import 'zone.js/dist/zone.min.js';
 import "reflect-metadata";
 import 'twbs/bootstrap/css/bootstrap.css!';
+import {CharCount} from "./pipes/CharCount";
 import './styles/style.css!';
 import {bootstrap} from 'angular2/platform/browser';
 import {HTTP_PROVIDERS, JSONP_PROVIDERS} from "angular2/http";
 import {App1} from '../src/comps/app1/App1';
 import {App2} from '../src/comps/app2/App2';
 import {App3} from '../src/comps/app3/App3';
-import {Component, provide, ViewEncapsulation} from 'angular2/core';
+import {Component, provide, ViewEncapsulation, PLATFORM_PIPES} from 'angular2/core';
 import {EntryPanel} from '../src/comps/entry/EntryPanel';
 import {AppManager} from '../src/comps/appmanager/AppManager';
 import {CommBroker} from '../src/services/CommBroker';
@@ -117,13 +120,7 @@ bootstrap(App, [ROUTER_PROVIDERS, HTTP_PROVIDERS, JSONP_PROVIDERS,
     provide(AppStore, {useFactory: Lib.StoreFactory({notify, appdb, business, parts, cart, films, users, todos})}),
     provide(CommBroker, {useClass: CommBroker}),
     provide(Consts, {useClass: Consts}),
+    provide(PLATFORM_PIPES, { useValue : CharCount, multi : true }),
     provide(LocationStrategy, {useClass: HashLocationStrategy})]);
 
 
-/** global libraries, can't live with'em can't with live without'em **/
-window['jQuery'] = require('jquery');
-window['bootbox'] = require('bootbox');
-window['_'] = require('underscore');
-window['Highcharts'] = require('highcharts');
-window['immutable'] = require('immutable');
-require('bootstrap');

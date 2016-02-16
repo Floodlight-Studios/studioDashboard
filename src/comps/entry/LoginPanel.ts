@@ -22,6 +22,8 @@ import {BusinessAction} from "../app1/business/BusinessAction";
 import {AppdbAction} from "../../actions/AppdbAction";
 import Map = Immutable.Map;
 
+var bootbox = require('bootbox');
+
 export class User {
     public id:string;
     public name:string;
