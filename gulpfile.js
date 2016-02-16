@@ -89,7 +89,7 @@ gulp.task("sysdocs", function () {
             experimentalDecorators: true,
             includeDeclarations: false,
             out: "docs",
-            name: "ng2Boilerplate",
+            name: "studioDashboard",
             version: true
         }))
 });
@@ -97,8 +97,8 @@ gulp.task("sysdocs", function () {
 /** upload files to remote server for distribution **/
 gulp.task('rsync', function () {
     var rsync = Rsync.build({
-        source: '/cygdrive/c/msweb/ng2Boilerplate/dist',
-        destination: 'Sean@digitalsignage.com:/var/www/sites/javascriptninja.io/ng2/htdocs/',
+        source: '/cygdrive/c/msweb/studioDashboard/dist',
+        destination: 'Sean@digitalsignage.com:/var/www/sites/monstersignage/htdocs',
         exclude: ['*.bat', '*.iml', '.gitignore', '.git', '.idea/']
     });
     rsync.set('progress');
@@ -174,7 +174,7 @@ gulp.task('x_open_server_bundle', function () {
         proxy: 'localhost:8003',
         reloadDelay: '5000'
     });
-    opn('http://localhost:8003/dist/public/index.html');
+    opn('http://monstersignage.com/public/index.html');
 });
 
 gulp.task('x_open_server_development', ['x_watch_source'], function () {
@@ -221,6 +221,9 @@ gulp.task('x_assets',function(){
 });
 
 gulp.task('x_copy_files',function(){
+    gulp.src(['./src/**/*.html','./src/**/*.woff2','./src/**/*.css'
+    ]).pipe(gulp.dest(paths.dist));
+
     return gulp.src(['./**/*.html','./**/*.woff2','./**/*.css'
     ]).pipe(gulp.dest(paths.dist));
 });

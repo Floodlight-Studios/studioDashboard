@@ -1,6 +1,5 @@
 ///<reference path="../typings/app.d.ts"/>
 //import {enableProdMode} from 'angular2/core';
-import childStartsOnTheSameLineWithElseInIfStatement = SmartIndenter.childStartsOnTheSameLineWithElseInIfStatement;
 require('bootstrap');
 import Immutable = require('immutable');
 import 'zone.js/dist/zone.min.js';
