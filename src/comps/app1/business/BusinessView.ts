@@ -30,7 +30,7 @@ export class BusinessView {
 
     constructor(private appStore:AppStore, private businessActions:BusinessAction) {
         var self = this;
-        this.loadCustomers = businessActions.createDispatcher(appStore, businessActions.fetchBusinesses);
+        this.loadCustomers = businessActions.createDispatcher(businessActions.fetchBusinesses, appStore);
         this.appStore.dispatch(businessActions.fetchBusinesses());
         setTimeout(()=> {
             self.appStore.dispatch(businessActions.setBusinessField('322949', 'businessDescription', Math.random()));

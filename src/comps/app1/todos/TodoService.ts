@@ -57,8 +57,8 @@ export class TodosService {
 
     constructor(@Inject(TodoAction) private m_actionTodo:TodoAction, private _http:Http, private todoStatsModel:TodoStatsModel, private appStore:AppStore) {
         this.m_dataStore = {todos: []};
-        this.m_addTodoDispatch = this.m_actionTodo.createDispatcher(this.appStore, this.m_actionTodo.addTodoDispatch);
-        this.m_clearTodoDispatch = this.m_actionTodo.createDispatcher(this.appStore, this.m_actionTodo.clearTodoDispatch);
+        this.m_addTodoDispatch = this.m_actionTodo.createDispatcher(this.m_actionTodo.addTodoDispatch, this.appStore);
+        this.m_clearTodoDispatch = this.m_actionTodo.createDispatcher(this.m_actionTodo.clearTodoDispatch, this.appStore);
     }
 
     public saveTodoRemote(todo:TodoModel, cb:(status:number)=>void) {

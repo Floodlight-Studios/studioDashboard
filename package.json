@@ -18,7 +18,7 @@
   "devDependencies": {
     "angular-cli": "0.0.*",
     "angular2": "2.0.0-beta.6",
-    "angular2-redux-util": "^0.5.41",
+    "angular2-redux-util": "^0.5.43",
     "angular2-uuid": "^1.0.6",
     "autoprefixer": "^6.2.3",
     "bootbox": "^4.4.0",
@@ -91,7 +91,7 @@
     "dependencies": {
       "angular2": "npm:angular2@^2.0.0-beta.6",
       "angular2-polyfill": "npm:angular2-polyfill@^0.0.2",
-      "angular2-redux-util": "npm:angular2-redux-util@^0.5.38",
+      "angular2-redux-util": "npm:angular2-redux-util@^0.5.43",
       "angular2-uuid": "npm:angular2-uuid@^1.0.6",
       "bootbox": "npm:bootbox@^4.4.0",
       "bootstrap": "github:twbs/bootstrap@^3.3.6",

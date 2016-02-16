@@ -68,33 +68,15 @@ export class User {
                 <small>I am Login component and I am inside EntryPanel</small>`
 })
 export class LoginPanel {
-    private user:string;
-    private pass:string;
-    private myRouter:Router;
+    private m_user:string;
+    private m_pass:string;
+    private m_myRouter:Router;
     ubsub;
 
-    constructor(private appStore:AppStore, router:Router, private commBroker:CommBroker, private appdbAction:AppdbAction) {
-        this.myRouter = router;
-        var user = commBroker.getValue(Consts.Values().USER_NAME);
-        this.user = user || '';
-        this.pass = user || '';
-        //this.authUserAction = this.appStore.createDispatcher(appdbAction.authenticateUser, this);
-        //this.authUserAction = this.appdbAction.createDispatcher(this.appStore, this.appdbAction.authenticateUser);
-        //this.appStore.createDispatcher(this.appdbAction.authenticateUser, this)(i_user,i_pass);
-        //this.authUserAction(i_user,i_pass);
-        //this.authUserAction(i_user,i_pass);
-
-        // appStore.subscribe((objectPath, oldVal, newVal) => {
-        //     console.log('%s changed from %s to %s', objectPath, oldVal, newVal)
-        // }, 'notify', true);
-        //
-        // var ubsub = appStore.subscribe((objectPath, oldVal, newVal) => {
-        // }, 'notify.data', false);
-
-        // this.ubsub = appStore.subscribe((path, prev, value:Map<string,any>) => {
-        //     if (value.get('credentials').authenticated)
-        //         this.onLogin();
-        // }, 'appdb', false);
+    constructor(private appStore:AppStore, router:Router, private appdbAction:AppdbAction) {
+        this.m_myRouter = router;
+        this.m_user = '';
+        this.m_pass = '';
 
         this.ubsub = appStore.sub((appdb:Map<string,any>) => {
             var status = appdb.get('credentials').get('authenticated');
@@ -104,28 +86,28 @@ export class LoginPanel {
                 this.onLogin();
         }, 'appdb', false);
 
-        var ubsub = appStore.subscribe((state)=> {
-        })
     }
 
     private authUser(i_user:string, i_pass:string) {
+        var self = this;
         bootbox.dialog({
             closeButton: false,
             title: "Please wait, Authenticating...",
             message: " "
         });
-        this.appStore.createDispatcher(this.appdbAction.authenticateUser, this)(i_user,i_pass);
+
+        this.appdbAction.createDispatcher(this.appdbAction.authenticateUser)(i_user, i_pass);
     }
 
     private onLogin() {
-        this.myRouter.navigate(['/AppManager']);
+        this.m_myRouter.navigate(['/AppManager']);
         bootbox.hideAll();
         //event.preventDefault();
         return false;
     }
 
     public set loginName(name:string) {
-        this.user = name;
+        this.m_user = name;
     }
 
     toString() {
