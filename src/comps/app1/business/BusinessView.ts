@@ -1,7 +1,6 @@
 import {Component} from "angular2/core";
 import {BusinessAction} from "./BusinessAction";
 import {AppStore} from "angular2-redux-util";
-import {BusinessModel} from "./BusinesModel";
 import {BusinessViewItem} from "./BusinessItemView";
 
 
@@ -11,7 +10,7 @@ import {BusinessViewItem} from "./BusinessItemView";
     providers: [BusinessAction],
     directives: [BusinessViewItem],
     template: `
-            <h1>Business view</h1>
+            <h3>User list</h3>
             <button (click)="loadCustomers($event,rand())">Fetch businesses</button>
             <button (click)="setValue()">Set value</button>
             <ul>

@@ -33,7 +33,7 @@ export class AppdbAction extends Actions {
 
             setTimeout(()=> {
                 dispatch({type: AUTH_PASS, authenticated: true, user: i_user, pass: i_pass});
-            }, 2000);
+            }, 200);
 
             return;
 

@@ -30,14 +30,9 @@ import {Observable} from "rxjs/Observable";
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/debounceTime';
 import 'rxjs/add/observable/fromEvent';
-import parts from "./comps/app3/starwars/reducers/parts-reducer"
-import cart from "./comps/app3/starwars/reducers/cart-reducer"
-import films from "./comps/app3/starwars/reducers/films-reducer"
-import users from "./comps/app3/starwars/reducers/users-reducer"
 import notify from "./reducers/NotifyReducer"
 import appdb from "./reducers/AppdbReducer"
 import {business} from "./comps/app1/business/BusinessReducer"
-import {todos} from "./comps/app1/todos/reducers/TodoReducer"
 import {AppdbAction} from "./actions/AppdbAction";
 import {Welcome} from "./comps/welcome/Welcome";
 
@@ -111,7 +106,7 @@ export class App {
 
 //enableProdMode();
 bootstrap(App, [ROUTER_PROVIDERS, HTTP_PROVIDERS, JSONP_PROVIDERS,
-    provide(AppStore, {useFactory: Lib.StoreFactory({notify, appdb, business, parts, cart, films, users, todos})}),
+    provide(AppStore, {useFactory: Lib.StoreFactory({notify, appdb, business})}),
     provide(CommBroker, {useClass: CommBroker}),
     provide(Consts, {useClass: Consts}),
     provide(PLATFORM_PIPES, { useValue : CharCount, multi : true }),

@@ -17,18 +17,11 @@ import {Tab} from "../tabs/tab";
 import {Logout} from "../logout/Logout";
 import {Settings} from "./settings/Settings";
 import {Help} from "./help/Help";
-import {Todo1} from "./todos/Todo1";
-import {Todo2} from "./todos/Todo2";
-import {TodoList} from "./todos/Todolist";
-import {TodoItem} from "./todos/Todoitem";
-import TodoStatsModel from "./todos/TodoStatsModel";
 import {Contributors} from "./help/contributors/contributors";
-import {TodosService} from "./todos/TodoService";
-import {TodoAction} from "./todos/actions/TodoAction";
-import {Todos} from "./todos/Todos";
+import {Users} from "./users/Users";
 
 @RouteConfig([
-    {path: '/Todos', component: Todos, as: 'Todos', useAsDefault: true},
+    {path: '/Users', component: Users, as: 'Users', useAsDefault: true},
     {path: '/Digg', component: Digg, as: 'Digg'},
     {path: '/Settings', component: Settings, as: 'Settings'},
     {path: '/Help', component: Help, as: 'Help'},
@@ -44,10 +37,10 @@ import {Todos} from "./todos/Todos";
 //    })
 //})
 @Component({
-    providers: [HTTP_PROVIDERS, TodoStatsModel, TodosService, TodoAction],
+    providers: [HTTP_PROVIDERS],
     templateUrl: '/src/comps/app1/App1.html',
     directives: [ROUTER_DIRECTIVES, RouterLink, Menu, MenuItem, Sliderpanel, Digg, Contributors,
-        Todos, Todo1, Todo2, TodoList, TodoItem, Logout, Settings, Help, Tabs, Tab]
+        Logout, Settings, Help, Tabs, Tab]
 })
 export class App1 implements OnActivate, CanReuse, OnReuse, OnDeactivate {
     private routerActive:boolean;

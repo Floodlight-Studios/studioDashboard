@@ -13,11 +13,21 @@ import {IMessage} from "../../services/CommBroker";
     .appMenu {
       background: #3e3f48;
     }
+    .navicons {
+        font-size: 0.9em;
+        position: relative;
+        top: 2px;
+        text-align: left;
+        padding-right: 5px;
+    }
+    .iconSize {
+        font-size: 1.3em;
+    }
   `],
     template: `
         <section id="appNavigatorWasp" (click)="listenMenuSelected($event)" class="appMenu hidden-xs hidden-sm hidden-md col-lg-1">
-         <li *ngFor="#item of m_items" data-ripple-color="white" class="btn btn-default list-group-item">
-            <i class="navicons fa {{item.localFontAwesome}}" [hidden]="m_hidden">
+         <li *ngFor="#item of m_items" data-ripple-color="white" class="btn btn-default list-group-item navicons">
+            <i class="iconSize fa {{item.localFontAwesome}}" [hidden]="m_hidden">
             </i>
             <span>{{item.localTabTitle}}</span>
           </li>
@@ -41,7 +51,7 @@ export class Menu {
     private listenWinResize() {
         var self = this;
         self.m_commBroker.onEvent(Consts.Events().WIN_SIZED).subscribe((e:IMessage)=> {
-            if (e.message.width < Consts.Values().MENU_MIN_ICON_SHOW){
+            if (e.message.width < Consts.Values().MENU_MIN_ICON_SHOW) {
                 this.m_hidden = true;
             } else {
                 this.m_hidden = false;
