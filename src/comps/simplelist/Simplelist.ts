@@ -17,9 +17,11 @@ import {BrowserDomAdapter} from "angular2/src/platform/browser/browser_adapter";
 })
 export class SimpleList {
 
-    filterValue = '';
-    selectedIndices = [];
-    selectedItem = true;
+    private filterValue = '';
+    private selectedIndices = [];
+    private selectedItem = true;
+    private el:HTMLElement;
+
     @Input()
     list:any[];
     @Input()
@@ -30,23 +32,15 @@ export class SimpleList {
     hover:EventEmitter<any> = new EventEmitter();
     @Output()
     current:EventEmitter<any> = new EventEmitter();
-    // @ViewChildren('ul')
-    // listItems:QueryList<any>;
-    // ngAfterViewChecked(){
-    //     console.log(this.listItems);
-    // }
-
     @ViewChildren('simpleItem')
     simpleItems:QueryList<any>;
 
-    ngAfterViewChecked() {
-        //console.log(this.simpleItems);
-    }
-
-    private el:HTMLElement;
-
     constructor(private viewContainer:ViewContainerRef) {
         this.el = viewContainer.element.nativeElement;
+    }
+
+    private setData(item, index){
+        console.log(item + ' ' + index);
     }
 
     private itemSelected(item, index) {

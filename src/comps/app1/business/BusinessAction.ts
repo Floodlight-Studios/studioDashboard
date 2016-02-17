@@ -76,17 +76,17 @@ export class BusinessAction extends Actions {
                             businessDescription: business._attr.businessDescription._value
                         });
 
-                        // update a field in instance via setKey
-                        var busUpd:BusinessModel = bus.setKey<BusinessModel>(BusinessModel, 'businessId', business._attr.businessId._value + Math.random());
+                        // example update a field in instance via setKey
+                        //var busUpd:BusinessModel = bus.setKey<BusinessModel>(BusinessModel, 'businessId', business._attr.businessId._value + Math.random());
 
                         // insert a new field in instance
-                        busUpd = busUpd.setKey<BusinessModel>(BusinessModel, 'JS', 'Ninja');
+                        //busUpd = busUpd.setKey<BusinessModel>(BusinessModel, 'JS', 'Ninja');
 
                         // override entire instance with new data via setData
                         //var busUpd:BusinessModel = bus.setData<BusinessModel>(BusinessModel, {
                         //    businessId: business.attr.businessId + Math.random(),
                         //});
-                        arr.push(busUpd);
+                        arr.push(bus);
 
                     });
                     dispatch(self.receiveBusinesses(arr));

@@ -9,7 +9,6 @@
           </div>
         </div>
       </div>
-
       <ul class="list-group">
         <li #simpleItem *ngFor="#item of list ; #index = index"
             [class.hidden]="getContent(item) | FilterPipe:filterValue"
