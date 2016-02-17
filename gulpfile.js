@@ -49,7 +49,7 @@ gulp.task("production", function (callback) {
         "x_bundle",
         "x_minify",
         "x_target",
-        // "rsync",
+        "x_rsync",
         'x_open_server_bundle',
         function (error) {
             if (error) {
@@ -95,7 +95,7 @@ gulp.task("sysdocs", function () {
 });
 
 /** upload files to remote server for distribution **/
-gulp.task('rsync', function () {
+gulp.task('x_rsync', function () {
     var rsync = Rsync.build({
         source: '/cygdrive/c/msweb/studioDashboard/dist',
         destination: 'Sean@digitalsignage.com:/var/www/sites/monstersignage/htdocs',

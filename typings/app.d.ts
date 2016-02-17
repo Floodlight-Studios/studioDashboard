@@ -26,6 +26,7 @@
 ///<reference path='../node_modules/immutable/dist/Immutable.d.ts'/>
 
 declare var assert:any;
+declare var module:any;
 
 interface Window {
     devToolsExtension: any;

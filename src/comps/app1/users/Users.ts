@@ -17,7 +17,8 @@ import {BusinessModel} from "../business/BusinesModel";
         <div class="row">
              <h1>Users</h1>
              <div class="col-lg-3">
-                <SimpleList [list]="items" (current)="_onUserSelected($event)" [content]="_getBusinesses()"></SimpleList>
+                <SimpleList [list]="items" (current)="_onUserSelected($event)"
+                [contentId]="_getBusinessesId()" [content]="_getBusinesses()"></SimpleList>
              </div>
              <div class="col-lg-9 userView" appHeight>
                 <h1>users view</h1>
@@ -53,6 +54,12 @@ export class Users {
     _getBusinesses() {
         return (businessItem:BusinessModel)=> {
             return businessItem.getKey('name');
+        }
+    }
+
+    _getBusinessesId() {
+        return (businessItem:BusinessModel)=> {
+            return businessItem.getKey('businessId');
         }
     }
 
