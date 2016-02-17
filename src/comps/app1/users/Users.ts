@@ -39,7 +39,7 @@ export class Users {
     constructor(private appStore:AppStore, private businessActions:BusinessAction) {
         this.appStore.dispatch(businessActions.fetchBusinesses());
 
-        setInterval(()=>this.appStore.dispatch(businessActions.fetchBusinesses()), 10000)
+        setInterval(()=>this.appStore.dispatch(businessActions.fetchBusinesses()), 10000);
         //self.appStore.dispatch(businessActions.setBusinessField('322949', 'businessDescription', Math.random()));
         //this.loadCustomers = businessActions.createDispatcher(businessActions.fetchBusinesses, appStore);
 
