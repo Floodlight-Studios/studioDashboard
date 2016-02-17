@@ -2,10 +2,9 @@
     margin-top: 8px;
 }
 
-.list-left li, .list-right li {
-    cursor: pointer;
+li {
+    cursor: hand;
 }
-
 .list-arrows {
     padding-top: 100px;
 }

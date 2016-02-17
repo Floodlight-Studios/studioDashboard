@@ -1,0 +1,28 @@
+  <div class="row">
+    <div>
+      <div class="well">
+        <div class="row">
+          <div class="col-md-10">
+            <div class="input-group">
+              <input type="text" name="SearchDualList" class="form-control" [(ngModel)]="filterValue" placeholder="search"/>
+              <span class="input-group-addon fa fa-search"></span>
+            </div>
+          </div>
+        </div>
+
+        <ul class="list-group">
+          <br/>
+          <li *ngFor="#item of list ; #index = index"
+              [class.hidden]="getContent(item) | FilterPipe:filterValue"
+              class="list-group-item clickable"
+              (click)="itemSelected(item, index)"
+              [class.active]="index == selectedIndex"
+              (mouseover)="hover.next(item)"
+              (mouseout)="hover.next(null)">
+              <!-- {{getContent(item) | json}} -->
+              {{getContent(item)}}
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>

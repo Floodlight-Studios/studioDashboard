@@ -1,34 +1,31 @@
-import {Component, Input, Output, EventEmitter} from 'angular2/core';
-import {RouterLink} from 'angular2/router'
+import {Component, Input, Output, EventEmitter, ChangeDetectionStrategy} from 'angular2/core';
 import {COMMON_DIRECTIVES} from "angular2/src/common/common_directives";
+import {FilterPipe} from "../../pipes/FilterPipe";
 
 @Component({
-    selector: 'simple-list',
-    template: `
-        <div *ngIf="!list">
-            Loading...
-        </div>
-        <div *ngIf="list">
-            <table class="table table-striped table-bordered table-hover">
-                <tbody>
-                    <tr *ngFor="#item of list" (mouseover)="current.next(item)" (mouseout)="current.next(null)">
-                        <td *ngIf="!link">{{getContent(item)}}</td>
-                        <td *ngIf="link"><a [routerLink]="getLink(item)">{{getContent(item)}}</a></td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-    `,
-    directives: [RouterLink, COMMON_DIRECTIVES]
+    selector: 'SimpleList',
+    templateUrl: '/src/comps/simplelist/SimpleList.html',
+    styleUrls: ['../comps/simplelist/SimpleList.css'],
+    directives: [COMMON_DIRECTIVES],
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    pipes: [FilterPipe]
 })
 export class SimpleList {
 
+    filterValue = '';
+    selectedIndex = -1;
+    selectedItem = true;
     @Input() list:any[];
     @Input() content:((any)=>string);
-    @Input() link:(any)=>any[];
+    @Output() hover: EventEmitter<any> = new EventEmitter();
     @Output() current: EventEmitter<any> = new EventEmitter();
 
     constructor() {
+    }
+
+    private itemSelected(item, index){
+        this.current.next(item);
+        this.selectedIndex = index;
     }
 
     getContent(item):string {
@@ -38,22 +35,5 @@ export class SimpleList {
             return item;
         }
     }
-
-    // work around a problem with changing links for items (Angular2-beta doesn't like that)
-    private linkResultPerItem = {};
-    getLink(item):(any)=>any[] {
-        if (this.link) {
-            var key = item;
-            if (typeof key === "object") {
-                key = JSON.stringify(key);
-            }
-            if (this.linkResultPerItem[key]==null) {
-                this.linkResultPerItem[key] = this.link(item);
-            }
-            return this.linkResultPerItem[key];
-        } else {
-            return null;
-        }
-    }
-
 }
+
