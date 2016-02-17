@@ -4,7 +4,16 @@ import {BusinessModel} from "./BusinesModel";
 @Component({
     selector: 'BusinessViewItem',
     changeDetection: ChangeDetectionStrategy.OnPush,
-    template: `<li>{{business.getKey('businessId')}}</li>`
+    template: `<li class="userItem">{{business.getKey('name')}}</li>`,
+    styles: [`
+        .userItem {
+            padding-top: 10px;
+            padding-bottom: 10px;
+            list-style-type: none;
+
+        }
+    `]
+
 })
 
 export class BusinessViewItem {
