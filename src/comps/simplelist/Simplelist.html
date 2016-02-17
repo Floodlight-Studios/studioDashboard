@@ -1,27 +1,23 @@
 <div class="row">
-  <div>
-    <div class="well">
-      <div class="row">
-        <div class="col-md-10">
-          <div class="input-group">
-            <input type="text" (keydown.control.a)="onSelectAll()" name="SearchDualList" class="form-control" [(ngModel)]="filterValue" placeholder="search"/>
-            <span class="input-group-addon fa fa-search"></span>
-          </div>
+  <div class="well">
+    <div class="row">
+      <div class="col-md-10">
+        <div class="input-group">
+          <input type="text" (keydown.control.a)="itemAllSelected()" name="SearchDualList"
+                 class="form-control" [(ngModel)]="filter" placeholder="search"/>
+          <span class="input-group-addon fa fa-search"></span>
         </div>
       </div>
-      <ul class="list-group">
-        <li #simpleItem *ngFor="#item of list ; #index = index"
-            [class.hidden]="getContent(item) | FilterPipe:filterValue"
-            data-id="simple_id:{{getContentId(item)}}:{{index}}"
-            class="list-group-item"
-            (click)="itemSelected(item, index)"
-            [class.active]="selectedIndices.indexOf(index) == -1 ? false : true"
-            (mouseover)="hover.next(item)"
-            (mouseout)="hover.next(null)">
-          <!-- {{getContent(item) | json}} -->
-          {{getContent(item)}}
-        </li>
-      </ul>
     </div>
+    <ul class="list-group">
+      <li #simpleItem *ngFor="#item of list ; #index = index"
+          [class.hidden]="getContent(item) | FilterPipe:filter"
+          data-id="simple_id:{{getContentId(item,index)}}"
+          class="list-group-item" (click)="itemSelected(item, index)" [class.active]="getMetadata(index,item).selected"
+          (mouseover)="hover.next(item)" (mouseout)="hover.next(null)">
+        <!-- {{getContent(item) | json}} -->
+        {{getContent(item)}}
+      </li>
+    </ul>
   </div>
 </div>
