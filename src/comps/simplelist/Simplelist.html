@@ -14,7 +14,7 @@
           <br/>
           <li *ngFor="#item of list ; #index = index"
               [class.hidden]="getContent(item) | FilterPipe:filterValue"
-              class="list-group-item clickable"
+              class="list-group-item"
               (click)="itemSelected(item, index)"
               [class.active]="index == selectedIndex"
               (mouseover)="hover.next(item)"
