@@ -57,7 +57,9 @@ export class BusinessAction extends Actions {
 
                     result2.Businesses[0].BusinessInfo.forEach((business)=> {
                         c++;
-                        if (c>6)
+                        var max = _.random(1,15);
+                        // var max = 3;
+                        if (c>max)
                             return;
                         // create new
                         var bus:BusinessModel = new BusinessModel({
