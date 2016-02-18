@@ -1,8 +1,8 @@
 import {Component} from 'angular2/core'
 import {SimpleList} from "../../simplelist/SimpleList";
 import {AppStore} from "angular2-redux-util/dist/index";
-import {BusinessAction} from "../business/BusinessAction";
-import {BusinessModel} from "../business/BusinesModel";
+import {BusinessAction} from "../../../business/BusinessAction";
+import {BusinessModel} from "../../../business/BusinesModel";
 import List = Immutable.List;
 
 @Component({

@@ -1,5 +1,4 @@
 import {Pipe, PipeTransform} from 'angular2/core';
-import {BusinessModel} from "../comps/app1/business/BusinesModel";
 
 @Pipe({
     name: 'FilterPipe'

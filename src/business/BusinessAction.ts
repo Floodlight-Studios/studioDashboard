@@ -3,7 +3,7 @@ import {Injectable} from "angular2/core";
 import {Actions} from "angular2-redux-util";
 import 'rxjs/add/operator/map';
 import {BusinessModel} from "./BusinesModel";
-import {Lib} from "../../../Lib";
+import {Lib} from "../Lib";
 
 export const REQUEST_BUSINESSES = 'REQUEST_BUSINESSES';
 export const RECEIVE_BUSINESSES = 'RECEIVE_BUSINESSES';

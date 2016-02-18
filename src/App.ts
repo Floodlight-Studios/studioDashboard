@@ -32,7 +32,7 @@ import 'rxjs/add/operator/debounceTime';
 import 'rxjs/add/observable/fromEvent';
 import notify from "./reducers/NotifyReducer"
 import appdb from "./reducers/AppdbReducer"
-import {business} from "./comps/app1/business/BusinessReducer"
+import {business} from "./business/BusinessReducer"
 import {AppdbAction} from "./actions/AppdbAction";
 import {Welcome} from "./comps/welcome/Welcome";
 

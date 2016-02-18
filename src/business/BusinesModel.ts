@@ -1,4 +1,4 @@
-import {StoreModel} from "../../../models/StoreModel";
+import {StoreModel} from "../models/StoreModel";
 
 /**
  * Thin wrapper of Immutable data around a single business
