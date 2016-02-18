@@ -24,7 +24,7 @@ import {UsersDetails} from "./UsersDetails";
                 [contentId]="getBusinessesId()" [content]="getBusinesses()"></SimpleList>
              </div>
              <div class="col-lg-9 userView" appHeight>
-                <UsersDetails [businessIds]="businessIds"></UsersDetails>
+               <UsersDetails [businesses]="businessesSelected"></UsersDetails>
              </div>
         </div>
     `
@@ -32,7 +32,7 @@ import {UsersDetails} from "./UsersDetails";
 export class Users {
     private businesses:List<BusinessModel>;
     private ubsub:Function;
-    private businessIds:List<string> = List<string>();
+    private businessesSelected:List<BusinessModel> = List<BusinessModel>();
 
     constructor(private appStore:AppStore, private commBroker:CommBroker, private businessActions:BusinessAction) {
         this.ubsub = appStore.sub((i_businesses:List<BusinessModel>) => {
@@ -41,19 +41,20 @@ export class Users {
         this.appStore.dispatch(businessActions.fetchBusinesses());
     }
 
-    private findBusinessIdIndex(businessId):number {
-        return this.businessIds.findIndex((i_businessId)=> {
-            return i_businessId === businessId;
+    private findBusinessIndex(business:BusinessModel):number {
+        return this.businessesSelected.findIndex((i_business:BusinessModel)=> {
+            return i_business.getKey('businessId') === business.getKey('businessId');
         });
     }
 
     private onUserSelected(event) {
-        var businessId = String(event.id);
+        var business:BusinessModel = event.item;
         if (event.selected) {
-            if (this.findBusinessIdIndex(businessId) == -1)
-                this.businessIds = this.businessIds.push(businessId);
+            if (this.findBusinessIndex(business) == -1)
+                this.businessesSelected = this.businessesSelected.push(business);
         } else {
-            this.businessIds = this.businessIds.delete(this.findBusinessIdIndex(businessId));
+            let index:number = this.findBusinessIndex(business);
+            this.businessesSelected = this.businessesSelected.delete(index);
         }
     }
 
@@ -78,7 +79,6 @@ export class Users {
     }
 
 }
-
 
 
 // var state:List<BusinessModel> = this.appStore.getState().business;

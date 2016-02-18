@@ -2,13 +2,14 @@ import {Component, Input, Output, EventEmitter, ChangeDetectionStrategy, OnChang
 import {List} from 'immutable';
 import {SimpleGrid} from "../../simplegrid/SimpleGrid";
 import {SortableHeader} from "../../simplegrid/SortableHeader";
+import {BusinessModel} from "../../../business/BusinesModel";
 
 @Component({
     selector: 'UsersDetails',
     directives: [SimpleGrid, SortableHeader],
     template: `
     <h1>Users Details</h1>
-        <SimpleGrid [sort]="sort" [list]="_businessIds">
+        <SimpleGrid [sort]="sort" [list]="_businesses">
             <thead>
             <tr>
               <th>day</th>
@@ -25,11 +26,11 @@ import {SortableHeader} from "../../simplegrid/SortableHeader";
 })
 export class UsersDetails {
     public sort: {field: string, desc: boolean} = {field: 'ABC', desc: false};
-    private _businessIds:List<string>;
+    private _businesses:List<BusinessModel>;
 
     @Input()
-    set businessIds(value) {
-        this._businessIds = value;
+    set businesses(i_businesses) {
+        this._businesses = i_businesses;
     }
 
     // @Output()
