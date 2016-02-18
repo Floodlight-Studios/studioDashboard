@@ -12,3 +12,7 @@ li {
 .list-arrows button {
     margin-bottom: 20px;
 }
+
+.well {
+    overflow-y: scroll;
+}
