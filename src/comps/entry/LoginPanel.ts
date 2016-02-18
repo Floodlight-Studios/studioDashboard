@@ -14,7 +14,7 @@ import 'rxjs/add/operator/do';
 import 'rxjs/add/observable/range';
 import {AppStore} from "angular2-redux-util";
 import {BusinessAction} from "../../business/BusinessAction";
-import {AppdbAction} from "../../actions/AppdbAction";
+import {AppdbAction} from "../../appdb/AppdbAction";
 import Map = Immutable.Map;
 
 // import {Subject} from "rxjs/Subject";

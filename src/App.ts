@@ -30,10 +30,10 @@ import {Observable} from "rxjs/Observable";
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/debounceTime';
 import 'rxjs/add/observable/fromEvent';
-import notify from "./reducers/NotifyReducer"
-import appdb from "./reducers/AppdbReducer"
+import notify from "./appdb/NotifyReducer"
+import appdb from "./appdb/AppdbReducer"
 import {business} from "./business/BusinessReducer"
-import {AppdbAction} from "./actions/AppdbAction";
+import {AppdbAction} from "./appdb/AppdbAction";
 import {Welcome} from "./comps/welcome/Welcome";
 
 /**
@@ -92,6 +92,7 @@ export class App {
         jQuery(Consts.Clas().CLASS_APP_HEIGHT).height(appHeight - 420);
         jQuery('#mainPanelWrap').height(appHeight - 115);
         jQuery('#propPanel').height(appHeight - 130);
+        jQuery('.well').height(appHeight - 224);
 
         this.commBroker.setValue(Consts.Values().APP_SIZE, {height: appHeight, width: appWidth});
 

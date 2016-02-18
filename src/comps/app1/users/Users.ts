@@ -4,6 +4,8 @@ import {AppStore} from "angular2-redux-util/dist/index";
 import {BusinessAction} from "../../../business/BusinessAction";
 import {BusinessModel} from "../../../business/BusinesModel";
 import List = Immutable.List;
+import {CommBroker} from "../../../services/CommBroker";
+import {Consts} from "../../../Conts";
 
 @Component({
     selector: 'Users',
@@ -36,10 +38,10 @@ export class Users {
     private items;
     private ubsub;
 
-    constructor(private appStore:AppStore, private businessActions:BusinessAction) {
+    constructor(private appStore:AppStore, private commBroker:CommBroker, private businessActions:BusinessAction) {
         this.appStore.dispatch(businessActions.fetchBusinesses());
 
-        setInterval(()=>this.appStore.dispatch(businessActions.fetchBusinesses()), 10000);
+        setInterval(()=>this.appStore.dispatch(businessActions.fetchBusinesses()), 100000);
         //self.appStore.dispatch(businessActions.setBusinessField('322949', 'businessDescription', Math.random()));
         //this.loadCustomers = businessActions.createDispatcher(businessActions.fetchBusinesses, appStore);
 
@@ -71,6 +73,10 @@ export class Users {
         return (businessItem:BusinessModel)=> {
             return businessItem.getKey('businessId');
         }
+    }
+
+    ngOnInit(){
+        this.commBroker.getService(Consts.Services().App).appResized();
     }
 
     ngOnDestroy() {
