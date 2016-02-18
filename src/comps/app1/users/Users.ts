@@ -3,13 +3,14 @@ import {SimpleList} from "../../simplelist/SimpleList";
 import {AppStore} from "angular2-redux-util/dist/index";
 import {BusinessAction} from "../../../business/BusinessAction";
 import {BusinessModel} from "../../../business/BusinesModel";
-import List = Immutable.List;
+import {List} from 'immutable';
 import {CommBroker} from "../../../services/CommBroker";
 import {Consts} from "../../../Conts";
+import {UsersDetails} from "./UsersDetails";
 
 @Component({
     selector: 'Users',
-    directives: [SimpleList],
+    directives: [SimpleList, UsersDetails],
     providers: [BusinessAction],
     styles: [`
       .userView {
@@ -18,70 +19,77 @@ import {Consts} from "../../../Conts";
     `],
     template: `
         <div class="row">
-             <h1>Users</h1>
              <div class="col-lg-3">
-                <SimpleList [list]="items" (current)="_onUserSelected($event)"
-                [contentId]="_getBusinessesId()" [content]="_getBusinesses()"></SimpleList>
+                <SimpleList [list]="businesses" (current)="onUserSelected($event)"
+                [contentId]="getBusinessesId()" [content]="getBusinesses()"></SimpleList>
              </div>
              <div class="col-lg-9 userView" appHeight>
-                <h1>users view</h1>
-                <h1>users view</h1>
-                <h1>users view</h1>
-                <h1>users view</h1>
-                <h1>users view</h1>
+                <UsersDetails [businessIds]="businessIds"></UsersDetails>
              </div>
         </div>
-
     `
 })
 export class Users {
-    private items;
-    private ubsub;
+    private businesses:List<BusinessModel>;
+    private ubsub:Function;
+    private businessIds:List<string> = List<string>();
 
     constructor(private appStore:AppStore, private commBroker:CommBroker, private businessActions:BusinessAction) {
-        this.appStore.dispatch(businessActions.fetchBusinesses());
-
-        setInterval(()=>this.appStore.dispatch(businessActions.fetchBusinesses()), 100000);
-        //self.appStore.dispatch(businessActions.setBusinessField('322949', 'businessDescription', Math.random()));
-        //this.loadCustomers = businessActions.createDispatcher(businessActions.fetchBusinesses, appStore);
-
-        this.ubsub = appStore.sub((businesses:Map<string,any>) => {
-            this.items = businesses;
+        this.ubsub = appStore.sub((i_businesses:List<BusinessModel>) => {
+            this.businesses = i_businesses;
         }, 'business', false);
-
+        this.appStore.dispatch(businessActions.fetchBusinesses());
     }
 
-    _onUserSelected(event) {
-        var state:List<BusinessModel> = this.appStore.getState().business;
+    private findBusinessIdIndex(businessId):number {
+        return this.businessIds.findIndex((i_businessId)=> {
+            return i_businessId === businessId;
+        });
+    }
 
-        function indexOf(i_businessId:string) {
-            var businessId:number = Number(i_businessId);
-            return state.findIndex((i:BusinessModel) => i.getKey('businessId') === businessId);
+    private onUserSelected(event) {
+        var businessId = String(event.id);
+        if (event.selected) {
+            if (this.findBusinessIdIndex(businessId) == -1)
+                this.businessIds = this.businessIds.push(businessId);
+        } else {
+            this.businessIds = this.businessIds.delete(this.findBusinessIdIndex(businessId));
         }
-        var state:List<BusinessModel> = this.appStore.getState().business;
-        var businessModel:BusinessModel = state.get(indexOf(event.id));
-        console.log(`${businessModel.getKey('name')} ${event.id} selected=${event.selected}`)
     }
 
-    _getBusinesses() {
+    private getBusinesses() {
         return (businessItem:BusinessModel)=> {
             return businessItem.getKey('name');
         }
     }
 
-    _getBusinessesId() {
+    private getBusinessesId() {
         return (businessItem:BusinessModel)=> {
             return businessItem.getKey('businessId');
         }
     }
 
-    ngOnInit(){
+    private ngOnInit() {
         this.commBroker.getService(Consts.Services().App).appResized();
     }
 
-    ngOnDestroy() {
+    private ngOnDestroy() {
         this.ubsub();
     }
 
 }
 
+
+
+// var state:List<BusinessModel> = this.appStore.getState().business;
+// function indexOf(i_businessId:string) {
+//     var businessId:number = Number(i_businessId);
+//     return state.findIndex((i:BusinessModel) => i.getKey('businessId') === businessId);
+// }
+// var state:List<BusinessModel> = this.appStore.getState().business;
+// var businessModel:BusinessModel = state.get(indexOf(businessId));
+//console.log(`${businessModel.getKey('name')} ${businessId} ${event.selected}`);
+
+// setInterval(()=>this.appStore.dispatch(businessActions.fetchBusinesses()), 100000);
+//self.appStore.dispatch(businessActions.setBusinessField('322949', 'businessDescription', Math.random()));
+//this.loadCustomers = businessActions.createDispatcher(businessActions.fetchBusinesses, appStore);

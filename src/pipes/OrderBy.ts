@@ -1,6 +1,8 @@
 import {Pipe, PipeTransform} from 'angular2/core';
 import * as _ from 'lodash';
 
+/** order by filter **/
+
 @Pipe({
     name: 'OrderBy'
 })
