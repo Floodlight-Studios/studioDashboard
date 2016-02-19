@@ -15,7 +15,7 @@ import {OrderBy} from "../../pipes/OrderBy";
     changeDetection: ChangeDetectionStrategy.OnPush,
     pipes: [OrderBy],
     directives: [COMMON_DIRECTIVES],
-    styles: [`input {margin: 20px; width: 50%}`],
+    styles: [`table {background-color: #f7f7f7}`],
     template: `
     <table class="table">
     <ng-content></ng-content>

@@ -1,6 +1,5 @@
 import {Component, Input, Output, EventEmitter, ChangeDetectionStrategy, OnChanges, SimpleChange} from 'angular2/core'
-import {BusinessModel} from "../../business/BusinesModel";
-import * as _ from 'lodash';
+// import {BusinessModel} from "../../business/BusinesModel";
 
 @Component({
     selector: '[SimpleGridRecord]',
@@ -17,11 +16,12 @@ export class SimpleGridRecord {
     @Input()
     parts = [];
     @Input()
-    set item(value:BusinessModel){
-        this._name = value.getKey('name');
-        this._businessId = value.getKey('businessId');
-        this._fromTemplateId = value.getKey('fromTemplateId');
-    }
+    item;
+    // set item(value:BusinessModel){
+    //     this._name = value.getKey('name');
+    //     this._businessId = value.getKey('businessId');
+    //     this._fromTemplateId = value.getKey('fromTemplateId');
+    // }
     @Input()
     set index(value:number){
         console.log(value);
@@ -29,16 +29,13 @@ export class SimpleGridRecord {
 
     @Output()
     addToCart:EventEmitter<any> = new EventEmitter();
-    _name:any;
-    _businessId:any
-    _fromTemplateId:any
+    // _name:any;
+    // _businessId:any
+    // _fromTemplateId:any
     constructor(){
 
     }
 
-    private random(){
-        return _.random(1,1000);
-    }
 
 }
 
