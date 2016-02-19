@@ -14,7 +14,7 @@ import {UsersDetails} from "./UsersDetails";
     providers: [BusinessAction],
     styles: [`
       .userView {
-        background-color: lightgray;
+        background-color: #f7f7f7;        
       }
     `],
     template: `

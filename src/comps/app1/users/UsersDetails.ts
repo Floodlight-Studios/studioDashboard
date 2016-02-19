@@ -3,28 +3,33 @@ import {List} from 'immutable';
 import {SimpleGrid} from "../../simplegrid/SimpleGrid";
 import {SortableHeader} from "../../simplegrid/SortableHeader";
 import {BusinessModel} from "../../../business/BusinesModel";
-import {SimpleGridItem} from "../../simplegrid/SimpleGridItem";
 import {OrderBy} from "../../../pipes/OrderBy";
+import {SimpleGridRecord} from "../../simplegrid/SimpleGridRecord";
+import {SimpleGridData} from "../../simplegrid/SimpleGridData";
 
 @Component({
     selector: 'UsersDetails',
-    directives: [SimpleGrid, SortableHeader, SimpleGridItem],
+    directives: [SimpleGrid, SortableHeader, SimpleGridRecord, SimpleGridData],
     pipes: [OrderBy],
     template: `
         <SimpleGrid>
             <thead>
             <tr>
               <th sortableHeader="name" [sort]="sort">name</th>
-              <th>icon</th>
+              <th>login</th>
               <th sortableHeader="businessId" [sort]="sort">business</th>
-              <th sortableHeader="fromTemplateId" [sort]="sort">templt</th>
+              <th sortableHeader="fromTemplateId" [sort]="sort">tmp</th>
             </tr>
           </thead>
-          <tbody>
-          <tr SimpleGridItem *ngFor="#item of _businesses | OrderBy:sort.field:sort.desc; #index=index"
-           [item]="item">
+          <tbody>                                                                          
+          <tr SimpleGridRecord *ngFor="#item of _businesses | OrderBy:sort.field:sort.desc; #index=index" 
+            [item]="item" [index]="index">
+                <td SimpleGridData [type]="'name'" [item]="item"></td>
+                <td SimpleGridData [type]="'lastLogin'" [item]="item"></td>
+                <td SimpleGridData [type]="'businessId'" [item]="item"></td>
+                <td SimpleGridData [type]="'fromTemplateId'" [item]="item"></td>
           </tr>
-          </tbody>
+          </tbody>                 
         </SimpleGrid>
     `,
     changeDetection: ChangeDetectionStrategy.OnPush
