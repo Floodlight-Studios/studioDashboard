@@ -17,7 +17,7 @@ import {SIMPLEGRID_DIRECTIVES} from "../../simplegrid/SimpleGrid";
             }
     `],
     template: `
-        <SimpleGridTable>
+        <simpleGridTable>
             <thead>
             <tr>
               <th sortableHeader="name" [sort]="sort">name</th>
@@ -27,15 +27,15 @@ import {SIMPLEGRID_DIRECTIVES} from "../../simplegrid/SimpleGrid";
             </tr>
           </thead>
           <tbody>                                                                          
-          <tr class="simpleGridRecord" SimpleGridRecord *ngFor="#item of _businesses | OrderBy:sort.field:sort.desc; #index=index" 
+          <tr class="simpleGridRecord" simpleGridRecord *ngFor="#item of _businesses | OrderBy:sort.field:sort.desc; #index=index" 
             [item]="item" [index]="index">
-                <td SimpleGridData [type]="'name'" [item]="item"></td>
-                <td SimpleGridData [type]="'lastLogin'" [item]="item"></td>
-                <td SimpleGridData [type]="'businessId'" [item]="item"></td>
-                <td SimpleGridDataImage [type]="'fromTemplateId'" [item]="item"></td>
+                <td simpleGridData [type]="'name'" [item]="item"></td>
+                <td simpleGridData [type]="'lastLogin'" [item]="item"></td>
+                <td simpleGridData [type]="'businessId'" [item]="item"></td>
+                <td simpleGridDataImage [type]="'fromTemplateId'" [item]="item"></td>
           </tr>
           </tbody>                 
-        </SimpleGridTable>
+        </simpleGridTable>
     `,
     changeDetection: ChangeDetectionStrategy.OnPush
 })

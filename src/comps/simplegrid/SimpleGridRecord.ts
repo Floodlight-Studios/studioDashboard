@@ -1,7 +1,7 @@
 import {Component, Input, ChangeDetectionStrategy} from 'angular2/core'
 
 @Component({
-    selector: 'tr[SimpleGridRecord]',
+    selector: 'tr[simpleGridRecord]',
     changeDetection: ChangeDetectionStrategy.OnPush,
     styles: [`
     `],

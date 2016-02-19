@@ -6,24 +6,15 @@ import {SimpleGridRecord} from "./SimpleGridRecord";
 import {SimpleGridData} from "./SimpleGridData";
 
 @Component({
-    selector: 'SimpleGridTable',
+    selector: 'simpleGridTable',
     changeDetection: ChangeDetectionStrategy.OnPush,
     pipes: [OrderBy],
     directives: [COMMON_DIRECTIVES, SimpleGridSortableHeader, SimpleGridRecord, SimpleGridData],
     styleUrls: [`../comps/simplegrid/SimpleGrid.css`],
     template: `
-    <table class="table simpleTable">
-        <ng-content></ng-content>
-    </table>
-      <!--<tbody>-->
-        <!--<tr *ngFor="#item of list | OrderBy:sort.field:sort.desc">-->
-          <!--<td>{{ item }}</td>-->
-          <!--<td><img src="{{ item.iconPath }}" style="width: 40px; height: 40px"/></td>-->
-          <!--<td>{{ item }}</td>-->
-          <!--<td>{{ item }}</td>-->
-          <!--&lt;!&ndash; <td [innerHtml]="item.day"></td> &ndash;&gt;-->
-        <!--</tr>-->
-      <!--</tbody>-->
+        <table class="table simpleTable">
+            <ng-content></ng-content>
+        </table>      
   `,
 })
 

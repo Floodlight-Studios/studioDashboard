@@ -2,9 +2,11 @@ import {Component, Input} from 'angular2/core'
 import {StoreModel} from "../../models/StoreModel";
 
 @Component({
-    selector: 'td[SimpleGridData]',
+    selector: 'td[simpleGridData]',
     template: `
          value: {{_value}}
+         <!--<img src="{{ item.iconPath }}" style="width: 40px; height: 40px"/>-->
+         <!--&lt;!&ndash; <td [innerHtml]="item.day"></td> &ndash;&gt;-->
     `
 })
 export class SimpleGridData {
