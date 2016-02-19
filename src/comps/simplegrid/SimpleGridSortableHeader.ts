@@ -1,8 +1,9 @@
-import {Component, Input, Output} from 'angular2/core';
+import {Component, Input, ChangeDetectionStrategy} from 'angular2/core';
 import {COMMON_DIRECTIVES} from 'angular2/common';
 
 @Component({
     selector: 'th[sortableHeader]',
+    changeDetection: ChangeDetectionStrategy.OnPush,
     directives: [COMMON_DIRECTIVES],
     template: `
     <div (click)="headerClicked()">

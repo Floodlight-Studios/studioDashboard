@@ -29,10 +29,10 @@ import {SIMPLEGRID_DIRECTIVES} from "../../simplegrid/SimpleGrid";
           <tbody>                                                                          
           <tr class="simpleGridRecord" simpleGridRecord *ngFor="#item of _businesses | OrderBy:sort.field:sort.desc; #index=index" 
             [item]="item" [index]="index">
-                <td simpleGridData [type]="'name'" [item]="item"></td>
+                <td simpleGridData [editable]="true" [type]="'name'" [item]="item"></td>
                 <td simpleGridData [type]="'lastLogin'" [item]="item"></td>
                 <td simpleGridData [type]="'businessId'" [item]="item"></td>
-                <td simpleGridDataImage [type]="'fromTemplateId'" [item]="item"></td>
+                <td simpleGridDataImage [type]="'fa-plus'" [item]="item"></td>
           </tr>
           </tbody>                 
         </simpleGridTable>
