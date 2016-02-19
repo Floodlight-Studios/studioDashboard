@@ -1,5 +1,6 @@
-import {Component, Input, ChangeDetectionStrategy} from 'angular2/core'
+import {Component, Input, ChangeDetectionStrategy, Output, EventEmitter} from 'angular2/core'
 import {StoreModel} from "../../models/StoreModel";
+import {ISimpleGridEdit} from "./SimpleGrid";
 
 @Component({
     selector: 'td[simpleGridData]',
@@ -23,9 +24,9 @@ import {StoreModel} from "../../models/StoreModel";
         }
     `],
     template: `
-         <label [ngClass]="{editableLabel: _editModeEnable}" *ngIf="!_editMode" (click)="onEdit(true)">{{_value}}</label>
-         <span *ngIf="_editMode">
-            <input value="{{_value}}"/>
+         <label [ngClass]="{editableLabel: _editable}" *ngIf="!_editing" (click)="onEdit(true)">{{_value}}</label>
+         <span *ngIf="_editing">
+            <input value="{{_value2}}" [(ngModel)]="_value2"/>
                 <a (click)="onEdit(false)" class="fa fa-check"></a>
          </span>
          
@@ -34,10 +35,11 @@ import {StoreModel} from "../../models/StoreModel";
     `
 })
 export class SimpleGridData {
-    private _value;
+    private _value:string = '';
+    private _value2:string = '';
     private storeModel:StoreModel;
-    private _editModeEnable:boolean = false;
-    private _editMode:boolean = false;
+    private _editable:boolean = false;
+    private _editing:boolean = false;
 
     @Input()
     set item(i_storeModel:StoreModel) {
@@ -50,15 +52,26 @@ export class SimpleGridData {
     }
 
     @Input()
-    set editable(i_editModeEnable) {
-        this._editModeEnable = i_editModeEnable;
+    set editable(i_editable) {
+        this._editable = i_editable;
     }
+
+    @Output()
+    labelEdited:EventEmitter<any> = new EventEmitter();
 
     onEdit(value:boolean) {
-        if (!this._editModeEnable)
+        if (!this._editable)
             return;
-        this._editMode = value;
-    }
+        this._editing = value;
+        if (this._editing)
+            return;
+        // done editing, so notify
+        var payload:ISimpleGridEdit = {
+            value: this._value2,
+            item: this.storeModel
+        }
+        this.labelEdited.next(payload);
 
+    }
 }
 
