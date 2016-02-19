@@ -1,18 +1,15 @@
 import {Component, Input, Output, EventEmitter, ChangeDetectionStrategy, OnChanges, SimpleChange} from 'angular2/core'
 import {List} from 'immutable';
-import {SimpleGrid} from "../../simplegrid/SimpleGrid";
-import {SortableHeader} from "../../simplegrid/SortableHeader";
 import {BusinessModel} from "../../../business/BusinesModel";
 import {OrderBy} from "../../../pipes/OrderBy";
-import {SimpleGridRecord} from "../../simplegrid/SimpleGridRecord";
-import {SimpleGridData} from "../../simplegrid/SimpleGridData";
+import {SIMPLEGRID_DIRECTIVES} from "../../simplegrid/SimpleGrid";
 
 @Component({
     selector: 'UsersDetails',
-    directives: [SimpleGrid, SortableHeader, SimpleGridRecord, SimpleGridData],
+    directives: [SIMPLEGRID_DIRECTIVES],
     pipes: [OrderBy],
     template: `
-        <SimpleGrid>
+        <SimpleGridTable>
             <thead>
             <tr>
               <th sortableHeader="name" [sort]="sort">name</th>
@@ -30,7 +27,7 @@ import {SimpleGridData} from "../../simplegrid/SimpleGridData";
                 <td SimpleGridData [type]="'fromTemplateId'" [item]="item"></td>
           </tr>
           </tbody>                 
-        </SimpleGrid>
+        </SimpleGridTable>
     `,
     changeDetection: ChangeDetectionStrategy.OnPush
 })
