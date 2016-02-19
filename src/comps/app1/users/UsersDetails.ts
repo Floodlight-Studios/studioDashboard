@@ -32,10 +32,10 @@ import {BusinessAction} from "../../../business/BusinessAction";
           <tbody>                                                                          
           <tr class="simpleGridRecord" simpleGridRecord *ngFor="#item of _businesses | OrderBy:sort.field:sort.desc; #index=index" 
             [item]="item" [index]="index">
-                <td simpleGridData (labelEdited)="onLabelEdited($event)" [editable]="true" [type]="'name'" [item]="item"></td>
-                <td simpleGridData [type]="'lastLogin'" [item]="item"></td>
-                <td simpleGridData [type]="'businessId'" [item]="item"></td>
-                <td simpleGridDataImage [type]="'fa-plus'" [item]="item"></td>
+                <td simpleGridData (labelEdited)="onLabelEdited($event)" [editable]="true" [field]="'name'" [item]="item"></td>
+                <td simpleGridData [field]="'lastLogin'" [item]="item"></td>
+                <td simpleGridData [field]="'businessId'" [item]="item"></td>
+                <td simpleGridDataImage [field]="'fa-plus'" [item]="item"></td>
           </tr>
           </tbody>                 
         </simpleGridTable>
