@@ -8,6 +8,7 @@ import {BusinessAction} from "../../../business/BusinessAction";
 
 @Component({
     selector: 'UsersDetails',
+    changeDetection: ChangeDetectionStrategy.OnPush,
     directives: [SIMPLEGRID_DIRECTIVES],
     pipes: [OrderBy],
     styles: [`
@@ -38,9 +39,9 @@ import {BusinessAction} from "../../../business/BusinessAction";
           </tr>
           </tbody>                 
         </simpleGridTable>
-    `,
-    changeDetection: ChangeDetectionStrategy.OnPush
+    `
 })
+
 export class UsersDetails {
     public sort:{field: string, desc: boolean} = {field: null, desc: false};
     private _businesses:List<BusinessModel>;

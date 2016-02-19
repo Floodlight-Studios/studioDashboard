@@ -26,7 +26,7 @@ import {ISimpleGridEdit} from "./SimpleGrid";
     template: `
          <label [ngClass]="{editableLabel: _editable}" *ngIf="!_editing" (click)="onEdit(true)">{{_value}}</label>
          <span *ngIf="_editing">
-            <input value="{{_value2}}" [(ngModel)]="_value2"/>
+            <input value="{{_value}}" [(ngModel)]="_value"/>
                 <a (click)="onEdit(false)" class="fa fa-check"></a>
          </span>
          
@@ -36,7 +36,6 @@ import {ISimpleGridEdit} from "./SimpleGrid";
 })
 export class SimpleGridData {
     private _value:string = '';
-    private _value2:string = '';
     private storeModel:StoreModel;
     private _editable:boolean = false;
     private _editing:boolean = false;
@@ -67,7 +66,7 @@ export class SimpleGridData {
             return;
         // done editing, so notify
         var payload:ISimpleGridEdit = {
-            value: this._value2,
+            value: this._value,
             item: this.storeModel
         }
         this.labelEdited.next(payload);

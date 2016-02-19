@@ -21,7 +21,7 @@ import {UsersDetails} from "./UsersDetails";
         <div class="row">
              <div class="col-lg-3">
                 <SimpleList #simpleList [list]="businessesList" (selected)="onBusinessesFiltered($event)"
-                [contentId]="getBusinessesId()" [content]="getBusinesses()"></SimpleList>
+                    [contentId]="getBusinessesId()" [content]="getBusinesses()"></SimpleList>
              </div>
              <div class="col-lg-9 userView" appHeight>
                <UsersDetails [businesses]="businessesFilteredList"></UsersDetails>

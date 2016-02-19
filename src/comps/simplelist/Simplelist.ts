@@ -26,6 +26,8 @@ export class SimpleList {
     hover:EventEmitter<any> = new EventEmitter();
     @Output()
     current:EventEmitter<any> = new EventEmitter();
+    @Output()
+    selected:EventEmitter<any> = new EventEmitter();
 
     private itemSelected(item, index) {
         let id = this.contentId ? this.contentId(item) : index;
@@ -33,6 +35,7 @@ export class SimpleList {
             selected: !this._metadata[id].selected
         };
         this.current.next({item, selected: this._metadata[id].selected});
+        this.selected.next(this._metadata);
     }
 
     private itemAllSelected() {
@@ -40,6 +43,7 @@ export class SimpleList {
             this._metadata[id].selected = true;
         this.list.forEach((i_item)=> {
             this.current.next({item: i_item, selected: true});
+            this.selected.next(this._metadata);
         })
     }
 
