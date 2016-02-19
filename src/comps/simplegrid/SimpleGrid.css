@@ -1,4 +1,11 @@
 .simpleTable {
-    background-color: red !important;
+    background-color: white;
 }
 
+.simpleGridRecord:nth-child(odd) {
+    background-color: #eee;
+}
+
+.simpleGridRecord:nth-child(even) {
+    background-color: #fff;
+}

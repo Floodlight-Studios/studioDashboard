@@ -2,12 +2,13 @@ import {Component, Input} from 'angular2/core'
 import {StoreModel} from "../../models/StoreModel";
 
 @Component({
-    selector: 'td[SimpleGridData]',
+    selector: 'td[SimpleGridDataImage]',
     template: `
-         value: {{_value}}
+        <i style="color: dodgerblue; font-size: 1.5em" class="fa fa-cubes"></i>
+         <!--<img src="{{ _value }}" style="width: 40px; height: 40px"/>-->
     `
 })
-export class SimpleGridData {
+export class SimpleGridDataImage {
     private _value;
     storeModel:StoreModel;
 

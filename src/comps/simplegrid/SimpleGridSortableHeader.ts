@@ -19,7 +19,7 @@ import {COMMON_DIRECTIVES} from 'angular2/common';
         }
   `]
 })
-export class SortableHeader {
+export class SimpleGridSortableHeader {
 
     // map the sortableHeader input into a local var named fieldName
     @Input('sortableHeader') fieldName: string;

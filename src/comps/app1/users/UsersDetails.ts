@@ -8,6 +8,14 @@ import {SIMPLEGRID_DIRECTIVES} from "../../simplegrid/SimpleGrid";
     selector: 'UsersDetails',
     directives: [SIMPLEGRID_DIRECTIVES],
     pipes: [OrderBy],
+    styles: [`
+            .simpleGridRecord:nth-child(odd) {
+                 background-color: #eee;
+            }
+            .simpleGridRecord:nth-child(even) {
+                background-color: #fff;
+            }
+    `],
     template: `
         <SimpleGridTable>
             <thead>
@@ -19,12 +27,12 @@ import {SIMPLEGRID_DIRECTIVES} from "../../simplegrid/SimpleGrid";
             </tr>
           </thead>
           <tbody>                                                                          
-          <tr SimpleGridRecord *ngFor="#item of _businesses | OrderBy:sort.field:sort.desc; #index=index" 
+          <tr class="simpleGridRecord" SimpleGridRecord *ngFor="#item of _businesses | OrderBy:sort.field:sort.desc; #index=index" 
             [item]="item" [index]="index">
                 <td SimpleGridData [type]="'name'" [item]="item"></td>
                 <td SimpleGridData [type]="'lastLogin'" [item]="item"></td>
                 <td SimpleGridData [type]="'businessId'" [item]="item"></td>
-                <td SimpleGridData [type]="'fromTemplateId'" [item]="item"></td>
+                <td SimpleGridDataImage [type]="'fromTemplateId'" [item]="item"></td>
           </tr>
           </tbody>                 
         </SimpleGridTable>
