@@ -1,5 +1,7 @@
 import {Pipe, PipeTransform} from 'angular2/core';
 import * as _ from 'lodash';
+import {List} from 'immutable';
+import {StoreModel} from "../models/StoreModel";
 
 /** order by filter **/
 
@@ -10,11 +12,11 @@ export class OrderBy implements PipeTransform {
 
     transform(input: Object[], [field, desc = false]: [string, boolean]): Object[] {
         if (input && field) {
-            return Array.from(input).sort((a: Object, b: Object) => {
-                if (_.get(a, field) < _.get(b, field)) {
+            return Array.from(input).sort((a: StoreModel, b: StoreModel) => {
+                if (a.getKey(field) < b.getKey(field)) {
                     return desc ? 1 : -1;
                 }
-                if (_.get(a, field) > _.get(b, field)) {
+                if (a.getKey(field) > b.getKey(field)) {
                     return desc ? -1 : 1;
                 }
                 return 0;

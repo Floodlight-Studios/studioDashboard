@@ -41,19 +41,13 @@ export class Users {
         this.appStore.dispatch(businessActions.fetchBusinesses());
     }
 
-    private findBusinessIndex(business:BusinessModel):number {
-        return this.businessesSelected.findIndex((i_business:BusinessModel)=> {
-            return i_business.getKey('businessId') === business.getKey('businessId');
-        });
-    }
-
     private onUserSelected(event) {
         var business:BusinessModel = event.item;
         if (event.selected) {
-            if (this.findBusinessIndex(business) == -1)
+            if (this.businessActions.findBusinessIndex(business, this.businessesSelected) == -1)
                 this.businessesSelected = this.businessesSelected.push(business);
         } else {
-            let index:number = this.findBusinessIndex(business);
+            let index:number = this.businessActions.findBusinessIndex(business, this.businessesSelected);
             this.businessesSelected = this.businessesSelected.delete(index);
         }
     }

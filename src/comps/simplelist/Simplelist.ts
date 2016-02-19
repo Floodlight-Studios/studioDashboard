@@ -1,12 +1,7 @@
-import {
-    Component,
-    Input,
-    Output,
-    EventEmitter,
-    ChangeDetectionStrategy,
-} from 'angular2/core';
+import {Component, Input, Output, EventEmitter, ChangeDetectionStrategy,} from 'angular2/core';
 import {COMMON_DIRECTIVES} from "angular2/src/common/common_directives";
 import {FilterPipe} from "../../pipes/FilterPipe";
+import {List} from 'immutable';
 
 @Component({
     selector: 'SimpleList',
@@ -22,7 +17,7 @@ export class SimpleList {
     private _metadata:Object = {};
 
     @Input()
-    list:any[];
+    list:List<any>;
     @Input()
     content:((any)=>string);
     @Input()
@@ -37,14 +32,15 @@ export class SimpleList {
         this._metadata[id] = {
             selected: !this._metadata[id].selected
         };
-        this.current.next({id, selected: this._metadata[id].selected});
+        this.current.next({item, selected: this._metadata[id].selected});
     }
 
     private itemAllSelected() {
-        for (let id in this._metadata) {
+        for (let id in this._metadata)
             this._metadata[id].selected = true;
-            this.current.next({id, selected: this._metadata[id].selected});
-        }
+        this.list.forEach((i_item)=> {
+            this.current.next({item: i_item, selected: true});
+        })
     }
 
     private getMetadata(index, item) {

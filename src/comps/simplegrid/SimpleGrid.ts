@@ -12,65 +12,68 @@ import {OrderBy} from "../../pipes/OrderBy";
 
 @Component({
     selector: 'SimpleGrid',
-    //changeDetection: ChangeDetectionStrategy.OnPushObserve,
+    changeDetection: ChangeDetectionStrategy.OnPush,
     pipes: [OrderBy],
     directives: [COMMON_DIRECTIVES],
     styles: [`input {margin: 20px; width: 50%}`],
     template: `
     <table class="table">
     <ng-content></ng-content>
-      <tbody>
-      <!-- no need to subscribe to observable since async does this for us -->
-        <tr *ngFor="#item of list | OrderBy:sort.field:sort.desc">
-          <td>{{ item }}</td>
-          <td><img src="{{ item.iconPath }}" style="width: 40px; height: 40px"/></td>
-          <td>{{ item }}</td>
-          <td>{{ item }}</td>
-          <!-- <td [innerHtml]="item.day"></td> -->
-        </tr>
-      </tbody>
+      <!--<tbody>-->
+        <!--<tr *ngFor="#item of list | OrderBy:sort.field:sort.desc">-->
+          <!--<td>{{ item }}</td>-->
+          <!--<td><img src="{{ item.iconPath }}" style="width: 40px; height: 40px"/></td>-->
+          <!--<td>{{ item }}</td>-->
+          <!--<td>{{ item }}</td>-->
+          <!--&lt;!&ndash; <td [innerHtml]="item.day"></td> &ndash;&gt;-->
+        <!--</tr>-->
+      <!--</tbody>-->
     </table>
   `,
 })
 
 export class SimpleGrid {
-    //private weatherItems:any = [1,2,3,4,5];
     private zipControl:Control = new Control();
-
-    // the real magic here is that the sort variable is being used in several places
-    // including here to set the pipe sorting, in the SortableHeader component to show and hide
-    // the header icons, as well as in SortableHeader to change the sort order on header clicks.
-    // So we pass the SAME sort var to all SortableHeader directives and all work with it
-    // in both displaying and the sorting mechanics
-    //public sort:{field: string, desc: boolean} = {field: null, desc: false};
+    private _metadata:Object = {};
 
     @Input()
     sort;
-
     @Input()
     list;
+    @Input()
+    content:((any)=>string);
+    @Input()
+    contentId:((any)=>string);
 
 
     constructor() {
-        this.listenWeatherInput();
-        //this.commBroker.getService(Consts.Services().Properties).setPropView('Weather');
+    }
+
+    private getMetadata(index, item) {
+        let id = this.contentId ? this.contentId(item) : index;
+        return this._metadata[id];
+    }
+
+    public getContentId(item, index):string {
+        let id = this.contentId ? this.contentId(item) : index;
+        if (this._metadata[id])
+            return id;
+        this._metadata[id] = {
+            selected: false
+        };
+        return id;
+    }
+
+    public getContent(item):string {
+        if (this.content) {
+            return this.content(item);
+        } else {
+            return item;
+        }
     }
 
     ngAfterViewInit() {
         this.zipControl.updateValue('91301');
     }
 
-    listenWeatherInput() {
-        // return this.weatherItems = this.zipControl.valueChanges
-        //     .debounceTime(400)
-        //     .distinctUntilChanged()
-        //     .filter((zip:string)=> {
-        //         return zip.length > 3;
-        //         // switchMap is really cool as it will both flatMap our Observables
-        //         // as well as it unsubscribes from all previous / pending calls to server and only
-        //         // listen to to newly created Observable
-        //     }).switchMap(zip => {
-        //         return this.weatherService.search(`${zip}/1`)
-        //     })
-    }
 }

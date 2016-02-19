@@ -3,29 +3,34 @@ import {List} from 'immutable';
 import {SimpleGrid} from "../../simplegrid/SimpleGrid";
 import {SortableHeader} from "../../simplegrid/SortableHeader";
 import {BusinessModel} from "../../../business/BusinesModel";
+import {SimpleGridItem} from "../../simplegrid/SimpleGridItem";
+import {OrderBy} from "../../../pipes/OrderBy";
 
 @Component({
     selector: 'UsersDetails',
-    directives: [SimpleGrid, SortableHeader],
+    directives: [SimpleGrid, SortableHeader, SimpleGridItem],
+    pipes: [OrderBy],
     template: `
-    <h1>Users Details</h1>
-        <SimpleGrid [sort]="sort" [list]="_businesses">
+        <SimpleGrid>
             <thead>
             <tr>
-              <th>day</th>
+              <th sortableHeader="name" [sort]="sort">name</th>
               <th>icon</th>
-              <th sortableHeader="maxtempF" [sort]="sort">high</th>
-              <th sortableHeader="mintempF" [sort]="sort">low</th>
+              <th sortableHeader="businessId" [sort]="sort">business</th>
+              <th sortableHeader="fromTemplateId" [sort]="sort">templt</th>
             </tr>
           </thead>
+          <tbody>
+          <tr SimpleGridItem *ngFor="#item of _businesses | OrderBy:sort.field:sort.desc; #index=index"
+           [item]="item">
+          </tr>
+          </tbody>
         </SimpleGrid>
-
-
     `,
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class UsersDetails {
-    public sort: {field: string, desc: boolean} = {field: 'ABC', desc: false};
+    public sort:{field: string, desc: boolean} = {field: null, desc: false};
     private _businesses:List<BusinessModel>;
 
     @Input()

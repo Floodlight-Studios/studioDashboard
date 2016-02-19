@@ -4,6 +4,7 @@ import {Actions} from "angular2-redux-util";
 import 'rxjs/add/operator/map';
 import {BusinessModel} from "./BusinesModel";
 import {Lib} from "../Lib";
+import {List} from 'immutable';
 
 export const REQUEST_BUSINESSES = 'REQUEST_BUSINESSES';
 export const RECEIVE_BUSINESSES = 'RECEIVE_BUSINESSES';
@@ -24,6 +25,12 @@ export class BusinessAction extends Actions {
 
     constructor(private _http:Http, private jsonp:Jsonp) {
         super();
+    }
+
+    findBusinessIndex(business:BusinessModel, businesses:List<BusinessModel>):number {
+        return businesses.findIndex((i_business:BusinessModel)=> {
+            return i_business.getKey('businessId') === business.getKey('businessId');
+        });
     }
 
     /**
@@ -57,8 +64,8 @@ export class BusinessAction extends Actions {
 
                     result2.Businesses[0].BusinessInfo.forEach((business)=> {
                         c++;
-                        var max = _.random(1,15);
-                        // var max = 3;
+                        //var max = _.random(1,15);
+                        var max = 10;
                         if (c>max)
                             return;
                         // create new
