@@ -20,8 +20,11 @@ import {UsersDetails} from "./UsersDetails";
     template: `
         <div class="row">
              <div class="col-lg-3">
-                <SimpleList #simpleList [list]="businessesList" (selected)="onBusinessesFiltered($event)"
-                    [contentId]="getBusinessesId()" [content]="getBusinesses()"></SimpleList>
+                <SimpleList #simpleList [list]="businessesList" 
+                    (selected)="updateFilteredSelection()"
+                    [contentId]="getBusinessesId()"
+                    [content]="getBusinesses()">
+                </SimpleList>
              </div>
              <div class="col-lg-9 userView" appHeight>
                <UsersDetails [businesses]="businessesFilteredList"></UsersDetails>
@@ -31,13 +34,11 @@ import {UsersDetails} from "./UsersDetails";
 })
 export class Users {
 
-    //@ViewChild(SimpleList) simpleList: SimpleList;
-    // console.log(this.simpleList.getSe);
+    @ViewChild(SimpleList)
+    simpleList:SimpleList;
 
     private businessesList:List<BusinessModel> = List<BusinessModel>();
     private businessesFilteredList:List<BusinessModel>
-    private businessSelected = {}
-
     private ubsub:Function;
 
     constructor(private appStore:AppStore, private commBroker:CommBroker, private businessActions:BusinessAction) {
@@ -52,17 +53,11 @@ export class Users {
         }, 'business', false);
     }
 
-    private onBusinessesFiltered(i_businessSelected) {
-        this.businessSelected = i_businessSelected;
-        this.updateFilteredSelection();
-
-    }
-
-    private updateFilteredSelection(){
-        var self = this;
+    private updateFilteredSelection() {
+        var businessSelected = this.simpleList.getSelected();
         this.businessesFilteredList = this.businessesList.filter((businessModel:BusinessModel)=> {
             var businessId = businessModel.getKey('businessId');
-            return self.businessSelected[businessId] && self.businessSelected[businessId].selected;
+            return businessSelected[businessId] && businessSelected[businessId].selected;
         }) as List<any>;
     }
 
@@ -87,33 +82,6 @@ export class Users {
     }
 
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 // var state:List<BusinessModel> = this.appStore.getState().business;
