@@ -1,4 +1,4 @@
-import {Component} from 'angular2/core'
+import {Component, ViewChild, QueryList} from 'angular2/core'
 import {SimpleList} from "../../simplelist/SimpleList";
 import {AppStore} from "angular2-redux-util/dist/index";
 import {BusinessAction} from "../../../business/BusinessAction";
@@ -30,6 +30,10 @@ import {UsersDetails} from "./UsersDetails";
     `
 })
 export class Users {
+
+    //@ViewChild(SimpleList) simpleList: SimpleList;
+    // console.log(this.simpleList.getSe);
+
     private businessesList:List<BusinessModel> = List<BusinessModel>();
     private businessesFilteredList:List<BusinessModel>
     private businessSelected = {}
@@ -51,6 +55,7 @@ export class Users {
     private onBusinessesFiltered(i_businessSelected) {
         this.businessSelected = i_businessSelected;
         this.updateFilteredSelection();
+
     }
 
     private updateFilteredSelection(){
@@ -58,7 +63,7 @@ export class Users {
         this.businessesFilteredList = this.businessesList.filter((businessModel:BusinessModel)=> {
             var businessId = businessModel.getKey('businessId');
             return self.businessSelected[businessId] && self.businessSelected[businessId].selected;
-        }) as List<any,BusinessModel>;
+        }) as List<any>;
     }
 
     private getBusinesses() {
