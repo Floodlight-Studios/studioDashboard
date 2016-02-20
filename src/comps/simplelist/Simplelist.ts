@@ -69,5 +69,9 @@ export class SimpleList {
             return item;
         }
     }
+
+    public getSelected(){
+        return this._metadata;
+    }
 }
 
