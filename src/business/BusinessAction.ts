@@ -56,11 +56,11 @@ export class BusinessAction extends Actions {
 
             this._http.get(`${BASE_URL}`)
                 .map(result => {
-                    result = result['_body'].replace(/}\)/, '').replace(/\(\{"result":"/, '');
-
+                    var xmlData:string = result.text()
+                    xmlData = xmlData.replace(/}\)/, '').replace(/\(\{"result":"/, '');
                     //var parseString = require('xml2js/lib/xml2js.js');
                     //var parseString = require('xml2js').parseString;
-                    var result2:any = Lib.Xml2Json().parseString(result);
+                    var result2:any = Lib.Xml2Json().parseString(xmlData);
                     var arr = [], c = 0;
 
                     result2.Businesses[0].BusinessInfo.forEach((business)=> {
