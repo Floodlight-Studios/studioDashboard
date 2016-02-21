@@ -37,6 +37,8 @@ export class Users {
     @ViewChild(SimpleList)
     simpleList:SimpleList;
 
+
+
     private businessesList:List<BusinessModel> = List<BusinessModel>();
     private businessesFilteredList:List<BusinessModel>
     private ubsub:Function;
