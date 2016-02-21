@@ -1,5 +1,7 @@
 import {List} from 'immutable';
+import {Map} from 'immutable';
 import * as BusinessAction from './BusinessAction';
+import businessesReducer from '../business/BusinessesReducer';
 import {BusinessModel} from "./BusinesModel";
 
 export interface IBusinessAction {
@@ -11,22 +13,29 @@ export interface IBusinessAction {
 
 }
 
-export function business(state:List<BusinessModel> = List<BusinessModel>(), action:IBusinessAction) {
+export function business(state:Map<string,any> = Map<string,any>(), action:any):Map<string,any> {
 
-    function indexOf(businessId:string) {
-        return state.findIndex((i:BusinessModel) => i.getKey('businessId') === businessId);
-    }
+    // function indexOf(businessId:string) {
+    //     return state.findIndex((i:BusinessModel) => i.getKey('businessId') === businessId);
+    // }
 
     switch (action.type) {
         case BusinessAction.REQUEST_BUSINESSES:
             return state;
-        //return Object.assign({}, state, {isFetchingFilms: true});
+
         case BusinessAction.RECEIVE_BUSINESSES:
-            return List(action.businesses);
-        case BusinessAction.SET_BUSINESS_DATA:
-            return state.update(indexOf(action.businessId), (business:BusinessModel) => {
-                return business.setKey<BusinessModel>(BusinessModel, action.key, action.value)
+            state = state.setIn(['businessStats'], {
+                totalBusiness: action.businesses.length,
+                totalBusiness2: action.businesses.length
             });
+            var businesses:List<BusinessModel> = state.getIn(['businesses'])
+            var list:List<BusinessModel> = businessesReducer(businesses, action);
+            return state.setIn(['businesses'], list);
+
+        case BusinessAction.SET_BUSINESS_DATA:
+            var businesses:List<BusinessModel> = state.getIn(['businesses'])
+            var list:List<BusinessModel> = businessesReducer(businesses, action);
+            return state.setIn(['businesses'], list);
 
         //return businesses; //return Object.assign({}, state, action.businesses);
         //return state.push(action.businesses);

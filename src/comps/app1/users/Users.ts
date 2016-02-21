@@ -44,13 +44,15 @@ export class Users {
     constructor(private appStore:AppStore, private commBroker:CommBroker, private businessActions:BusinessAction) {
         this.listenBusinessesStore();
         this.appStore.dispatch(businessActions.fetchBusinesses());
+
+        // setInterval(()=>this.appStore.dispatch(businessActions.fetchBusinesses()),2000);
     }
 
     private listenBusinessesStore() {
         this.ubsub = this.appStore.sub((i_businesses:List<BusinessModel>) => {
-            this.businessesList = i_businesses;
+            this.businessesList = i_businesses.getIn(['businesses']);
             this.updateFilteredSelection()
-        }, 'business', false);
+        }, 'business');
     }
 
     private updateFilteredSelection() {

@@ -5,6 +5,7 @@ import 'rxjs/add/operator/map';
 import {BusinessModel} from "./BusinesModel";
 import {Lib} from "../Lib";
 import {List} from 'immutable';
+import * as _ from 'lodash';
 
 export const REQUEST_BUSINESSES = 'REQUEST_BUSINESSES';
 export const RECEIVE_BUSINESSES = 'RECEIVE_BUSINESSES';
@@ -64,8 +65,8 @@ export class BusinessAction extends Actions {
 
                     result2.Businesses[0].BusinessInfo.forEach((business)=> {
                         c++;
-                        //var max = _.random(1,15);
-                        var max = 10;
+                        var max = _.random(1,15);
+                        // var max = 10;
                         if (c>max)
                             return;
                         // create new
