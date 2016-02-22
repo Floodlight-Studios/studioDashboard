@@ -25,9 +25,9 @@ import {BusinessAction} from "../../../business/BusinessAction";
                   <th sortableHeader="name" [sort]="sort">name</th>
                   <th>login</th>
                   <th sortableHeader="businessId" [sort]="sort">business</th>
-                  <th sortableHeader="fromTemplateId" [sort]="sort">lite/pro</th>
-                  <th sortableHeader="fromTemplateId" [sort]="sort">pro</th>
-                  <th sortableHeader="fromTemplateId" [sort]="sort">pro</th>
+                  <th sortableHeader="studioLite" [sort]="sort">lite/pro</th>
+                  <th sortableHeader="maxDataStorage" [sort]="sort">max gigs</th>
+                  <th sortableHeader="maxMonitors" [sort]="sort">max screen</th>
                 </tr>
               </thead>
               <tbody>                                                                          
@@ -36,9 +36,9 @@ import {BusinessAction} from "../../../business/BusinessAction";
                     <td simpleGridData (labelEdited)="onLabelEdited($event)" editable="true" field="name" [item]="item"></td>
                     <td simpleGridData field="lastLogin" [item]="item"></td>
                     <td simpleGridData field="businessId" [item]="item"></td>
-                    <td simpleGridDataImage [field]="item.getKey('studioLite') == '0' ? 'fa-plus' : 'fa-minus'" [item]="item"></td>
-                    <td simpleGridDataImage field="fa-plus" [item]="item"></td>
-                    <td simpleGridDataImage field="fa-plus" [item]="item"></td>
+                    <td simpleGridDataImage color="dodgerblue" [field]="item.getKey('studioLite') == '0' ? 'fa-circle' : 'fa-circle-o'" [item]="item"></td>
+                    <td simpleGridData field="maxDataStorage" [item]="item"></td>
+                    <td simpleGridData field="maxMonitors" [item]="item"></td>
               </tr>
               </tbody>                 
         </simpleGridTable>

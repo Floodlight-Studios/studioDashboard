@@ -10,7 +10,7 @@ import {StoreModel} from "../../models/StoreModel";
         }
     `],
     template: `
-        <i (click)="onClick($event)" style="color: dodgerblue; font-size: 1.5em" class="fa {{value}}"></i>
+        <i (click)="onClick($event)" style="color: {{color}}; font-size: 1.5em" class="fa {{value}}"></i>
          <!--<img src="{{ value }}" style="width: 40px; height: 40px"/>-->
     `
 })
@@ -27,6 +27,9 @@ export class SimpleGridDataImage {
     set field(i_field) {
         this.value = i_field;
     }
+    
+    @Input()
+    color;
 
     onClick(event){
         alert(event)
