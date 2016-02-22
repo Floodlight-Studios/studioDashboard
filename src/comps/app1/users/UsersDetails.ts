@@ -11,34 +11,39 @@ import {BusinessAction} from "../../../business/BusinessAction";
     changeDetection: ChangeDetectionStrategy.OnPush,
     directives: [SIMPLEGRID_DIRECTIVES],
     pipes: [OrderBy],
-    styles: [`
-            .simpleGridRecord:nth-child(odd) {
-                 background-color: #eee;
-            }
-            .simpleGridRecord:nth-child(even) {
-                background-color: #fff;
-            }
-    `],
     template: `
-        <simpleGridTable>
-            <thead>
-            <tr>
-              <th sortableHeader="name" [sort]="sort">name</th>
-              <th>login</th>
-              <th sortableHeader="businessId" [sort]="sort">business</th>
-              <th sortableHeader="fromTemplateId" [sort]="sort">tmp</th>
-            </tr>
-          </thead>
-          <tbody>                                                                          
-          <tr class="simpleGridRecord" simpleGridRecord *ngFor="#item of _businesses | OrderBy:sort.field:sort.desc; #index=index" 
-            [item]="item" [index]="index">
-                <td simpleGridData (labelEdited)="onLabelEdited($event)" editable="true" field="name" [item]="item"></td>
-                <td simpleGridData field="lastLogin" [item]="item"></td>
-                <td simpleGridData field="businessId" [item]="item"></td>
-                <td simpleGridDataImage field="fa-plus" [item]="item"></td>
-          </tr>
-          </tbody>                 
+    <!--<div style="background-color: #f5f5f5; border: solid #dddddd 1px; margin: 4px">-->
+        <!--<h1>sss</h1>-->
+        <!--<h1>sss</h1>-->
+        <!--<h1>sss</h1>-->
+    <!--</div>-->
+    <br/>
+    <div class="yScroll">
+         <simpleGridTable>
+                <thead>
+                <tr>
+                  <th sortableHeader="name" [sort]="sort">name</th>
+                  <th>login</th>
+                  <th sortableHeader="businessId" [sort]="sort">business</th>
+                  <th sortableHeader="fromTemplateId" [sort]="sort">lite/pro</th>
+                  <th sortableHeader="fromTemplateId" [sort]="sort">pro</th>
+                  <th sortableHeader="fromTemplateId" [sort]="sort">pro</th>
+                </tr>
+              </thead>
+              <tbody>                                                                          
+              <tr class="simpleGridRecord" simpleGridRecord *ngFor="#item of _businesses | OrderBy:sort.field:sort.desc; #index=index" 
+                [item]="item" [index]="index">
+                    <td simpleGridData (labelEdited)="onLabelEdited($event)" editable="true" field="name" [item]="item"></td>
+                    <td simpleGridData field="lastLogin" [item]="item"></td>
+                    <td simpleGridData field="businessId" [item]="item"></td>
+                    <td simpleGridDataImage [field]="item.getKey('studioLite') == '0' ? 'fa-plus' : 'fa-minus'" [item]="item"></td>
+                    <td simpleGridDataImage field="fa-plus" [item]="item"></td>
+                    <td simpleGridDataImage field="fa-plus" [item]="item"></td>
+              </tr>
+              </tbody>                 
         </simpleGridTable>
+    </div>
+       
     `
 })
 
@@ -46,7 +51,7 @@ export class UsersDetails {
     public sort:{field: string, desc: boolean} = {field: null, desc: false};
     private _businesses:List<BusinessModel>;
 
-    private onLabelEdited(event:ISimpleGridEdit){
+    private onLabelEdited(event:ISimpleGridEdit) {
         var value = event.value;
         var businessModel = event.item;
         var businessId = businessModel.getKey('businessId');

@@ -9,3 +9,8 @@
 .simpleGridRecord:nth-child(even) {
     background-color: #fff;
 }
+
+* {
+    font-size: 0.9em;
+}
+

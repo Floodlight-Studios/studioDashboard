@@ -87,12 +87,12 @@ export class App {
         var appHeight = document.body.clientHeight;
         var appWidth = document.body.clientWidth;
         //console.log('resized ' + appHeight);
-        jQuery(Consts.Elems().APP_NAVIGATOR_EVER).height(appHeight - 115);
-        jQuery(Consts.Elems().APP_NAVIGATOR_WASP).height(appHeight - 115);
-        jQuery(Consts.Clas().CLASS_APP_HEIGHT).height(appHeight - 420);
-        jQuery('#mainPanelWrap').height(appHeight - 115);
-        jQuery('#propPanel').height(appHeight - 130);
-        jQuery('.well').height(appHeight - 224);
+        // jQuery(Consts.Elems().APP_NAVIGATOR_EVER).height(appHeight - 115);
+        // jQuery(Consts.Elems().APP_NAVIGATOR_WASP).height(appHeight - 115);
+        // jQuery(Consts.Clas().CLASS_APP_HEIGHT).height(appHeight - 420);
+        // jQuery('#mainPanelWrap').height(appHeight - 115);
+        // jQuery('#propPanel').height(appHeight - 130);
+        // jQuery('.well').height(appHeight - 224);
 
         this.commBroker.setValue(Consts.Values().APP_SIZE, {height: appHeight, width: appWidth});
 

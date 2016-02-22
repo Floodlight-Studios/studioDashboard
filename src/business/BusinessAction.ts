@@ -65,8 +65,8 @@ export class BusinessAction extends Actions {
 
                     result2.Businesses[0].BusinessInfo.forEach((business)=> {
                         c++;
-                        var max = _.random(1,15);
-                        // var max = 10;
+                        // var max = _.random(1,15);
+                        var max = 1000;
                         if (c>max)
                             return;
                         // create new

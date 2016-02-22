@@ -7,7 +7,6 @@ import {ISimpleGridEdit} from "./SimpleGrid";
     changeDetection: ChangeDetectionStrategy.OnPush,
     styles: [`
         label {
-            width: 200px;
             padding: 0;
             margin: 0;
         }
@@ -15,7 +14,6 @@ import {ISimpleGridEdit} from "./SimpleGrid";
             cursor: pointer;
         }
         input {
-            width: 179px;
             padding: 0;
             margin: 0;
         }
