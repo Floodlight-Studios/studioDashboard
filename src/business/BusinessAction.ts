@@ -60,7 +60,8 @@ export class BusinessAction extends Actions {
                 pros: 0,
                 activeAccounts: 0,
                 inactiveAccounts: 0,
-                lastLogin: 0
+                lastLogin: 0,
+                totalBusinesses: 0
 
             }
 
@@ -76,7 +77,7 @@ export class BusinessAction extends Actions {
                     result2.Businesses[0].BusinessInfo.forEach((business)=> {
                         c++;
                         // var max = _.random(1,15);
-                        var max = 1000;
+                        var max = 100000;
                         if (c>max)
                             return;
                         // create new
@@ -115,6 +116,8 @@ export class BusinessAction extends Actions {
                         //    businessId: business.attr.businessId + Math.random(),
                         //});
                     });
+                    accountStats.totalBusinesses = arr.length;
+
                     dispatch(self.receiveBusinesses(arr));
                     dispatch(self.receiveBusinessesStats(accountStats));
 

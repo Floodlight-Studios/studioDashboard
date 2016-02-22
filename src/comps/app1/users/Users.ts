@@ -3,7 +3,7 @@ import {SimpleList} from "../../simplelist/SimpleList";
 import {AppStore} from "angular2-redux-util/dist/index";
 import {BusinessAction} from "../../../business/BusinessAction";
 import {BusinessModel} from "../../../business/BusinesModel";
-import {List} from 'immutable';
+import {List, Map} from 'immutable';
 import {CommBroker} from "../../../services/CommBroker";
 import {Consts} from "../../../Conts";
 import {UsersDetails} from "./UsersDetails";
@@ -38,23 +38,28 @@ export class Users {
     simpleList:SimpleList;
 
 
-
     private businessesList:List<BusinessModel> = List<BusinessModel>();
     private businessesFilteredList:List<BusinessModel>
-    private ubsub:Function;
+    private unsub:Function;
 
     constructor(private appStore:AppStore, private commBroker:CommBroker, private businessActions:BusinessAction) {
-        this.listenBusinessesStore();
-        this.appStore.dispatch(businessActions.fetchBusinesses());
-
-        // setInterval(()=>this.appStore.dispatch(businessActions.fetchBusinesses()),2000);
+        this.loadData();
     }
 
-    private listenBusinessesStore() {
-        this.ubsub = this.appStore.sub((i_businesses:List<BusinessModel>) => {
+    private loadData() {
+        if (this.appStore.getState().business.size == 0) {
+            this.appStore.dispatch(this.businessActions.fetchBusinesses());
+        } else {
+            var i_businesses = this.appStore.getState().business;
             this.businessesList = i_businesses.getIn(['businesses']);
-            this.updateFilteredSelection()
+        }
+        this.unsub = this.appStore.sub((i_businesses:Map<string,any>) => {
+            this.businessesList = i_businesses.getIn(['businesses']);
         }, 'business');
+    }
+
+    ngOnInit() {
+        this.commBroker.getService(Consts.Services().App).appResized();
     }
 
     private updateFilteredSelection() {
@@ -77,12 +82,8 @@ export class Users {
         }
     }
 
-    private ngOnInit() {
-        this.commBroker.getService(Consts.Services().App).appResized();
-    }
-
     private ngOnDestroy() {
-        this.ubsub();
+        this.unsub();
     }
 
 }
