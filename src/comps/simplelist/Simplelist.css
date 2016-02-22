@@ -12,9 +12,3 @@ li {
 .list-arrows button {
     margin-bottom: 20px;
 }
-
-.well {
-    overflow-y: scroll;
-    height: 100%;
-    min-height: 100%;
-}

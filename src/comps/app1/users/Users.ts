@@ -19,14 +19,14 @@ import {UsersDetails} from "./UsersDetails";
     `],
     template: `
         <div class="row">
-             <div class="col-xs-3 fill">
+             <div class="col-xs-3">
                 <SimpleList #simpleList [list]="businessesList" 
                     (selected)="updateFilteredSelection()"
                     [contentId]="getBusinessesId()"
                     [content]="getBusinesses()">
                 </SimpleList>
              </div>
-             <div class="col-xs-9 userView fill_less">
+             <div class="col-xs-9 userView well">
                <UsersDetails [businesses]="businessesFilteredList"></UsersDetails>
              </div>
         </div>

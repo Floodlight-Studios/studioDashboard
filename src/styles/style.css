@@ -11,7 +11,7 @@ body {
     font-family: 'Raleway', 'arial';
     height: 100%;
     background-color: #ffffff;
-    overflow-y: auto;
+    overflow-y: hidden;
 }
 
 a {
@@ -765,4 +765,10 @@ Language selector
     min-height: 95%;
     /*background-color: #990000;*/
     /*color: #efefef;*/
+}
+
+.well {
+    overflow-y: scroll;
+    height: 100%;
+    min-height: 100%;
 }

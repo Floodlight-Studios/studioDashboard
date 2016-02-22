@@ -18,7 +18,7 @@ import {BusinessAction} from "../../../business/BusinessAction";
         <!--<h1>sss</h1>-->
     <!--</div>-->
     <br/>
-    <div class="yScroll">
+    <div>
          <simpleGridTable>
                 <thead>
                 <tr>
