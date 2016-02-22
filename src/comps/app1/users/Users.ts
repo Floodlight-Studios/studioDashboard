@@ -26,7 +26,7 @@ import {UsersDetails} from "./UsersDetails";
                     [content]="getBusinesses()">
                 </SimpleList>
              </div>
-             <div class="col-xs-9 userView well">
+             <div class="col-xs-9 userView fill_scroll">
                <UsersDetails [businesses]="businessesFilteredList"></UsersDetails>
              </div>
         </div>

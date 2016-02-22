@@ -9,6 +9,7 @@ import * as _ from 'lodash';
 
 export const REQUEST_BUSINESSES = 'REQUEST_BUSINESSES';
 export const RECEIVE_BUSINESSES = 'RECEIVE_BUSINESSES';
+export const RECEIVE_BUSINESSES_STATS = 'RECEIVE_BUSINESSES_STATS';
 export const REQUEST_FILM = 'REQUEST_FILM';
 export const RECEIVE_FILM = 'RECEIVE_FILM';
 export const CURRENT_FILMS = 'CURRENT_FILMS';
@@ -54,6 +55,15 @@ export class BusinessAction extends Actions {
             //    }).subscribe();
             // https://angular.io/docs/js/latest/api/http/JSONP_PROVIDERS-let.html
 
+            const accountStats = {
+                lites: 0,
+                pros: 0,
+                activeAccounts: 0,
+                inactiveAccounts: 0,
+                lastLogin: 0
+
+            }
+
             this._http.get(`${BASE_URL}`)
                 .map(result => {
                     var xmlData:string = result.text()
@@ -86,20 +96,27 @@ export class BusinessAction extends Actions {
                             businessDescription: business._attr.businessDescription._value
                         });
 
+                        // collect stats
+                        business._attr.accountStatus._value == 2 ? accountStats.activeAccounts++ : accountStats.inactiveAccounts++;
+                        business._attr.studioLite._value == 0 ? accountStats.pros++ : accountStats.lites++;
+                        business._attr.accountStatus._value == 2 ? accountStats.activeAccounts++ : accountStats.inactiveAccounts++;
+                        if (_.isNumber(business._attr.lastLogin._value) && business._attr.lastLogin._value > accountStats.lastLogin) {
+                            accountStats.lastLogin = business._attr.lastLogin._value;
+                        }
+
+                        arr.push(bus);
+
                         // example update a field in instance via setKey
                         //var busUpd:BusinessModel = bus.setKey<BusinessModel>(BusinessModel, 'businessId', business._attr.businessId._value + Math.random());
-
                         // insert a new field in instance
                         //busUpd = busUpd.setKey<BusinessModel>(BusinessModel, 'JS', 'Ninja');
-
                         // override entire instance with new data via setData
                         //var busUpd:BusinessModel = bus.setData<BusinessModel>(BusinessModel, {
                         //    businessId: business.attr.businessId + Math.random(),
                         //});
-                        arr.push(bus);
-
                     });
                     dispatch(self.receiveBusinesses(arr));
+                    dispatch(self.receiveBusinessesStats(accountStats));
 
                     //parseString(result, {attrkey: 'attr'}, function (err, result) {
                     //    var arr = [];
@@ -180,6 +197,13 @@ export class BusinessAction extends Actions {
         return {
             type: RECEIVE_BUSINESSES,
             businesses
+        }
+    }
+
+    receiveBusinessesStats(stats) {
+        return {
+            type: RECEIVE_BUSINESSES_STATS,
+            stats
         }
     }
 

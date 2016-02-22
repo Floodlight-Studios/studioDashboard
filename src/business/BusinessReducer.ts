@@ -11,13 +11,12 @@ export function business(state:Map<string,any> = Map<string,any>(), action:any):
             return state;
 
         case BusinessAction.RECEIVE_BUSINESSES:
-            state = state.setIn(['businessStats'], {
-                totalBusiness: action.businesses.length,
-                totalBusiness2: action.businesses.length
-            });
             var businesses:List<BusinessModel> = state.getIn(['businesses'])
             var list:List<BusinessModel> = businessesReducer(businesses, action);
             return state.setIn(['businesses'], list);
+
+        case BusinessAction.RECEIVE_BUSINESSES_STATS:
+            return state.setIn(['businessStats'], action.stats);
 
         case BusinessAction.SET_BUSINESS_DATA:
             var businesses:List<BusinessModel> = state.getIn(['businesses'])
