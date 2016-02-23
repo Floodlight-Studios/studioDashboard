@@ -20,16 +20,24 @@ import {Component, Input, Output, EventEmitter, ChangeDetectionStrategy, OnChang
     `],
     template: `
               <div class="panel panel-tile text-center br-a br-grey">
-                <div>
-                  <h1>{{value1}}</h1>
-                  <h6 class="text-system">{{value2}}</h6>
-                </div>
-                <div class="panel-footer br-t p12">
-                  <span class="fs11">
-                    <i class="fa {{icon}} pr5"></i>
-                    {{value3}}
-                  </span>
-                </div>
+                 <div *ngIf!="value1">
+                    <br/>
+                    <img src="assets/preload2.gif">
+                    <br/>
+                    <br/>
+                 </div>
+                 <div *ngIf="value1">
+                      <div>
+                        <h1>{{value1}}</h1>
+                        <h6 class="text-system">{{value2}}</h6>
+                    </div>
+                    <div class="panel-footer br-t p12">
+                      <span class="fs11">
+                        <i class="fa {{icon}} pr5"></i>
+                        {{value3}}
+                      </span>
+                    </div>
+                  </div>                
               </div>
     `
 })

@@ -3,12 +3,14 @@ import {Infobox} from "../../infobox/Infobox";
 import {List, Map} from 'immutable';
 import {AppStore} from "angular2-redux-util/dist/index";
 import {BusinessAction} from "../../../business/BusinessAction";
+import {MyChart} from "../help/contributors/MyChart";
 
 @Component({
-    directives: [Infobox],
+    directives: [Infobox, MyChart],
     selector: 'Dashboard',
     providers: [BusinessAction],
     template: `
+    <div class="row">
         <br/>
         <div class="col-sm-4 col-lg-2">
             <Infobox [value1]="businessStats.lites" [value3]="'lite account'" [icon]="'fa-circle-o'">
@@ -34,26 +36,45 @@ import {BusinessAction} from "../../../business/BusinessAction";
             <Infobox [value1]="businessStats.totalBusinesses" [value3]="'total businesses'" [icon]="'fa-users'">
             </Infobox>
         </div>
+    </div>  
+      <div class="row">
+      <div class="col-sm-12 col-lg-4">
+         <MyChart></MyChart>
+      </div>
+      <div class="col-sm-12 col-lg-4">
+         <MyChart></MyChart>
+      </div>
+      <div class="col-sm-12 col-lg-4">
+         <MyChart></MyChart>
+      </div>
+        
+      </div>
     `
 })
 export class Dashboard {
     unsub;
     businessStats = {};
 
-    constructor(private appStore:AppStore, private businessActions:BusinessAction) {
+    constructor(private appStore:AppStore) {
         this.loadData();
     }
 
     private loadData() {
-        if (this.appStore.getState().business.size == 0) {
-            this.appStore.dispatch(this.businessActions.fetchBusinesses());
-        } else {
-            var i_businesses = this.appStore.getState().business;
-            this.businessStats = i_businesses.getIn(['businessStats']);
-        }
         this.unsub = this.appStore.sub((i_businesses:Map<string,any>) => {
             this.businessStats = i_businesses.getIn(['businessStats']);
         }, 'business');
+        this.businessStats = this.appStore.getState().business.getIn(['businessStats']) || {};
+
+
+        // if (this.appStore.getState().business.size == 0) {
+        //     this.appStore.dispatch(this.businessActions.fetchBusinesses());
+        // } else {
+        //     var i_businesses = this.appStore.getState().business;
+        //     this.businessStats = i_businesses.getIn(['businessStats']);
+        // }
+        // this.unsub = this.appStore.sub((i_businesses:Map<string,any>) => {
+        //     this.businessStats = i_businesses.getIn(['businessStats']);
+        // }, 'business');
     }
 
     private ngOnDestroy() {

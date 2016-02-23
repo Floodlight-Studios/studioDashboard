@@ -1,16 +1,14 @@
 import {Map} from 'immutable';
-import * as AppdbAction from "../appdb/AppdbAction";
+import * as StationsAction from "../appdb/StationsAction";
 
 /** global application reduced actions defined here **/
 
-export default function appdb(state:Map<string, any> = Map<string, any>({}), action:any):Map<string, any> {
+export default function stations(state:Map<string, any> = Map<string, any>({}), action:any):Map<string, any> {
     switch (action.type) {
-        case AppdbAction.AUTH_PASS:
+        case StationsAction.APP_START_TIME:
             return state.merge({credentials: {authenticated: action.authenticated, user: action.user, pass: action.pass}});
-        case AppdbAction.APP_START_TIME:
+        case StationsAction.APP_START_TIME:
             return state.merge({appStartTime: Date.now()});
-        case AppdbAction.SERVERS_STATUS:
-            return state.merge({serversStatus: action.payload});
         default:
             return state;
     }

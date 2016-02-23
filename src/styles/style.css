@@ -11,7 +11,7 @@ body {
     font-family: 'Raleway', 'arial';
     height: 100%;
     background-color: #ffffff;
-    overflow-y: hidden;
+    overflow-y: auto;
 }
 
 a {
@@ -769,6 +769,7 @@ Language selector
 
 .fill_scroll {
     overflow-y: scroll;
+    overflow-x: hidden;
     height: 100%;
     min-height: 100%;
     padding-bottom: 50px;

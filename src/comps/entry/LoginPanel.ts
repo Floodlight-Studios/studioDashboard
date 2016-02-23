@@ -78,9 +78,12 @@ export class LoginPanel {
         this.m_pass = '';
 
         this.ubsub = appStore.sub((appdb:Map<string,any>) => {
-            var status = appdb.get('credentials').get('authenticated');
-            var user = appdb.get('credentials').get('user');
-            var pass = appdb.get('credentials').get('pass');
+            var credentials:Map<string,any> = appdb.get('credentials');
+            if (!credentials)
+                return;
+            var status = credentials.get('authenticated');
+            var user = credentials.get('user');
+            var pass = credentials.get('pass');
             if (status)
                 this.onLogin();
         }, 'appdb', false);

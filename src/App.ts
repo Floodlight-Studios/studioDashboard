@@ -1,12 +1,15 @@
 ///<reference path="../typings/app.d.ts"/>
 //import {enableProdMode} from 'angular2/core';
+
 require('bootstrap');
 import Immutable = require('immutable');
 import 'zone.js/dist/zone.min.js';
 import "reflect-metadata";
 import 'twbs/bootstrap/css/bootstrap.css!';
-import {CharCount} from "./pipes/CharCount";
 import './styles/style.css!';
+import {StoreService} from "./services/StoreService";
+import {BusinessAction} from "./business/BusinessAction";
+import {CharCount} from "./pipes/CharCount";
 import {bootstrap} from 'angular2/platform/browser';
 import {HTTP_PROVIDERS, JSONP_PROVIDERS} from "angular2/http";
 import {App1} from '../src/comps/app1/App1';
@@ -32,6 +35,7 @@ import 'rxjs/add/operator/debounceTime';
 import 'rxjs/add/observable/fromEvent';
 import notify from "./appdb/NotifyReducer"
 import appdb from "./appdb/AppdbReducer"
+import stations from "./appdb/StationsReducer"
 import {business} from "./business/BusinessReducer"
 import {AppdbAction} from "./appdb/AppdbAction";
 import {Welcome} from "./comps/welcome/Welcome";
@@ -73,7 +77,10 @@ import {Welcome} from "./comps/welcome/Welcome";
 export class App {
     private m_styleService:StyleService;
 
-    constructor(private appStore:AppStore, private commBroker:CommBroker, styleService:StyleService, private appdbAction:AppdbAction) {
+    constructor(private appStore:AppStore, private commBroker:CommBroker,
+                styleService:StyleService, private appdbAction:AppdbAction,
+                storeService:StoreService
+    ) {
         appStore.dispatch(appdbAction.appStartTime());
         this.m_styleService = styleService;
         this.commBroker.setService(Consts.Services().App, this);
@@ -107,7 +114,10 @@ export class App {
 
 //enableProdMode();
 bootstrap(App, [ROUTER_PROVIDERS, HTTP_PROVIDERS, JSONP_PROVIDERS,
-    provide(AppStore, {useFactory: Lib.StoreFactory({notify, appdb, business})}),
+    provide(AppStore, {useFactory: Lib.StoreFactory({notify, appdb, business, stations})}),
+    provide(StoreService, {useClass: StoreService}),
+    provide(BusinessAction, {useClass: BusinessAction}),
+    provide(AppdbAction, {useClass: AppdbAction}),
     provide(CommBroker, {useClass: CommBroker}),
     provide(Consts, {useClass: Consts}),
     provide(PLATFORM_PIPES, { useValue : CharCount, multi : true }),
