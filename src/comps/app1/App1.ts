@@ -21,8 +21,8 @@ import {Users} from "./users/Users";
 import {Dashboard} from "./dashboard/Dashboard";
 
 @RouteConfig([
-    {path: '/Users', component: Users, as: 'Users', useAsDefault: true},
-    {path: '/Dashboard', component: Dashboard, as: 'Dashboard'},
+    {path: '/Dashboard', component: Dashboard, as: 'Dashboard', useAsDefault: true},
+    {path: '/Users', component: Users, as: 'Users' },
     {path: '/Settings', component: Settings, as: 'Settings'},
     {path: '/Help', component: Help, as: 'Help'},
     {path: '/Logout', component: Logout, as: 'Logout'}
