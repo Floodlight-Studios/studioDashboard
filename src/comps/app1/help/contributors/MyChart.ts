@@ -4,13 +4,23 @@ import {Ng2Highcharts} from '../../../ng2-highcharts/ng2-highcharts';
 window['Highcharts'] = require('highcharts');
 
 @Component({
-    selector: 'MyChart'
+    selector: 'MyChart',
+
 })
 @View({
     template: `
         <div style="width: 100%; height: 80%">
-            <!-- <div [ng2-highcharts]="chartOptions" class="graph"></div> -->
-             <div [ng2-highcharts]="_chartBar" (init)="onInit($event)" class="graph"></div>
+            
+            <div *ngIf!="_data.length != 0">
+                <div style="margin-top: 120px"></div>
+                <center>
+                    <img src="assets/preload5.gif">
+                </center>
+            </div>
+            <div *ngIf="_data.length > 0">
+                 <!-- <div [ng2-highcharts]="chartOptions" class="graph"></div> -->
+                <div [ng2-highcharts]="_chartBar" (init)="onInit($event)" class="graph"></div>
+            </div>
         </div>
 
     `,
@@ -22,12 +32,12 @@ export class MyChart implements OnInit {
     _chartBar;
     native;
     series;
-    elChart
+    chart
 
     @Input()
     set data(value) {
         this._data = value;
-        if (this.series){
+        if (this.series) {
             this.series.setData(value);
             return;
         }
@@ -44,10 +54,15 @@ export class MyChart implements OnInit {
                     'Server1',
                     'Server2',
                     'Server3',
-                    'Server3',
-                    'Server3',
-                    'Server3',
-                    'Server3'
+                    'Server4',
+                    'Server5',
+                    'Server6',
+                    'Server7',
+                    'Server8',
+                    'Server9',
+                    'Server10',
+                    'Server11',
+                    'Server12'
                 ]
             },
             credits: {
@@ -60,7 +75,7 @@ export class MyChart implements OnInit {
                 }
             }, {
                 title: {
-                    text: 'time'
+                    text: 'time milliseconds'
                 },
                 opposite: true
             }],
@@ -87,15 +102,15 @@ export class MyChart implements OnInit {
     }
 
 
-
     constructor(el:ElementRef) {
         this.native = el.nativeElement
     }
 
-    onInit(chart:HighchartsChartObject){
-        this.elChart = chart;
+    onInit(chart:HighchartsChartObject) {
+        this.chart = chart;
         this.series = chart.series[0];//.setData([1,2,3,4,5]);
     }
+
     //chartOptions = {
     //    chart: {
     //        type: 'pie'
@@ -119,7 +134,6 @@ export class MyChart implements OnInit {
     //        data: [5, 7, 3]
     //    }]
     //};
-
 
 
     // chartBar = {

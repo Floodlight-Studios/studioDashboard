@@ -13,6 +13,10 @@ export class StoreService {
 
     private loadServices(){
         this.appStore.dispatch(this.businessActions.fetchBusinesses());
-        this.appStore.dispatch(this.appDbActions.serverStatus());
+
+        setInterval(()=>{
+            this.appStore.dispatch(this.appDbActions.serverStatus());
+        },3000)
+
     }
 }
