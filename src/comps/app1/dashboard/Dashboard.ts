@@ -39,14 +39,9 @@ import {MyChart} from "../help/contributors/MyChart";
     </div>  
       <div class="row">
       <div class="col-sm-12 col-lg-4">
-         <MyChart></MyChart>
+         <MyChart [data]="data"></MyChart>
       </div>
-      <div class="col-sm-12 col-lg-4">
-         <MyChart></MyChart>
-      </div>
-      <div class="col-sm-12 col-lg-4">
-         <MyChart></MyChart>
-      </div>
+      
         
       </div>
     `
@@ -54,9 +49,14 @@ import {MyChart} from "../help/contributors/MyChart";
 export class Dashboard {
     unsub;
     businessStats = {};
-
+    data;
     constructor(private appStore:AppStore) {
         this.loadData();
+        this.data = [11.6, 198.8, 208.5, 11, 11, 11, 11, _.random(10,100)];
+        setInterval(()=>{
+            this.data = [11.6, 198.8, 208.5, _.random(10,100), _.random(10,100), _.random(10,100), _.random(10,100), _.random(10,100)];
+        },400)
+
     }
 
     private loadData() {

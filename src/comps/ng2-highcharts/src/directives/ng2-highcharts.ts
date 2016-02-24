@@ -1,5 +1,5 @@
 /// <reference path="../../typings/highcharts/highcharts.d.ts" />
-import {Directive, ElementRef, Input} from 'angular2/core';
+import {Directive, ElementRef, Input, Output, EventEmitter} from 'angular2/core';
 
 @Directive({
 	selector: '[ng2-highcharts]'
@@ -27,9 +27,13 @@ export class Ng2Highcharts {
 			}
 			opt.chart.renderTo = this.hostElement.nativeElement;
 			this.chart = new Highcharts.Chart(opt);
+            this.init.next(this.chart);
 		} else {
 			console.log('No valid options...');
 			console.dir(opt);
 		}
 	}
+
+    @Output()
+    init:EventEmitter<any> = new EventEmitter();
 }
