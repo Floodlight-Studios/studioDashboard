@@ -19,7 +19,7 @@ window['Highcharts'] = require('highcharts');
             </div>
             <div *ngIf="_data.length > 0">
                  <!-- <div [ng2-highcharts]="chartOptions" class="graph"></div> -->
-                <div [ng2-highcharts]="_chartBar" (init)="onInit($event)" class="graph"></div>
+                <div [ng2-highcharts]="_options" (init)="onInit($event)" class="graph"></div>
             </div>
         </div>
 
@@ -29,20 +29,19 @@ window['Highcharts'] = require('highcharts');
 export class MyChart implements OnInit {
 
     _data;
-    _chartBar;
-    native;
-    series;
-    chart
+    _options;
+    _series;
+    _chart
 
     @Input()
     set data(value) {
         this._data = value;
-        if (this.series) {
-            this.series.setData(value);
+        if (this._series) {
+            this._series.setData(value);
             return;
         }
 
-        this._chartBar = {
+        this._options = {
             chart: {
                 type: 'column'
             },
@@ -101,14 +100,9 @@ export class MyChart implements OnInit {
         }
     }
 
-
-    constructor(el:ElementRef) {
-        this.native = el.nativeElement
-    }
-
     onInit(chart:HighchartsChartObject) {
-        this.chart = chart;
-        this.series = chart.series[0];//.setData([1,2,3,4,5]);
+        this._chart = chart;
+        this._series = chart.series[0];//.setData([1,2,3,4,5]);
     }
 
     //chartOptions = {

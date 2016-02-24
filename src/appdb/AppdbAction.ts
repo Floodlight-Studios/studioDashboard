@@ -50,7 +50,7 @@ export class AppdbAction extends Actions {
 
     public serverStatus() {
         return (dispatch) => {
-            this.m_http.get(`https://secure.digitalsignage.com/msPingServers`)
+            this.m_http.get(`https://secure.digitalsignage.com/msPingServersGuest`)
                 .map(result => {
                     result = result.json();
                     dispatch({type: SERVERS_STATUS, payload: result});
