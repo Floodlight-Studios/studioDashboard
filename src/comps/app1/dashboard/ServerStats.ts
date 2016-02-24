@@ -43,7 +43,7 @@ export class ServerStats {
         this._options = {
             chart: {
                 type: 'column',
-                height: 250,
+                height: 228,
                 borderColor: '#d9d9d9',
                 borderWidth: 1
             },

@@ -6,9 +6,10 @@ import {BusinessAction} from "../../../business/BusinessAction";
 import {ServerStats} from "./ServerStats";
 import {ServerAvg} from "./ServerAvg";
 import {AppdbAction} from "../../../appdb/AppdbAction";
+import {StationsMap} from "./StationsMap";
 
 @Component({
-    directives: [Infobox, ServerStats, ServerAvg],
+    directives: [Infobox, ServerStats, ServerAvg, StationsMap],
     selector: 'Dashboard',
     styles: [`        
     `],
@@ -45,11 +46,24 @@ import {AppdbAction} from "../../../appdb/AppdbAction";
        <div class="col-sm-12 col-lg-4">
           <ServerStats [data]="serverStats" [categories]="serverStatsCategories"></ServerStats>           
        </div>
-       <div class="col-sm-12 col-lg-4">
+       <div class="col-sm-12 col-lg-4" style="min-height: 280px">
           <ServerAvg [data]="serverAvgResponse"></ServerAvg>           
        </div>
        <div class="col-sm-12 col-lg-4">
+           <div class="row">
+               <div class="col-xm-12">
+                    <Infobox style="color: green" [value1]="'screens online: 25'" [value3]="'8 minutes ago'" [icon]="'fa-clock'">
+                    </Infobox>
+               </div>
+               <div class="col-xm-12">
+                    <Infobox style="color: red" [value1]="'screens offline: 2115'" [value3]="'8 minutes ago'" [icon]="'fa-clock'">
+                    </Infobox>
+               </div>
+           </div>
        </div>       
+    </div>
+    <div class="row">
+    <StationsMap data="[1,2,3]"></StationsMap>
     </div>
     
     `

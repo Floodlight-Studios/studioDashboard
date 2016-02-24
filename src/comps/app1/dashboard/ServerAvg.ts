@@ -32,12 +32,6 @@ export class ServerAvg {
     @Input()
     set data(value) {
         this._data = value;
-        // if (this._series) {
-        //     this._series.setData(value);
-        //     return;
-        // }
-
-
     }
 
     constructor() {
@@ -45,7 +39,7 @@ export class ServerAvg {
         this._options = {
             chart: {
                 type: 'spline',
-                height: 250,
+                height: 228,
                 borderColor: '#d9d9d9',
                 borderWidth: 1,
                 animation: Highcharts['svg'], // don't animate in old IE
@@ -128,5 +122,4 @@ export class ServerAvg {
         this._series = chart.series[0];
 
     }
-
 }
