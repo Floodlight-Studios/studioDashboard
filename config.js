@@ -69,7 +69,7 @@ System.config({
     "core-js": "npm:core-js@1.2.6",
     "css": "github:systemjs/plugin-css@0.1.20",
     "gulp-util": "npm:gulp-util@3.0.7",
-    "highcharts": "npm:highcharts@4.2.2",
+    "highcharts": "npm:highcharts@4.2.3",
     "immutable": "npm:immutable@3.7.6",
     "is-equal": "npm:is-equal@1.5.0",
     "jquery": "npm:jquery@2.2.0",
@@ -484,7 +484,7 @@ System.config({
     "npm:hash.js@1.0.3": {
       "inherits": "npm:inherits@2.0.1"
     },
-    "npm:highcharts@4.2.2": {
+    "npm:highcharts@4.2.3": {
       "process": "github:jspm/nodelibs-process@0.1.2"
     },
     "npm:hosted-git-info@2.1.4": {

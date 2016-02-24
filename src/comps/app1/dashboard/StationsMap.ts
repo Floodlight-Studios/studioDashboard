@@ -6,10 +6,10 @@ window['Highmaps'] = require('highcharts/modules/map')(Highcharts);
 
 @Component({
     selector: 'StationsMap',
-    moduleId: module.id,
     directives: [Ng2Highmaps],
     template: `
-       <div [ng2-highmaps]="chartMap" class="graph"></div>
+       <div [ng2-highmaps]="chartMap" class="Map"></div>
+       <div id="container" style="height: 500px; min-width: 310px; max-width: 800px; margin: 0 auto"></div>
     `
 })
 export class StationsMap implements OnInit {
@@ -82,13 +82,110 @@ export class StationsMap implements OnInit {
         }
     ];
     chartStock = {};
+    chartMap = {};
+
+    // http://jsfiddle.net/gh/get/jquery/1.9.1/highslide-software/highcharts.com/tree/master/samples/maps/demo/map-bubble/
+    // http://www.highcharts.com/samples/view.php?path=maps/demo/latlon-advanced
+    // http://plnkr.co/edit/YX7W20?p=preview
+    // https://github.com/SebastianM/angular2-google-maps
 
     constructor(private http:Http) {
+        var self = this;
         jQuery.getJSON('https://www.highcharts.com/samples/data/jsonp.php?filename=world-population.json&callback=?', function (data) {
-            //var mapData = Highcharts['geojson'](Highcharts['maps']['custom/world']);
-            // var a = Highcharts.maps['custom/world']
-            // var mapData = Highcharts.geojson(a);
-            //console.log(mapData);
+            jQuery.getScript('https://code.highcharts.com/mapdata/custom/world.js',()=>{
+                var mapData = Highcharts['geojson'](Highcharts['maps']['custom/world']);
+
+
+                // jQuery('#container').highcharts('Map', {
+                //     chart : {
+                //         borderWidth : 1
+                //     },
+                //
+                //     title: {
+                //         text: 'World population 2013 by country'
+                //     },
+                //
+                //     subtitle : {
+                //         text : 'Demo of Highcharts map with bubbles'
+                //     },
+                //
+                //     legend: {
+                //         enabled: false
+                //     },
+                //
+                //     mapNavigation: {
+                //         enabled: true,
+                //         buttonOptions: {
+                //             verticalAlign: 'bottom'
+                //         }
+                //     },
+                //
+                //     series : [{
+                //         name: 'Countries',
+                //         mapData: mapData,
+                //         color: '#E0E0E0',
+                //         enableMouseTracking: false
+                //     }, {
+                //         type: 'mapbubble',
+                //         mapData: mapData,
+                //         name: 'Population 2013',
+                //         joinBy: ['iso-a2', 'code'],
+                //         data: data,
+                //         minSize: 4,
+                //         maxSize: '12%',
+                //         tooltip: {
+                //             pointFormat: '{point.code}: {point.z} thousands'
+                //         }
+                //     }]
+                // });
+
+
+
+
+                // Correct UK to GB in data
+                jQuery.each(data, function () {
+                    if (this.code === 'UK') {
+                        this.code = 'GB';
+                    }
+                });
+
+                self.chartMap = {
+                    chart : {
+                        borderWidth : 1
+                    },
+
+                    title: {
+                        text: 'Stations map'
+                    },
+
+                    subtitle : {
+                    },
+
+                    legend: {
+                        enabled: false
+                    },
+
+                    mapNavigation: {
+                        enabled: true,
+                        buttonOptions: {
+                            verticalAlign: 'bottom'
+                        }
+                    },
+
+                    series : [{
+                        name: 'Countries',
+                        mapData: mapData,
+                        color: '#E0E0E0',
+                        enableMouseTracking: false
+                    }, {
+                        type: 'mappoint',
+                        name: 'Population 2013',
+                        data: data,
+                        maxSize: '12%',
+                        mapData: mapData
+                    }]
+                };
+            })
         });
 
 
@@ -96,40 +193,39 @@ export class StationsMap implements OnInit {
 
     ngOnInit():any {
 
-        //Map
-        this.http.get('assets/geojson.json').subscribe(
-            geojson => {
-                this.chartMap = {
-                    title: {
-                        text: 'GeoJSON in Highmaps'
-                    },
-                    mapNavigation: {
-                        enabled: true,
-                        buttonOptions: {
-                            verticalAlign: 'bottom'
-                        }
-                    },
-                    colorAxis: {},
-                    series: [{
-                        data: this.mapData,
-                        mapData: geojson.json(),
-                        joinBy: ['code_hasc', 'code'],
-                        name: 'Random data',
-                        states: {
-                            hover: {
-                                color: '#BADA55'
-                            }
-                        },
-                        dataLabels: {
-                            enabled: true,
-                            format: '{point.properties.postal}'
-                        }
-                    }]
-                };
-            },
-            err => {
-                console.error('Somethin went wrong', err);
-            }
-        );
+        // this.http.get('assets/geojson.json').subscribe(
+        //     geojson => {
+        //         this.chartMap = {
+        //             title: {
+        //                 text: 'GeoJSON in Highmaps'
+        //             },
+        //             mapNavigation: {
+        //                 enabled: true,
+        //                 buttonOptions: {
+        //                     verticalAlign: 'bottom'
+        //                 }
+        //             },
+        //             colorAxis: {},
+        //             series: [{
+        //                 data: this.mapData,
+        //                 mapData: geojson.json(),
+        //                 joinBy: ['code_hasc', 'code'],
+        //                 name: 'Random data',
+        //                 states: {
+        //                     hover: {
+        //                         color: '#BADA55'
+        //                     }
+        //                 },
+        //                 dataLabels: {
+        //                     enabled: true,
+        //                     format: '{point.properties.postal}'
+        //                 }
+        //             }]
+        //         };
+        //     },
+        //     err => {
+        //         console.error('Somethin went wrong', err);
+        //     }
+        // );
     }
 }
