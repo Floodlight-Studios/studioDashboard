@@ -48,6 +48,7 @@ aside > aside > div > ul > li {
     height: auto;
     margin: 0 auto -60px; /* respective of footer */
     padding: 0 0 60px; /* respective of footer */
+    background-color: #f5f5f5;
 }
 
 #appHeaderName {

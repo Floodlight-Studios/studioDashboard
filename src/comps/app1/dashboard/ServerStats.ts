@@ -8,7 +8,7 @@ window['Highcharts'] = require('highcharts');
 })
 @View({
     template: `
-        <div style="width: 100%; height: 80%">
+        <div style="width: 100%">
             <div *ngIf!="_data.length != 0">
                 <div style="margin-top: 120px"></div>
                 <center>
@@ -27,7 +27,10 @@ export class ServerStats {
     _data;
     _options;
     _series;
-    _chart
+    _chart;
+
+    @Input()
+    categories
 
     @Input()
     set data(value) {
@@ -39,26 +42,30 @@ export class ServerStats {
 
         this._options = {
             chart: {
-                type: 'column'
+                type: 'column',
+                height: 250,
+                borderColor: '#d9d9d9',
+                borderWidth: 1
             },
             title: {
                 text: ''
             },
             xAxis: {
-                categories: [
-                    'Server1',
-                    'Server2',
-                    'Server3',
-                    'Server4',
-                    'Server5',
-                    'Server6',
-                    'Server7',
-                    'Server8',
-                    'Server9',
-                    'Server10',
-                    'Server11',
-                    'Server12'
-                ]
+                // categories: [
+                //     'Server1',
+                //     'Server2',
+                //     'Server3',
+                //     'Server4',
+                //     'Server5',
+                //     'Server6',
+                //     'Server7',
+                //     'Server8',
+                //     'Server9',
+                //     'Server10',
+                //     'Server11',
+                //     'Server12'
+                // ]
+                categories: this.categories
             },
             credits: {
                 enabled: false
@@ -96,8 +103,7 @@ export class ServerStats {
 
     onInit(chart:HighchartsChartObject) {
         this._chart = chart;
-        this._series = chart.series[0];
+        this._series = chart.series && chart.series[0];
 
     }
-
 }

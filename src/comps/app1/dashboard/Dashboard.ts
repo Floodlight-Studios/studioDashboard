@@ -5,10 +5,13 @@ import {AppStore} from "angular2-redux-util/dist/index";
 import {BusinessAction} from "../../../business/BusinessAction";
 import {ServerStats} from "./ServerStats";
 import {ServerAvg} from "./ServerAvg";
+import {AppdbAction} from "../../../appdb/AppdbAction";
 
 @Component({
     directives: [Infobox, ServerStats, ServerAvg],
     selector: 'Dashboard',
+    styles: [`        
+    `],
     providers: [BusinessAction],
     template: `
     <div class="row">
@@ -40,12 +43,15 @@ import {ServerAvg} from "./ServerAvg";
     </div>  
     <div class="row">
        <div class="col-sm-12 col-lg-4">
-          <ServerStats [data]="serverStats"></ServerStats>           
+          <ServerStats [data]="serverStats" [categories]="serverStatsCategories"></ServerStats>           
        </div>
        <div class="col-sm-12 col-lg-4">
           <ServerAvg [data]="serverAvgResponse"></ServerAvg>           
        </div>
+       <div class="col-sm-12 col-lg-4">
+       </div>       
     </div>
+    
     `
 })
 export class Dashboard {
@@ -53,25 +59,32 @@ export class Dashboard {
     businessStats = {};
     serverStats;
     serverAvgResponse;
-    constructor(private appStore:AppStore) {
+    serverStatsCategories;
+
+    constructor(private appStore:AppStore, private appDbActions:AppdbAction) {
         var self = this;
         this.loadData();
         this.serverStats = [];
-        this.serverAvgResponse = [11.6, 198.8, 208.5, 11, 11, 11, 11, _.random(10,100)];
+        this.serverStatsCategories = [];
+        this.serverAvgResponse = 0;
 
-        setInterval(()=>{
-            //this.serverAvgResponse = _.random(10,100);
-        },6000)
-
+        this.appStore.dispatch(this.appDbActions.serverStatus());
 
         appStore.sub((appdb:Map<string,any>) => {
             var serversStatus:Map<string,any> = appdb.get('serversStatus');
             if (!serversStatus)
                 return;
+            let c = 0;
+            let t = 0;
             this.serverStats = [];
-            serversStatus.forEach((value)=>{
+            this.serverStatsCategories = [];
+            serversStatus.forEach((value,key)=>{
+                self.serverStatsCategories.push(key);
+                c++;
+                t = t + Number(value);
                 self.serverStats.push(Number(value));
             })
+            this.serverAvgResponse = t / c;
         }, 'appdb', false);
         
         
