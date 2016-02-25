@@ -52,11 +52,11 @@ import {StationsMap} from "./StationsMap";
        <div class="col-sm-12 col-lg-4">
            <div class="row">
                <div class="col-xm-12">
-                    <Infobox style="color: green" [value1]="'screens online: 25'" [value3]="'8 minutes ago'" [icon]="'fa-clock'">
+                    <Infobox style="color: green" [value1]="'screens online: 25'" [value3]="'8 minutes ago'" [icon]="'fa-tv'">
                     </Infobox>
                </div>
                <div class="col-xm-12">
-                    <Infobox style="color: red" [value1]="'screens offline: 2115'" [value3]="'8 minutes ago'" [icon]="'fa-clock'">
+                    <Infobox style="color: red" [value1]="'screens offline: 2115'" [value3]="'8 minutes ago'" [icon]="'fa-tv'">
                     </Infobox>
                </div>
            </div>
