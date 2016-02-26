@@ -60,7 +60,7 @@ System.config({
   map: {
     "angular2": "npm:angular2@2.0.0-beta.6",
     "angular2-polyfill": "npm:angular2-polyfill@0.0.2",
-    "angular2-redux-util": "npm:angular2-redux-util@0.5.51",
+    "angular2-redux-util": "npm:angular2-redux-util@0.8.55",
     "angular2-uuid": "npm:angular2-uuid@1.0.6",
     "bootbox": "npm:bootbox@4.4.0",
     "bootstrap": "github:twbs/bootstrap@3.3.6",
@@ -71,7 +71,7 @@ System.config({
     "gulp-util": "npm:gulp-util@3.0.7",
     "highcharts": "npm:highcharts@4.2.3",
     "immutable": "npm:immutable@3.7.6",
-    "is-equal": "npm:is-equal@1.5.0",
+    "is-equal": "npm:is-equal@1.5.1",
     "jquery": "npm:jquery@2.2.0",
     "lodash": "npm:lodash@4.2.1",
     "moment": "npm:moment@2.11.2",
@@ -162,8 +162,9 @@ System.config({
       "camelcase": "npm:camelcase@2.1.0",
       "dot-prop": "npm:dot-prop@2.2.0"
     },
-    "npm:angular2-redux-util@0.5.51": {
-      "is-equal": "npm:is-equal@1.5.0",
+    "npm:angular2-redux-util@0.8.55": {
+      "immutable": "npm:immutable@3.7.6",
+      "is-equal": "npm:is-equal@1.5.1",
       "object-path": "npm:object-path@0.9.2",
       "redux": "npm:redux@3.3.1"
     },
@@ -505,7 +506,7 @@ System.config({
     "npm:is-builtin-module@1.0.0": {
       "builtin-modules": "npm:builtin-modules@1.1.1"
     },
-    "npm:is-equal@1.5.0": {
+    "npm:is-equal@1.5.1": {
       "has": "npm:has@1.0.1",
       "is-arrow-function": "npm:is-arrow-function@2.0.3",
       "is-boolean-object": "npm:is-boolean-object@1.0.0",
@@ -560,7 +561,7 @@ System.config({
     "npm:lodash@4.2.1": {
       "process": "github:jspm/nodelibs-process@0.1.2"
     },
-    "npm:lodash@4.4.0": {
+    "npm:lodash@4.5.1": {
       "buffer": "github:jspm/nodelibs-buffer@0.1.0",
       "process": "github:jspm/nodelibs-process@0.1.2"
     },
@@ -729,8 +730,8 @@ System.config({
       "strip-indent": "npm:strip-indent@1.0.1"
     },
     "npm:redux@3.3.1": {
-      "lodash": "npm:lodash@4.4.0",
-      "lodash-es": "npm:lodash-es@4.4.0",
+      "lodash": "npm:lodash@4.5.1",
+      "lodash-es": "npm:lodash-es@4.5.1",
       "loose-envify": "npm:loose-envify@1.1.0",
       "process": "github:jspm/nodelibs-process@0.1.2"
     },
