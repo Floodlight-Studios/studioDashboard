@@ -89,6 +89,16 @@ export class App {
             this.appResized();
         });
 
+        appStore.sub((value) => {
+            console.log(value);
+        }, 'appdb.AA.BB.CC.DD');
+
+
+        appStore.sub((value) => {
+            console.log(value);
+        }, 'appdb.AA.BB');
+
+
 
     }
 
