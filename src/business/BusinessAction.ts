@@ -19,8 +19,7 @@ export const SET_BUSINESS_DATA = 'SET_BUSINESS_DATA';
 
 //const BASE_URL = "https://galaxy.signage.me/WebService/ResellerService.ashx?command=GetBusinessUsers&resellerUserName=rs@ms.com&resellerPassword=rrr&businessList=385360&callback=JSONP_CALLBACK";
 //const BASE_URL = "https://galaxy.signage.me/WebService/ResellerService.ashx?command=GetBusinessUsers&resellerUserName=rs@ms.com&resellerPassword=rrr&businessList=385360&callback=?";
-//const BASE_URL = "https://galaxy.signage.me/WebService/ResellerService.ashx?command=GetCustomers&resellerUserName=rs@ms.com&resellerPassword=rrr";
-const BASE_URL = "https://secure.digitalsignage.com/proxyRequest/aHR0cHM6Ly9nYWxheHkuc2lnbmFnZS5tZS9XZWJTZXJ2aWNlL1Jlc2VsbGVyU2VydmljZS5hc2h4P2NvbW1hbmQ9R2V0Q3VzdG9tZXJzJnJlc2VsbGVyVXNlck5hbWU9cnNAbXMuY29tJnJlc2VsbGVyUGFzc3dvcmQ9cnJy";
+const BASE_URL = "https://galaxy.signage.me/WebService/ResellerService.ashx?command=GetCustomers&resellerUserName=rs@ms.com&resellerPassword=rrr";
 
 @Injectable()
 export class BusinessAction extends Actions {
@@ -41,20 +40,7 @@ export class BusinessAction extends Actions {
     fetchBusinesses(...args) {
         var self = this;
         return (dispatch) => {
-
             dispatch(this.requestBusinesses());
-            //return this.jsonp
-            //    .request(BASE_URL)
-            //    .map(res=> {
-            //        console.log(res)
-            //    }).subscribe();
-            //return this.jsonp
-            //    .get(BASE_URL)
-            //    .map(res=>{
-            //        console.log(res);
-            //    }).subscribe();
-            // https://angular.io/docs/js/latest/api/http/JSONP_PROVIDERS-let.html
-
             const accountStats = {
                 lites: 0,
                 pros: 0,
@@ -62,9 +48,7 @@ export class BusinessAction extends Actions {
                 inactiveAccounts: 0,
                 lastLogin: 0,
                 totalBusinesses: 0
-
             }
-
             this._http.get(`${BASE_URL}`)
                 .map(result => {
                     var xmlData:string = result.text()

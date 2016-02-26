@@ -16,7 +16,7 @@ export class StoreService {
         this.appStore.dispatch(this.appDbActions.serverStatus());
         setInterval(()=>{
             this.appStore.dispatch(this.appDbActions.serverStatus());
-        },3000)
+        },30000)
 
     }
 }

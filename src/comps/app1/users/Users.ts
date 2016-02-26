@@ -8,6 +8,19 @@ import {CommBroker} from "../../../services/CommBroker";
 import {Consts} from "../../../Conts";
 import {UsersDetails} from "./UsersDetails";
 
+
+//todo: add access mask
+// var bits = [1, 2, 4, 8, 16, 32, 64, 128];
+// total: 149 & number in offset 4
+// self.m_WEEKDAYS.forEach(function (v, i) {
+//     var n = weekDays & v;
+//     if (n == v) {
+//         $(elDays).find('input').eq(i).prop('checked', true);
+//     } else {
+//         $(elDays).find('input').eq(i).prop('checked', false);
+//     }
+// });
+
 @Component({
     selector: 'Users',
     directives: [SimpleList, UsersDetails],
@@ -53,9 +66,9 @@ export class Users {
             var i_businesses = this.appStore.getState().business;
             this.businessesList = i_businesses.getIn(['businesses']);
         }
-        this.unsub = this.appStore.sub((i_businesses:Map<string,any>) => {
-            this.businessesList = i_businesses.getIn(['businesses']);
-        }, 'business');
+        this.unsub = this.appStore.sub((i_businesses:List<BusinessModel>) => {
+            this.businessesList = i_businesses;
+        }, 'business.businesses');
     }
 
     ngOnInit() {
@@ -85,39 +98,4 @@ export class Users {
     private ngOnDestroy() {
         this.unsub();
     }
-
 }
-
-
-// var state:List<BusinessModel> = this.appStore.getState().business;
-// function indexOf(i_businessId:string) {
-//     var businessId:number = Number(i_businessId);
-//     return state.findIndex((i:BusinessModel) => i.getKey('businessId') === businessId);
-// }
-// var state:List<BusinessModel> = this.appStore.getState().business;
-// var businessModel:BusinessModel = state.get(indexOf(businessId));
-//console.log(`${businessModel.getKey('name')} ${businessId} ${event.selected}`);
-
-// setInterval(()=>this.appStore.dispatch(businessActions.fetchBusinesses()), 100000);
-//self.appStore.dispatch(businessActions.setBusinessField('322949', 'businessDescription', Math.random()));
-//this.loadCustomers = businessActions.createDispatcher(businessActions.fetchBusinesses, appStore);
-
-
-// console.log(event);
-// return;
-// var business:BusinessModel = event.item;
-// var id = business.getKey('businessId');
-// if (event.selected) {
-//     this._metadata[id] = true;
-// } else {
-//     delete this._metadata[id];
-// }
-
-// if (this.businessActions.findBusinessIndex(business, this.businessesSelected) == -1)
-//     this.businessesSelected = this.businessesSelected.push(business);
-// } else {
-//     let index:number = this.businessActions.findBusinessIndex(business, this.businessesSelected);
-//     this.businessesSelected = this.businessesSelected.delete(index);
-// }
-
-// private _metadata:Object = {};

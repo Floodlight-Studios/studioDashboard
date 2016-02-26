@@ -52,11 +52,11 @@ import {StationsMap} from "./StationsMap";
        <div class="col-sm-12 col-lg-4">
            <div class="row">
                <div class="col-xm-12">
-                    <Infobox style="color: green" [value1]="'screens online: 25'" [value3]="'8 minutes ago'" [icon]="'fa-tv'">
+                    <Infobox style="color: green" [value1]="'screens online: 25'" [value3]="'updated'" icon="fa-tv">
                     </Infobox>
                </div>
                <div class="col-xm-12">
-                    <Infobox style="color: red" [value1]="'screens offline: 2115'" [value3]="'8 minutes ago'" [icon]="'fa-tv'">
+                    <Infobox style="color: red" [value1]="'screens offline: 2115'" [value3]="'updated'" icon="fa-tv">
                     </Infobox>
                </div>
            </div>
@@ -84,10 +84,7 @@ export class Dashboard {
 
         this.appStore.dispatch(this.appDbActions.serverStatus());
 
-        appStore.sub((appdb:Map<string,any>) => {
-            var serversStatus:Map<string,any> = appdb.get('serversStatus');
-            if (!serversStatus)
-                return;
+        appStore.sub((serversStatus:Map<string,any>) => {
             let c = 0;
             let t = 0;
             this.serverStats = [];
@@ -99,27 +96,16 @@ export class Dashboard {
                 self.serverStats.push(Number(value));
             })
             this.serverAvgResponse = t / c;
-        }, 'appdb', false);
+        }, 'appdb.serversStatus', false);
         
         
     }
 
     private loadData() {
         this.unsub = this.appStore.sub((i_businesses:Map<string,any>) => {
-            this.businessStats = i_businesses.getIn(['businessStats']);
-        }, 'business');
+            this.businessStats = i_businesses;
+        }, 'business.businessStats');
         this.businessStats = this.appStore.getState().business.getIn(['businessStats']) || {};
-
-
-        // if (this.appStore.getState().business.size == 0) {
-        //     this.appStore.dispatch(this.businessActions.fetchBusinesses());
-        // } else {
-        //     var i_businesses = this.appStore.getState().business;
-        //     this.businessStats = i_businesses.getIn(['businessStats']);
-        // }
-        // this.unsub = this.appStore.sub((i_businesses:Map<string,any>) => {
-        //     this.businessStats = i_businesses.getIn(['businessStats']);
-        // }, 'business');
     }
 
     private ngOnDestroy() {

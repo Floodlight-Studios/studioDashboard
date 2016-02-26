@@ -5,6 +5,7 @@ import * as AppdbAction from "../appdb/AppdbAction";
 
 export default function appdb(state:Map<string, any> = Map<string, any>({}), action:any):Map<string, any> {
     switch (action.type) {
+        case AppdbAction.AUTH_FAIL:
         case AppdbAction.AUTH_PASS:
             return state.merge({credentials: {authenticated: action.authenticated, user: action.user, pass: action.pass}});
         case AppdbAction.APP_START_TIME:

@@ -88,6 +88,8 @@ export class App {
         Observable.fromEvent(window, 'resize').debounceTime(250).subscribe(()=> {
             this.appResized();
         });
+
+
     }
 
     public appResized():void {

@@ -77,16 +77,16 @@ export class LoginPanel {
         this.m_user = '';
         this.m_pass = '';
 
-        this.ubsub = appStore.sub((appdb:Map<string,any>) => {
-            var credentials:Map<string,any> = appdb.get('credentials');
-            if (!credentials)
-                return;
+        this.ubsub = appStore.sub((credentials:Map<string,any>) => {
             var status = credentials.get('authenticated');
             var user = credentials.get('user');
             var pass = credentials.get('pass');
-            if (status)
-                this.onLogin();
-        }, 'appdb', false);
+            if (status) {
+                this.onAuthPass();
+            } else {
+                this.onAuthFail();
+            }
+        }, 'appdb.credentials', false);
 
     }
 
@@ -101,10 +101,14 @@ export class LoginPanel {
         this.appdbAction.createDispatcher(this.appdbAction.authenticateUser)(i_user, i_pass);
     }
 
-    private onLogin() {
+    private onAuthPass() {
         this.m_myRouter.navigate(['/AppManager']);
         bootbox.hideAll();
-        //event.preventDefault();
+        return false;
+    }
+
+    private onAuthFail() {
+        bootbox.hideAll();
         return false;
     }
 
