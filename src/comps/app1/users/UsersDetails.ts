@@ -5,11 +5,12 @@ import {OrderBy} from "../../../pipes/OrderBy";
 import {SIMPLEGRID_DIRECTIVES, ISimpleGridEdit} from "../../simplegrid/SimpleGrid";
 import {AppStore} from "angular2-redux-util/dist/index";
 import {BusinessAction} from "../../../business/BusinessAction";
+import {UserInfo} from "./UserInfo";
 
 @Component({
     selector: 'UsersDetails',
     changeDetection: ChangeDetectionStrategy.OnPush,
-    directives: [SIMPLEGRID_DIRECTIVES],
+    directives: [SIMPLEGRID_DIRECTIVES, UserInfo],
     pipes: [OrderBy],
     styles: [`
             .embossed {
@@ -26,18 +27,13 @@ import {BusinessAction} from "../../../business/BusinessAction";
     `],
 
     template: `
-    <!--<div style="background-color: #f5f5f5; border: solid #dddddd 1px; margin: 4px">-->
-        <!--<h1>sss</h1>-->
-        <!--<h1>sss</h1>-->
-        <!--<h1>sss</h1>-->
-    <!--</div>-->
     <br/>
     <div  *ngIf="!_businesses || _businesses.length == 0">
         <h1 class="embossed">USER DETAILS</h1>
         <h6 style="font-size: 3em" class="embossed">select a user to load up the properties</h6>
     </div>
     <div *ngIf="_businesses && _businesses.length == 1">
-        <h1>Selected user</h1>
+        <UserInfo [user]="_businesses"></UserInfo>
     </div>
     <div *ngIf="_businesses && _businesses.length > 1">
          <simpleGridTable>
