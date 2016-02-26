@@ -1,4 +1,3 @@
-///<reference path="../typings/app.d.ts"/>
 //import {enableProdMode} from 'angular2/core';
 
 require('bootstrap');

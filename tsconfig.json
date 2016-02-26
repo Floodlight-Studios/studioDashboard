@@ -12,7 +12,8 @@
   },
   "filesGlob": [
     "./**/*.ts",
-    "!./node_modules"
+    "!./node_modules",
+    "/src/typings/app.d.ts"
   ],
   "exclude": [
     "src/comps/app4/in_dev",

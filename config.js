@@ -73,7 +73,7 @@ System.config({
     "immutable": "npm:immutable@3.7.6",
     "is-equal": "npm:is-equal@1.5.1",
     "jquery": "npm:jquery@2.2.0",
-    "lodash": "npm:lodash@4.2.1",
+    "lodash": "npm:lodash@4.5.1",
     "moment": "npm:moment@2.11.2",
     "ng2-bootstrap": "npm:ng2-bootstrap@1.0.3",
     "ng2-bs3-modal/dist/ng2-bs3-modal": "github:born2net/ng2-bs3-modal@0.1.0",
@@ -557,9 +557,6 @@ System.config({
     "npm:lodash.templatesettings@3.1.1": {
       "lodash._reinterpolate": "npm:lodash._reinterpolate@3.0.0",
       "lodash.escape": "npm:lodash.escape@3.2.0"
-    },
-    "npm:lodash@4.2.1": {
-      "process": "github:jspm/nodelibs-process@0.1.2"
     },
     "npm:lodash@4.5.1": {
       "buffer": "github:jspm/nodelibs-buffer@0.1.0",

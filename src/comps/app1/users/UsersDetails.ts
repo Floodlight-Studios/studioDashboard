@@ -11,6 +11,20 @@ import {BusinessAction} from "../../../business/BusinessAction";
     changeDetection: ChangeDetectionStrategy.OnPush,
     directives: [SIMPLEGRID_DIRECTIVES],
     pipes: [OrderBy],
+    styles: [`
+            .embossed {
+                font-size: 8em;
+                background-color: #666666;
+                -webkit-background-clip: text;
+                -moz-background-clip: text;
+                background-clip: text;
+                color: transparent;
+                text-shadow: rgba(255,255,255,0.5) 0px 3px 3px;
+                margin: 50px auto;
+                text-align: center;
+                opacity: 0.3;
+    `],
+
     template: `
     <!--<div style="background-color: #f5f5f5; border: solid #dddddd 1px; margin: 4px">-->
         <!--<h1>sss</h1>-->
@@ -18,7 +32,14 @@ import {BusinessAction} from "../../../business/BusinessAction";
         <!--<h1>sss</h1>-->
     <!--</div>-->
     <br/>
-    <div>
+    <div  *ngIf="!_businesses || _businesses.length == 0">
+        <h1 class="embossed">USER DETAILS</h1>
+        <h6 style="font-size: 3em" class="embossed">select a user to load up the properties</h6>
+    </div>
+    <div *ngIf="_businesses && _businesses.length == 1">
+        <h1>Selected user</h1>
+    </div>
+    <div *ngIf="_businesses && _businesses.length > 1">
          <simpleGridTable>
                 <thead>
                 <tr>
