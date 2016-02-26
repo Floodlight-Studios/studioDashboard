@@ -7,25 +7,6 @@ var Immutable = require('immutable');
 export default function appdb(state:Map<string, any> = Map<string, any>({}), action:any):Map<string, any> {
     switch (action.type) {
         case AppdbAction.AUTH_FAIL:
-            var Y = Immutable.fromJS({
-                AA: {
-                    BB: {
-                       a: 1
-                    }
-                }
-            });
-
-            var X = Immutable.Map({
-                AA: Immutable.Map({
-                    BB: Immutable.Map({
-                        CC: Immutable.Map({
-                            DD: 'TEST 2'
-                        })
-                    })
-                })
-            });
-            return Y;
-
         case AppdbAction.AUTH_PASS:
             return state.merge({credentials: {authenticated: action.authenticated, user: action.user, pass: action.pass}});
         case AppdbAction.APP_START_TIME:
