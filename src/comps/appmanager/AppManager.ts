@@ -8,7 +8,6 @@ import {Lib} from "../../Lib";
     selector: 'AppManager',
     template: `
     <div id="appEntry">
-        <small>I am AppManager component</small>
         <div id="appSelector" class="noScroll container" >
             <div align="center" style="padding-top: 100px">
                 <button (click)="goToApp1(event)" data-ripple-color="black" type="button" name="mailWasp" class="btn btn-default">

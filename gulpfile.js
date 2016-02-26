@@ -210,8 +210,8 @@ gulp.task('x_open_server_development_auto', ['x_watch_source'], function () {
             directory: true
         }
     });
-    // exit every 10 minutes so forever will restart it
-    setTimeout(function(){process.exit()},600000);
+    // exit every 20 minutes so forever will restart it
+    setTimeout(function(){process.exit()},1200000);
 });
 
 gulp.task('x_assets',function(){

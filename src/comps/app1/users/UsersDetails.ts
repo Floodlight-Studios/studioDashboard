@@ -14,7 +14,7 @@ import {UserInfo} from "./UserInfo";
     pipes: [OrderBy],
     styles: [`
             .embossed {
-                font-size: 8em;
+                font-size: 7.2em;
                 background-color: #666666;
                 -webkit-background-clip: text;
                 -moz-background-clip: text;
@@ -24,13 +24,20 @@ import {UserInfo} from "./UserInfo";
                 margin: 50px auto;
                 text-align: center;
                 opacity: 0.3;
+              }
+              .embossedSmaller {
+                font-size: 2em !important;
+                position: relative;;
+                top: -60px;
+                letter-spacing: -1px;
+              }
     `],
 
     template: `
     <br/>
     <div  *ngIf="!_businesses || _businesses.length == 0">
         <h1 class="embossed">USER DETAILS</h1>
-        <h6 style="font-size: 3em" class="embossed">select a user to load up the properties</h6>
+        <h6 class="embossedSmaller embossed">select user(s) from the list to load up the related properties</h6>
     </div>
     <div *ngIf="_businesses && _businesses.length == 1">
         <UserInfo [user]="_businesses"></UserInfo>

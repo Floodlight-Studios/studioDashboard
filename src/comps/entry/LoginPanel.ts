@@ -16,6 +16,7 @@ import {AppStore} from "angular2-redux-util";
 import {BusinessAction} from "../../business/BusinessAction";
 import {AppdbAction} from "../../appdb/AppdbAction";
 import Map = Immutable.Map;
+import {LocalStorage} from "../../services/LocalStorage";
 
 // import {Subject} from "rxjs/Subject";
 // import {BehaviorSubject} from "rxjs/subject/BehaviorSubject";
@@ -41,18 +42,18 @@ export class User {
 @Component({
     selector: 'LoginPanel',
     directives: [ROUTER_DIRECTIVES, RouterLink],
-    providers: [BusinessAction],
+    providers: [BusinessAction, LocalStorage],
     template: `
-                <MyChart></MyChart>
-                <div id="appLogin" style="">
+                <div *ngIf="showLoginPanel" id="appLogin">
                   <form class="form-signin" role="form">
                     <h2 class="form-signin-heading"></h2>
-                    <input #userName id="userName" type="text" value="{{user}}" class="form-control" data-localize="username" placeholder="Type anything" required autofocus>
-                    <input #userPass id="userPass" type="password" value="{{pass}}" class="form-control" data-localize="password" placeholder="Type anything" required>
-                    <label class="checkbox">
-                      <input id="rememberMe" type="checkbox" checked value="remember-me">
-                      <span> Remember me </span></label>
-                    <button id="loginButton" (click)="authUser(userName.value, userPass.value)" class="btn btn-lg btn-primary btn-block" type="submit">
+                    <input #userName id="userName" type="text" [(ngModel)]="m_user" class="form-control" data-localize="username" placeholder="Type anything" required autofocus>
+                    <input #userPass id="userPass" type="password" [(ngModel)]="m_pass" class="form-control" data-localize="password" placeholder="Type anything" required>
+                    <label class="checkbox" style="padding-left: 20px">
+                      <input #rememberMe type="checkbox" [checked]="m_rememberMe" (change)="m_rememberMe = rememberMe.checked" />
+                      <span> Remember me </span>
+                    </label>
+                    <button id="loginButton" (click)="authUser()" class="btn btn-lg btn-primary btn-block" type="submit">
                       Sign in
                     </button>
                     <hr class="hrThin"/>
@@ -60,22 +61,24 @@ export class User {
                     <div id="languageSelectionLogin"></div>
                   </form>
                 </div>
-
                 <!-- <a [routerLink]="['/EntryPanelNoId', {id: 123}, 'Route4']">To forgot pass</a> -->
                 <!-- <a [routerLink]="['/App1']">Direct to App1</a><br/> -->
                 <!-- <a [routerLink]="['/App2']">Direct to App2</a><br/> -->
-                <small>I am Login component and I am inside EntryPanel</small>`
+               `
 })
 export class LoginPanel {
     private m_user:string;
     private m_pass:string;
     private m_myRouter:Router;
-    ubsub;
+    private m_rememberMe;
+    private ubsub;
+    private showLoginPanel:boolean = false;
 
-    constructor(private appStore:AppStore, router:Router, private appdbAction:AppdbAction) {
+    constructor(private appStore:AppStore, router:Router, private appdbAction:AppdbAction, private localStorage:LocalStorage) {
         this.m_myRouter = router;
         this.m_user = '';
         this.m_pass = '';
+        this.m_rememberMe = 'checked';
 
         this.ubsub = appStore.sub((credentials:Map<string,any>) => {
             var status = credentials.get('authenticated');
@@ -87,28 +90,63 @@ export class LoginPanel {
                 this.onAuthFail();
             }
         }, 'appdb.credentials', false);
-
+        this.autoLogin();
     }
 
-    private authUser(i_user:string, i_pass:string) {
-        var self = this;
+    private autoLogin() {
+        var credentials = this.localStorage.getItem('remember_me');
+        if (!credentials || (credentials && credentials.u == '')){
+            this.showLoginPanel = true;
+            if (credentials){
+                this.m_rememberMe = credentials.u;
+            }
+            return;
+        }
+        this.m_user = credentials.u;
+        this.m_pass = credentials.p;
+        this.authUser();
+    }
+
+    private authUser() {
         bootbox.dialog({
             closeButton: false,
             title: "Please wait, Authenticating...",
             message: " "
         });
-
-        this.appdbAction.createDispatcher(this.appdbAction.authenticateUser)(i_user, i_pass);
+        this.appdbAction.createDispatcher(this.appdbAction.authenticateUser)(this.m_user, this.m_pass);
     }
 
     private onAuthPass() {
-        this.m_myRouter.navigate(['/AppManager']);
+        this.m_myRouter.navigate(['/App1']);
         bootbox.hideAll();
+        if (this.m_rememberMe) {
+            this.localStorage.setItem('remember_me', {
+                u: this.m_user,
+                p: this.m_pass,
+                r: this.m_rememberMe
+            });
+        } else {
+            this.localStorage.setItem('remember_me', {
+                u: '',
+                p: '',
+                r: this.m_rememberMe
+            });
+        }
         return false;
     }
 
     private onAuthFail() {
-        bootbox.hideAll();
+        this.showLoginPanel = true;
+        setTimeout(()=> {
+            bootbox.hideAll();
+        }, 1000);
+        setTimeout(()=> {
+            bootbox.dialog({
+                closeButton: true,
+                title: "User or password are incorrect...",
+                message: "Please try again or click forgot password to reset your credentials"
+            });
+        }, 1200);
         return false;
     }
 
