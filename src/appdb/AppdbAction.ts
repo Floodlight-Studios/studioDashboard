@@ -3,7 +3,7 @@ import {Actions, AppStore} from "angular2-redux-util";
 import {Http, Jsonp} from "angular2/http";
 import {Lib} from "../Lib";
 
-export const APP_START_TIME = 'APP_START_TIME';
+export const APP_INIT = 'APP_INIT';
 export const SERVERS_STATUS = 'SERVERS_STATUS';
 export const AUTH_PASS = 'AUTH_PASS';
 export const AUTH_FAIL = 'AUTH_FAIL';
@@ -34,7 +34,7 @@ export class AppdbAction extends Actions {
                     }
                 }).subscribe()
 
-            // const JBASE_URL = "https://galaxy.signage.me/WebService/ResellerService.ashx?command=GetCustomers&resellerUserName=rs@ms.com&resellerPassword=rrr&callback=JSONP_CALLBACK";
+            // const JBASE_URL = "https://galaxy.signage.me/WebService/ResellerService.ashx?command=GetCustomers&resellerUserName=rs@ms.com&resellerPassword=XXXX&callback=JSONP_CALLBACK";
             //
             // return this.jsonp
             //    .request(JBASE_URL)
@@ -74,8 +74,8 @@ export class AppdbAction extends Actions {
         };
     }
 
-    public appStartTime() {
-        return {type: APP_START_TIME, value: Date.now()};
+    public initAppDb() {
+        return {type: APP_INIT, value: Date.now()};
     }
 
     public authenticateUserA(i_user, i_pass) {

@@ -1,27 +1,10 @@
-///<reference path="../../../typings/app.d.ts" />
-
-import {Component, Injectable} from 'angular2/core';
-import {ROUTER_DIRECTIVES} from 'angular2/router';
-import {RouterLink} from 'angular2/router';
+import {Injectable} from 'angular2/core';
 import {Router} from "angular2/router";
-import 'rxjs/add/observable/from';
-import 'rxjs/add/observable/fromEvent';
-import 'rxjs/add/operator/map';
-import 'rxjs/add/operator/bufferCount';
-import 'rxjs/add/operator/filter';
-import 'rxjs/add/operator/scan';
-import 'rxjs/add/operator/do';
-import 'rxjs/add/observable/range';
 import {AppStore} from "angular2-redux-util";
-import {BusinessAction} from "../../business/BusinessAction";
-import {AppdbAction} from "../../appdb/AppdbAction";
 import Map = Immutable.Map;
-import {LocalStorage} from "../../services/LocalStorage";
-import {StoreService} from "../../services/StoreService";
-
-// import {Subject} from "rxjs/Subject";
-// import {BehaviorSubject} from "rxjs/subject/BehaviorSubject";
-// import {Observable} from "rxjs/Observable";
+import {LocalStorage} from "./LocalStorage";
+import {StoreService} from "./StoreService";
+import {AppdbAction} from "../appdb/AppdbAction";
 
 var bootbox = require('bootbox');
 
@@ -40,34 +23,7 @@ export class User {
 }
 
 @Injectable()
-@Component({
-    selector: 'LoginPanel',
-    directives: [ROUTER_DIRECTIVES, RouterLink],
-    providers: [BusinessAction, LocalStorage],
-    template: `
-                <div *ngIf="showLoginPanel" id="appLogin">
-                  <form class="form-signin" role="form">
-                    <h2 class="form-signin-heading"></h2>
-                    <input #userName id="userName" type="text" [(ngModel)]="m_user" class="form-control" data-localize="username" placeholder="Type anything" required autofocus>
-                    <input #userPass id="userPass" type="password" [(ngModel)]="m_pass" class="form-control" data-localize="password" placeholder="Type anything" required>
-                    <label class="checkbox" style="padding-left: 20px">
-                      <input #rememberMe type="checkbox" [checked]="m_rememberMe" (change)="m_rememberMe = rememberMe.checked" />
-                      <span> Remember me </span>
-                    </label>
-                    <button id="loginButton" (click)="authUser()" class="btn btn-lg btn-primary btn-block" type="submit">
-                      Sign in
-                    </button>
-                    <hr class="hrThin"/>
-                    <a [routerLink]="['/ForgotPass', 'ForgotPass']">Forgot password</a>
-                    <div id="languageSelectionLogin"></div>
-                  </form>
-                </div>
-                <!-- <a [routerLink]="['/EntryPanelNoId', {id: 123}, 'Route4']">To forgot pass</a> -->
-                <!-- <a [routerLink]="['/App1']">Direct to App1</a><br/> -->
-                <!-- <a [routerLink]="['/App2']">Direct to App2</a><br/> -->
-               `
-})
-export class LoginPanel {
+export class LoginService {
     private m_user:string;
     private m_pass:string;
     private m_myRouter:Router;
@@ -75,8 +31,7 @@ export class LoginPanel {
     private ubsub;
     private showLoginPanel:boolean = false;
 
-    constructor(private appStore:AppStore, router:Router, private appdbAction:AppdbAction, private localStorage:LocalStorage, private storeService:StoreService) {
-        this.m_myRouter = router;
+    constructor(private appStore:AppStore, private appdbAction:AppdbAction, private localStorage:LocalStorage, private storeService:StoreService) {
         this.m_user = '';
         this.m_pass = '';
         this.m_rememberMe = 'checked';
@@ -91,7 +46,7 @@ export class LoginPanel {
                 this.onAuthFail();
             }
         }, 'appdb.credentials', false);
-        
+
         this.autoLogin();
     }
 

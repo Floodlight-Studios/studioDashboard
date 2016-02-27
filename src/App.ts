@@ -80,15 +80,12 @@ export class App {
                 styleService:StyleService, private appdbAction:AppdbAction,
                 storeService:StoreService
     ) {
-        appStore.dispatch(appdbAction.appStartTime());
         this.m_styleService = styleService;
         this.commBroker.setService(Consts.Services().App, this);
-        appStore.dispatch(appdbAction.appStartTime());
         Observable.fromEvent(window, 'resize').debounceTime(250).subscribe(()=> {
             this.appResized();
         });
-
-
+        appStore.dispatch(appdbAction.initAppDb());
     }
 
     public appResized():void {

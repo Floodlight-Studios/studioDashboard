@@ -8,14 +8,13 @@ export class StoreService {
     constructor(private appStore:AppStore,
                 private businessActions:BusinessAction,
                 private appDbActions:AppdbAction) {
-        this.loadServices();
     }
 
-    private loadServices(){
+    public loadServices(){
         this.appStore.dispatch(this.businessActions.fetchBusinesses());
         this.appStore.dispatch(this.appDbActions.serverStatus());
         setInterval(()=>{
-            this.appStore.dispatch(this.appDbActions.serverStatus());
+            // this.appStore.dispatch(this.appDbActions.serverStatus());
         },30000)
 
     }

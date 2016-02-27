@@ -19,6 +19,7 @@ import {SimpleGridData} from "./SimpleGridData";
 })
 
 export class SimpleGridTable {
+    someVal;
     @Input()
     sort;
     @Input()
@@ -27,4 +28,8 @@ export class SimpleGridTable {
     // ngAfterViewInit() {
     //     this.zipControl.updateValue('91301');
     // }
+    public hello(){
+        alert('hello');
+        this.someVal = Math.random();
+    }
 }

@@ -8,12 +8,24 @@ export default function appdb(state:Map<string, any> = Map<string, any>({}), act
     switch (action.type) {
         case AppdbAction.AUTH_FAIL:
         case AppdbAction.AUTH_PASS:
-            return state.merge({credentials: {authenticated: action.authenticated, user: action.user, pass: action.pass}});
-        case AppdbAction.APP_START_TIME:
-            return state.merge({appStartTime: Date.now()});
+            return state.merge({
+                credentials: {
+                    authenticated: action.authenticated,
+                    user: action.user,
+                    pass: action.pass
+                },
+                appBaseUrlUser: `https://galaxy.signage.me/WebService/ResellerService.ashx?resellerUserName=${action.user}&resellerPassword=${action.pass}`
+            });
+        case AppdbAction.APP_INIT:
+            return state.merge({
+                appStartTime: Date.now(),
+                appBaseUrl: 'https://galaxy.signage.me/WebService/ResellerService.ashx'
+            });
         case AppdbAction.SERVERS_STATUS:
             return state.merge({serversStatus: action.payload});
         default:
             return state;
     }
 }
+
+

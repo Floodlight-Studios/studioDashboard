@@ -2,7 +2,7 @@ import {Injectable} from "angular2/core";
 import {Actions, AppStore} from "angular2-redux-util";
 import {Http} from "angular2/http";
 
-export const APP_START_TIME = 'APP_START_TIME';
+export const AKAKAKAK = 'AKAKAKAK';
 
 @Injectable()
 export class StationActions extends Actions {
@@ -43,7 +43,7 @@ export class StationActions extends Actions {
     }
 
     public appStartTime() {
-        return {type: APP_START_TIME, value: Date.now()};
+        return {type: AKAKAKAK, value: Date.now()};
     }
 
     public authenticateUserA(i_user, i_pass) {

@@ -1,6 +1,6 @@
 import {Http, Jsonp} from "angular2/http";
 import {Injectable} from "angular2/core";
-import {Actions} from "angular2-redux-util";
+import {Actions, AppStore} from "angular2-redux-util";
 import 'rxjs/add/operator/map';
 import {BusinessModel} from "./BusinesModel";
 import {Lib} from "../Lib";
@@ -17,14 +17,12 @@ export const RECEIVE_NUMBER_OF_FILMS = 'RECEIVE_NUMBER_OF_FILMS';
 export const SET_BUSINESS_DATA = 'SET_BUSINESS_DATA';
 
 
-//const BASE_URL = "https://galaxy.signage.me/WebService/ResellerService.ashx?command=GetBusinessUsers&resellerUserName=rs@ms.com&resellerPassword=rrr&businessList=385360&callback=JSONP_CALLBACK";
-//const BASE_URL = "https://galaxy.signage.me/WebService/ResellerService.ashx?command=GetBusinessUsers&resellerUserName=rs@ms.com&resellerPassword=rrr&businessList=385360&callback=?";
 const BASE_URL = "https://galaxy.signage.me/WebService/ResellerService.ashx?command=GetCustomers&resellerUserName=rs@ms.com&resellerPassword=rrr";
 
 @Injectable()
 export class BusinessAction extends Actions {
 
-    constructor(private _http:Http, private jsonp:Jsonp) {
+    constructor(private _http:Http, private appStore:AppStore) {
         super();
     }
 
@@ -49,7 +47,9 @@ export class BusinessAction extends Actions {
                 lastLogin: 0,
                 totalBusinesses: 0
             }
-            this._http.get(`${BASE_URL}`)
+            var appdb:Map<string,any> = this.appStore.getState().appdb;
+            var url = appdb.get('appBaseUrlUser') + '&command=GetCustomers';
+            this._http.get(url)
                 .map(result => {
                     var xmlData:string = result.text()
                     xmlData = xmlData.replace(/}\)/, '').replace(/\(\{"result":"/, '');
@@ -164,17 +164,17 @@ export class BusinessAction extends Actions {
         }
     }
 
-    fetchBusiness(index) {
-        return (dispatch) => {
-            dispatch(this.requestFilm());
-            this._http.get(`${BASE_URL}${index + 1}/`)
-                .map(result => result.json())
-                .map(json => {
-                    dispatch(this.receiveFilm(json));
-                })
-                .subscribe();
-        };
-    }
+    // fetchBusiness(index) {
+    //     return (dispatch) => {
+    //         dispatch(this.requestFilm());
+    //         this._http.get(`${BASE_URL}${index + 1}/`)
+    //             .map(result => result.json())
+    //             .map(json => {
+    //                 dispatch(this.receiveFilm(json));
+    //             })
+    //             .subscribe();
+    //     };
+    // }
 
     requestBusinesses() {
         return {type: REQUEST_BUSINESSES};
