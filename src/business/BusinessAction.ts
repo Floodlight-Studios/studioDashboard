@@ -17,8 +17,6 @@ export const RECEIVE_NUMBER_OF_FILMS = 'RECEIVE_NUMBER_OF_FILMS';
 export const SET_BUSINESS_DATA = 'SET_BUSINESS_DATA';
 
 
-const BASE_URL = "https://galaxy.signage.me/WebService/ResellerService.ashx?command=GetCustomers&resellerUserName=rs@ms.com&resellerPassword=rrr";
-
 @Injectable()
 export class BusinessAction extends Actions {
 

@@ -74,10 +74,11 @@ import {AuthService} from "../../../services/AuthService";
 
 @CanActivate((to:ComponentInstruction, from:ComponentInstruction) => {
     let authService:AuthService = appInjService().get(AuthService);
-    return authService.checkAccess(to, from, ['/Login/Login']);
+    return authService.checkAccess(to, from);
 })
 export class Dashboard implements OnActivate {
-    unsub;
+    unsub1:()=>void;
+    unsub2:()=>void;
     businessStats = {};
     serverStats;
     serverAvgResponse;
@@ -92,7 +93,7 @@ export class Dashboard implements OnActivate {
 
         this.appStore.dispatch(this.appDbActions.serverStatus());
 
-        appStore.sub((serversStatus:Map<string,any>) => {
+        this.unsub2 = appStore.sub((serversStatus:Map<string,any>) => {
             let c = 0;
             let t = 0;
             this.serverStats = [];
@@ -111,14 +112,15 @@ export class Dashboard implements OnActivate {
     }
 
     private loadData() {
-        this.unsub = this.appStore.sub((i_businesses:Map<string,any>) => {
+        this.unsub1 = this.appStore.sub((i_businesses:Map<string,any>) => {
             this.businessStats = i_businesses;
         }, 'business.businessStats');
         this.businessStats = this.appStore.getState().business.getIn(['businessStats']) || {};
     }
 
     private ngOnDestroy() {
-        this.unsub();
+        this.unsub1();
+        this.unsub2();
     }
 }
 

@@ -24,6 +24,7 @@ export class AuthService {
             var user = credentials.get('user');
             var pass = credentials.get('pass');
             var remember = credentials.get('remember');
+
             if (this.m_authenticated) {
                 this.onAuthPass(user, pass, remember);
             } else {
@@ -49,9 +50,8 @@ export class AuthService {
                 r: i_remember
             });
         }
-        setTimeout(()=>{
-            this.storeService.loadServices();
-        },12000)
+        // fire up the application services
+        this.storeService.loadServices();
     }
 
     private onAuthFail() {
@@ -95,7 +95,7 @@ export class AuthService {
         }
     }
 
-    public checkAccess(to:ComponentInstruction, from:ComponentInstruction, target = ['/Home']):Promise<any> {
+    public checkAccess(to:ComponentInstruction, from:ComponentInstruction, target = ['/Login/Login']):Promise<any> {
         let injector:Injector = appInjService();
         let router:Router = injector.get(Router);
 

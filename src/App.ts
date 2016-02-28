@@ -80,9 +80,7 @@ import {Welcome} from "./comps/welcome/Welcome";
 export class App {
     private m_styleService:StyleService;
 
-    constructor(private appStore:AppStore, private commBroker:CommBroker,
-                styleService:StyleService, private appdbAction:AppdbAction,
-                storeService:StoreService, private router:Router) {
+    constructor(private appStore:AppStore, private commBroker:CommBroker, styleService:StyleService, private appdbAction:AppdbAction, private router:Router) {
         this.m_styleService = styleService;
         this.commBroker.setService(Consts.Services().App, this);
         Observable.fromEvent(window, 'resize').debounceTime(250).subscribe(()=> {
