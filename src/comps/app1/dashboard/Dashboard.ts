@@ -1,4 +1,4 @@
-import {Component} from 'angular2/core'
+import {Component, Injector} from 'angular2/core'
 import {Infobox} from "../../infobox/Infobox";
 import {List, Map} from 'immutable';
 import {AppStore} from "angular2-redux-util/dist/index";
@@ -7,6 +7,9 @@ import {ServerStats} from "./ServerStats";
 import {ServerAvg} from "./ServerAvg";
 import {AppdbAction} from "../../../appdb/AppdbAction";
 import {StationsMap} from "./StationsMap";
+import {CanActivate, OnActivate, ComponentInstruction, Router} from "angular2/router";
+import {appInjService} from "../../../services/AppInjService";
+import {AuthService} from "../../../services/AuthService";
 
 @Component({
     directives: [Infobox, ServerStats, ServerAvg, StationsMap],
@@ -68,7 +71,12 @@ import {StationsMap} from "./StationsMap";
     
     `
 })
-export class Dashboard {
+
+@CanActivate((to:ComponentInstruction, from:ComponentInstruction) => {
+    let authService:AuthService = appInjService().get(AuthService);
+    return authService.checkAccess(to, from, ['/Login/Login']);
+})
+export class Dashboard implements OnActivate {
     unsub;
     businessStats = {};
     serverStats;
@@ -89,7 +97,7 @@ export class Dashboard {
             let t = 0;
             this.serverStats = [];
             this.serverStatsCategories = [];
-            serversStatus.forEach((value,key)=>{
+            serversStatus.forEach((value, key)=> {
                 self.serverStatsCategories.push(key);
                 c++;
                 t = t + Number(value);
@@ -97,8 +105,9 @@ export class Dashboard {
             })
             this.serverAvgResponse = t / c;
         }, 'appdb.serversStatus', false);
-        
-        
+    }
+
+    routerOnActivate(to:ComponentInstruction, from:ComponentInstruction) {
     }
 
     private loadData() {

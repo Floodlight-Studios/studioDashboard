@@ -4,40 +4,12 @@ import {Component, Injectable} from 'angular2/core';
 import {ROUTER_DIRECTIVES} from 'angular2/router';
 import {RouterLink} from 'angular2/router';
 import {Router} from "angular2/router";
-import 'rxjs/add/observable/from';
-import 'rxjs/add/observable/fromEvent';
-import 'rxjs/add/operator/map';
-import 'rxjs/add/operator/bufferCount';
-import 'rxjs/add/operator/filter';
-import 'rxjs/add/operator/scan';
-import 'rxjs/add/operator/do';
-import 'rxjs/add/observable/range';
 import {AppStore} from "angular2-redux-util";
 import {BusinessAction} from "../../business/BusinessAction";
-import {AppdbAction} from "../../appdb/AppdbAction";
 import Map = Immutable.Map;
 import {LocalStorage} from "../../services/LocalStorage";
-import {StoreService} from "../../services/StoreService";
-
-// import {Subject} from "rxjs/Subject";
-// import {BehaviorSubject} from "rxjs/subject/BehaviorSubject";
-// import {Observable} from "rxjs/Observable";
-
+import {AuthService} from "../../services/AuthService";
 var bootbox = require('bootbox');
-
-export class User {
-    public id:string;
-    public name:string;
-    public pass:string;
-    public gender:string;
-
-    constructor(obj?:any) {
-        this.id = obj && obj.id || Math.random();
-        this.name = obj && obj.name || 'anonymous';
-        this.pass = obj && obj.pass || '';
-        this.gender = obj && obj.gender || 'male';
-    }
-}
 
 @Injectable()
 @Component({
@@ -62,9 +34,6 @@ export class User {
                     <div id="languageSelectionLogin"></div>
                   </form>
                 </div>
-                <!-- <a [routerLink]="['/EntryPanelNoId', {id: 123}, 'Route4']">To forgot pass</a> -->
-                <!-- <a [routerLink]="['/App1']">Direct to App1</a><br/> -->
-                <!-- <a [routerLink]="['/App2']">Direct to App2</a><br/> -->
                `
 })
 export class LoginPanel {
@@ -75,7 +44,9 @@ export class LoginPanel {
     private ubsub;
     private showLoginPanel:boolean = false;
 
-    constructor(private appStore:AppStore, router:Router, private appdbAction:AppdbAction, private localStorage:LocalStorage, private storeService:StoreService) {
+    constructor(private appStore:AppStore,
+                private router:Router,
+                private authService:AuthService) {
         this.m_myRouter = router;
         this.m_user = '';
         this.m_pass = '';
@@ -83,66 +54,30 @@ export class LoginPanel {
 
         this.ubsub = appStore.sub((credentials:Map<string,any>) => {
             var status = credentials.get('authenticated');
-            var user = credentials.get('user');
-            var pass = credentials.get('pass');
             if (status) {
                 this.onAuthPass();
             } else {
                 this.onAuthFail();
             }
         }, 'appdb.credentials', false);
-        
-        this.autoLogin();
-    }
 
-    private autoLogin() {
-        var credentials = this.localStorage.getItem('remember_me');
-        if (!credentials || (credentials && credentials.u == '')) {
+        if (this.authService.localStoreCredentialsExist()){
+            this.showLoginPanel = false;
+            this.authService.authUser();
+        } else {
             this.showLoginPanel = true;
-            if (credentials) {
-                this.m_rememberMe = credentials.u;
-            }
-            return;
         }
-        this.m_user = credentials.u;
-        this.m_pass = credentials.p;
-        this.authUser();
     }
 
     private authUser() {
-        bootbox.dialog({
-            closeButton: false,
-            title: "Please wait, Authenticating...",
-            message: " "
-        });
-        this.appdbAction.createDispatcher(this.appdbAction.authenticateUser)(this.m_user, this.m_pass);
+        this.authService.authUser(this.m_user, this.m_pass, this.m_rememberMe);
     }
 
     private onAuthPass() {
         this.m_myRouter.navigate(['/App1']);
-        bootbox.hideAll();
-        if (this.m_rememberMe) {
-            this.localStorage.setItem('remember_me', {
-                u: this.m_user,
-                p: this.m_pass,
-                r: this.m_rememberMe
-            });
-        } else {
-            this.localStorage.setItem('remember_me', {
-                u: '',
-                p: '',
-                r: this.m_rememberMe
-            });
-        }
-        this.storeService.loadServices();
-        return false;
     }
 
     private onAuthFail() {
-        this.showLoginPanel = true;
-        setTimeout(()=> {
-            bootbox.hideAll();
-        }, 1000);
         setTimeout(()=> {
             bootbox.dialog({
                 closeButton: true,
@@ -153,12 +88,6 @@ export class LoginPanel {
         return false;
     }
 
-    public set loginName(name:string) {
-        this.m_user = name;
-    }
-
-    toString() {
-    }
 
     ngOnDestroy() {
         this.ubsub();

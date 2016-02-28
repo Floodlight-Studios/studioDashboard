@@ -17,7 +17,7 @@ export class AppdbAction extends Actions {
         super(appStore);
     }
 
-    public authenticateUser(i_user, i_pass) {
+    public authenticateUser(i_user, i_pass, i_remember) {
         return (dispatch) => {
 
             const BASE_URL = `https://galaxy.signage.me/WebService/ResellerService.ashx?command=GetCustomers&resellerUserName=${i_user}&resellerPassword=${i_pass}`;
@@ -28,9 +28,9 @@ export class AppdbAction extends Actions {
                     xmlData = xmlData.replace(/}\)/, '').replace(/\(\{"result":"/, '');
                     var reply:any = Lib.Xml2Json().parseString(xmlData);
                     if (reply.Businesses) {
-                        dispatch({type: AUTH_PASS, authenticated: true, user: i_user, pass: i_pass});
+                        dispatch({type: AUTH_PASS, authenticated: true, user: i_user, pass: i_pass, remember: i_remember});
                     } else {
-                        dispatch({type: AUTH_FAIL, authenticated: false, user: i_user, pass: i_pass});
+                        dispatch({type: AUTH_FAIL, authenticated: false, user: i_user, pass: i_pass, remember: i_remember});
                     }
                 }).subscribe()
 

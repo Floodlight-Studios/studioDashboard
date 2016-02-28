@@ -6,6 +6,9 @@ import 'zone.js/dist/zone.min.js';
 import "reflect-metadata";
 import 'twbs/bootstrap/css/bootstrap.css!';
 import './styles/style.css!';
+import {appInjService} from "./services/AppInjService";
+import {LocalStorage} from "./services/LocalStorage";
+import {AuthService} from "./services/AuthService";
 import {StoreService} from "./services/StoreService";
 import {BusinessAction} from "./business/BusinessAction";
 import {CharCount} from "./pipes/CharCount";
@@ -14,7 +17,7 @@ import {HTTP_PROVIDERS, JSONP_PROVIDERS} from "angular2/http";
 import {App1} from '../src/comps/app1/App1';
 import {App2} from '../src/comps/app2/App2';
 import {App3} from '../src/comps/app3/App3';
-import {Component, provide, ViewEncapsulation, PLATFORM_PIPES} from 'angular2/core';
+import {Component, provide, ViewEncapsulation, PLATFORM_PIPES, Injector, ComponentRef} from 'angular2/core';
 import {EntryPanel} from '../src/comps/entry/EntryPanel';
 import {AppManager} from '../src/comps/appmanager/AppManager';
 import {CommBroker} from '../src/services/CommBroker';
@@ -24,7 +27,7 @@ import {Logo} from "./comps/logo/Logo";
 import {Footer} from "./comps/footer/Footer";
 import {Consts} from "../src/Conts";
 import {StyleService} from "./styles/StyleService";
-import {ROUTER_DIRECTIVES, ROUTER_PROVIDERS, AsyncRoute} from 'angular2/router';
+import {ROUTER_DIRECTIVES, ROUTER_PROVIDERS, AsyncRoute, Router} from 'angular2/router';
 import {LocationStrategy, RouteParams, RouterLink, HashLocationStrategy, RouteConfig} from 'angular2/router';
 import {AppStore} from "angular2-redux-util";
 import {Lib} from "./Lib";
@@ -38,6 +41,7 @@ import stations from "./appdb/StationsReducer"
 import {business} from "./business/BusinessReducer"
 import {AppdbAction} from "./appdb/AppdbAction";
 import {Welcome} from "./comps/welcome/Welcome";
+
 
 /**
  Main application bootstrap
@@ -78,14 +82,17 @@ export class App {
 
     constructor(private appStore:AppStore, private commBroker:CommBroker,
                 styleService:StyleService, private appdbAction:AppdbAction,
-                storeService:StoreService
-    ) {
+                storeService:StoreService, private router:Router) {
         this.m_styleService = styleService;
         this.commBroker.setService(Consts.Services().App, this);
         Observable.fromEvent(window, 'resize').debounceTime(250).subscribe(()=> {
             this.appResized();
         });
         appStore.dispatch(appdbAction.initAppDb());
+
+        router.subscribe(function (currentRoute) {
+            console.log(currentRoute);
+        });
     }
 
     public appResized():void {
@@ -116,9 +123,14 @@ bootstrap(App, [ROUTER_PROVIDERS, HTTP_PROVIDERS, JSONP_PROVIDERS,
     provide(StoreService, {useClass: StoreService}),
     provide(BusinessAction, {useClass: BusinessAction}),
     provide(AppdbAction, {useClass: AppdbAction}),
+    provide(AuthService, {useClass: AuthService}),
+    provide(LocalStorage, {useClass: LocalStorage}),
     provide(CommBroker, {useClass: CommBroker}),
     provide(Consts, {useClass: Consts}),
-    provide(PLATFORM_PIPES, { useValue : CharCount, multi : true }),
-    provide(LocationStrategy, {useClass: HashLocationStrategy})]);
+    provide(PLATFORM_PIPES, {useValue: CharCount, multi: true}),
+    provide(LocationStrategy, {useClass: HashLocationStrategy})]).then((appRef:ComponentRef) => {
+        appInjService(appRef.injector);
+    }
+);
 
 

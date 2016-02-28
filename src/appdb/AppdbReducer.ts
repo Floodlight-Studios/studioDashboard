@@ -12,7 +12,8 @@ export default function appdb(state:Map<string, any> = Map<string, any>({}), act
                 credentials: {
                     authenticated: action.authenticated,
                     user: action.user,
-                    pass: action.pass
+                    pass: action.pass,
+                    remember: action.remember
                 },
                 appBaseUrlUser: `https://galaxy.signage.me/WebService/ResellerService.ashx?resellerUserName=${action.user}&resellerPassword=${action.pass}`
             });
