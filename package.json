@@ -113,6 +113,7 @@
       "ts": "github:frankwallis/plugin-typescript@^2.6.0",
       "typescript": "npm:typescript@1.8.0",
       "underscore": "npm:underscore@^1.8.3",
+      "xml2js": "npm:xml2js@^0.4.16",
       "zone.js": "npm:zone.js@^0.5.14"
     },
     "devDependencies": {

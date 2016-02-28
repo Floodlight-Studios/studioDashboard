@@ -66,7 +66,7 @@ import {AuthService} from "../../../services/AuthService";
        </div>       
     </div>
     <div class="row">
-    <!--<StationsMap data="[1,2,3]"></StationsMap>-->
+    <StationsMap data="[1,2,3]"></StationsMap>
     </div>
     
     `

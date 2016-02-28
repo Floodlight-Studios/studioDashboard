@@ -88,6 +88,7 @@ System.config({
     "twbs/bootstrap": "github:twbs/bootstrap@3.3.6",
     "typescript": "npm:typescript@1.8.0",
     "underscore": "npm:underscore@1.8.3",
+    "xml2js": "npm:xml2js@0.4.16",
     "zone.js": "npm:zone.js@0.5.14",
     "github:frankwallis/plugin-typescript@2.5.6": {
       "typescript": "npm:typescript@1.7.5"
@@ -135,6 +136,9 @@ System.config({
     },
     "github:jspm/nodelibs-string_decoder@0.1.0": {
       "string_decoder": "npm:string_decoder@0.10.31"
+    },
+    "github:jspm/nodelibs-timers@0.1.0": {
+      "timers-browserify": "npm:timers-browserify@1.4.2"
     },
     "github:jspm/nodelibs-url@0.1.0": {
       "url": "npm:url@0.10.3"
@@ -754,6 +758,12 @@ System.config({
       "buffer": "github:jspm/nodelibs-buffer@0.1.0",
       "process": "github:jspm/nodelibs-process@0.1.2"
     },
+    "npm:sax@1.1.5": {
+      "buffer": "github:jspm/nodelibs-buffer@0.1.0",
+      "process": "github:jspm/nodelibs-process@0.1.2",
+      "stream": "github:jspm/nodelibs-stream@0.1.0",
+      "string_decoder": "github:jspm/nodelibs-string_decoder@0.1.0"
+    },
     "npm:semver@5.1.0": {
       "process": "github:jspm/nodelibs-process@0.1.2"
     },
@@ -816,6 +826,9 @@ System.config({
       "util": "github:jspm/nodelibs-util@0.1.0",
       "xtend": "npm:xtend@4.0.1"
     },
+    "npm:timers-browserify@1.4.2": {
+      "process": "npm:process@0.11.2"
+    },
     "npm:url@0.10.3": {
       "assert": "github:jspm/nodelibs-assert@0.1.0",
       "punycode": "npm:punycode@1.3.2",
@@ -844,6 +857,17 @@ System.config({
     },
     "npm:vm-browserify@0.0.4": {
       "indexof": "npm:indexof@0.0.1"
+    },
+    "npm:xml2js@0.4.16": {
+      "events": "github:jspm/nodelibs-events@0.1.1",
+      "process": "github:jspm/nodelibs-process@0.1.2",
+      "sax": "npm:sax@1.1.5",
+      "timers": "github:jspm/nodelibs-timers@0.1.0",
+      "xmlbuilder": "npm:xmlbuilder@4.2.1"
+    },
+    "npm:xmlbuilder@4.2.1": {
+      "lodash": "npm:lodash@4.5.1",
+      "process": "github:jspm/nodelibs-process@0.1.2"
     },
     "npm:zone.js@0.5.14": {
       "es6-promise": "npm:es6-promise@3.0.2",

@@ -26,12 +26,26 @@ export class AppdbAction extends Actions {
                 .map(result => {
                     var xmlData:string = result.text()
                     xmlData = xmlData.replace(/}\)/, '').replace(/\(\{"result":"/, '');
-                    var reply:any = Lib.Xml2Json().parseString(xmlData);
-                    if (reply.Businesses) {
-                        dispatch({type: AUTH_PASS, authenticated: true, user: i_user, pass: i_pass, remember: i_remember});
-                    } else {
-                        dispatch({type: AUTH_FAIL, authenticated: false, user: i_user, pass: i_pass, remember: i_remember});
-                    }
+                    //console.log('AAAA' + xmlData);
+                    // var parseString = require('xml2js/lib/xml2js.js');
+                    var parseString = require('xml2js').parseString;
+                    parseString(xmlData, {attrkey: 'attr'}, function (err, result) {
+                        console.dir(result);
+
+                        if (result.Businesses) {
+                            dispatch({type: AUTH_PASS, authenticated: true, user: i_user, pass: i_pass, remember: i_remember});
+                        } else {
+                            dispatch({type: AUTH_FAIL, authenticated: false, user: i_user, pass: i_pass, remember: i_remember});
+                        }
+                    });
+
+                    // var reply:any = Lib.Xml2Json().parseString(xmlData);
+                    // console.log('BBBB11' + JSON.stringify(reply));
+                    // console.log('CCCC22' + reply.Businesses);
+                    // console.log('CCCC22' + reply.Businesses);
+                    // console.log('DDDDD33 busnesses ' + reply.Businesses["0"].BusinessInfo.length);
+
+
                 }).subscribe()
 
             // const JBASE_URL = "https://galaxy.signage.me/WebService/ResellerService.ashx?command=GetCustomers&resellerUserName=rs@ms.com&resellerPassword=XXXX&callback=JSONP_CALLBACK";

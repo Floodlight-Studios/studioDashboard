@@ -51,97 +51,98 @@ export class BusinessAction extends Actions {
                 .map(result => {
                     var xmlData:string = result.text()
                     xmlData = xmlData.replace(/}\)/, '').replace(/\(\{"result":"/, '');
-                    //var parseString = require('xml2js/lib/xml2js.js');
-                    //var parseString = require('xml2js').parseString;
-                    var result2:any = Lib.Xml2Json().parseString(xmlData);
-                    var arr = [], c = 0;
+                    var parseString = require('xml2js').parseString;
+                    parseString(xmlData, {attrkey: '_attr'}, function (err, result) {
+                        var arr = [], c = 0;
+                        result.Businesses.BusinessInfo.forEach((business)=> {
+                            c++;
+                            // var max = _.random(1,15);
+                            var max = 100000;
+                            if (c > max)
+                                return;
+                            // create new
+                            var bus:BusinessModel = new BusinessModel({
+                                businessId: business._attr.businessId,
+                                name: business._attr.name,
+                                accountStatus: business._attr.accountStatus,
+                                applicationId: business._attr.applicationId,
+                                archiveState: business._attr.archiveState,
+                                fromTemplateId: business._attr.fromTemplateId,
+                                maxMonitors: business._attr.maxMonitors,
+                                maxDataStorage: business._attr.maxDataStorage,
+                                allowSharing: business._attr.allowSharing,
+                                studioLite: business._attr.studioLite,
+                                lastLogin: business._attr.lastLogin,
+                                resellerId: business._attr.resellerId,
+                                businessDescription: business._attr.businessDescription
+                            });
 
-                    result2.Businesses[0].BusinessInfo.forEach((business)=> {
-                        c++;
-                        // var max = _.random(1,15);
-                        var max = 100000;
-                        if (c>max)
-                            return;
-                        // create new
-                        var bus:BusinessModel = new BusinessModel({
-                            businessId: business._attr.businessId._value,
-                            name: business._attr.name._value,
-                            accountStatus: business._attr.accountStatus._value,
-                            applicationId: business._attr.applicationId._value,
-                            archiveState: business._attr.archiveState._value,
-                            fromTemplateId: business._attr.fromTemplateId._value,
-                            maxMonitors: business._attr.maxMonitors._value,
-                            maxDataStorage: business._attr.maxDataStorage._value,
-                            allowSharing: business._attr.allowSharing._value,
-                            studioLite: business._attr.studioLite._value,
-                            lastLogin: business._attr.lastLogin._value,
-                            resellerId: business._attr.resellerId._value,
-                            businessDescription: business._attr.businessDescription._value
+                            // collect stats
+                            business._attr.accountStatus == 2 ? accountStats.activeAccounts++ : accountStats.inactiveAccounts++;
+                            business._attr.studioLite == 0 ? accountStats.pros++ : accountStats.lites++;
+                            business._attr.accountStatus == 2 ? accountStats.activeAccounts++ : accountStats.inactiveAccounts++;
+                            var lastLogin = Number(business._attr.lastLogin);
+                            if (lastLogin > accountStats.lastLogin) {
+                                accountStats.lastLogin = business._attr.lastLogin;
+                            }
+
+                            arr.push(bus);
+
+                            // example update a field in instance via setKey
+                            //var busUpd:BusinessModel = bus.setKey<BusinessModel>(BusinessModel, 'businessId', business._attr.businessId + Math.random());
+                            // insert a new field in instance
+                            //busUpd = busUpd.setKey<BusinessModel>(BusinessModel, 'JS', 'Ninja');
+                            // override entire instance with new data via setData
+                            //var busUpd:BusinessModel = bus.setData<BusinessModel>(BusinessModel, {
+                            //    businessId: business.attr.businessId + Math.random(),
+                            //});
                         });
+                        accountStats.totalBusinesses = arr.length;
 
-                        // collect stats
-                        business._attr.accountStatus._value == 2 ? accountStats.activeAccounts++ : accountStats.inactiveAccounts++;
-                        business._attr.studioLite._value == 0 ? accountStats.pros++ : accountStats.lites++;
-                        business._attr.accountStatus._value == 2 ? accountStats.activeAccounts++ : accountStats.inactiveAccounts++;
-                        if (_.isNumber(business._attr.lastLogin._value) && business._attr.lastLogin._value > accountStats.lastLogin) {
-                            accountStats.lastLogin = business._attr.lastLogin._value;
-                        }
+                        dispatch(self.receiveBusinesses(arr));
+                        dispatch(self.receiveBusinessesStats(accountStats));
 
-                        arr.push(bus);
-
-                        // example update a field in instance via setKey
-                        //var busUpd:BusinessModel = bus.setKey<BusinessModel>(BusinessModel, 'businessId', business._attr.businessId._value + Math.random());
-                        // insert a new field in instance
-                        //busUpd = busUpd.setKey<BusinessModel>(BusinessModel, 'JS', 'Ninja');
-                        // override entire instance with new data via setData
-                        //var busUpd:BusinessModel = bus.setData<BusinessModel>(BusinessModel, {
-                        //    businessId: business.attr.businessId + Math.random(),
+                        //parseString(result, {attrkey: 'attr'}, function (err, result) {
+                        //    var arr = [];
+                        //    result.Businesses[0].BusinessInfo.forEach((business)=> {
+                        //        // create new
+                        //        var bus:BusinessModel = new BusinessModel({
+                        //            businessId: business.attr.businessId,
+                        //            name: business.attr.name,
+                        //            accountStatus: business.attr.accountStatus,
+                        //            applicationId: business.attr.applicationId,
+                        //            archiveState: business.attr.archiveState,
+                        //            fromTemplateId: business.attr.fromTemplateId,
+                        //            maxMonitors: business.attr.maxMonitors,
+                        //            maxDataStorage: business.attr.maxDataStorage,
+                        //            allowSharing: business.attr.allowSharing,
+                        //            studioLite: business.attr.studioLite,
+                        //            lastLogin: business.attr.lastLogin,
+                        //            resellerId: business.attr.resellerId,
+                        //            businessDescription: business.attr.businessDescription
+                        //        });
+                        //
+                        //        // update a field in instance via setKey
+                        //        var busUpd:BusinessModel = bus.setKey<BusinessModel>(BusinessModel, 'businessId', business.attr.businessId + Math.random());
+                        //
+                        //        // insert a new field in instance
+                        //        busUpd = busUpd.setKey<BusinessModel>(BusinessModel, 'JS', 'Ninja');
+                        //
+                        //        // override entire instance with new data via setData
+                        //        //var busUpd:BusinessModel = bus.setData<BusinessModel>(BusinessModel, {
+                        //        //    businessId: business.attr.businessId + Math.random(),
+                        //        //});
+                        //        arr.push(busUpd);
+                        //
+                        //    });
+                        //    dispatch(self.receiveBusinesses(arr));
                         //});
+
+                        //var xResult = jQuery(result);
+                        //var businesses = xResult.find('BusinessInfo');
+                        //console.log(result)
+
                     });
-                    accountStats.totalBusinesses = arr.length;
-
-                    dispatch(self.receiveBusinesses(arr));
-                    dispatch(self.receiveBusinessesStats(accountStats));
-
-                    //parseString(result, {attrkey: 'attr'}, function (err, result) {
-                    //    var arr = [];
-                    //    result.Businesses[0].BusinessInfo.forEach((business)=> {
-                    //        // create new
-                    //        var bus:BusinessModel = new BusinessModel({
-                    //            businessId: business.attr.businessId,
-                    //            name: business.attr.name,
-                    //            accountStatus: business.attr.accountStatus,
-                    //            applicationId: business.attr.applicationId,
-                    //            archiveState: business.attr.archiveState,
-                    //            fromTemplateId: business.attr.fromTemplateId,
-                    //            maxMonitors: business.attr.maxMonitors,
-                    //            maxDataStorage: business.attr.maxDataStorage,
-                    //            allowSharing: business.attr.allowSharing,
-                    //            studioLite: business.attr.studioLite,
-                    //            lastLogin: business.attr.lastLogin,
-                    //            resellerId: business.attr.resellerId,
-                    //            businessDescription: business.attr.businessDescription
-                    //        });
-                    //
-                    //        // update a field in instance via setKey
-                    //        var busUpd:BusinessModel = bus.setKey<BusinessModel>(BusinessModel, 'businessId', business.attr.businessId + Math.random());
-                    //
-                    //        // insert a new field in instance
-                    //        busUpd = busUpd.setKey<BusinessModel>(BusinessModel, 'JS', 'Ninja');
-                    //
-                    //        // override entire instance with new data via setData
-                    //        //var busUpd:BusinessModel = bus.setData<BusinessModel>(BusinessModel, {
-                    //        //    businessId: business.attr.businessId + Math.random(),
-                    //        //});
-                    //        arr.push(busUpd);
-                    //
-                    //    });
-                    //    dispatch(self.receiveBusinesses(arr));
-                    //});
-
-                    //var xResult = jQuery(result);
-                    //var businesses = xResult.find('BusinessInfo');
-                    //console.log(result)
 
 
                 }).subscribe();
