@@ -1,4 +1,5 @@
 import {Component, ViewChild, QueryList} from 'angular2/core'
+import {CanActivate, OnActivate, ComponentInstruction, Router} from "angular2/router";
 import {SimpleList} from "../../simplelist/SimpleList";
 import {AppStore} from "angular2-redux-util/dist/index";
 import {BusinessAction} from "../../../business/BusinessAction";
@@ -7,6 +8,8 @@ import {List, Map} from 'immutable';
 import {CommBroker} from "../../../services/CommBroker";
 import {Consts} from "../../../Conts";
 import {UsersDetails} from "./UsersDetails";
+import {AuthService} from "../../../services/AuthService";
+import {appInjService} from "../../../services/AppInjService";
 
 
 //todo: add access mask
@@ -45,27 +48,22 @@ import {UsersDetails} from "./UsersDetails";
         </div>
     `
 })
+@CanActivate((to:ComponentInstruction, from:ComponentInstruction) => {
+    let authService:AuthService = appInjService().get(AuthService);
+    return authService.checkAccess(to, from, ['/Login/Login']);
+})
 export class Users {
 
     @ViewChild(SimpleList)
     simpleList:SimpleList;
 
-
     private businessesList:List<BusinessModel> = List<BusinessModel>();
     private businessesFilteredList:List<BusinessModel>
     private unsub:Function;
 
-    constructor(private appStore:AppStore, private commBroker:CommBroker, private businessActions:BusinessAction) {
-        this.loadData();
-    }
-
-    private loadData() {
-        if (this.appStore.getState().business.size == 0) {
-            this.appStore.dispatch(this.businessActions.fetchBusinesses());
-        } else {
-            var i_businesses = this.appStore.getState().business;
-            this.businessesList = i_businesses.getIn(['businesses']);
-        }
+    constructor(private appStore:AppStore, private commBroker:CommBroker) {
+        var i_businesses = this.appStore.getState().business;
+        this.businessesList = i_businesses.getIn(['businesses']);
         this.unsub = this.appStore.sub((i_businesses:List<BusinessModel>) => {
             this.businessesList = i_businesses;
         }, 'business.businesses');
@@ -99,3 +97,10 @@ export class Users {
         this.unsub();
     }
 }
+
+// if (this.appStore.getState().business.size == 0) {
+//     this.appStore.dispatch(this.businessActions.fetchBusinesses());
+// } else {
+//     var i_businesses = this.appStore.getState().business;
+//     this.businessesList = i_businesses.getIn(['businesses']);
+// }

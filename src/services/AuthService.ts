@@ -10,28 +10,60 @@ var bootbox = require('bootbox');
 
 @Injectable()
 export class AuthService {
-    private ubsub;
-    private authenticated:boolean = false;
-    private pendingNotify:any;
+    private ubsub:()=>void;
+    private m_authenticated:boolean = false;
+    private m_pendingNotify:any;
 
-    constructor(private appStore:AppStore,
-                private appdbAction:AppdbAction,
-                private localStorage:LocalStorage,
-                private storeService:StoreService) {
+    constructor(private appStore:AppStore, private appdbAction:AppdbAction, private localStorage:LocalStorage, private storeService:StoreService) {
+        this.listenStore();
+    }
 
-        this.ubsub = appStore.sub((credentials:Map<string,any>) => {
-            this.authenticated = credentials.get('authenticated');
+    private listenStore() {
+        this.ubsub = this.appStore.sub((credentials:Map<string,any>) => {
+            this.m_authenticated = credentials.get('authenticated');
             var user = credentials.get('user');
             var pass = credentials.get('pass');
             var remember = credentials.get('remember');
-            if (this.authenticated) {
+            if (this.m_authenticated) {
                 this.onAuthPass(user, pass, remember);
             } else {
                 this.onAuthFail();
             }
-            if (this.pendingNotify)
-                this.pendingNotify(this.authenticated)
+            if (this.m_pendingNotify)
+                this.m_pendingNotify(this.m_authenticated)
         }, 'appdb.credentials', false);
+    }
+
+    private onAuthPass(i_user, i_pass, i_remember) {
+        bootbox.hideAll();
+        if (i_remember) {
+            this.localStorage.setItem('remember_me', {
+                u: i_user,
+                p: i_pass,
+                r: i_remember
+            });
+        } else {
+            this.localStorage.setItem('remember_me', {
+                u: '',
+                p: '',
+                r: i_remember
+            });
+        }
+        setTimeout(()=>{
+            this.storeService.loadServices();
+        },12000)
+    }
+
+    private onAuthFail() {
+        setTimeout(()=> {
+            bootbox.hideAll();
+            this.localStorage.setItem('remember_me', {
+                u: '',
+                p: '',
+                r: ''
+            });
+        }, 1000);
+        return false;
     }
 
     public authUser(i_user?:string, i_pass?:string, i_remember?:string):void {
@@ -50,24 +82,27 @@ export class AuthService {
             }
         }
         this.appdbAction.createDispatcher(this.appdbAction.authenticateUser)(i_user, i_pass, i_remember);
-
     }
 
-    public localStoreCredentialsExist():boolean {
+    public getLocalstoreCred():{u:string, p:string, r:string} {
         var credentials = this.localStorage.getItem('remember_me');
-        if (!credentials || (credentials && credentials.u == ''))
-            return false;
-        return true;
+        if (!credentials)
+            return {u: '', p: '', r: ''};
+        return {
+            u: credentials.u,
+            p: credentials.p,
+            r: credentials.r,
+        }
     }
 
     public checkAccess(to:ComponentInstruction, from:ComponentInstruction, target = ['/Home']):Promise<any> {
         let injector:Injector = appInjService();
         let router:Router = injector.get(Router);
 
-        if (this.authenticated)
+        if (this.m_authenticated)
             return Promise.resolve(true);
 
-        if (!this.localStoreCredentialsExist()) {
+        if (this.getLocalstoreCred().u == '') {
             router.navigate(target);
             return Promise.resolve(false);
         }
@@ -80,7 +115,7 @@ export class AuthService {
 
             this.appdbAction.createDispatcher(this.appdbAction.authenticateUser)(user, pass, remember);
 
-            this.pendingNotify = (status) => {
+            this.m_pendingNotify = (status) => {
                 resolve(status);
                 if (!status) {
                     router.navigate(target);
@@ -90,35 +125,6 @@ export class AuthService {
         });
     }
 
-    private onAuthPass(i_user, i_pass, i_remember) {
-        bootbox.hideAll();
-        if (i_remember) {
-            this.localStorage.setItem('remember_me', {
-                u: i_user,
-                p: i_pass,
-                r: i_remember
-            });
-        } else {
-            this.localStorage.setItem('remember_me', {
-                u: '',
-                p: '',
-                r: i_remember
-            });
-        }
-        this.storeService.loadServices();
-    }
-
-    private onAuthFail() {
-        setTimeout(()=> {
-            bootbox.hideAll();
-            this.localStorage.setItem('remember_me', {
-                u: '',
-                p: '',
-                r: ''
-            });
-        }, 1000);
-        return false;
-    }
 
     ngOnDestroy() {
         this.ubsub();

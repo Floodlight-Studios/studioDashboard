@@ -39,20 +39,18 @@ var bootbox = require('bootbox');
 export class LoginPanel {
     private m_user:string;
     private m_pass:string;
-    private m_myRouter:Router;
-    private m_rememberMe;
-    private ubsub;
+    private m_router:Router;
+    private m_rememberMe:any;
+    private m_unsub:()=>void;
     private showLoginPanel:boolean = false;
 
-    constructor(private appStore:AppStore,
-                private router:Router,
-                private authService:AuthService) {
-        this.m_myRouter = router;
+    constructor(private appStore:AppStore, private router:Router, private authService:AuthService) {
+        this.m_router = router;
         this.m_user = '';
         this.m_pass = '';
-        this.m_rememberMe = 'checked';
+        this.m_rememberMe = this.authService.getLocalstoreCred().r;
 
-        this.ubsub = appStore.sub((credentials:Map<string,any>) => {
+        this.m_unsub = appStore.sub((credentials:Map<string,any>) => {
             var status = credentials.get('authenticated');
             if (status) {
                 this.onAuthPass();
@@ -61,7 +59,7 @@ export class LoginPanel {
             }
         }, 'appdb.credentials', false);
 
-        if (this.authService.localStoreCredentialsExist()){
+        if (this.authService.getLocalstoreCred().u != '') {
             this.showLoginPanel = false;
             this.authService.authUser();
         } else {
@@ -74,7 +72,7 @@ export class LoginPanel {
     }
 
     private onAuthPass() {
-        this.m_myRouter.navigate(['/App1']);
+        this.m_router.navigate(['/App1']);
     }
 
     private onAuthFail() {
@@ -88,9 +86,8 @@ export class LoginPanel {
         return false;
     }
 
-
     ngOnDestroy() {
-        this.ubsub();
+        this.m_unsub();
     }
 }
 
