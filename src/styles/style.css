@@ -72,10 +72,12 @@ aside > aside > div > ul > li {
 }
 
 #loading {
+    position: relative;
+    top: 100px;
     background-color: #222223;
     text-align: center;
     width: 100%;
-    height: 100%;
+    height: 40%;
 }
 
 #loading img {
