@@ -1,8 +1,7 @@
 import {Map} from 'immutable';
 import * as AppdbAction from "../appdb/AppdbAction";
-var Immutable = require('immutable');
-
-/** global application reduced actions defined here **/
+const Immutable = require('immutable');
+const baseUrl = 'https://galaxy.signage.me/WebService/ResellerService.ashx';
 
 export default function appdb(state:Map<string, any> = Map<string, any>({}), action:any):Map<string, any> {
     switch (action.type) {
@@ -15,12 +14,12 @@ export default function appdb(state:Map<string, any> = Map<string, any>({}), act
                     pass: action.pass,
                     remember: action.remember
                 },
-                appBaseUrlUser: `https://galaxy.signage.me/WebService/ResellerService.ashx?resellerUserName=${action.user}&resellerPassword=${action.pass}`
+                appBaseUrlUser: `${baseUrl}?resellerUserName=${action.user}&resellerPassword=${action.pass}`
             });
         case AppdbAction.APP_INIT:
             return state.merge({
                 appStartTime: Date.now(),
-                appBaseUrl: 'https://galaxy.signage.me/WebService/ResellerService.ashx'
+                appBaseUrl: `${baseUrl}`
             });
         case AppdbAction.SERVERS_STATUS:
             return state.merge({serversStatus: action.payload});

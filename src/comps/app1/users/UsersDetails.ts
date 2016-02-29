@@ -35,14 +35,14 @@ import {UserInfo} from "./UserInfo";
 
     template: `
     <br/>
-    <div  *ngIf="!_businesses || _businesses.length == 0">
+    <div  *ngIf="!_businesses || _businesses.size == 0">
         <h1 class="embossed">USER DETAILS</h1>
         <h6 class="embossedSmaller embossed">select user(s) from the list to load up the related properties</h6>
     </div>
-    <div *ngIf="_businesses && _businesses.length == 1">
+    <div *ngIf="_businesses && _businesses.size == 1">
         <UserInfo [user]="_businesses"></UserInfo>
     </div>
-    <div *ngIf="_businesses && _businesses.length > 1">
+    <div *ngIf="_businesses && _businesses.size > 1">
          <simpleGridTable>
                 <thead>
                 <tr>

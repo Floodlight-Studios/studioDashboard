@@ -10,23 +10,24 @@ export const AUTH_FAIL = 'AUTH_FAIL';
 
 @Injectable()
 export class AppdbAction extends Actions {
+    parseString;
 
     constructor(private appStore:AppStore, private _http:Http, private jsonp:Jsonp) {
         super(appStore);
+        this.parseString = require('xml2js').parseString;
     }
 
     public authenticateUser(i_user, i_pass, i_remember) {
         return (dispatch) => {
+            const baseUrl = this.appStore.getState().appdb.get('appBaseUrl');
+            const url = `${baseUrl}?command=GetCustomers&resellerUserName=${i_user}&resellerPassword=${i_pass}`;
 
-            //todo: change url to load from redux
-            const BASE_URL = `https://galaxy.signage.me/WebService/ResellerService.ashx?command=GetCustomers&resellerUserName=${i_user}&resellerPassword=${i_pass}`;
-
-            this._http.get(`${BASE_URL}`)
+            this._http.get(url)
                 .map(result => {
                     var xmlData:string = result.text()
                     xmlData = xmlData.replace(/}\)/, '').replace(/\(\{"result":"/, '');
-                    var parseString = require('xml2js').parseString;
-                    parseString(xmlData, {attrkey: 'attr'}, function (err, result) {
+
+                    this.parseString(xmlData, {attrkey: 'attr'}, function (err, result) {
                         if (!result) {
                             dispatch({
                                 type: AUTH_FAIL,
@@ -57,33 +58,6 @@ export class AppdbAction extends Actions {
                         }
                     });
                 }).subscribe()
-
-            // const JBASE_URL = "https://galaxy.signage.me/WebService/ResellerService.ashx?command=GetCustomers&resellerUserName=rs@ms.com&resellerPassword=XXXX&callback=JSONP_CALLBACK";
-            //
-            // return this.jsonp
-            //    .request(JBASE_URL)
-            //    .map(res=> {
-            //        console.log(res)
-            //    }).subscribe();
-
-            // old lib I used
-            //var parseString = require('xml2js/lib/xml2js.js');
-            //var parseString = require('xml2js').parseString;
-
-            // https://angular.io/docs/js/latest/api/http/JSONP_PROVIDERS-let.html
-
-            // setTimeout(()=> {
-            //     dispatch({type: AUTH_PASS, authenticated: true, user: i_user, pass: i_pass});
-            // }, 200);
-
-
-            // self.m_http.get(`https://galaxy.signage.me/WebService/ResellerService.ashx?command=GetBusinessUsers&resellerUserName=${i_user}&resellerPassword=${i_pass}&businessList=385360`)
-            //     .map(result => {
-            //         result = result['_body'].replace(/}\)/, '').replace(/\(\{"result":"/, '');
-            //         var jData:Object = Lib.Xml2Json().parseString(result);
-            //
-            //     }).subscribe();
-
         };
     }
 

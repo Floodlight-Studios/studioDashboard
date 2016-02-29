@@ -19,9 +19,10 @@ export const SET_BUSINESS_DATA = 'SET_BUSINESS_DATA';
 
 @Injectable()
 export class BusinessAction extends Actions {
-
+    parseString;
     constructor(private _http:Http, private appStore:AppStore) {
         super();
+        this.parseString = require('xml2js').parseString;
     }
 
     findBusinessIndex(business:BusinessModel, businesses:List<BusinessModel>):number {
@@ -51,8 +52,7 @@ export class BusinessAction extends Actions {
                 .map(result => {
                     var xmlData:string = result.text()
                     xmlData = xmlData.replace(/}\)/, '').replace(/\(\{"result":"/, '');
-                    var parseString = require('xml2js').parseString;
-                    parseString(xmlData, {attrkey: '_attr'}, function (err, result) {
+                    this.parseString(xmlData, {attrkey: '_attr'}, function (err, result) {
                         var arr = [], c = 0;
                         result.Businesses.BusinessInfo.forEach((business)=> {
                             c++;

@@ -32,13 +32,6 @@ export class StationActions extends Actions {
 
             return;
 
-            // self.m_http.get(`https://galaxy.signage.me/WebService/ResellerService.ashx?command=GetBusinessUsers&resellerUserName=${i_user}&resellerPassword=${i_pass}&businessList=385360`)
-            //     .map(result => {
-            //         result = result['_body'].replace(/}\)/, '').replace(/\(\{"result":"/, '');
-            //         var jData:Object = Lib.Xml2Json().parseString(result);
-            //
-            //     }).subscribe();
-
         };
     }
 
