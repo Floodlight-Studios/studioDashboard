@@ -8,6 +8,14 @@ import {appInjService} from "./AppInjService";
 import Map = Immutable.Map;
 var bootbox = require('bootbox');
 
+export enum FlagsAuth {
+    AuthPass,
+    AuthFailEnterprise,
+    WrongPass,
+    NotEnterprise,
+    Enterprise
+}
+
 @Injectable()
 export class AuthService {
     private ubsub:()=>void;
