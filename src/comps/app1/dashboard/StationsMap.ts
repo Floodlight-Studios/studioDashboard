@@ -56,13 +56,15 @@ export class StationsMap {
                         name: 'Points',
                         type: 'mappoint',
                         data: [{
-                            name: 'Janlor',
+                            name: 'Janlor dr.',
                             lat: 34.155621,
-                            lon: -118.788265
+                            lon: -118.788265,
+                            color: "red"
                         }, {
                             name: 'Moscow',
                             lat: 55.7500,
-                            lon: 37.6167
+                            lon: 37.6167,
+                            color: "blue"
                         }, {
                             name: 'Beijing',
                             lat: 39.9167,
