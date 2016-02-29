@@ -1,5 +1,3 @@
-//import {enableProdMode} from 'angular2/core';
-
 require('bootstrap');
 import Immutable = require('immutable');
 import 'zone.js/dist/zone.min.js';
@@ -41,7 +39,7 @@ import stations from "./appdb/StationsReducer"
 import {business} from "./business/BusinessReducer"
 import {AppdbAction} from "./appdb/AppdbAction";
 import {Welcome} from "./comps/welcome/Welcome";
-
+// import {enableProdMode} from 'angular2/core';
 
 /**
  Main application bootstrap
@@ -115,7 +113,7 @@ export class App {
     }
 }
 
-//enableProdMode();
+// enableProdMode();
 bootstrap(App, [ROUTER_PROVIDERS, HTTP_PROVIDERS, JSONP_PROVIDERS,
     provide(AppStore, {useFactory: Lib.StoreFactory({notify, appdb, business, stations})}),
     provide(StoreService, {useClass: StoreService}),

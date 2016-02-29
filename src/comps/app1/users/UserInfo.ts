@@ -1,4 +1,6 @@
 import {Component, Input, Output, EventEmitter, ChangeDetectionStrategy, OnChanges, SimpleChange} from 'angular2/core'
+import {BusinessModel} from "../../../business/BusinesModel";
+import {List} from 'immutable';
 
 @Component({
     selector: 'UserInfo',
@@ -10,7 +12,10 @@ import {Component, Input, Output, EventEmitter, ChangeDetectionStrategy, OnChang
 })
 export class UserInfo {
     @Input()
-    user:string;
+    set user(i_user:List<BusinessModel>){
+        console.log(i_user.first().getKey('businessId'));
+    }
+
 
     @Output()
     addToCart:EventEmitter<any> = new EventEmitter();

@@ -67,7 +67,6 @@ import {UserInfo} from "./UserInfo";
               </tbody>                 
         </simpleGridTable>
     </div>
-       
     `
 })
 
