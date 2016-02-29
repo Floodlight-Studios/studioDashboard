@@ -56,7 +56,8 @@ export class Filemenu {
         router.subscribe(function (currentRoute) {
             self.m_renderedItems = [];
             for (var item in self.m_items) {
-                if (self.m_items[item]['app'] == currentRoute)
+                var ex = new RegExp(self.m_items[item]['app']);
+                if (currentRoute.match(ex))
                     self.m_renderedItems.push(self.m_items[item]);
             }
             if (self.m_renderedItems.length == 0) {

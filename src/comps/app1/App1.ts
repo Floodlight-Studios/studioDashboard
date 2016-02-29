@@ -46,6 +46,10 @@ export class App1 implements OnActivate, CanReuse, OnReuse, OnDeactivate {
     private routerActive:boolean;
 
     constructor(private commBroker:CommBroker, private router:Router) {
+        jQuery(".navbar-header .navbar-toggle").trigger("click");
+        jQuery('.navbar-nav').css({
+            display: 'block'
+        });
         this.listenMenuChanges();
     }
 

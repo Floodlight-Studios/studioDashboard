@@ -5,13 +5,13 @@ import {Ng2Highmaps} from '../../ng2-highcharts/ng2-highcharts';
 window['Highmaps'] = require('highcharts/modules/map')(Highcharts);
 
 
-
 @Component({
     selector: 'StationsMap',
     directives: [Ng2Highmaps],
     template: `
+       <div id="container" style="height: 300px; min-width: 300px; margin: 0 auto">
        <div [ng2-highmaps]="chartMap" class="Map"></div>
-       <div id="container" style="height: 500px; min-width: 310px; max-width: 800px; margin: 0 auto"></div>
+       </div>
     `
 })
 export class StationsMap {
@@ -26,11 +26,12 @@ export class StationsMap {
     constructor(private http:Http) {
         var self = this;
         jQuery.getJSON('https://www.highcharts.com/samples/data/jsonp.php?filename=world-population.json&callback=?', function (data) {
-            jQuery.getScript('https://code.highcharts.com/mapdata/custom/world.js',()=>{
+            jQuery.getScript('https://code.highcharts.com/mapdata/custom/world.js', ()=> {
                 var mapData = Highcharts['maps']['custom/world'];
                 self.chartMap = {
-                    chart : {
-                        borderWidth : 1
+                    chart: {
+                        borderWidth: 1,
+                        height: 300
                     },
                     credits: {
                         enabled: false
@@ -38,8 +39,7 @@ export class StationsMap {
                     title: {
                         text: 'Stations map'
                     },
-                    subtitle : {
-                    },
+                    subtitle: {},
                     legend: {
                         enabled: false
                     },

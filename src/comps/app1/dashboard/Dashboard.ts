@@ -66,9 +66,10 @@ import {AuthService} from "../../../services/AuthService";
        </div>       
     </div>
     <div class="row">
-    <StationsMap data="[1,2,3]"></StationsMap>
+        <div style="height: 400px; overflow: hidden">
+            <StationsMap data="[1,2,3]"></StationsMap>
+        </div>
     </div>
-    
     `
 })
 

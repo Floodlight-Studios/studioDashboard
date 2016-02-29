@@ -1,3 +1,41 @@
+/* xs */
+.mainContent {
+    position: relative;
+    left: 0px;
+    height: 90%;
+    padding-left: 40px;
+    padding-right: 45px;
+}
+/* sm */
+@media (min-width: 768px) {
+    .mainContent {
+        position: relative;
+        left: 0px;
+    }
+}
+/* md */
+@media (min-width: 992px) {
+    .mainContent {
+        position: relative;
+        left: 0px;
+    }
+}
+/* lg */
+@media (min-width: 1200px) {
+    .mainContent {
+        position: relative;
+        left: 110px;
+    }
+}
+
+/* lg > */
+@media (min-width: 1650px) {
+    .mainContent {
+        position: relative;
+        left: 150px;
+    }
+}
+
 @font-face {
     font-family: 'Raleway';
     font-style: normal;
@@ -10,9 +48,12 @@ html,
 body {
     font-family: 'Raleway', 'arial';
     height: 100%;
-    background-color: #ffffff;
+    background-color: #f3f3f4;
     overflow-y: auto;
+    overflow-x: hidden;
+    padding-top: 25px;
 }
+
 
 a {
     text-decoration: none !important;
@@ -146,10 +187,10 @@ small {
     font-size: 1.2em;
 }
 
-#headerPad {
-    background-color: #428bca;
-    min-height: 55px;
-}
+/*#headerPad {*/
+    /*background-color: #428bca;*/
+    /*min-height: 55px;*/
+/*}*/
 
 #mainPanelWrap {
     border-right: 2px #d9d9d9 solid;
@@ -202,6 +243,7 @@ small {
 }
 
 #appNavigatorWasp {
+    position: fixed;
     padding: 0px;
     margin: 0px;
     border-right: 1px solid #dddddd;
