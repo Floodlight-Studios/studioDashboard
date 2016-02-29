@@ -12,7 +12,8 @@ export default function appdb(state:Map<string, any> = Map<string, any>({}), act
                     authenticated: action.authenticated,
                     user: action.user,
                     pass: action.pass,
-                    remember: action.remember
+                    remember: action.remember,
+                    reason: action.reason
                 },
                 appBaseUrlUser: `${baseUrl}?resellerUserName=${action.user}&resellerPassword=${action.pass}`
             });

@@ -8,7 +8,7 @@ import {AppStore} from "angular2-redux-util";
 import {BusinessAction} from "../../business/BusinessAction";
 import Map = Immutable.Map;
 import {LocalStorage} from "../../services/LocalStorage";
-import {AuthService} from "../../services/AuthService";
+import {AuthService, FlagsAuth} from "../../services/AuthService";
 var bootbox = require('bootbox');
 
 @Injectable()
@@ -52,10 +52,11 @@ export class LoginPanel {
 
         this.m_unsub = appStore.sub((credentials:Map<string,any>) => {
             var status = credentials.get('authenticated');
+            var reason = credentials.get('reason');
             if (status) {
                 this.onAuthPass();
             } else {
-                this.onAuthFail();
+                this.onAuthFail(reason);
             }
         }, 'appdb.credentials', false);
 
@@ -75,12 +76,26 @@ export class LoginPanel {
         this.m_router.navigate(['/App1']);
     }
 
-    private onAuthFail() {
+    private onAuthFail(i_reason) {
+        let msg1:string;
+        let msg2:string;
+        switch (i_reason){
+            case FlagsAuth.WrongPass: {
+                msg1 = 'User or password are incorrect...'
+                msg2 = 'Please try again or click forgot password to reset your credentials'
+                break;
+            }
+            case FlagsAuth.NotEnterprise: {
+                msg1 = 'Not an enterprise account'
+                msg2 = 'You must login with an Enterprise account, not an end user account...'
+                break;
+            }
+        }
         setTimeout(()=> {
             bootbox.dialog({
                 closeButton: true,
-                title: "User or password are incorrect...",
-                message: "Please try again or click forgot password to reset your credentials"
+                title: msg1,
+                message: msg2
             });
         }, 1200);
         return false;
