@@ -8,12 +8,10 @@
         </div>
         <div class="col-xs-8">
           <h3 style="width: 260px" class="padLeft">
-            John Doess
-            <i class="fa fa-edit"></i>
+            <InputEdit [style]="stylesObj" [editable]="true" [value]="'Sean Levy'"></InputEdit>
           </h3>
           <h3 class="padLeft">
-            ****************
-            <i class="fa fa-edit"></i>
+            <InputEdit [style]="stylesObj" [editable]="true" [type]="'password'" [value]="'***********'"></InputEdit>
           </h3>
         </div>
       </div>
@@ -23,10 +21,11 @@
           <label class="">StudioLite</label>
           <h5 style="font-size: 1.5em">
             business id: {{businessId}}
-            <i class="pull-right" class="fa fa-edit"></i>
           </h5>
           <h5 style="width: 200px">
-            description: Gain confidence in the booming digital signage industry through hands-on experiences at Almo’s award-winning one-day AV event. </h5>
+            business description:
+            <InputEdit [style]="stylesDesc" [showIcon]="true" [editable]="true" [value]="'The new statement for your Wells Fargo deposit account eHobbyHouse.com is now available to '"></InputEdit>
+          </h5>
 
         </div>
       </div>
@@ -144,12 +143,12 @@
           </li>
 
           <li class="list-group-item">
-            under reseller
-            <i class="fa fa-check pull-right"></i>
+            reseller 123445
+            <i class="fa fa-certificate pull-right"></i>
           </li>
 
           <li class="list-group-item">
-            active
+            business active
             <i class="fa fa-check pull-right"></i>
           </li>
 
