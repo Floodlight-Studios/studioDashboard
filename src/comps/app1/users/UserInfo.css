@@ -25,6 +25,9 @@
     height: 275px !important;
 }
 
+.material-switch{
+    padding-top: 10px;
+}
 h3 {
     width: 250px;
 }
@@ -34,10 +37,14 @@ h3 {
 
 }
 
+.tallPanel {
+    height: 372px !important;
+}
+
 .fa-edit {
     position: relative;
     top: 3px;
-    left: 75px;
+    left: 25px;
 }
 
 .box .inner {
