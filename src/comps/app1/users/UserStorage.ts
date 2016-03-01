@@ -28,7 +28,7 @@ export class UserStorage  {
             plotBorderWidth: null,
             plotShadow: false,
             type: 'pie',
-            height: '330'
+            height: '250'
         },
         title: {
             text: ''

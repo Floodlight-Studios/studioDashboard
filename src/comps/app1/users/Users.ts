@@ -32,10 +32,33 @@ import {appInjService} from "../../../services/AppInjService";
       .userView {
         /*background-color: red; */
       }      
+      .btns {
+          padding: 0 20px 20px 0px;
+          font-size: 1.4em;
+          color: #313131;
+      }
+      .btns:hover {
+        color: red;
+      }
+      .enabled {
+        opacity: 1
+      }
+       .disabled {
+        opacity: 0.2;
+        cursor: default;
+      }
+
     `],
     template: `
         <div class="row">
              <div class="col-xs-3">
+                <div style="position: relative; top: 10px">
+                    <a class="btns" href="#"><span class="fa fa-plus"></span></a>
+                    <a class="btns" [ngClass]="{disabled: !businessesFilteredList || businessesFilteredList && businessesFilteredList.size != 1}" href="#"><span class="fa fa-rocket"></span></a>
+                    <a class="btns" [ngClass]="{disabled: !businessesFilteredList || businessesFilteredList && businessesFilteredList.size != 1}" href="#"><span class="fa fa-remove"></span></a>
+                    <a class="btns" [ngClass]="{disabled: !businessesFilteredList || businessesFilteredList && businessesFilteredList.size != 1}" href="#"><span class="fa fa-key"></span></a>
+                </div>
+                <br/>
                 <SimpleList #simpleList [list]="businessesList" 
                     (selected)="updateFilteredSelection()"
                     [contentId]="getBusinessesId()"

@@ -34,7 +34,6 @@ h3 {
 
 .box {
     padding: 0 5px 0 5px;
-
 }
 
 .tallPanel {
@@ -45,6 +44,7 @@ h3 {
     position: relative;
     top: 3px;
     left: 25px;
+    cursor: hand;
 }
 
 .box .inner {
