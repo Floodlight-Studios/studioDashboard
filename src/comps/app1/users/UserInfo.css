@@ -1,0 +1,39 @@
+.red {
+    background-color: red;
+}
+
+.green {
+    background-color: green;
+}
+
+.label {
+    font-size: 2em;
+}
+
+.padLeft {
+    padding-left: 12px;
+}
+.padLeftMore {
+    padding-left: 22px;
+}
+
+.panel {
+    height: 200px;
+}
+
+.box {
+    padding: 0 5px 0 5px;
+
+}
+.box .inner {
+    background-color: #fff;
+    border: 1px solid #eeeeee !important;
+    height: 200px;
+}
+
+.br-a {
+    border: 1px solid #eeeeee !important;
+}
+.br-grey {
+    border-color: #d9d9d9 !important;
+}

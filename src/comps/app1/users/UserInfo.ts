@@ -5,6 +5,7 @@ import {List} from 'immutable';
 @Component({
     selector: 'UserInfo',
     templateUrl: `/src/comps/app1/users/UserInfo.html`,
+    styleUrls: [`../comps/app1/users/UserInfo.css`],
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class UserInfo {
