@@ -8,7 +8,7 @@
         </div>
         <div class="col-xs-8">
           <h3 style="width: 260px" class="padLeft">
-            <InputEdit [style]="stylesObj" [editable]="true" [value]="'Sean Levy'"></InputEdit>
+            <InputEdit [style]="stylesObj" [editable]="true" [value]="userName"></InputEdit>
           </h3>
           <h3 class="padLeft">
             <InputEdit [style]="stylesObj" [editable]="true" [type]="'password'" [value]="'***********'"></InputEdit>
@@ -17,14 +17,14 @@
       </div>
       <div class="row">
         <div class="padLeftMore">
-          <i class="fa fa-circle" style="color: dodgerblue"></i>
-          <label class="">StudioLite</label>
+          <i class="fa {{studioIcon}}" style="color: dodgerblue"></i>
+          <label class="">{{studioVersion}}</label>
           <h5 style="font-size: 1.5em">
             business id: {{businessId}}
           </h5>
           <h5 style="width: 200px">
             business description:
-            <InputEdit [style]="stylesDesc" [showIcon]="true" [editable]="true" [value]="'The new statement for your Wells Fargo deposit account eHobbyHouse.com is now available to '"></InputEdit>
+            <InputEdit [style]="stylesDesc" [showIcon]="true" [editable]="true" [value]="businessDescription"></InputEdit>
           </h5>
 
         </div>
@@ -33,8 +33,8 @@
   </div>
   <div class="col-md-7 box">
     <div class="inner" style="height: 100px">
-      <Infobox value1="www" value2="licenses" value3="total allowed screens" icon="fa-tv"></Infobox>
-      <Infobox value1="xxx" value2="in seconds" value3="time since last login" icon="fa-clock-o"></Infobox>
+      <Infobox [value1]="maxMonitors" value2="licenses" value3="total allowed screens" icon="fa-tv"></Infobox>
+      <Infobox [value1]="lastLogin" value2="in seconds" value3="time since last login" icon="fa-clock-o"></Infobox>
     </div>
   </div>
 </div>
@@ -127,7 +127,7 @@
           <li class="list-group-item">
             allow sharing
             <div class="material-switch pull-right">
-              <input id="someSwitchOptionDefault8" name="someSwitchOption008" type="checkbox"/>
+              <input id="someSwitchOptionDefault8" [checked]="allowSharing" name="someSwitchOption008" type="checkbox"/>
               <label for="someSwitchOptionDefault8" class="label-default"></label>
             </div>
           </li>

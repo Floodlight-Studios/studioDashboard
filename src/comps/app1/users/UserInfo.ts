@@ -18,11 +18,26 @@ export class UserInfo {
     serverStatsCategories = [];
     stylesObj;
     stylesDesc;
+    userName;
+    maxMonitors;
+    businessDescription;
+    lastLogin;
+    studioVersion;
+    studioIcon;
+    allowSharing = '';
+
 
 
     @Input()
     set user(i_user:List<BusinessModel>) {
         this.businessId = i_user.first().getKey('businessId');
+        this.userName = i_user.first().getKey('name');
+        this.maxMonitors = i_user.first().getKey('maxMonitors');
+        this.businessDescription = i_user.first().getKey('businessDescription');
+        this.lastLogin = i_user.first().getKey('lastLogin');
+        this.allowSharing = i_user.first().getKey('allowSharing') == '0' ? '' : 'checked';
+        this.studioVersion = i_user.first().getKey('studioLite') == 1 ? 'StudioLite' : 'StudioPro';
+        this.studioIcon = this.studioVersion == 'StudioLite' ? 'fa-circle-o' : 'fa-circle';
     }
 
     @Output()
