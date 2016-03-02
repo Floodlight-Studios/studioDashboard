@@ -26,8 +26,6 @@ export class UserInfo {
     studioIcon;
     allowSharing = '';
 
-
-
     @Input()
     set user(i_user:List<BusinessModel>) {
         this.businessId = i_user.first().getKey('businessId');
