@@ -7,6 +7,7 @@ import {Lib} from "../Lib";
 import {List} from 'immutable';
 import * as _ from 'lodash';
 import {BusinessUser} from "./BusinessUser";
+import {Subject} from "rxjs/Subject";
 
 export const REQUEST_BUSINESS_USER = 'REQUEST_BUSINESS_USER';
 export const RECEIVE_BUSINESS_USER = 'RECEIVE_BUSINESS_USER';
@@ -23,10 +24,12 @@ export const SET_BUSINESS_DATA = 'SET_BUSINESS_DATA';
 @Injectable()
 export class BusinessAction extends Actions {
     parseString;
+    httpRequest$;
 
     constructor(private _http:Http, private appStore:AppStore) {
         super();
         this.parseString = require('xml2js').parseString;
+        this.httpRequest$ = new Subject();
     }
 
     findBusinessIndex(business:BusinessModel, businesses:List<BusinessModel>):number {
@@ -155,6 +158,15 @@ export class BusinessAction extends Actions {
             //    dispatch(this.receiveNumberOfFilms(json.count));
             //})
 
+        };
+    }
+
+    httpService(url) {
+        const httpResponse$ = this.httpRequest$
+            .switchMap(() => this._http.get(url));
+        return {
+            get: () => this.httpRequest$.next(),
+            httpResponse$
         };
     }
 

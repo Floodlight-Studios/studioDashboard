@@ -38,7 +38,7 @@ export class UserInfo {
     verifiedIcon;
     fromTemplateId;
     unsub;
-    _active;
+    unsub2;
 
     @Input()
     set user(i_user:List<BusinessModel>) {
@@ -54,9 +54,14 @@ export class UserInfo {
         this.accountStatus = i_user.first().getKey('accountStatus');
         this.verifiedIcon = this.accountStatus == '2' ? 'fa-check' : 'fa-remove';
         this.resellerId = i_user.first().getKey('resellerId');
-
-        this.appStore.dispatch(this.businessActions.fetchBusinessUser(this.businessId));
-
+        var self = this;
+        // this.appStore.dispatch(this.businessActions.fetchBusinessUser(this.businessId));
+        var http = this.businessActions.httpService('https://secure.digitalsignage.com/Digg');
+        self.unsub2 = http.httpResponse$.subscribe(resp => {
+            console.log(resp)
+            self.unsub2.unsubscribe();
+        });
+        http.get();
     }
 
     constructor(private appStore:AppStore, private businessActions:BusinessAction, private ref:ChangeDetectorRef) {
@@ -103,8 +108,9 @@ export class UserInfo {
     }
 
     ngOnDestroy() {
-        this._active = false;
         this.unsub();
+        if (this.unsub2)
+            this.unsub2.unsubscribe();;
     }
 
     ngAfterViewChecked() {
