@@ -2,11 +2,14 @@ import {Http, Jsonp} from "angular2/http";
 import {Injectable} from "angular2/core";
 import {Actions, AppStore} from "angular2-redux-util";
 import 'rxjs/add/operator/map';
-import {BusinessModel} from "./BusinesModel";
+import {BusinessModel} from "./BusinessModel";
 import {Lib} from "../Lib";
 import {List} from 'immutable';
 import * as _ from 'lodash';
+import {BusinessUser} from "./BusinessUser";
 
+export const REQUEST_BUSINESS_USER = 'REQUEST_BUSINESS_USER';
+export const RECEIVE_BUSINESS_USER = 'RECEIVE_BUSINESS_USER';
 export const REQUEST_BUSINESSES = 'REQUEST_BUSINESSES';
 export const RECEIVE_BUSINESSES = 'RECEIVE_BUSINESSES';
 export const RECEIVE_BUSINESSES_STATS = 'RECEIVE_BUSINESSES_STATS';
@@ -20,6 +23,7 @@ export const SET_BUSINESS_DATA = 'SET_BUSINESS_DATA';
 @Injectable()
 export class BusinessAction extends Actions {
     parseString;
+
     constructor(private _http:Http, private appStore:AppStore) {
         super();
         this.parseString = require('xml2js').parseString;
@@ -154,6 +158,32 @@ export class BusinessAction extends Actions {
         };
     }
 
+    fetchBusinessUser(...args) {
+        var self = this;
+        var businessId = args[0];
+        return (dispatch) => {
+            dispatch(this.requestBusinessUser());
+            var appdb:Map<string,any> = this.appStore.getState().appdb;
+            var url = appdb.get('appBaseUrlUser') + `&command=GetBusinessUsers&businessList=${businessId}`;
+
+            this._http.get(url)
+                .map(result => {
+                    var xmlData:string = result.text()
+                    xmlData = xmlData.replace(/}\)/, '').replace(/\(\{"result":"/, '');
+                    this.parseString(xmlData, {attrkey: '_attr'}, function (err, result) {
+                        const businessUser:BusinessUser = new BusinessUser({
+                            accessMask: result.Users.User["0"]._attr.accessMask,
+                            privilegeId: result.Users.User["0"]._attr.privilegeId,
+                            emailName: result.Users.User["0"]._attr.name,
+                            businessId: result.Users.User["0"]._attr.businessId,
+                        });
+                        dispatch(self.receiveBusinessUser(businessUser));
+                    });
+
+                }).subscribe();
+        };
+    }
+
     setBusinessField(businessId:string, key:string, value:any) {
         return {
             type: SET_BUSINESS_DATA,
@@ -163,17 +193,9 @@ export class BusinessAction extends Actions {
         }
     }
 
-    // fetchBusiness(index) {
-    //     return (dispatch) => {
-    //         dispatch(this.requestFilm());
-    //         this._http.get(`${BASE_URL}${index + 1}/`)
-    //             .map(result => result.json())
-    //             .map(json => {
-    //                 dispatch(this.receiveFilm(json));
-    //             })
-    //             .subscribe();
-    //     };
-    // }
+    requestBusinessUser() {
+        return {type: REQUEST_BUSINESS_USER};
+    }
 
     requestBusinesses() {
         return {type: REQUEST_BUSINESSES};
@@ -183,6 +205,13 @@ export class BusinessAction extends Actions {
         return {
             type: RECEIVE_BUSINESSES,
             businesses
+        }
+    }
+
+    receiveBusinessUser(business:BusinessUser) {
+        return {
+            type: RECEIVE_BUSINESS_USER,
+            business
         }
     }
 

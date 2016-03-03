@@ -3,7 +3,7 @@ import {CanActivate, OnActivate, ComponentInstruction, Router} from "angular2/ro
 import {SimpleList} from "../../simplelist/SimpleList";
 import {AppStore} from "angular2-redux-util/dist/index";
 import {BusinessAction} from "../../../business/BusinessAction";
-import {BusinessModel} from "../../../business/BusinesModel";
+import {BusinessModel} from "../../../business/BusinessModel";
 import {List, Map} from 'immutable';
 import {CommBroker} from "../../../services/CommBroker";
 import {Consts} from "../../../Conts";
@@ -84,9 +84,10 @@ export class Users {
     private businessesFilteredList:List<BusinessModel>
     private unsub:Function;
 
-    constructor(private appStore:AppStore, private commBroker:CommBroker) {
+    constructor(private appStore:AppStore, private commBroker:CommBroker, private businessActions:BusinessAction) {
         var i_businesses = this.appStore.getState().business;
         this.businessesList = i_businesses.getIn(['businesses']);
+
         this.unsub = this.appStore.sub((i_businesses:List<BusinessModel>) => {
             this.businessesList = i_businesses;
         }, 'business.businesses');
@@ -102,6 +103,11 @@ export class Users {
             var businessId = businessModel.getKey('businessId');
             return businessSelected[businessId] && businessSelected[businessId].selected;
         }) as List<any>;
+
+        // if (this.businessesFilteredList.size != 1)
+        //     return;
+        // var businessId = this.businessesFilteredList.first().getKey('businessId');
+        // this.appStore.dispatch(this.businessActions.fetchBusinessUser(businessId));
     }
 
     private getBusinesses() {

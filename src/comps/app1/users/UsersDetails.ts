@@ -1,6 +1,6 @@
 import {Component, Input, Output, EventEmitter, ChangeDetectionStrategy, OnChanges, SimpleChange} from 'angular2/core'
 import {List} from 'immutable';
-import {BusinessModel} from "../../../business/BusinesModel";
+import {BusinessModel} from "../../../business/BusinessModel";
 import {OrderBy} from "../../../pipes/OrderBy";
 import {SIMPLEGRID_DIRECTIVES, ISimpleGridEdit} from "../../simplegrid/SimpleGrid";
 import {AppStore} from "angular2-redux-util/dist/index";

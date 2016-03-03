@@ -1,6 +1,6 @@
 import {List} from 'immutable';
 import * as BusinessAction from './BusinessAction';
-import {BusinessModel} from "./BusinesModel";
+import {BusinessModel} from "./BusinessModel";
 
 export interface IBusinessAction {
     type: string;

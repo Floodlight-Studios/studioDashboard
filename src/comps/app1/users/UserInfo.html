@@ -19,8 +19,13 @@
         <div class="padLeftMore">
           <i class="fa {{studioIcon}}" style="color: dodgerblue"></i>
           <label class="">{{studioVersion}}</label>
-          <h5 style="font-size: 1.5em">
+          <br/>
+          <label>
             business id: {{businessId}}
+          </label>
+          <h5 style="width: 200px">
+            name / email
+            <InputEdit [style]="stylesDesc" [showIcon]="true" [editable]="true" [value]="nameEmail"></InputEdit>
           </h5>
           <h5 style="width: 200px">
             business description:
@@ -134,7 +139,7 @@
 
           <li class="list-group-item">
             account verified
-            <i class="fa fa-plus pull-right"></i>
+            <i class="fa {{verifiedIcon}} pull-right"></i>
           </li>
 
           <li class="list-group-item">
@@ -143,13 +148,13 @@
           </li>
 
           <li class="list-group-item">
-            reseller 123445
+            reseller {{resellerId}}
             <i class="fa fa-certificate pull-right"></i>
           </li>
 
           <li class="list-group-item">
-            business active
-            <i class="fa fa-check pull-right"></i>
+            from template {{fromTemplateId}}
+            <i class="fa fa-modx pull-right"></i>
           </li>
 
           <li class="list-group-item">
@@ -161,16 +166,25 @@
                 <span class="caret"></span>
               </button>
               <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-                <li><a href="#">Action</a></li>
-                <li><a href="#">Another action</a></li>
-                <li><a href="#">Something else here</a></li>
+                <li>
+                  <a href="#">Action</a>
+                </li>
+                <li>
+                  <a href="#">Another action</a>
+                </li>
+                <li>
+                  <a href="#">Something else here</a>
+                </li>
                 <li role="separator" class="divider"></li>
-                <li><a href="#">Separated link</a></li>
+                <li>
+                  <a href="#">Separated link</a>
+                </li>
               </ul>
             </div>
 
           </li>
         </ul>
+      </div>
     </div>
   </div>
-</div></div>
+</div>

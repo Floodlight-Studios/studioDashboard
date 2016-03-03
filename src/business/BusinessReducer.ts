@@ -2,7 +2,7 @@ import {List} from 'immutable';
 import {Map} from 'immutable';
 import * as BusinessAction from './BusinessAction';
 import businessesReducer from '../business/BusinessesReducer';
-import {BusinessModel} from "./BusinesModel";
+import {BusinessModel} from "./BusinessModel";
 
 export function business(state:Map<string,any> = Map<string,any>(), action:any):Map<string,any> {
 
@@ -14,6 +14,9 @@ export function business(state:Map<string,any> = Map<string,any>(), action:any):
             var businesses:List<BusinessModel> = state.getIn(['businesses'])
             var list:List<BusinessModel> = businessesReducer(businesses, action);
             return state.setIn(['businesses'], list);
+
+        case BusinessAction.RECEIVE_BUSINESS_USER:
+            return state.setIn(['businessUser'], action.business);
 
         case BusinessAction.RECEIVE_BUSINESSES_STATS:
             return state.setIn(['businessStats'], action.stats);

@@ -1,19 +1,27 @@
-import {Component, Input, Output, EventEmitter, ChangeDetectionStrategy, OnChanges, SimpleChange} from 'angular2/core'
-import {BusinessModel} from "../../../business/BusinesModel";
+import {
+    Component, Input, Output, EventEmitter, ChangeDetectionStrategy, OnChanges, SimpleChange,
+    ChangeDetectorRef, ApplicationRef, NgZone
+} from 'angular2/core'
+import {BusinessModel} from "../../../business/BusinessModel";
 import {List} from 'immutable';
 import {Infobox} from "../../infobox/Infobox";
 import {UserStorage} from "./UserStorage";
 import {InputEdit} from "../../inputedit/InputEdit";
+import {AppStore} from "angular2-redux-util/dist/index";
+import {BusinessUser} from "../../../business/BusinessUser";
+import {BusinessAction} from "../../../business/BusinessAction";
 
 @Component({
     selector: 'UserInfo',
     directives: [Infobox, UserStorage, InputEdit],
     templateUrl: `/src/comps/app1/users/UserInfo.html`,
-    styleUrls: [`../comps/app1/users/UserInfo.css`],
-    changeDetection: ChangeDetectionStrategy.OnPush
+    // changeDetection: ChangeDetectionStrategy.OnPush,
+    styleUrls: [`../comps/app1/users/UserInfo.css`]
+
 })
 export class UserInfo {
     businessId:string;
+    nameEmail;
     serverStats = [];
     serverStatsCategories = [];
     stylesObj;
@@ -25,6 +33,12 @@ export class UserInfo {
     studioVersion;
     studioIcon;
     allowSharing = '';
+    accountStatus;
+    resellerId;
+    verifiedIcon;
+    fromTemplateId;
+    unsub;
+    _active;
 
     @Input()
     set user(i_user:List<BusinessModel>) {
@@ -36,12 +50,16 @@ export class UserInfo {
         this.allowSharing = i_user.first().getKey('allowSharing') == '0' ? '' : 'checked';
         this.studioVersion = i_user.first().getKey('studioLite') == 1 ? 'StudioLite' : 'StudioPro';
         this.studioIcon = this.studioVersion == 'StudioLite' ? 'fa-circle-o' : 'fa-circle';
+        this.fromTemplateId = i_user.first().getKey('fromTemplateId');
+        this.accountStatus = i_user.first().getKey('accountStatus');
+        this.verifiedIcon = this.accountStatus == '2' ? 'fa-check' : 'fa-remove';
+        this.resellerId = i_user.first().getKey('resellerId');
+
+        this.appStore.dispatch(this.businessActions.fetchBusinessUser(this.businessId));
+
     }
 
-    @Output()
-    addToCart:EventEmitter<any> = new EventEmitter();
-
-    constructor() {
+    constructor(private appStore:AppStore, private businessActions:BusinessAction, private ref:ChangeDetectorRef) {
         var w = '150px';
         this.stylesObj = {
             input: {
@@ -76,5 +94,24 @@ export class UserInfo {
             }
         }
     };
+
+    updateUi() {
+        try {
+            this.ref.detectChanges();
+        } catch (e) {
+        }
+    }
+
+    ngOnDestroy() {
+        this._active = false;
+        this.unsub();
+    }
+
+    ngAfterViewChecked() {
+        this.unsub = this.appStore.sub((businessUser:BusinessUser) => {
+            this.nameEmail = businessUser.getKey('emailName');
+            this.updateUi();
+        }, 'business.businessUser');
+    }
 }
 
