@@ -32,16 +32,22 @@ export class BusinessAction extends Actions {
     httpResponse$
     calls;
     busId;
+    httpRequest3$
 
     constructor(private _http:Http, private appStore:AppStore) {
         super();
         this.parseString = require('xml2js').parseString;
         this.httpRequest$ = new Subject();
         this.httpRequest2$ = new Subject();
+        this.httpRequest3$ = new Subject();
 
-        this.httpRequest$.flatMap(v=>v)
-            .switchMap(v=>{
-                return Observable.of(v);
+        this.httpRequest$
+            .map(v=>{
+                return v;
+            })
+            .switchMap((v)=>{
+                console.log(v);
+                return this._http.get('https://secure.digitalsignage.com/Digg?v='+v);
             })
             .subscribe(e => {
                 console.log('aaaaaaaaaaa');
@@ -177,9 +183,10 @@ export class BusinessAction extends Actions {
         };
     }
 
-    fetchBusinessUser2(...args) {
+    fetchBusinessUser2(businessId) {
        // var st1 = Observable.from(this._http.get('https://secure.digitalsignage.com/Digg'));
-        this.httpRequest$.next(this._http.get('https://secure.digitalsignage.com/Digg'))
+       //  this.httpRequest3$.next(this._http.get('https://secure.digitalsignage.com/Digg'))
+        this.httpRequest$.next(businessId);
     }
 
     fetchBusinessUser(...args) {

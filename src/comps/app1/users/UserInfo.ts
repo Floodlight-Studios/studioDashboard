@@ -58,7 +58,7 @@ export class UserInfo {
 
         //this.appStore.dispatch(this.businessActions.fetchBusinessUser(this.businessId));
         // this.businessActions.fetchBusinessUser2();
-        this.businessActions.fetchBusinessUser2();
+        this.businessActions.fetchBusinessUser2(Math.random());
 
 
         // this.businessActions.callServer('https://secure.digitalsignage.com/Digg')
