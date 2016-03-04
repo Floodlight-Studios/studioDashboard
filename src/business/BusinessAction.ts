@@ -5,55 +5,44 @@ import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/mergeMap';
 import 'rxjs/add/operator/merge';
 import {BusinessModel} from "./BusinessModel";
-import {Lib} from "../Lib";
 import {List} from 'immutable';
-import * as _ from 'lodash';
 import {BusinessUser} from "./BusinessUser";
 import {Subject} from "rxjs/Subject";
-import {Observable} from "rxjs/Observable";
 
 export const REQUEST_BUSINESS_USER = 'REQUEST_BUSINESS_USER';
 export const RECEIVE_BUSINESS_USER = 'RECEIVE_BUSINESS_USER';
 export const REQUEST_BUSINESSES = 'REQUEST_BUSINESSES';
 export const RECEIVE_BUSINESSES = 'RECEIVE_BUSINESSES';
 export const RECEIVE_BUSINESSES_STATS = 'RECEIVE_BUSINESSES_STATS';
-export const REQUEST_FILM = 'REQUEST_FILM';
-export const RECEIVE_FILM = 'RECEIVE_FILM';
-export const CURRENT_FILMS = 'CURRENT_FILMS';
-export const RECEIVE_NUMBER_OF_FILMS = 'RECEIVE_NUMBER_OF_FILMS';
 export const SET_BUSINESS_DATA = 'SET_BUSINESS_DATA';
-
 
 @Injectable()
 export class BusinessAction extends Actions {
     parseString;
-    httpRequest$;
-    httpRequest2$:Subject<any>
-    httpResponse$
-    calls;
-    busId;
-    httpRequest3$
+    httpRequest$:Subject<any>;
+    unsub;
 
     constructor(private _http:Http, private appStore:AppStore) {
         super();
-        var self = this;
         this.parseString = require('xml2js').parseString;
-        this.httpRequest$ = new Subject();
-        this.httpRequest2$ = new Subject();
-        this.httpRequest3$ = new Subject();
+        this.listenFetchBusinessUser();
+    }
 
-        this.httpRequest$
+    private listenFetchBusinessUser(){
+        var self = this;
+        this.httpRequest$ = new Subject();
+        this.unsub = this.httpRequest$
             .map(v=> {
                 return v;
             })
             .switchMap((v:any):any => {
                 console.log(v);
-                if (v.id==-1||v.id=='-1')
-                    return 'bye';
-                var busId = v.id;
+                if (v.businessId==-1||v.businessId=='-1')
+                    return 'CANCEL_PENDING_NET_CALLS';
+                var businessId = v.businessId;
                 var dispatch = v.dispatch;
                 var appdb:Map<string,any> = this.appStore.getState().appdb;
-                var url = appdb.get('appBaseUrlUser') + `&command=GetBusinessUsers&businessList=${busId}`;
+                var url = appdb.get('appBaseUrlUser') + `&command=GetBusinessUsers&businessList=${businessId}`;
                 return this._http.get(url)
                     .map(result => {
                         var xmlData:string = result.text()
@@ -67,25 +56,20 @@ export class BusinessAction extends Actions {
                             });
                             dispatch(self.receiveBusinessUser(businessUser));
                         });
-
                     });
             }).share()
-            .subscribe(e => {
-                console.log('aaaaaaaaaaa');
-            })
+            .subscribe();
     }
 
-    fetchBusinessUser3(...args) {
-        var self = this;
-        var busId = args[0];
+    public fetchBusinessUser(...args) {
+        var businessId = args[0];
         return (dispatch) => {
             dispatch(this.requestBusinessUser());
-            this.httpRequest$.next({id: busId, dispatch: dispatch});
+            this.httpRequest$.next({businessId: businessId, dispatch: dispatch});
         };
     }
 
-
-    findBusinessIndex(business:BusinessModel, businesses:List<BusinessModel>):number {
+    public findBusinessIndex(business:BusinessModel, businesses:List<BusinessModel>):number {
         return businesses.findIndex((i_business:BusinessModel)=> {
             return i_business.getKey('businessId') === business.getKey('businessId');
         });
@@ -94,7 +78,7 @@ export class BusinessAction extends Actions {
     /**
      * Redux middleware action for getting server businesses
      * **/
-    fetchBusinesses(...args) {
+    public fetchBusinesses(...args) {
         var self = this;
         return (dispatch) => {
             dispatch(this.requestBusinesses());
@@ -201,60 +185,16 @@ export class BusinessAction extends Actions {
                         //var xResult = jQuery(result);
                         //var businesses = xResult.find('BusinessInfo');
                         //console.log(result)
-
                     });
-
-
                 }).subscribe();
             //.map(json => {
             //    dispatch(this.receiveBusinesses(json.results));
             //    dispatch(this.receiveNumberOfFilms(json.count));
             //})
-
         };
     }
 
-
-    fetchBusinessUser2(businessId) {
-        // var st1 = Observable.from(this._http.get('https://secure.digitalsignage.com/Digg'));
-        //  this.httpRequest3$.next(this._http.get('https://secure.digitalsignage.com/Digg'))
-        this.httpRequest$.next(businessId);
-    }
-
-    fetchBusinessUser(...args) {
-        var self = this;
-        self.busId = args[0];
-        return (dispatch) => {
-            dispatch(this.requestBusinessUser());
-            if (!this.httpResponse$) {
-                this.httpResponse$ = this.httpRequest$
-                    .switchMap(() => {
-                        var appdb:Map<string,any> = this.appStore.getState().appdb;
-                        var url = appdb.get('appBaseUrlUser') + `&command=GetBusinessUsers&businessList=${self.busId}`;
-                        return this._http.get(url)
-                            .map(result => {
-                                var xmlData:string = result.text()
-                                xmlData = xmlData.replace(/}\)/, '').replace(/\(\{"result":"/, '');
-                                this.parseString(xmlData, {attrkey: '_attr'}, function (err, result) {
-                                    const businessUser:BusinessUser = new BusinessUser({
-                                        accessMask: result.Users.User["0"]._attr.accessMask,
-                                        privilegeId: result.Users.User["0"]._attr.privilegeId,
-                                        emailName: result.Users.User["0"]._attr.name,
-                                        businessId: result.Users.User["0"]._attr.businessId,
-                                    });
-                                    dispatch(self.receiveBusinessUser(businessUser));
-                                });
-
-                            });
-
-                    }).share();
-                this.httpResponse$.subscribe();
-            }
-            this.httpRequest$.next();
-        };
-    }
-
-    setBusinessField(businessId:string, key:string, value:any) {
+    public setBusinessField(businessId:string, key:string, value:any) {
         return {
             type: SET_BUSINESS_DATA,
             businessId: businessId,
@@ -263,52 +203,37 @@ export class BusinessAction extends Actions {
         }
     }
 
-    requestBusinessUser() {
+    public requestBusinessUser() {
         return {type: REQUEST_BUSINESS_USER};
     }
 
-    requestBusinesses() {
+    public requestBusinesses() {
         return {type: REQUEST_BUSINESSES};
     }
 
-    receiveBusinesses(businesses) {
+    public receiveBusinesses(businesses) {
         return {
             type: RECEIVE_BUSINESSES,
             businesses
         }
     }
 
-    receiveBusinessUser(business:BusinessUser) {
+    public receiveBusinessUser(business:BusinessUser) {
         return {
             type: RECEIVE_BUSINESS_USER,
             business
         }
     }
 
-    receiveBusinessesStats(stats) {
+    public receiveBusinessesStats(stats) {
         return {
             type: RECEIVE_BUSINESSES_STATS,
             stats
         }
     }
 
-    receiveNumberOfFilms(count) {
-        return {
-            type: RECEIVE_NUMBER_OF_FILMS,
-            count
-        }
+    ngOnDestroy() {
+        this.unsub();
     }
-
-    requestFilm() {
-        return {type: REQUEST_FILM};
-    }
-
-    receiveFilm(film) {
-        return {
-            type: RECEIVE_FILM,
-            film
-        }
-    }
-
 
 }

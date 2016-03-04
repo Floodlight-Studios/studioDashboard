@@ -27,7 +27,6 @@ import {appInjService} from "../../../services/AppInjService";
 @Component({
     selector: 'Users',
     directives: [SimpleList, UsersDetails],
-    providers: [BusinessAction],
     styles: [`
       .userView {
         /*background-color: red; */
@@ -84,7 +83,7 @@ export class Users {
     private businessesFilteredList:List<BusinessModel>
     private unsub:Function;
 
-    constructor(private appStore:AppStore, private commBroker:CommBroker, private businessActions:BusinessAction) {
+    constructor(private appStore:AppStore, private commBroker:CommBroker) {
         var i_businesses = this.appStore.getState().business;
         this.businessesList = i_businesses.getIn(['businesses']);
 

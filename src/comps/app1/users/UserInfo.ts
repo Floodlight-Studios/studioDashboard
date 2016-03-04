@@ -38,8 +38,6 @@ export class UserInfo {
     verifiedIcon;
     fromTemplateId;
     unsub;
-    unsub2;
-    unsub3;
 
     @Input()
     set user(i_user:List<BusinessModel>) {
@@ -56,33 +54,7 @@ export class UserInfo {
         this.verifiedIcon = this.accountStatus == '2' ? 'fa-check' : 'fa-remove';
         this.resellerId = i_user.first().getKey('resellerId');
 
-        //this.appStore.dispatch(this.businessActions.fetchBusinessUser(this.businessId));
-        this.appStore.dispatch(this.businessActions.fetchBusinessUser3(this.businessId));
-        //this.businessActions.fetchBusinessUser2();
-        //this.businessActions.fetchBusinessUser3(Math.random());
-
-
-        // this.businessActions.callServer('https://secure.digitalsignage.com/Digg')
-        // this.businessActions.callServer('https://secure.digitalsignage.com/Digg')
-        // this.businessActions.callServer('https://secure.digitalsignage.com/Digg')
-        // this.businessActions.callServer('https://secure.digitalsignage.com/Digg')
-        // this.businessActions.callServer('https://secure.digitalsignage.com/Digg')
-
-
-        // this.unsub3 = this.businessActions.calls.httpResponse$.subscribe((e)=> {
-        //     console.log(e)
-        //     // this.sub2.unsubscribe();
-        // })
-        // this.businessActions.calls.get();
-        // this.businessActions.calls.get();
-        // this.businessActions.calls.get();
-
-        // var http = this.businessActions.httpService('https://secure.digitalsignage.com/Digg');
-        // self.unsub2 = http.httpResponse$.subscribe(resp => {
-        //     console.log(resp)
-        //     self.unsub2.unsubscribe();
-        // });
-        // http.get();
+        this.appStore.dispatch(this.businessActions.fetchBusinessUser(this.businessId));
     }
 
     constructor(private appStore:AppStore, private businessActions:BusinessAction, private ref:ChangeDetectorRef) {
@@ -128,18 +100,16 @@ export class UserInfo {
         }
     }
 
-    ngOnDestroy() {
-        this.unsub();
-        this.appStore.dispatch(this.businessActions.fetchBusinessUser3(-1))
-        // this.unsub2.unsubscribe();
-        // this.unsub3.unsubscribe();
-    }
-
     ngAfterViewChecked() {
         this.unsub = this.appStore.sub((businessUser:BusinessUser) => {
             this.nameEmail = businessUser.getKey('emailName');
             this.updateUi();
         }, 'business.businessUser');
+    }
+
+    ngOnDestroy() {
+        this.unsub();
+        this.appStore.dispatch(this.businessActions.fetchBusinessUser(-1))
     }
 }
 
