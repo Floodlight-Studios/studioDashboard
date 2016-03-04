@@ -25,11 +25,26 @@ export const SET_BUSINESS_DATA = 'SET_BUSINESS_DATA';
 export class BusinessAction extends Actions {
     parseString;
     httpRequest$;
+    calls;
 
     constructor(private _http:Http, private appStore:AppStore) {
         super();
         this.parseString = require('xml2js').parseString;
         this.httpRequest$ = new Subject();
+
+
+        const httpResponse$ = this.httpRequest$
+            .switchMap(() => {
+                return this._http.get(this.getUrl())
+            }).share();
+        this.calls = {
+            get: () => this.httpRequest$.next(),
+            httpResponse$: httpResponse$
+        };
+    }
+
+    getUrl() {
+        return `https://secure.digitalsignage.com/Digg?val=${Math.random()}`
     }
 
     findBusinessIndex(business:BusinessModel, businesses:List<BusinessModel>):number {

@@ -39,6 +39,7 @@ export class UserInfo {
     fromTemplateId;
     unsub;
     unsub2;
+    unsub3;
 
     @Input()
     set user(i_user:List<BusinessModel>) {
@@ -56,12 +57,29 @@ export class UserInfo {
         this.resellerId = i_user.first().getKey('resellerId');
         var self = this;
         // this.appStore.dispatch(this.businessActions.fetchBusinessUser(this.businessId));
-        var http = this.businessActions.httpService('https://secure.digitalsignage.com/Digg');
-        self.unsub2 = http.httpResponse$.subscribe(resp => {
-            console.log(resp)
-            self.unsub2.unsubscribe();
-        });
-        http.get();
+
+        this.unsub2 = this.businessActions.calls.httpResponse$.subscribe((e)=> {
+            console.log(e)
+            // this.sub2.unsubscribe();
+        })
+        this.businessActions.calls.get();
+        this.businessActions.calls.get();
+        this.businessActions.calls.get();
+
+        this.unsub3 = this.businessActions.calls.httpResponse$.subscribe((e)=> {
+            console.log(e)
+            // this.sub2.unsubscribe();
+        })
+        this.businessActions.calls.get();
+        this.businessActions.calls.get();
+        this.businessActions.calls.get();
+
+        // var http = this.businessActions.httpService('https://secure.digitalsignage.com/Digg');
+        // self.unsub2 = http.httpResponse$.subscribe(resp => {
+        //     console.log(resp)
+        //     self.unsub2.unsubscribe();
+        // });
+        // http.get();
     }
 
     constructor(private appStore:AppStore, private businessActions:BusinessAction, private ref:ChangeDetectorRef) {
@@ -109,8 +127,8 @@ export class UserInfo {
 
     ngOnDestroy() {
         this.unsub();
-        if (this.unsub2)
-            this.unsub2.unsubscribe();;
+        this.unsub2.unsubscribe();
+        this.unsub3.unsubscribe();
     }
 
     ngAfterViewChecked() {
