@@ -46,7 +46,7 @@ export class BusinessAction extends Actions {
             .map(v=> {
                 return v;
             })
-            .switchMap((v)=> {
+            .switchMap((v:any):any => {
                 console.log(v);
                 if (v.id==-1||v.id=='-1')
                     return 'bye';
