@@ -130,6 +130,7 @@ export class UserInfo {
 
     ngOnDestroy() {
         this.unsub();
+        this.appStore.dispatch(this.businessActions.fetchBusinessUser3(-1))
         // this.unsub2.unsubscribe();
         // this.unsub3.unsubscribe();
     }

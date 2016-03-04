@@ -48,6 +48,8 @@ export class BusinessAction extends Actions {
             })
             .switchMap((v)=> {
                 console.log(v);
+                if (v.id==-1||v.id=='-1')
+                    return 'bye';
                 var busId = v.id;
                 var dispatch = v.dispatch;
                 var appdb:Map<string,any> = this.appStore.getState().appdb;
@@ -67,7 +69,7 @@ export class BusinessAction extends Actions {
                         });
 
                     });
-            })
+            }).share()
             .subscribe(e => {
                 console.log('aaaaaaaaaaa');
             })
