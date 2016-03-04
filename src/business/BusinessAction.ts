@@ -25,7 +25,9 @@ export const SET_BUSINESS_DATA = 'SET_BUSINESS_DATA';
 export class BusinessAction extends Actions {
     parseString;
     httpRequest$;
+    httpResponse$
     calls;
+    busId;
 
     constructor(private _http:Http, private appStore:AppStore) {
         super();
@@ -33,14 +35,27 @@ export class BusinessAction extends Actions {
         this.httpRequest$ = new Subject();
 
 
-        const httpResponse$ = this.httpRequest$
-            .switchMap(() => {
-                return this._http.get(this.getUrl())
-            }).share();
-        this.calls = {
-            get: () => this.httpRequest$.next(),
-            httpResponse$: httpResponse$
-        };
+        // const httpResponse$ = this.httpRequest$
+        //     .switchMap(() => {
+        //         return this._http.get(this.getUrl())
+        //     }).share();
+        // this.calls = {
+        //     get: () => this.httpRequest$.next(),
+        //     httpResponse$: httpResponse$
+        // };
+    }
+
+    callServer(url){
+        if (!this.httpResponse$){
+            this.httpResponse$ = this.httpRequest$
+                .switchMap(() => {
+                    return this._http.get(url)
+                }).share();
+            this.httpResponse$.subscribe(e=>{
+                console.log('AAAAA');
+            });
+        }
+        this.httpRequest$.next();
     }
 
     getUrl() {
@@ -187,27 +202,34 @@ export class BusinessAction extends Actions {
 
     fetchBusinessUser(...args) {
         var self = this;
-        var businessId = args[0];
+        self.busId = args[0];
         return (dispatch) => {
             dispatch(this.requestBusinessUser());
-            var appdb:Map<string,any> = this.appStore.getState().appdb;
-            var url = appdb.get('appBaseUrlUser') + `&command=GetBusinessUsers&businessList=${businessId}`;
+            if (!this.httpResponse$){
+                this.httpResponse$ = this.httpRequest$
+                    .switchMap(() => {
+                        var appdb:Map<string,any> = self.appStore.getState().appdb;
+                        var url = appdb.get('appBaseUrlUser') + `&command=GetBusinessUsers&businessList=${self.busId}`;
+                        return this._http.get(url)
+                            .map(result => {
+                                var xmlData:string = result.text()
+                                xmlData = xmlData.replace(/}\)/, '').replace(/\(\{"result":"/, '');
+                                this.parseString(xmlData, {attrkey: '_attr'}, function (err, result) {
+                                    const businessUser:BusinessUser = new BusinessUser({
+                                        accessMask: result.Users.User["0"]._attr.accessMask,
+                                        privilegeId: result.Users.User["0"]._attr.privilegeId,
+                                        emailName: result.Users.User["0"]._attr.name,
+                                        businessId: result.Users.User["0"]._attr.businessId,
+                                    });
+                                    dispatch(self.receiveBusinessUser(businessUser));
+                                });
 
-            this._http.get(url)
-                .map(result => {
-                    var xmlData:string = result.text()
-                    xmlData = xmlData.replace(/}\)/, '').replace(/\(\{"result":"/, '');
-                    this.parseString(xmlData, {attrkey: '_attr'}, function (err, result) {
-                        const businessUser:BusinessUser = new BusinessUser({
-                            accessMask: result.Users.User["0"]._attr.accessMask,
-                            privilegeId: result.Users.User["0"]._attr.privilegeId,
-                            emailName: result.Users.User["0"]._attr.name,
-                            businessId: result.Users.User["0"]._attr.businessId,
-                        });
-                        dispatch(self.receiveBusinessUser(businessUser));
-                    });
+                            });
 
-                }).subscribe();
+                    }).share();
+                this.httpResponse$.subscribe();
+            }
+            this.httpRequest$.next();
         };
     }
 

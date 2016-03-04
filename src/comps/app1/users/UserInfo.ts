@@ -55,24 +55,23 @@ export class UserInfo {
         this.accountStatus = i_user.first().getKey('accountStatus');
         this.verifiedIcon = this.accountStatus == '2' ? 'fa-check' : 'fa-remove';
         this.resellerId = i_user.first().getKey('resellerId');
-        var self = this;
-        // this.appStore.dispatch(this.businessActions.fetchBusinessUser(this.businessId));
 
-        this.unsub2 = this.businessActions.calls.httpResponse$.subscribe((e)=> {
-            console.log(e)
-            // this.sub2.unsubscribe();
-        })
-        this.businessActions.calls.get();
-        this.businessActions.calls.get();
-        this.businessActions.calls.get();
+        this.appStore.dispatch(this.businessActions.fetchBusinessUser(this.businessId));
 
-        this.unsub3 = this.businessActions.calls.httpResponse$.subscribe((e)=> {
-            console.log(e)
-            // this.sub2.unsubscribe();
-        })
-        this.businessActions.calls.get();
-        this.businessActions.calls.get();
-        this.businessActions.calls.get();
+        // this.businessActions.callServer('https://secure.digitalsignage.com/Digg')
+        // this.businessActions.callServer('https://secure.digitalsignage.com/Digg')
+        // this.businessActions.callServer('https://secure.digitalsignage.com/Digg')
+        // this.businessActions.callServer('https://secure.digitalsignage.com/Digg')
+        // this.businessActions.callServer('https://secure.digitalsignage.com/Digg')
+
+
+        // this.unsub3 = this.businessActions.calls.httpResponse$.subscribe((e)=> {
+        //     console.log(e)
+        //     // this.sub2.unsubscribe();
+        // })
+        // this.businessActions.calls.get();
+        // this.businessActions.calls.get();
+        // this.businessActions.calls.get();
 
         // var http = this.businessActions.httpService('https://secure.digitalsignage.com/Digg');
         // self.unsub2 = http.httpResponse$.subscribe(resp => {
@@ -127,8 +126,8 @@ export class UserInfo {
 
     ngOnDestroy() {
         this.unsub();
-        this.unsub2.unsubscribe();
-        this.unsub3.unsubscribe();
+        // this.unsub2.unsubscribe();
+        // this.unsub3.unsubscribe();
     }
 
     ngAfterViewChecked() {
