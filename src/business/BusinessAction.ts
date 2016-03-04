@@ -36,23 +36,52 @@ export class BusinessAction extends Actions {
 
     constructor(private _http:Http, private appStore:AppStore) {
         super();
+        var self = this;
         this.parseString = require('xml2js').parseString;
         this.httpRequest$ = new Subject();
         this.httpRequest2$ = new Subject();
         this.httpRequest3$ = new Subject();
 
         this.httpRequest$
-            .map(v=>{
+            .map(v=> {
                 return v;
             })
-            .switchMap((v)=>{
+            .switchMap((v)=> {
                 console.log(v);
-                return this._http.get('https://secure.digitalsignage.com/Digg?v='+v);
+                var busId = v.id;
+                var dispatch = v.dispatch;
+                var appdb:Map<string,any> = this.appStore.getState().appdb;
+                var url = appdb.get('appBaseUrlUser') + `&command=GetBusinessUsers&businessList=${busId}`;
+                return this._http.get(url)
+                    .map(result => {
+                        var xmlData:string = result.text()
+                        xmlData = xmlData.replace(/}\)/, '').replace(/\(\{"result":"/, '');
+                        this.parseString(xmlData, {attrkey: '_attr'}, function (err, result) {
+                            const businessUser:BusinessUser = new BusinessUser({
+                                accessMask: result.Users.User["0"]._attr.accessMask,
+                                privilegeId: result.Users.User["0"]._attr.privilegeId,
+                                emailName: result.Users.User["0"]._attr.name,
+                                businessId: result.Users.User["0"]._attr.businessId,
+                            });
+                            dispatch(self.receiveBusinessUser(businessUser));
+                        });
+
+                    });
             })
             .subscribe(e => {
                 console.log('aaaaaaaaaaa');
             })
     }
+
+    fetchBusinessUser3(...args) {
+        var self = this;
+        var busId = args[0];
+        return (dispatch) => {
+            dispatch(this.requestBusinessUser());
+            this.httpRequest$.next({id: busId, dispatch: dispatch});
+        };
+    }
+
 
     findBusinessIndex(business:BusinessModel, businesses:List<BusinessModel>):number {
         return businesses.findIndex((i_business:BusinessModel)=> {
@@ -183,9 +212,10 @@ export class BusinessAction extends Actions {
         };
     }
 
+
     fetchBusinessUser2(businessId) {
-       // var st1 = Observable.from(this._http.get('https://secure.digitalsignage.com/Digg'));
-       //  this.httpRequest3$.next(this._http.get('https://secure.digitalsignage.com/Digg'))
+        // var st1 = Observable.from(this._http.get('https://secure.digitalsignage.com/Digg'));
+        //  this.httpRequest3$.next(this._http.get('https://secure.digitalsignage.com/Digg'))
         this.httpRequest$.next(businessId);
     }
 
