@@ -33,33 +33,6 @@ export class BusinessAction extends Actions {
         super();
         this.parseString = require('xml2js').parseString;
         this.httpRequest$ = new Subject();
-
-
-        // const httpResponse$ = this.httpRequest$
-        //     .switchMap(() => {
-        //         return this._http.get(this.getUrl())
-        //     }).share();
-        // this.calls = {
-        //     get: () => this.httpRequest$.next(),
-        //     httpResponse$: httpResponse$
-        // };
-    }
-
-    callServer(url){
-        if (!this.httpResponse$){
-            this.httpResponse$ = this.httpRequest$
-                .switchMap(() => {
-                    return this._http.get(url)
-                }).share();
-            this.httpResponse$.subscribe(e=>{
-                console.log('AAAAA');
-            });
-        }
-        this.httpRequest$.next();
-    }
-
-    getUrl() {
-        return `https://secure.digitalsignage.com/Digg?val=${Math.random()}`
     }
 
     findBusinessIndex(business:BusinessModel, businesses:List<BusinessModel>):number {
@@ -188,15 +161,6 @@ export class BusinessAction extends Actions {
             //    dispatch(this.receiveNumberOfFilms(json.count));
             //})
 
-        };
-    }
-
-    httpService(url) {
-        const httpResponse$ = this.httpRequest$
-            .switchMap(() => this._http.get(url));
-        return {
-            get: () => this.httpRequest$.next(),
-            httpResponse$
         };
     }
 
