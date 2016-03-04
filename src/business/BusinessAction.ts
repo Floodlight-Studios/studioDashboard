@@ -2,6 +2,7 @@ import {Http, Jsonp} from "angular2/http";
 import {Injectable} from "angular2/core";
 import {Actions, AppStore} from "angular2-redux-util";
 import 'rxjs/add/operator/map';
+import 'rxjs/add/operator/merge';
 import {BusinessModel} from "./BusinessModel";
 import {Lib} from "../Lib";
 import {List} from 'immutable';
@@ -172,7 +173,7 @@ export class BusinessAction extends Actions {
             if (!this.httpResponse$){
                 this.httpResponse$ = this.httpRequest$
                     .switchMap(() => {
-                        var appdb:Map<string,any> = self.appStore.getState().appdb;
+                        var appdb:Map<string,any> = this.appStore.getState().appdb;
                         var url = appdb.get('appBaseUrlUser') + `&command=GetBusinessUsers&businessList=${self.busId}`;
                         return this._http.get(url)
                             .map(result => {
