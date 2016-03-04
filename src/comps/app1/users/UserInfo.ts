@@ -56,7 +56,10 @@ export class UserInfo {
         this.verifiedIcon = this.accountStatus == '2' ? 'fa-check' : 'fa-remove';
         this.resellerId = i_user.first().getKey('resellerId');
 
-        this.appStore.dispatch(this.businessActions.fetchBusinessUser(this.businessId));
+        //this.appStore.dispatch(this.businessActions.fetchBusinessUser(this.businessId));
+        // this.businessActions.fetchBusinessUser2();
+        this.businessActions.fetchBusinessUser2();
+
 
         // this.businessActions.callServer('https://secure.digitalsignage.com/Digg')
         // this.businessActions.callServer('https://secure.digitalsignage.com/Digg')

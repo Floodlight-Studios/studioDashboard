@@ -2,6 +2,7 @@ import {Http, Jsonp} from "angular2/http";
 import {Injectable} from "angular2/core";
 import {Actions, AppStore} from "angular2-redux-util";
 import 'rxjs/add/operator/map';
+import 'rxjs/add/operator/mergeMap';
 import 'rxjs/add/operator/merge';
 import {BusinessModel} from "./BusinessModel";
 import {Lib} from "../Lib";
@@ -9,6 +10,7 @@ import {List} from 'immutable';
 import * as _ from 'lodash';
 import {BusinessUser} from "./BusinessUser";
 import {Subject} from "rxjs/Subject";
+import {Observable} from "rxjs/Observable";
 
 export const REQUEST_BUSINESS_USER = 'REQUEST_BUSINESS_USER';
 export const RECEIVE_BUSINESS_USER = 'RECEIVE_BUSINESS_USER';
@@ -26,6 +28,7 @@ export const SET_BUSINESS_DATA = 'SET_BUSINESS_DATA';
 export class BusinessAction extends Actions {
     parseString;
     httpRequest$;
+    httpRequest2$:Subject<any>
     httpResponse$
     calls;
     busId;
@@ -34,6 +37,12 @@ export class BusinessAction extends Actions {
         super();
         this.parseString = require('xml2js').parseString;
         this.httpRequest$ = new Subject();
+        this.httpRequest2$ = new Subject();
+
+        this.httpRequest$.flatMap(v=>v)
+            .subscribe(e => {
+                console.log('aaaaaaaaaaa');
+            })
     }
 
     findBusinessIndex(business:BusinessModel, businesses:List<BusinessModel>):number {
@@ -165,12 +174,17 @@ export class BusinessAction extends Actions {
         };
     }
 
+    fetchBusinessUser2(...args) {
+        var st1 = Observable.from(this._http.get('https://secure.digitalsignage.com/Digg'));
+        this.httpRequest$.next(st1)
+    }
+
     fetchBusinessUser(...args) {
         var self = this;
         self.busId = args[0];
         return (dispatch) => {
             dispatch(this.requestBusinessUser());
-            if (!this.httpResponse$){
+            if (!this.httpResponse$) {
                 this.httpResponse$ = this.httpRequest$
                     .switchMap(() => {
                         var appdb:Map<string,any> = this.appStore.getState().appdb;
