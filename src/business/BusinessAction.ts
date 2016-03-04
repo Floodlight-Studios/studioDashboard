@@ -40,6 +40,9 @@ export class BusinessAction extends Actions {
         this.httpRequest2$ = new Subject();
 
         this.httpRequest$.flatMap(v=>v)
+            .switchMap(v=>{
+                return Observable.of(v);
+            })
             .subscribe(e => {
                 console.log('aaaaaaaaaaa');
             })
@@ -175,8 +178,8 @@ export class BusinessAction extends Actions {
     }
 
     fetchBusinessUser2(...args) {
-        var st1 = Observable.from(this._http.get('https://secure.digitalsignage.com/Digg'));
-        this.httpRequest$.next(st1)
+       // var st1 = Observable.from(this._http.get('https://secure.digitalsignage.com/Digg'));
+        this.httpRequest$.next(this._http.get('https://secure.digitalsignage.com/Digg'))
     }
 
     fetchBusinessUser(...args) {
