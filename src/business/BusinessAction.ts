@@ -4,6 +4,7 @@ import {Actions, AppStore} from "angular2-redux-util";
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/mergeMap';
 import 'rxjs/add/operator/merge';
+import 'rxjs/add/operator/debounceTime';
 import {BusinessModel} from "./BusinessModel";
 import {List} from 'immutable';
 import {BusinessUser} from "./BusinessUser";
@@ -19,7 +20,7 @@ export const SET_BUSINESS_DATA = 'SET_BUSINESS_DATA';
 @Injectable()
 export class BusinessAction extends Actions {
     parseString;
-    httpRequest$:Subject<any>;
+    businessesRequest$:Subject<any>;
     unsub;
 
     constructor(private _http:Http, private appStore:AppStore) {
@@ -28,44 +29,47 @@ export class BusinessAction extends Actions {
         this.listenFetchBusinessUser();
     }
 
-    private listenFetchBusinessUser(){
+    private listenFetchBusinessUser() {
         var self = this;
-        this.httpRequest$ = new Subject();
-        this.unsub = this.httpRequest$
+        this.businessesRequest$ = new Subject();
+        this.unsub = this.businessesRequest$
             .map(v=> {
                 return v;
             })
-            .switchMap((v:any):any => {
-                console.log(v);
-                if (v.businessId==-1||v.businessId=='-1')
+            .debounceTime(100)
+            .switchMap((values:{businessIds:Array<string>, dispatch:(value:any)=>any}):any => {
+                if (values.businessIds.length==0)
                     return 'CANCEL_PENDING_NET_CALLS';
-                var businessId = v.businessId;
-                var dispatch = v.dispatch;
+                var businessIds:string = values.businessIds.join('.');
+                var dispatch = values.dispatch;
                 var appdb:Map<string,any> = this.appStore.getState().appdb;
-                var url = appdb.get('appBaseUrlUser') + `&command=GetBusinessUsers&businessList=${businessId}`;
+                var url = appdb.get('appBaseUrlUser') + `&command=GetBusinessUsers&businessList=${businessIds}`;
                 return this._http.get(url)
                     .map(result => {
                         var xmlData:string = result.text()
                         xmlData = xmlData.replace(/}\)/, '').replace(/\(\{"result":"/, '');
                         this.parseString(xmlData, {attrkey: '_attr'}, function (err, result) {
-                            const businessUser:BusinessUser = new BusinessUser({
-                                accessMask: result.Users.User["0"]._attr.accessMask,
-                                privilegeId: result.Users.User["0"]._attr.privilegeId,
-                                emailName: result.Users.User["0"]._attr.name,
-                                businessId: result.Users.User["0"]._attr.businessId,
-                            });
-                            dispatch(self.receiveBusinessUser(businessUser));
+                            var businessUsers = [];
+                            for (var business of result.Users.User) {
+                                const businessUser:BusinessUser = new BusinessUser({
+                                    accessMask: business._attr.accessMask,
+                                    privilegeId: business._attr.privilegeId,
+                                    emailName: business._attr.name,
+                                    businessId: business._attr.businessId,
+                                });
+                                businessUsers.push(businessUser)
+                            }
+                            dispatch(self.receiveBusinessUsers(businessUsers));
                         });
                     });
             }).share()
             .subscribe();
     }
 
-    public fetchBusinessUser(...args) {
-        var businessId = args[0];
+    public fetchBusinessUser(businessIds:Array<string>) {
         return (dispatch) => {
             dispatch(this.requestBusinessUser());
-            this.httpRequest$.next({businessId: businessId, dispatch: dispatch});
+            this.businessesRequest$.next({businessIds: businessIds, dispatch: dispatch});
         };
     }
 
@@ -218,10 +222,10 @@ export class BusinessAction extends Actions {
         }
     }
 
-    public receiveBusinessUser(business:BusinessUser) {
+    public receiveBusinessUsers(businessUsers:Array<BusinessUser>) {
         return {
             type: RECEIVE_BUSINESS_USER,
-            business
+            businessUsers
         }
     }
 

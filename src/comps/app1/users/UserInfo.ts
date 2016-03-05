@@ -54,7 +54,7 @@ export class UserInfo {
         this.verifiedIcon = this.accountStatus == '2' ? 'fa-check' : 'fa-remove';
         this.resellerId = i_user.first().getKey('resellerId');
 
-        this.appStore.dispatch(this.businessActions.fetchBusinessUser(this.businessId));
+        //this.appStore.dispatch(this.businessActions.fetchBusinessUser(this.businessId));
     }
 
     constructor(private appStore:AppStore, private businessActions:BusinessAction, private ref:ChangeDetectorRef) {
@@ -101,15 +101,15 @@ export class UserInfo {
     }
 
     ngAfterViewChecked() {
-        this.unsub = this.appStore.sub((businessUser:BusinessUser) => {
-            this.nameEmail = businessUser.getKey('emailName');
-            this.updateUi();
-        }, 'business.businessUser');
+        // this.unsub = this.appStore.sub((businessUser:BusinessUser) => {
+        //     this.nameEmail = businessUser.getKey('emailName');
+        //     this.updateUi();
+        // }, 'business.businessUser');
     }
 
     ngOnDestroy() {
-        this.unsub();
-        this.appStore.dispatch(this.businessActions.fetchBusinessUser(-1))
+        //this.unsub();
+        //this.appStore.dispatch(this.businessActions.fetchBusinessUser([]))
     }
 }
 

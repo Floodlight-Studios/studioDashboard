@@ -10,6 +10,7 @@ import {Consts} from "../../../Conts";
 import {UsersDetails} from "./UsersDetails";
 import {AuthService} from "../../../services/AuthService";
 import {appInjService} from "../../../services/AppInjService";
+import {BusinessUser} from "../../../business/BusinessUser";
 
 
 //todo: add access mask
@@ -82,6 +83,7 @@ export class Users {
     private businessesList:List<BusinessModel> = List<BusinessModel>();
     private businessesFilteredList:List<BusinessModel>
     private unsub:Function;
+    private unsub2:Function;
 
     constructor(private appStore:AppStore, private commBroker:CommBroker, private businessActions:BusinessAction) {
         var i_businesses = this.appStore.getState().business;
@@ -90,6 +92,11 @@ export class Users {
         this.unsub = this.appStore.sub((i_businesses:List<BusinessModel>) => {
             this.businessesList = i_businesses;
         }, 'business.businesses');
+
+        this.unsub2 = this.appStore.sub((businessUser:BusinessUser) => {
+            // this.nameEmail = businessUser.getKey('emailName');
+            // this.updateUi();
+        }, 'business.businessUser');
     }
 
     ngOnInit() {
@@ -103,9 +110,11 @@ export class Users {
             return businessSelected[businessId] && businessSelected[businessId].selected;
         }) as List<any>;
 
-        //todo: https://galaxy.signage.me/WebService/ResellerService.ashx?command=GetBusinessUsers&resellerUserName=reseller@ms.com&resellerPassword=123123&businessList=323697.322981
-        console.log('fetch users per selected businsseses')
-        //this.appStore.dispatch(this.businessActions.fetchBusinessUser(-1))
+        var businessIds = [];
+        this.businessesFilteredList.forEach((businessModel:BusinessModel)=> {
+            businessIds.push(businessModel.getKey('businessId'));
+        })
+        this.appStore.dispatch(this.businessActions.fetchBusinessUser(businessIds))
 
 
         // if (this.businessesFilteredList.size != 1)
@@ -128,6 +137,7 @@ export class Users {
 
     private ngOnDestroy() {
         this.unsub();
+        this.unsub2();
     }
 }
 
