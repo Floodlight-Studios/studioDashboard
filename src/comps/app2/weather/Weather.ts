@@ -1,5 +1,3 @@
-///<reference path="../../../../typings/app.d.ts"/>
-
 import {Component, ChangeDetectionStrategy} from "angular2/core";
 import {Consts} from "../../../../src/Conts";
 import {IWeatherItem} from "./IWeather";

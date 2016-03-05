@@ -4,13 +4,14 @@ import {SimpleList} from "../../simplelist/SimpleList";
 import {AppStore} from "angular2-redux-util/dist/index";
 import {BusinessAction} from "../../../business/BusinessAction";
 import {BusinessModel} from "../../../business/BusinessModel";
-import {List, Map} from 'immutable';
 import {CommBroker} from "../../../services/CommBroker";
 import {Consts} from "../../../Conts";
 import {UsersDetails} from "./UsersDetails";
 import {AuthService} from "../../../services/AuthService";
 import {appInjService} from "../../../services/AppInjService";
 import {BusinessUser} from "../../../business/BusinessUser";
+import {Loading} from "../../loading/Loading";
+import {List, Map} from 'immutable';
 
 
 //todo: add access mask
@@ -27,7 +28,7 @@ import {BusinessUser} from "../../../business/BusinessUser";
 
 @Component({
     selector: 'Users',
-    directives: [SimpleList, UsersDetails],
+    directives: [SimpleList, UsersDetails, Loading],
     styles: [`
       .userView {
         /*background-color: red; */
@@ -59,14 +60,16 @@ import {BusinessUser} from "../../../business/BusinessUser";
                     <a class="btns" [ngClass]="{disabled: !businessesFilteredList || businessesFilteredList && businessesFilteredList.size != 1}" href="#"><span class="fa fa-key"></span></a>
                 </div>
                 <br/>
-                <SimpleList #simpleList [list]="businessesList" 
+                <SimpleList *ngIf="businessesUsers" #simpleList [list]="businessesList" 
                     (selected)="updateFilteredSelection()"
                     [contentId]="getBusinessesId()"
                     [content]="getBusinesses()">
                 </SimpleList>
+                <Loading *ngIf="!businessesUsers" [src]="'assets/preload6.gif'" [style]="{'margin-top': '150px'}"></Loading>
              </div>
              <div class="col-xs-9 userView">
-               <UsersDetails [businesses]="businessesFilteredList"></UsersDetails>
+               <UsersDetails *ngIf="businessesUsers" [businesses]="businessesFilteredList"></UsersDetails>
+               <Loading *ngIf="!businessesUsers" [src]="'assets/preload6.gif'" [style]="{'margin-top': '150px'}"></Loading>
              </div>
         </div>
     `
@@ -82,20 +85,21 @@ export class Users {
 
     private businessesList:List<BusinessModel> = List<BusinessModel>();
     private businessesFilteredList:List<BusinessModel>
+    private businessesUsers:List<BusinessUser>
     private unsub:Function;
     private unsub2:Function;
 
     constructor(private appStore:AppStore, private commBroker:CommBroker, private businessActions:BusinessAction) {
         var i_businesses = this.appStore.getState().business;
-        this.businessesList = i_businesses.getIn(['businesses']);
 
+        this.businessesList = i_businesses.getIn(['businesses']);
         this.unsub = this.appStore.sub((i_businesses:List<BusinessModel>) => {
             this.businessesList = i_businesses;
         }, 'business.businesses');
 
-        this.unsub2 = this.appStore.sub((businessUser:BusinessUser) => {
-            // this.nameEmail = businessUser.getKey('emailName');
-            // this.updateUi();
+        this.businessesUsers = i_businesses.getIn(['businessUser']);
+        this.unsub2 = this.appStore.sub((businessUsers:List<BusinessUser>) => {
+            this.businessesUsers = businessUsers;
         }, 'business.businessUser');
     }
 

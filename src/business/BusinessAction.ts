@@ -101,14 +101,8 @@ export class BusinessAction extends Actions {
                     var xmlData:string = result.text()
                     xmlData = xmlData.replace(/}\)/, '').replace(/\(\{"result":"/, '');
                     this.parseString(xmlData, {attrkey: '_attr'}, function (err, result) {
-                        var arr = [], c = 0;
+                        var businssess = [], businessIds = [];
                         result.Businesses.BusinessInfo.forEach((business)=> {
-                            c++;
-                            // var max = _.random(1,15);
-                            var max = 100000;
-                            if (c > max)
-                                return;
-                            // create new
                             var bus:BusinessModel = new BusinessModel({
                                 businessId: business._attr.businessId,
                                 name: business._attr.name,
@@ -133,22 +127,14 @@ export class BusinessAction extends Actions {
                             if (lastLogin > accountStats.lastLogin) {
                                 accountStats.lastLogin = business._attr.lastLogin;
                             }
-
-                            arr.push(bus);
-
-                            // example update a field in instance via setKey
-                            //var busUpd:BusinessModel = bus.setKey<BusinessModel>(BusinessModel, 'businessId', business._attr.businessId + Math.random());
-                            // insert a new field in instance
-                            //busUpd = busUpd.setKey<BusinessModel>(BusinessModel, 'JS', 'Ninja');
-                            // override entire instance with new data via setData
-                            //var busUpd:BusinessModel = bus.setData<BusinessModel>(BusinessModel, {
-                            //    businessId: business.attr.businessId + Math.random(),
-                            //});
+                            businessIds.push(business._attr.businessId)
+                            businssess.push(bus);
                         });
-                        accountStats.totalBusinesses = arr.length;
+                        accountStats.totalBusinesses = businssess.length;
 
-                        dispatch(self.receiveBusinesses(arr));
+                        dispatch(self.receiveBusinesses(businssess));
                         dispatch(self.receiveBusinessesStats(accountStats));
+                        dispatch(self.fetchBusinessUser(businessIds));
 
                         //parseString(result, {attrkey: 'attr'}, function (err, result) {
                         //    var arr = [];
