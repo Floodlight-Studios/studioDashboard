@@ -83,7 +83,7 @@ export class Users {
     private businessesFilteredList:List<BusinessModel>
     private unsub:Function;
 
-    constructor(private appStore:AppStore, private commBroker:CommBroker) {
+    constructor(private appStore:AppStore, private commBroker:CommBroker, private businessActions:BusinessAction) {
         var i_businesses = this.appStore.getState().business;
         this.businessesList = i_businesses.getIn(['businesses']);
 
@@ -102,6 +102,11 @@ export class Users {
             var businessId = businessModel.getKey('businessId');
             return businessSelected[businessId] && businessSelected[businessId].selected;
         }) as List<any>;
+
+        //todo: https://galaxy.signage.me/WebService/ResellerService.ashx?command=GetBusinessUsers&resellerUserName=reseller@ms.com&resellerPassword=123123&businessList=323697.322981
+        console.log('fetch users per selected businsseses')
+        //this.appStore.dispatch(this.businessActions.fetchBusinessUser(-1))
+
 
         // if (this.businessesFilteredList.size != 1)
         //     return;
