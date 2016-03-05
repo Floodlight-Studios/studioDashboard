@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Businesses>
-   <BusinessInfo businessId="322949" name="alon test a1" businessDescription="" accountStatus="2" archiveState="0" applicationId="2" resellerId="100001" fromTemplateId="1016" maxMonitors="1000" maxDataStorage="25" studioLite="0" allowSharing="0" lastLogin="N/A">
+   <BusinessInfo businessId="323697" name="mytest" businessDescription="" accountStatus="2" archiveState="0" applicationId="2" resellerId="300762" fromTemplateId="1016" maxMonitors="1000" maxDataStorage="25" studioLite="0" allowSharing="1" lastLogin="280326">
       <Weathers>
          <Weather name="Static style" weatherSwf="Weather/WeatherStyles4s.swf" weatherClass=".weatherStyles4s" id="3" />
          <Weather name="Static style" weatherSwf="Weather/WeatherStyles3s.swf" weatherClass=".weatherStyles3s" id="2" />
@@ -8,7 +8,7 @@
          <Weather name="Animated style 1" weatherSwf="Weather/WeatherStyles1d.swf" weatherClass=".weatherStyles1d" id="0" />
       </Weathers>
    </BusinessInfo>
-   <BusinessInfo businessId="321822" name="food alon" businessDescription="" accountStatus="2" archiveState="0" applicationId="2" resellerId="100001" fromTemplateId="1029" maxMonitors="1000" maxDataStorage="25" studioLite="0" allowSharing="0" lastLogin="N/A">
+   <BusinessInfo businessId="322981" name="d107" businessDescription="" accountStatus="2" archiveState="0" applicationId="2" resellerId="300762" fromTemplateId="1029" maxMonitors="1000" maxDataStorage="25" studioLite="0" allowSharing="0" lastLogin="44166">
       <Weathers>
          <Weather name="Static style" weatherSwf="Weather/WeatherStyles4s.swf" weatherClass=".weatherStyles4s" id="3" />
          <Weather name="Static style" weatherSwf="Weather/WeatherStyles3s.swf" weatherClass=".weatherStyles3s" id="2" />
@@ -16,7 +16,7 @@
          <Weather name="Animated style 1" weatherSwf="Weather/WeatherStyles1d.swf" weatherClass=".weatherStyles1d" id="0" />
       </Weathers>
    </BusinessInfo>
-   <BusinessInfo businessId="320370" name="a100" businessDescription="" accountStatus="0" archiveState="2" applicationId="2" resellerId="100001" fromTemplateId="1002" maxMonitors="1000" maxDataStorage="25" studioLite="0" allowSharing="0" lastLogin="N/A">
+   <BusinessInfo businessId="322798" name="test law" businessDescription="" accountStatus="2" archiveState="0" applicationId="2" resellerId="300762" fromTemplateId="100414" maxMonitors="1000" maxDataStorage="25" studioLite="0" allowSharing="0" lastLogin="N/A">
       <Weathers>
          <Weather name="Static style" weatherSwf="Weather/WeatherStyles4s.swf" weatherClass=".weatherStyles4s" id="3" />
          <Weather name="Static style" weatherSwf="Weather/WeatherStyles3s.swf" weatherClass=".weatherStyles3s" id="2" />
@@ -24,7 +24,7 @@
          <Weather name="Animated style 1" weatherSwf="Weather/WeatherStyles1d.swf" weatherClass=".weatherStyles1d" id="0" />
       </Weathers>
    </BusinessInfo>
-   <BusinessInfo businessId="319939" name="Alon4.0" businessDescription="" accountStatus="2" archiveState="0" applicationId="2" resellerId="100001" fromTemplateId="1002" maxMonitors="1000" maxDataStorage="25" studioLite="0" allowSharing="0" lastLogin="N/A">
+   <BusinessInfo businessId="318715" name="test bus" businessDescription="" accountStatus="2" archiveState="0" applicationId="2" resellerId="300762" fromTemplateId="1008" maxMonitors="1000" maxDataStorage="25" studioLite="1" allowSharing="0" lastLogin="152166">
       <Weathers>
          <Weather name="Static style" weatherSwf="Weather/WeatherStyles4s.swf" weatherClass=".weatherStyles4s" id="3" />
          <Weather name="Static style" weatherSwf="Weather/WeatherStyles3s.swf" weatherClass=".weatherStyles3s" id="2" />
@@ -32,7 +32,7 @@
          <Weather name="Animated style 1" weatherSwf="Weather/WeatherStyles1d.swf" weatherClass=".weatherStyles1d" id="0" />
       </Weathers>
    </BusinessInfo>
-   <BusinessInfo businessId="315472" name="eee" businessDescription="" accountStatus="2" archiveState="0" applicationId="2" resellerId="100001" fromTemplateId="1008" maxMonitors="1000" maxDataStorage="25" studioLite="0" allowSharing="0" lastLogin="N/A">
+   <BusinessInfo businessId="316978" name="bus1" businessDescription="" accountStatus="2" archiveState="2" applicationId="2" resellerId="300762" fromTemplateId="999" maxMonitors="1000" maxDataStorage="25" studioLite="0" allowSharing="0" lastLogin="N/A">
       <Weathers>
          <Weather name="Static style" weatherSwf="Weather/WeatherStyles4s.swf" weatherClass=".weatherStyles4s" id="3" />
          <Weather name="Static style" weatherSwf="Weather/WeatherStyles3s.swf" weatherClass=".weatherStyles3s" id="2" />
@@ -40,7 +40,7 @@
          <Weather name="Animated style 1" weatherSwf="Weather/WeatherStyles1d.swf" weatherClass=".weatherStyles1d" id="0" />
       </Weathers>
    </BusinessInfo>
-   <BusinessInfo businessId="314514" name="Pluto" businessDescription="" accountStatus="2" archiveState="0" applicationId="2" resellerId="100001" fromTemplateId="1012" maxMonitors="1000" maxDataStorage="25" studioLite="0" allowSharing="0" lastLogin="293353">
+   <BusinessInfo businessId="315757" name="my bus name" businessDescription="" accountStatus="2" archiveState="0" applicationId="2" resellerId="300762" fromTemplateId="1046" maxMonitors="1000" maxDataStorage="25" studioLite="0" allowSharing="0" lastLogin="12486">
       <Weathers>
          <Weather name="Static style" weatherSwf="Weather/WeatherStyles4s.swf" weatherClass=".weatherStyles4s" id="3" />
          <Weather name="Static style" weatherSwf="Weather/WeatherStyles3s.swf" weatherClass=".weatherStyles3s" id="2" />
@@ -48,7 +48,7 @@
          <Weather name="Animated style 1" weatherSwf="Weather/WeatherStyles1d.swf" weatherClass=".weatherStyles1d" id="0" />
       </Weathers>
    </BusinessInfo>
-   <BusinessInfo businessId="313837" name="Alon5" businessDescription="" accountStatus="2" archiveState="2" applicationId="2" resellerId="100001" fromTemplateId="999" maxMonitors="1000" maxDataStorage="25" studioLite="0" allowSharing="0" lastLogin="N/A">
+   <BusinessInfo businessId="315715" name="d22" businessDescription="" accountStatus="2" archiveState="0" applicationId="2" resellerId="300762" fromTemplateId="1008" maxMonitors="1000" maxDataStorage="25" studioLite="0" allowSharing="0" lastLogin="N/A">
       <Weathers>
          <Weather name="Static style" weatherSwf="Weather/WeatherStyles4s.swf" weatherClass=".weatherStyles4s" id="3" />
          <Weather name="Static style" weatherSwf="Weather/WeatherStyles3s.swf" weatherClass=".weatherStyles3s" id="2" />
@@ -56,7 +56,7 @@
          <Weather name="Animated style 1" weatherSwf="Weather/WeatherStyles1d.swf" weatherClass=".weatherStyles1d" id="0" />
       </Weathers>
    </BusinessInfo>
-   <BusinessInfo businessId="313746" name="Alon4" businessDescription="" accountStatus="2" archiveState="2" applicationId="2" resellerId="100001" fromTemplateId="999" maxMonitors="1000" maxDataStorage="25" studioLite="0" allowSharing="0" lastLogin="N/A">
+   <BusinessInfo businessId="315468" name="d19" businessDescription="" accountStatus="2" archiveState="0" applicationId="2" resellerId="300762" fromTemplateId="1008" maxMonitors="1000" maxDataStorage="25" studioLite="0" allowSharing="0" lastLogin="168006">
       <Weathers>
          <Weather name="Static style" weatherSwf="Weather/WeatherStyles4s.swf" weatherClass=".weatherStyles4s" id="3" />
          <Weather name="Static style" weatherSwf="Weather/WeatherStyles3s.swf" weatherClass=".weatherStyles3s" id="2" />
@@ -64,7 +64,7 @@
          <Weather name="Animated style 1" weatherSwf="Weather/WeatherStyles1d.swf" weatherClass=".weatherStyles1d" id="0" />
       </Weathers>
    </BusinessInfo>
-   <BusinessInfo businessId="325674" name="ddd" businessDescription="" accountStatus="2" archiveState="0" applicationId="2" resellerId="100001" fromTemplateId="1016" maxMonitors="1000" maxDataStorage="25" studioLite="0" allowSharing="0" lastLogin="N/A">
+   <BusinessInfo businessId="315462" name="d17" businessDescription="" accountStatus="2" archiveState="0" applicationId="2" resellerId="300762" fromTemplateId="1008" maxMonitors="1000" maxDataStorage="25" studioLite="0" allowSharing="0" lastLogin="N/A">
       <Weathers>
          <Weather name="Static style" weatherSwf="Weather/WeatherStyles4s.swf" weatherClass=".weatherStyles4s" id="3" />
          <Weather name="Static style" weatherSwf="Weather/WeatherStyles3s.swf" weatherClass=".weatherStyles3s" id="2" />
@@ -72,7 +72,7 @@
          <Weather name="Animated style 1" weatherSwf="Weather/WeatherStyles1d.swf" weatherClass=".weatherStyles1d" id="0" />
       </Weathers>
    </BusinessInfo>
-   <BusinessInfo businessId="100005" name="Alon 3" businessDescription="" accountStatus="2" archiveState="0" applicationId="2" resellerId="100001" fromTemplateId="1016" maxMonitors="600" maxDataStorage="25" studioLite="0" allowSharing="0" lastLogin="N/A">
+   <BusinessInfo businessId="315268" name="AAA" businessDescription="" accountStatus="2" archiveState="0" applicationId="2" resellerId="300762" fromTemplateId="1003" maxMonitors="1000" maxDataStorage="25" studioLite="0" allowSharing="0" lastLogin="N/A">
       <Weathers>
          <Weather name="Static style" weatherSwf="Weather/WeatherStyles4s.swf" weatherClass=".weatherStyles4s" id="3" />
          <Weather name="Static style" weatherSwf="Weather/WeatherStyles3s.swf" weatherClass=".weatherStyles3s" id="2" />
@@ -80,7 +80,7 @@
          <Weather name="Animated style 1" weatherSwf="Weather/WeatherStyles1d.swf" weatherClass=".weatherStyles1d" id="0" />
       </Weathers>
    </BusinessInfo>
-   <BusinessInfo businessId="100003" name="Alon 2" businessDescription="" accountStatus="2" archiveState="0" applicationId="2" resellerId="100001" fromTemplateId="1002" maxMonitors="1000" maxDataStorage="25" studioLite="0" allowSharing="0" lastLogin="N/A">
+   <BusinessInfo businessId="315124" name="d10" businessDescription="" accountStatus="2" archiveState="0" applicationId="2" resellerId="300762" fromTemplateId="999" maxMonitors="1000" maxDataStorage="25" studioLite="0" allowSharing="0" lastLogin="388326">
       <Weathers>
          <Weather name="Static style" weatherSwf="Weather/WeatherStyles4s.swf" weatherClass=".weatherStyles4s" id="3" />
          <Weather name="Static style" weatherSwf="Weather/WeatherStyles3s.swf" weatherClass=".weatherStyles3s" id="2" />
@@ -88,7 +88,7 @@
          <Weather name="Animated style 1" weatherSwf="Weather/WeatherStyles1d.swf" weatherClass=".weatherStyles1d" id="0" />
       </Weathers>
    </BusinessInfo>
-   <BusinessInfo businessId="397294" name="eeee" businessDescription="" accountStatus="2" archiveState="0" applicationId="2" resellerId="100001" fromTemplateId="1014" maxMonitors="1000" maxDataStorage="25" studioLite="0" allowSharing="0" lastLogin="255913">
+   <BusinessInfo businessId="314504" name="Richo" businessDescription="" accountStatus="2" archiveState="0" applicationId="2" resellerId="300762" fromTemplateId="999" maxMonitors="1000" maxDataStorage="25" studioLite="0" allowSharing="0" lastLogin="N/A">
       <Weathers>
          <Weather name="Static style" weatherSwf="Weather/WeatherStyles4s.swf" weatherClass=".weatherStyles4s" id="3" />
          <Weather name="Static style" weatherSwf="Weather/WeatherStyles3s.swf" weatherClass=".weatherStyles3s" id="2" />
@@ -96,7 +96,7 @@
          <Weather name="Animated style 1" weatherSwf="Weather/WeatherStyles1d.swf" weatherClass=".weatherStyles1d" id="0" />
       </Weathers>
    </BusinessInfo>
-   <BusinessInfo businessId="393472" name="Alon200" businessDescription="" accountStatus="2" archiveState="0" applicationId="2" resellerId="100001" fromTemplateId="1007" maxMonitors="1000" maxDataStorage="25" studioLite="0" allowSharing="0" lastLogin="N/A">
+   <BusinessInfo businessId="314318" name="Jason" businessDescription="" accountStatus="2" archiveState="0" applicationId="2" resellerId="300762" fromTemplateId="999" maxMonitors="1000" maxDataStorage="25" studioLite="0" allowSharing="0" lastLogin="N/A">
       <Weathers>
          <Weather name="Static style" weatherSwf="Weather/WeatherStyles4s.swf" weatherClass=".weatherStyles4s" id="3" />
          <Weather name="Static style" weatherSwf="Weather/WeatherStyles3s.swf" weatherClass=".weatherStyles3s" id="2" />
@@ -104,7 +104,7 @@
          <Weather name="Animated style 1" weatherSwf="Weather/WeatherStyles1d.swf" weatherClass=".weatherStyles1d" id="0" />
       </Weathers>
    </BusinessInfo>
-   <BusinessInfo businessId="390063" name="My demo business" businessDescription="" accountStatus="2" archiveState="0" applicationId="2" resellerId="100001" fromTemplateId="1208" maxMonitors="1000" maxDataStorage="25" studioLite="0" allowSharing="0" lastLogin="26953">
+   <BusinessInfo businessId="314098" name="d4" businessDescription="" accountStatus="2" archiveState="0" applicationId="2" resellerId="300762" fromTemplateId="999" maxMonitors="1000" maxDataStorage="25" studioLite="0" allowSharing="0" lastLogin="75846">
       <Weathers>
          <Weather name="Static style" weatherSwf="Weather/WeatherStyles4s.swf" weatherClass=".weatherStyles4s" id="3" />
          <Weather name="Static style" weatherSwf="Weather/WeatherStyles3s.swf" weatherClass=".weatherStyles3s" id="2" />
@@ -112,7 +112,7 @@
          <Weather name="Animated style 1" weatherSwf="Weather/WeatherStyles1d.swf" weatherClass=".weatherStyles1d" id="0" />
       </Weathers>
    </BusinessInfo>
-   <BusinessInfo businessId="385391" name="fq5" businessDescription="" accountStatus="2" archiveState="0" applicationId="2" resellerId="100001" fromTemplateId="1239" maxMonitors="1000" maxDataStorage="25" studioLite="0" allowSharing="0" lastLogin="1028">
+   <BusinessInfo businessId="313870" name="Camp Whitsett WLACC BSA" businessDescription="" accountStatus="2" archiveState="0" applicationId="2" resellerId="300762" fromTemplateId="1029" maxMonitors="1000" maxDataStorage="25" studioLite="0" allowSharing="0" lastLogin="N/A">
       <Weathers>
          <Weather name="Static style" weatherSwf="Weather/WeatherStyles4s.swf" weatherClass=".weatherStyles4s" id="3" />
          <Weather name="Static style" weatherSwf="Weather/WeatherStyles3s.swf" weatherClass=".weatherStyles3s" id="2" />
@@ -120,7 +120,7 @@
          <Weather name="Animated style 1" weatherSwf="Weather/WeatherStyles1d.swf" weatherClass=".weatherStyles1d" id="0" />
       </Weathers>
    </BusinessInfo>
-   <BusinessInfo businessId="385360" name="d888" businessDescription="" accountStatus="2" archiveState="0" applicationId="2" resellerId="100001" fromTemplateId="1241" maxMonitors="1000" maxDataStorage="25" studioLite="0" allowSharing="0" lastLogin="5353">
+   <BusinessInfo businessId="313869" name="Camp Whitsett" businessDescription="" accountStatus="0" archiveState="2" applicationId="2" resellerId="300762" fromTemplateId="1029" maxMonitors="1000" maxDataStorage="25" studioLite="0" allowSharing="0" lastLogin="N/A">
       <Weathers>
          <Weather name="Static style" weatherSwf="Weather/WeatherStyles4s.swf" weatherClass=".weatherStyles4s" id="3" />
          <Weather name="Static style" weatherSwf="Weather/WeatherStyles3s.swf" weatherClass=".weatherStyles3s" id="2" />
@@ -128,7 +128,7 @@
          <Weather name="Animated style 1" weatherSwf="Weather/WeatherStyles1d.swf" weatherClass=".weatherStyles1d" id="0" />
       </Weathers>
    </BusinessInfo>
-   <BusinessInfo businessId="379183" name="fff" businessDescription="" accountStatus="2" archiveState="0" applicationId="2" resellerId="100001" fromTemplateId="1013" maxMonitors="1000" maxDataStorage="25" studioLite="0" allowSharing="1" lastLogin="N/A">
+   <BusinessInfo businessId="313868" name="Camp Whitsett" businessDescription="" accountStatus="0" archiveState="2" applicationId="2" resellerId="300762" fromTemplateId="1029" maxMonitors="1000" maxDataStorage="25" studioLite="0" allowSharing="0" lastLogin="N/A">
       <Weathers>
          <Weather name="Static style" weatherSwf="Weather/WeatherStyles4s.swf" weatherClass=".weatherStyles4s" id="3" />
          <Weather name="Static style" weatherSwf="Weather/WeatherStyles3s.swf" weatherClass=".weatherStyles3s" id="2" />
@@ -136,7 +136,7 @@
          <Weather name="Animated style 1" weatherSwf="Weather/WeatherStyles1d.swf" weatherClass=".weatherStyles1d" id="0" />
       </Weathers>
    </BusinessInfo>
-   <BusinessInfo businessId="378555" name="sush" businessDescription="" accountStatus="2" archiveState="0" applicationId="2" resellerId="100001" fromTemplateId="1210" maxMonitors="1000" maxDataStorage="25" studioLite="0" allowSharing="0" lastLogin="9673">
+   <BusinessInfo businessId="313867" name="Camp Whitsett WLACC BSA" businessDescription="" accountStatus="0" archiveState="2" applicationId="2" resellerId="300762" fromTemplateId="1029" maxMonitors="1000" maxDataStorage="25" studioLite="0" allowSharing="0" lastLogin="N/A">
       <Weathers>
          <Weather name="Static style" weatherSwf="Weather/WeatherStyles4s.swf" weatherClass=".weatherStyles4s" id="3" />
          <Weather name="Static style" weatherSwf="Weather/WeatherStyles3s.swf" weatherClass=".weatherStyles3s" id="2" />
@@ -144,7 +144,7 @@
          <Weather name="Animated style 1" weatherSwf="Weather/WeatherStyles1d.swf" weatherClass=".weatherStyles1d" id="0" />
       </Weathers>
    </BusinessInfo>
-   <BusinessInfo businessId="370887" name="alon4" businessDescription="" accountStatus="2" archiveState="0" applicationId="2" resellerId="100001" fromTemplateId="1016" maxMonitors="1000" maxDataStorage="25" studioLite="0" allowSharing="0" lastLogin="N/A">
+   <BusinessInfo businessId="313866" name="Camp Whitsett WLACC BSA" businessDescription="" accountStatus="0" archiveState="2" applicationId="2" resellerId="300762" fromTemplateId="1029" maxMonitors="1000" maxDataStorage="25" studioLite="0" allowSharing="0" lastLogin="N/A">
       <Weathers>
          <Weather name="Static style" weatherSwf="Weather/WeatherStyles4s.swf" weatherClass=".weatherStyles4s" id="3" />
          <Weather name="Static style" weatherSwf="Weather/WeatherStyles3s.swf" weatherClass=".weatherStyles3s" id="2" />
@@ -152,7 +152,7 @@
          <Weather name="Animated style 1" weatherSwf="Weather/WeatherStyles1d.swf" weatherClass=".weatherStyles1d" id="0" />
       </Weathers>
    </BusinessInfo>
-   <BusinessInfo businessId="367756" name="test" businessDescription="" accountStatus="2" archiveState="0" applicationId="2" resellerId="100001" fromTemplateId="100310" maxMonitors="1000" maxDataStorage="25" studioLite="0" allowSharing="1" lastLogin="419">
+   <BusinessInfo businessId="313865" name="Camp Whitsett WLACC BSA" businessDescription="" accountStatus="0" archiveState="2" applicationId="2" resellerId="300762" fromTemplateId="1029" maxMonitors="44" maxDataStorage="25" studioLite="0" allowSharing="0" lastLogin="N/A">
       <Weathers>
          <Weather name="Static style" weatherSwf="Weather/WeatherStyles4s.swf" weatherClass=".weatherStyles4s" id="3" />
          <Weather name="Static style" weatherSwf="Weather/WeatherStyles3s.swf" weatherClass=".weatherStyles3s" id="2" />
@@ -160,7 +160,7 @@
          <Weather name="Animated style 1" weatherSwf="Weather/WeatherStyles1d.swf" weatherClass=".weatherStyles1d" id="0" />
       </Weathers>
    </BusinessInfo>
-   <BusinessInfo businessId="367022" name="lite business" businessDescription="" accountStatus="2" archiveState="0" applicationId="2" resellerId="100001" fromTemplateId="363440" maxMonitors="1000" maxDataStorage="25" studioLite="1" allowSharing="0" lastLogin="11113">
+   <BusinessInfo businessId="313671" name="demo" businessDescription="" accountStatus="2" archiveState="0" applicationId="2" resellerId="300762" fromTemplateId="999" maxMonitors="1000" maxDataStorage="25" studioLite="0" allowSharing="0" lastLogin="N/A">
       <Weathers>
          <Weather name="Static style" weatherSwf="Weather/WeatherStyles4s.swf" weatherClass=".weatherStyles4s" id="3" />
          <Weather name="Static style" weatherSwf="Weather/WeatherStyles3s.swf" weatherClass=".weatherStyles3s" id="2" />
@@ -168,7 +168,7 @@
          <Weather name="Animated style 1" weatherSwf="Weather/WeatherStyles1d.swf" weatherClass=".weatherStyles1d" id="0" />
       </Weathers>
    </BusinessInfo>
-   <BusinessInfo businessId="365117" name="d98@ms.com" businessDescription="" accountStatus="2" archiveState="0" applicationId="2" resellerId="100001" fromTemplateId="363438" maxMonitors="1000" maxDataStorage="25" studioLite="0" allowSharing="0" lastLogin="289033">
+   <BusinessInfo businessId="313489" name="Demo Account" businessDescription="" accountStatus="2" archiveState="2" applicationId="2" resellerId="300762" fromTemplateId="999" maxMonitors="1000" maxDataStorage="25" studioLite="0" allowSharing="0" lastLogin="N/A">
       <Weathers>
          <Weather name="Static style" weatherSwf="Weather/WeatherStyles4s.swf" weatherClass=".weatherStyles4s" id="3" />
          <Weather name="Static style" weatherSwf="Weather/WeatherStyles3s.swf" weatherClass=".weatherStyles3s" id="2" />
@@ -176,7 +176,7 @@
          <Weather name="Animated style 1" weatherSwf="Weather/WeatherStyles1d.swf" weatherClass=".weatherStyles1d" id="0" />
       </Weathers>
    </BusinessInfo>
-   <BusinessInfo businessId="365115" name="cup1" businessDescription="" accountStatus="2" archiveState="0" applicationId="2" resellerId="100001" fromTemplateId="363434" maxMonitors="1000" maxDataStorage="25" studioLite="0" allowSharing="1" lastLogin="N/A">
+   <BusinessInfo businessId="309900" name="TestAccount" businessDescription="" accountStatus="2" archiveState="0" applicationId="2" resellerId="300762" fromTemplateId="1016" maxMonitors="1000" maxDataStorage="25" studioLite="0" allowSharing="0" lastLogin="N/A">
       <Weathers>
          <Weather name="Static style" weatherSwf="Weather/WeatherStyles4s.swf" weatherClass=".weatherStyles4s" id="3" />
          <Weather name="Static style" weatherSwf="Weather/WeatherStyles3s.swf" weatherClass=".weatherStyles3s" id="2" />
@@ -184,7 +184,7 @@
          <Weather name="Animated style 1" weatherSwf="Weather/WeatherStyles1d.swf" weatherClass=".weatherStyles1d" id="0" />
       </Weathers>
    </BusinessInfo>
-   <BusinessInfo businessId="365113" name="alon22" businessDescription="" accountStatus="2" archiveState="0" applicationId="2" resellerId="100001" fromTemplateId="363432" maxMonitors="1000" maxDataStorage="25" studioLite="0" allowSharing="1" lastLogin="N/A">
+   <BusinessInfo businessId="308776" name="hh_test" businessDescription="" accountStatus="2" archiveState="0" applicationId="2" resellerId="300762" fromTemplateId="999" maxMonitors="1000" maxDataStorage="25" studioLite="0" allowSharing="0" lastLogin="N/A">
       <Weathers>
          <Weather name="Static style" weatherSwf="Weather/WeatherStyles4s.swf" weatherClass=".weatherStyles4s" id="3" />
          <Weather name="Static style" weatherSwf="Weather/WeatherStyles3s.swf" weatherClass=".weatherStyles3s" id="2" />
@@ -192,7 +192,7 @@
          <Weather name="Animated style 1" weatherSwf="Weather/WeatherStyles1d.swf" weatherClass=".weatherStyles1d" id="0" />
       </Weathers>
    </BusinessInfo>
-   <BusinessInfo businessId="364877" name="fitztemp14@ms.com" businessDescription="" accountStatus="2" archiveState="0" applicationId="2" resellerId="100001" fromTemplateId="351576" maxMonitors="1000" maxDataStorage="25" studioLite="0" allowSharing="1" lastLogin="N/A">
+   <BusinessInfo businessId="307580" name="testAccount" businessDescription="" accountStatus="2" archiveState="0" applicationId="2" resellerId="300762" fromTemplateId="999" maxMonitors="1000" maxDataStorage="25" studioLite="0" allowSharing="0" lastLogin="N/A">
       <Weathers>
          <Weather name="Static style" weatherSwf="Weather/WeatherStyles4s.swf" weatherClass=".weatherStyles4s" id="3" />
          <Weather name="Static style" weatherSwf="Weather/WeatherStyles3s.swf" weatherClass=".weatherStyles3s" id="2" />
@@ -200,7 +200,7 @@
          <Weather name="Animated style 1" weatherSwf="Weather/WeatherStyles1d.swf" weatherClass=".weatherStyles1d" id="0" />
       </Weathers>
    </BusinessInfo>
-   <BusinessInfo businessId="363510" name="d92" businessDescription="" accountStatus="2" archiveState="0" applicationId="2" resellerId="100001" fromTemplateId="351576" maxMonitors="1000" maxDataStorage="25" studioLite="0" allowSharing="1" lastLogin="233">
+   <BusinessInfo businessId="305713" name="Los Angeles" businessDescription="" accountStatus="2" archiveState="0" applicationId="2" resellerId="300762" fromTemplateId="999" maxMonitors="1000" maxDataStorage="25" studioLite="0" allowSharing="0" lastLogin="N/A">
       <Weathers>
          <Weather name="Static style" weatherSwf="Weather/WeatherStyles4s.swf" weatherClass=".weatherStyles4s" id="3" />
          <Weather name="Static style" weatherSwf="Weather/WeatherStyles3s.swf" weatherClass=".weatherStyles3s" id="2" />
@@ -208,7 +208,7 @@
          <Weather name="Animated style 1" weatherSwf="Weather/WeatherStyles1d.swf" weatherClass=".weatherStyles1d" id="0" />
       </Weathers>
    </BusinessInfo>
-   <BusinessInfo businessId="359849" name="alon3" businessDescription="" accountStatus="2" archiveState="0" applicationId="2" resellerId="100001" fromTemplateId="1016" maxMonitors="1000" maxDataStorage="25" studioLite="0" allowSharing="0" lastLogin="N/A">
+   <BusinessInfo businessId="301512" name="dev1" businessDescription="" accountStatus="2" archiveState="0" applicationId="2" resellerId="300762" fromTemplateId="999" maxMonitors="1000" maxDataStorage="25" studioLite="0" allowSharing="0" lastLogin="N/A">
       <Weathers>
          <Weather name="Static style" weatherSwf="Weather/WeatherStyles4s.swf" weatherClass=".weatherStyles4s" id="3" />
          <Weather name="Static style" weatherSwf="Weather/WeatherStyles3s.swf" weatherClass=".weatherStyles3s" id="2" />
@@ -216,7 +216,7 @@
          <Weather name="Animated style 1" weatherSwf="Weather/WeatherStyles1d.swf" weatherClass=".weatherStyles1d" id="0" />
       </Weathers>
    </BusinessInfo>
-   <BusinessInfo businessId="359006" name="Lite1" businessDescription="" accountStatus="2" archiveState="0" applicationId="2" resellerId="100001" fromTemplateId="351576" maxMonitors="1000" maxDataStorage="25" studioLite="1" allowSharing="0" lastLogin="N/A">
+   <BusinessInfo businessId="300763" name="aa" businessDescription="" accountStatus="2" archiveState="2" applicationId="2" resellerId="300762" fromTemplateId="999" maxMonitors="50" maxDataStorage="25" studioLite="0" allowSharing="0" lastLogin="N/A">
       <Weathers>
          <Weather name="Static style" weatherSwf="Weather/WeatherStyles4s.swf" weatherClass=".weatherStyles4s" id="3" />
          <Weather name="Static style" weatherSwf="Weather/WeatherStyles3s.swf" weatherClass=".weatherStyles3s" id="2" />
@@ -224,7 +224,7 @@
          <Weather name="Animated style 1" weatherSwf="Weather/WeatherStyles1d.swf" weatherClass=".weatherStyles1d" id="0" />
       </Weathers>
    </BusinessInfo>
-   <BusinessInfo businessId="358306" name="lite26" businessDescription="" accountStatus="2" archiveState="0" applicationId="2" resellerId="100001" fromTemplateId="351576" maxMonitors="1000" maxDataStorage="25" studioLite="1" allowSharing="0" lastLogin="N/A">
+   <BusinessInfo businessId="100533" name="Venus" businessDescription="" accountStatus="2" archiveState="0" applicationId="2" resellerId="300762" fromTemplateId="-1" maxMonitors="1000" maxDataStorage="25" studioLite="0" allowSharing="0" lastLogin="257286">
       <Weathers>
          <Weather name="Static style" weatherSwf="Weather/WeatherStyles4s.swf" weatherClass=".weatherStyles4s" id="3" />
          <Weather name="Static style" weatherSwf="Weather/WeatherStyles3s.swf" weatherClass=".weatherStyles3s" id="2" />
@@ -232,7 +232,7 @@
          <Weather name="Animated style 1" weatherSwf="Weather/WeatherStyles1d.swf" weatherClass=".weatherStyles1d" id="0" />
       </Weathers>
    </BusinessInfo>
-   <BusinessInfo businessId="358303" name="lite25" businessDescription="" accountStatus="2" archiveState="0" applicationId="2" resellerId="100001" fromTemplateId="351576" maxMonitors="1000" maxDataStorage="25" studioLite="1" allowSharing="0" lastLogin="300553">
+   <BusinessInfo businessId="411944" name="x020@ms.com" businessDescription="" accountStatus="2" archiveState="0" applicationId="2" resellerId="300762" fromTemplateId="1206" maxMonitors="1000" maxDataStorage="25" studioLite="1" allowSharing="0" lastLogin="N/A">
       <Weathers>
          <Weather name="Static style" weatherSwf="Weather/WeatherStyles4s.swf" weatherClass=".weatherStyles4s" id="3" />
          <Weather name="Static style" weatherSwf="Weather/WeatherStyles3s.swf" weatherClass=".weatherStyles3s" id="2" />
@@ -240,7 +240,7 @@
          <Weather name="Animated style 1" weatherSwf="Weather/WeatherStyles1d.swf" weatherClass=".weatherStyles1d" id="0" />
       </Weathers>
    </BusinessInfo>
-   <BusinessInfo businessId="358302" name="Lite22" businessDescription="" accountStatus="2" archiveState="0" applicationId="2" resellerId="100001" fromTemplateId="351576" maxMonitors="888" maxDataStorage="25" studioLite="1" allowSharing="0" lastLogin="N/A">
+   <BusinessInfo businessId="411911" name="x012@ms.com" businessDescription="" accountStatus="2" archiveState="0" applicationId="2" resellerId="300762" fromTemplateId="1057" maxMonitors="1000" maxDataStorage="25" studioLite="1" allowSharing="0" lastLogin="N/A">
       <Weathers>
          <Weather name="Static style" weatherSwf="Weather/WeatherStyles4s.swf" weatherClass=".weatherStyles4s" id="3" />
          <Weather name="Static style" weatherSwf="Weather/WeatherStyles3s.swf" weatherClass=".weatherStyles3s" id="2" />
@@ -248,7 +248,7 @@
          <Weather name="Animated style 1" weatherSwf="Weather/WeatherStyles1d.swf" weatherClass=".weatherStyles1d" id="0" />
       </Weathers>
    </BusinessInfo>
-   <BusinessInfo businessId="358301" name="lite21" businessDescription="" accountStatus="2" archiveState="0" applicationId="2" resellerId="100001" fromTemplateId="351576" maxMonitors="1000" maxDataStorage="25" studioLite="1" allowSharing="0" lastLogin="N/A">
+   <BusinessInfo businessId="411890" name="x013" businessDescription="" accountStatus="2" archiveState="0" applicationId="2" resellerId="300762" fromTemplateId="1223" maxMonitors="1000" maxDataStorage="25" studioLite="1" allowSharing="0" lastLogin="N/A">
       <Weathers>
          <Weather name="Static style" weatherSwf="Weather/WeatherStyles4s.swf" weatherClass=".weatherStyles4s" id="3" />
          <Weather name="Static style" weatherSwf="Weather/WeatherStyles3s.swf" weatherClass=".weatherStyles3s" id="2" />
@@ -256,7 +256,7 @@
          <Weather name="Animated style 1" weatherSwf="Weather/WeatherStyles1d.swf" weatherClass=".weatherStyles1d" id="0" />
       </Weathers>
    </BusinessInfo>
-   <BusinessInfo businessId="358299" name="lite20" businessDescription="" accountStatus="2" archiveState="0" applicationId="2" resellerId="100001" fromTemplateId="351576" maxMonitors="1000" maxDataStorage="25" studioLite="1" allowSharing="0" lastLogin="N/A">
+   <BusinessInfo businessId="411887" name="x011@ms.com" businessDescription="" accountStatus="2" archiveState="0" applicationId="2" resellerId="300762" fromTemplateId="1206" maxMonitors="1000" maxDataStorage="25" studioLite="1" allowSharing="0" lastLogin="N/A">
       <Weathers>
          <Weather name="Static style" weatherSwf="Weather/WeatherStyles4s.swf" weatherClass=".weatherStyles4s" id="3" />
          <Weather name="Static style" weatherSwf="Weather/WeatherStyles3s.swf" weatherClass=".weatherStyles3s" id="2" />
@@ -264,7 +264,7 @@
          <Weather name="Animated style 1" weatherSwf="Weather/WeatherStyles1d.swf" weatherClass=".weatherStyles1d" id="0" />
       </Weathers>
    </BusinessInfo>
-   <BusinessInfo businessId="358298" name="lite10" businessDescription="" accountStatus="2" archiveState="0" applicationId="2" resellerId="100001" fromTemplateId="351576" maxMonitors="1000" maxDataStorage="25" studioLite="1" allowSharing="0" lastLogin="N/A">
+   <BusinessInfo businessId="411885" name="x010@ms.com" businessDescription="" accountStatus="2" archiveState="0" applicationId="2" resellerId="300762" fromTemplateId="1206" maxMonitors="1000" maxDataStorage="25" studioLite="1" allowSharing="0" lastLogin="123366">
       <Weathers>
          <Weather name="Static style" weatherSwf="Weather/WeatherStyles4s.swf" weatherClass=".weatherStyles4s" id="3" />
          <Weather name="Static style" weatherSwf="Weather/WeatherStyles3s.swf" weatherClass=".weatherStyles3s" id="2" />
@@ -272,7 +272,7 @@
          <Weather name="Animated style 1" weatherSwf="Weather/WeatherStyles1d.swf" weatherClass=".weatherStyles1d" id="0" />
       </Weathers>
    </BusinessInfo>
-   <BusinessInfo businessId="354972" name="transition" businessDescription="" accountStatus="2" archiveState="0" applicationId="2" resellerId="100001" fromTemplateId="1022" maxMonitors="1000" maxDataStorage="25" studioLite="0" allowSharing="0" lastLogin="N/A">
+   <BusinessInfo businessId="411786" name="x08" businessDescription="" accountStatus="2" archiveState="0" applicationId="2" resellerId="300762" fromTemplateId="1046" maxMonitors="1000" maxDataStorage="25" studioLite="0" allowSharing="0" lastLogin="98886">
       <Weathers>
          <Weather name="Static style" weatherSwf="Weather/WeatherStyles4s.swf" weatherClass=".weatherStyles4s" id="3" />
          <Weather name="Static style" weatherSwf="Weather/WeatherStyles3s.swf" weatherClass=".weatherStyles3s" id="2" />
@@ -280,7 +280,7 @@
          <Weather name="Animated style 1" weatherSwf="Weather/WeatherStyles1d.swf" weatherClass=".weatherStyles1d" id="0" />
       </Weathers>
    </BusinessInfo>
-   <BusinessInfo businessId="351870" name="alon1" businessDescription="" accountStatus="2" archiveState="0" applicationId="2" resellerId="100001" fromTemplateId="1032" maxMonitors="1000" maxDataStorage="25" studioLite="0" allowSharing="0" lastLogin="8233">
+   <BusinessInfo businessId="411785" name="x0x0x0" businessDescription="" accountStatus="2" archiveState="0" applicationId="2" resellerId="300762" fromTemplateId="1205" maxMonitors="1000" maxDataStorage="25" studioLite="1" allowSharing="0" lastLogin="98886">
       <Weathers>
          <Weather name="Static style" weatherSwf="Weather/WeatherStyles4s.swf" weatherClass=".weatherStyles4s" id="3" />
          <Weather name="Static style" weatherSwf="Weather/WeatherStyles3s.swf" weatherClass=".weatherStyles3s" id="2" />
@@ -288,7 +288,7 @@
          <Weather name="Animated style 1" weatherSwf="Weather/WeatherStyles1d.swf" weatherClass=".weatherStyles1d" id="0" />
       </Weathers>
    </BusinessInfo>
-   <BusinessInfo businessId="348076" name="alon" businessDescription="" accountStatus="2" archiveState="0" applicationId="2" resellerId="100001" fromTemplateId="1039" maxMonitors="1000" maxDataStorage="25" studioLite="0" allowSharing="0" lastLogin="N/A">
+   <BusinessInfo businessId="411120" name="oscar55@ms.com" businessDescription="" accountStatus="2" archiveState="0" applicationId="2" resellerId="300762" fromTemplateId="1231" maxMonitors="1000" maxDataStorage="25" studioLite="1" allowSharing="0" lastLogin="71526">
       <Weathers>
          <Weather name="Static style" weatherSwf="Weather/WeatherStyles4s.swf" weatherClass=".weatherStyles4s" id="3" />
          <Weather name="Static style" weatherSwf="Weather/WeatherStyles3s.swf" weatherClass=".weatherStyles3s" id="2" />
@@ -296,7 +296,7 @@
          <Weather name="Animated style 1" weatherSwf="Weather/WeatherStyles1d.swf" weatherClass=".weatherStyles1d" id="0" />
       </Weathers>
    </BusinessInfo>
-   <BusinessInfo businessId="347812" name="htl" businessDescription="" accountStatus="0" archiveState="0" applicationId="2" resellerId="100001" fromTemplateId="1009" maxMonitors="1000" maxDataStorage="25" studioLite="0" allowSharing="0" lastLogin="N/A">
+   <BusinessInfo businessId="411119" name="oscar54@ms.com" businessDescription="" accountStatus="2" archiveState="0" applicationId="2" resellerId="300762" fromTemplateId="1236" maxMonitors="1000" maxDataStorage="25" studioLite="1" allowSharing="0" lastLogin="97446">
       <Weathers>
          <Weather name="Static style" weatherSwf="Weather/WeatherStyles4s.swf" weatherClass=".weatherStyles4s" id="3" />
          <Weather name="Static style" weatherSwf="Weather/WeatherStyles3s.swf" weatherClass=".weatherStyles3s" id="2" />
@@ -304,7 +304,7 @@
          <Weather name="Animated style 1" weatherSwf="Weather/WeatherStyles1d.swf" weatherClass=".weatherStyles1d" id="0" />
       </Weathers>
    </BusinessInfo>
-   <BusinessInfo businessId="347810" name="cff" businessDescription="" accountStatus="2" archiveState="0" applicationId="2" resellerId="100001" fromTemplateId="1016" maxMonitors="1000" maxDataStorage="25" studioLite="0" allowSharing="0" lastLogin="N/A">
+   <BusinessInfo businessId="411117" name="oscar53@ms.com" businessDescription="" accountStatus="2" archiveState="0" applicationId="2" resellerId="300762" fromTemplateId="1217" maxMonitors="1000" maxDataStorage="25" studioLite="1" allowSharing="0" lastLogin="98886">
       <Weathers>
          <Weather name="Static style" weatherSwf="Weather/WeatherStyles4s.swf" weatherClass=".weatherStyles4s" id="3" />
          <Weather name="Static style" weatherSwf="Weather/WeatherStyles3s.swf" weatherClass=".weatherStyles3s" id="2" />
@@ -312,7 +312,7 @@
          <Weather name="Animated style 1" weatherSwf="Weather/WeatherStyles1d.swf" weatherClass=".weatherStyles1d" id="0" />
       </Weathers>
    </BusinessInfo>
-   <BusinessInfo businessId="347792" name="hgg" businessDescription="" accountStatus="2" archiveState="0" applicationId="2" resellerId="100001" fromTemplateId="1007" maxMonitors="1000" maxDataStorage="25" studioLite="0" allowSharing="0" lastLogin="N/A">
+   <BusinessInfo businessId="411116" name="oscar52@ms.com" businessDescription="" accountStatus="2" archiveState="0" applicationId="2" resellerId="300762" fromTemplateId="1232" maxMonitors="1000" maxDataStorage="25" studioLite="1" allowSharing="0" lastLogin="106086">
       <Weathers>
          <Weather name="Static style" weatherSwf="Weather/WeatherStyles4s.swf" weatherClass=".weatherStyles4s" id="3" />
          <Weather name="Static style" weatherSwf="Weather/WeatherStyles3s.swf" weatherClass=".weatherStyles3s" id="2" />
@@ -320,7 +320,7 @@
          <Weather name="Animated style 1" weatherSwf="Weather/WeatherStyles1d.swf" weatherClass=".weatherStyles1d" id="0" />
       </Weathers>
    </BusinessInfo>
-   <BusinessInfo businessId="347791" name="srr" businessDescription="" accountStatus="2" archiveState="0" applicationId="2" resellerId="100001" fromTemplateId="1019" maxMonitors="1000" maxDataStorage="25" studioLite="0" allowSharing="0" lastLogin="N/A">
+   <BusinessInfo businessId="411115" name="oscar51@ms.com" businessDescription="" accountStatus="2" archiveState="0" applicationId="2" resellerId="300762" fromTemplateId="1242" maxMonitors="1000" maxDataStorage="25" studioLite="1" allowSharing="0" lastLogin="106086">
       <Weathers>
          <Weather name="Static style" weatherSwf="Weather/WeatherStyles4s.swf" weatherClass=".weatherStyles4s" id="3" />
          <Weather name="Static style" weatherSwf="Weather/WeatherStyles3s.swf" weatherClass=".weatherStyles3s" id="2" />
@@ -328,7 +328,7 @@
          <Weather name="Animated style 1" weatherSwf="Weather/WeatherStyles1d.swf" weatherClass=".weatherStyles1d" id="0" />
       </Weathers>
    </BusinessInfo>
-   <BusinessInfo businessId="347788" name="MyCoffe" businessDescription="" accountStatus="2" archiveState="0" applicationId="2" resellerId="100001" fromTemplateId="1016" maxMonitors="600" maxDataStorage="25" studioLite="0" allowSharing="0" lastLogin="209833">
+   <BusinessInfo businessId="411114" name="oscar50@ms.com" businessDescription="" accountStatus="2" archiveState="0" applicationId="2" resellerId="300762" fromTemplateId="1054" maxMonitors="1000" maxDataStorage="25" studioLite="1" allowSharing="0" lastLogin="111846">
       <Weathers>
          <Weather name="Static style" weatherSwf="Weather/WeatherStyles4s.swf" weatherClass=".weatherStyles4s" id="3" />
          <Weather name="Static style" weatherSwf="Weather/WeatherStyles3s.swf" weatherClass=".weatherStyles3s" id="2" />
@@ -336,7 +336,7 @@
          <Weather name="Animated style 1" weatherSwf="Weather/WeatherStyles1d.swf" weatherClass=".weatherStyles1d" id="0" />
       </Weathers>
    </BusinessInfo>
-   <BusinessInfo businessId="347782" name="fff" businessDescription="" accountStatus="0" archiveState="0" applicationId="2" resellerId="100001" fromTemplateId="1029" maxMonitors="1000" maxDataStorage="25" studioLite="0" allowSharing="0" lastLogin="N/A">
+   <BusinessInfo businessId="411113" name="oscar49@ms.com" businessDescription="" accountStatus="2" archiveState="0" applicationId="2" resellerId="300762" fromTemplateId="1053" maxMonitors="1000" maxDataStorage="25" studioLite="1" allowSharing="0" lastLogin="117606">
       <Weathers>
          <Weather name="Static style" weatherSwf="Weather/WeatherStyles4s.swf" weatherClass=".weatherStyles4s" id="3" />
          <Weather name="Static style" weatherSwf="Weather/WeatherStyles3s.swf" weatherClass=".weatherStyles3s" id="2" />
@@ -344,7 +344,7 @@
          <Weather name="Animated style 1" weatherSwf="Weather/WeatherStyles1d.swf" weatherClass=".weatherStyles1d" id="0" />
       </Weathers>
    </BusinessInfo>
-   <BusinessInfo businessId="345831" name="earth" businessDescription="" accountStatus="2" archiveState="0" applicationId="2" resellerId="100001" fromTemplateId="1000" maxMonitors="0" maxDataStorage="25" studioLite="0" allowSharing="0" lastLogin="N/A">
+   <BusinessInfo businessId="411112" name="oscar48@ms.com" businessDescription="" accountStatus="2" archiveState="0" applicationId="2" resellerId="300762" fromTemplateId="1201" maxMonitors="1000" maxDataStorage="25" studioLite="1" allowSharing="0" lastLogin="134886">
       <Weathers>
          <Weather name="Static style" weatherSwf="Weather/WeatherStyles4s.swf" weatherClass=".weatherStyles4s" id="3" />
          <Weather name="Static style" weatherSwf="Weather/WeatherStyles3s.swf" weatherClass=".weatherStyles3s" id="2" />
@@ -352,7 +352,7 @@
          <Weather name="Animated style 1" weatherSwf="Weather/WeatherStyles1d.swf" weatherClass=".weatherStyles1d" id="0" />
       </Weathers>
    </BusinessInfo>
-   <BusinessInfo businessId="345821" name="moon" businessDescription="" accountStatus="2" archiveState="0" applicationId="2" resellerId="100001" fromTemplateId="1000" maxMonitors="1000" maxDataStorage="25" studioLite="0" allowSharing="0" lastLogin="N/A">
+   <BusinessInfo businessId="411111" name="oscar47@ms.com" businessDescription="" accountStatus="2" archiveState="0" applicationId="2" resellerId="300762" fromTemplateId="1056" maxMonitors="1000" maxDataStorage="25" studioLite="1" allowSharing="0" lastLogin="117606">
       <Weathers>
          <Weather name="Static style" weatherSwf="Weather/WeatherStyles4s.swf" weatherClass=".weatherStyles4s" id="3" />
          <Weather name="Static style" weatherSwf="Weather/WeatherStyles3s.swf" weatherClass=".weatherStyles3s" id="2" />
@@ -360,7 +360,7 @@
          <Weather name="Animated style 1" weatherSwf="Weather/WeatherStyles1d.swf" weatherClass=".weatherStyles1d" id="0" />
       </Weathers>
    </BusinessInfo>
-   <BusinessInfo businessId="336564" name="jjj" businessDescription="" accountStatus="2" archiveState="0" applicationId="2" resellerId="100001" fromTemplateId="1021" maxMonitors="1000" maxDataStorage="25" studioLite="0" allowSharing="0" lastLogin="N/A">
+   <BusinessInfo businessId="411110" name="oscar46@ms.com" businessDescription="" accountStatus="2" archiveState="0" applicationId="2" resellerId="300762" fromTemplateId="1224" maxMonitors="1000" maxDataStorage="25" studioLite="1" allowSharing="0" lastLogin="71526">
       <Weathers>
          <Weather name="Static style" weatherSwf="Weather/WeatherStyles4s.swf" weatherClass=".weatherStyles4s" id="3" />
          <Weather name="Static style" weatherSwf="Weather/WeatherStyles3s.swf" weatherClass=".weatherStyles3s" id="2" />
@@ -368,7 +368,7 @@
          <Weather name="Animated style 1" weatherSwf="Weather/WeatherStyles1d.swf" weatherClass=".weatherStyles1d" id="0" />
       </Weathers>
    </BusinessInfo>
-   <BusinessInfo businessId="329724" name="sat2" businessDescription="" accountStatus="2" archiveState="0" applicationId="2" resellerId="100001" fromTemplateId="1030" maxMonitors="1000" maxDataStorage="25" studioLite="0" allowSharing="0" lastLogin="N/A">
+   <BusinessInfo businessId="411108" name="oscar45@ms.com" businessDescription="" accountStatus="2" archiveState="0" applicationId="2" resellerId="300762" fromTemplateId="1205" maxMonitors="1000" maxDataStorage="25" studioLite="1" allowSharing="0" lastLogin="71526">
       <Weathers>
          <Weather name="Static style" weatherSwf="Weather/WeatherStyles4s.swf" weatherClass=".weatherStyles4s" id="3" />
          <Weather name="Static style" weatherSwf="Weather/WeatherStyles3s.swf" weatherClass=".weatherStyles3s" id="2" />
@@ -376,7 +376,7 @@
          <Weather name="Animated style 1" weatherSwf="Weather/WeatherStyles1d.swf" weatherClass=".weatherStyles1d" id="0" />
       </Weathers>
    </BusinessInfo>
-   <BusinessInfo businessId="329719" name="sat9" businessDescription="" accountStatus="2" archiveState="0" applicationId="2" resellerId="100001" fromTemplateId="1030" maxMonitors="8" maxDataStorage="25" studioLite="0" allowSharing="0" lastLogin="N/A">
+   <BusinessInfo businessId="408898" name="xxxxx" businessDescription="" accountStatus="2" archiveState="0" applicationId="2" resellerId="300762" fromTemplateId="1219" maxMonitors="1000" maxDataStorage="25" studioLite="1" allowSharing="0" lastLogin="12486">
       <Weathers>
          <Weather name="Static style" weatherSwf="Weather/WeatherStyles4s.swf" weatherClass=".weatherStyles4s" id="3" />
          <Weather name="Static style" weatherSwf="Weather/WeatherStyles3s.swf" weatherClass=".weatherStyles3s" id="2" />
@@ -384,7 +384,7 @@
          <Weather name="Animated style 1" weatherSwf="Weather/WeatherStyles1d.swf" weatherClass=".weatherStyles1d" id="0" />
       </Weathers>
    </BusinessInfo>
-   <BusinessInfo businessId="326186" name="TKC" businessDescription="" accountStatus="2" archiveState="0" applicationId="2" resellerId="100001" fromTemplateId="100301" maxMonitors="1000" maxDataStorage="25" studioLite="0" allowSharing="0" lastLogin="N/A">
+   <BusinessInfo businessId="405256" name="x20@" businessDescription="" accountStatus="2" archiveState="0" applicationId="2" resellerId="300762" fromTemplateId="1210" maxMonitors="1000" maxDataStorage="25" studioLite="1" allowSharing="0" lastLogin="71526">
       <Weathers>
          <Weather name="Static style" weatherSwf="Weather/WeatherStyles4s.swf" weatherClass=".weatherStyles4s" id="3" />
          <Weather name="Static style" weatherSwf="Weather/WeatherStyles3s.swf" weatherClass=".weatherStyles3s" id="2" />
@@ -392,7 +392,7 @@
          <Weather name="Animated style 1" weatherSwf="Weather/WeatherStyles1d.swf" weatherClass=".weatherStyles1d" id="0" />
       </Weathers>
    </BusinessInfo>
-   <BusinessInfo businessId="325201" name="ccc" businessDescription="" accountStatus="2" archiveState="0" applicationId="2" resellerId="100001" fromTemplateId="100438" maxMonitors="1000" maxDataStorage="25" studioLite="0" allowSharing="0" lastLogin="N/A">
+   <BusinessInfo businessId="403336" name="s9@ms.com" businessDescription="" accountStatus="2" archiveState="0" applicationId="2" resellerId="300762" fromTemplateId="1214" maxMonitors="1000" maxDataStorage="25" studioLite="1" allowSharing="0" lastLogin="241446">
       <Weathers>
          <Weather name="Static style" weatherSwf="Weather/WeatherStyles4s.swf" weatherClass=".weatherStyles4s" id="3" />
          <Weather name="Static style" weatherSwf="Weather/WeatherStyles3s.swf" weatherClass=".weatherStyles3s" id="2" />
@@ -400,7 +400,7 @@
          <Weather name="Animated style 1" weatherSwf="Weather/WeatherStyles1d.swf" weatherClass=".weatherStyles1d" id="0" />
       </Weathers>
    </BusinessInfo>
-   <BusinessInfo businessId="325000" name="bbb" businessDescription="" accountStatus="2" archiveState="0" applicationId="2" resellerId="100001" fromTemplateId="1000" maxMonitors="1000" maxDataStorage="25" studioLite="0" allowSharing="0" lastLogin="N/A">
+   <BusinessInfo businessId="403185" name="s7" businessDescription="" accountStatus="2" archiveState="0" applicationId="2" resellerId="300762" fromTemplateId="1201" maxMonitors="1000" maxDataStorage="25" studioLite="1" allowSharing="0" lastLogin="244326">
       <Weathers>
          <Weather name="Static style" weatherSwf="Weather/WeatherStyles4s.swf" weatherClass=".weatherStyles4s" id="3" />
          <Weather name="Static style" weatherSwf="Weather/WeatherStyles3s.swf" weatherClass=".weatherStyles3s" id="2" />
@@ -408,7 +408,695 @@
          <Weather name="Animated style 1" weatherSwf="Weather/WeatherStyles1d.swf" weatherClass=".weatherStyles1d" id="0" />
       </Weathers>
    </BusinessInfo>
-   <BusinessInfo businessId="324928" name="aaa" businessDescription="" accountStatus="2" archiveState="0" applicationId="2" resellerId="100001" fromTemplateId="1021" maxMonitors="1000" maxDataStorage="25" studioLite="0" allowSharing="0" lastLogin="N/A">
+   <BusinessInfo businessId="401600" name="S8 test account" businessDescription="" accountStatus="2" archiveState="0" applicationId="2" resellerId="300762" fromTemplateId="1209" maxMonitors="1000" maxDataStorage="25" studioLite="1" allowSharing="0" lastLogin="189606">
+      <Weathers>
+         <Weather name="Static style" weatherSwf="Weather/WeatherStyles4s.swf" weatherClass=".weatherStyles4s" id="3" />
+         <Weather name="Static style" weatherSwf="Weather/WeatherStyles3s.swf" weatherClass=".weatherStyles3s" id="2" />
+         <Weather name="Animated style 2" weatherSwf="Weather/WeatherStyles2d.swf" weatherClass=".weatherStyles2d" id="1" />
+         <Weather name="Animated style 1" weatherSwf="Weather/WeatherStyles1d.swf" weatherClass=".weatherStyles1d" id="0" />
+      </Weathers>
+   </BusinessInfo>
+   <BusinessInfo businessId="401060" name="ssddsd" businessDescription="" accountStatus="2" archiveState="0" applicationId="2" resellerId="300762" fromTemplateId="1201" maxMonitors="1000" maxDataStorage="25" studioLite="1" allowSharing="0" lastLogin="N/A">
+      <Weathers>
+         <Weather name="Static style" weatherSwf="Weather/WeatherStyles4s.swf" weatherClass=".weatherStyles4s" id="3" />
+         <Weather name="Static style" weatherSwf="Weather/WeatherStyles3s.swf" weatherClass=".weatherStyles3s" id="2" />
+         <Weather name="Animated style 2" weatherSwf="Weather/WeatherStyles2d.swf" weatherClass=".weatherStyles2d" id="1" />
+         <Weather name="Animated style 1" weatherSwf="Weather/WeatherStyles1d.swf" weatherClass=".weatherStyles1d" id="0" />
+      </Weathers>
+   </BusinessInfo>
+   <BusinessInfo businessId="400974" name="llllll1" businessDescription="" accountStatus="2" archiveState="0" applicationId="2" resellerId="300762" fromTemplateId="1206" maxMonitors="1000" maxDataStorage="25" studioLite="1" allowSharing="0" lastLogin="N/A">
+      <Weathers>
+         <Weather name="Static style" weatherSwf="Weather/WeatherStyles4s.swf" weatherClass=".weatherStyles4s" id="3" />
+         <Weather name="Static style" weatherSwf="Weather/WeatherStyles3s.swf" weatherClass=".weatherStyles3s" id="2" />
+         <Weather name="Animated style 2" weatherSwf="Weather/WeatherStyles2d.swf" weatherClass=".weatherStyles2d" id="1" />
+         <Weather name="Animated style 1" weatherSwf="Weather/WeatherStyles1d.swf" weatherClass=".weatherStyles1d" id="0" />
+      </Weathers>
+   </BusinessInfo>
+   <BusinessInfo businessId="400972" name="x4u" businessDescription="" accountStatus="2" archiveState="0" applicationId="2" resellerId="300762" fromTemplateId="1205" maxMonitors="1000" maxDataStorage="25" studioLite="1" allowSharing="0" lastLogin="N/A">
+      <Weathers>
+         <Weather name="Static style" weatherSwf="Weather/WeatherStyles4s.swf" weatherClass=".weatherStyles4s" id="3" />
+         <Weather name="Static style" weatherSwf="Weather/WeatherStyles3s.swf" weatherClass=".weatherStyles3s" id="2" />
+         <Weather name="Animated style 2" weatherSwf="Weather/WeatherStyles2d.swf" weatherClass=".weatherStyles2d" id="1" />
+         <Weather name="Animated style 1" weatherSwf="Weather/WeatherStyles1d.swf" weatherClass=".weatherStyles1d" id="0" />
+      </Weathers>
+   </BusinessInfo>
+   <BusinessInfo businessId="397247" name="d45" businessDescription="" accountStatus="2" archiveState="0" applicationId="2" resellerId="300762" fromTemplateId="1027" maxMonitors="1000" maxDataStorage="25" studioLite="0" allowSharing="0" lastLogin="332166">
+      <Weathers>
+         <Weather name="Static style" weatherSwf="Weather/WeatherStyles4s.swf" weatherClass=".weatherStyles4s" id="3" />
+         <Weather name="Static style" weatherSwf="Weather/WeatherStyles3s.swf" weatherClass=".weatherStyles3s" id="2" />
+         <Weather name="Animated style 2" weatherSwf="Weather/WeatherStyles2d.swf" weatherClass=".weatherStyles2d" id="1" />
+         <Weather name="Animated style 1" weatherSwf="Weather/WeatherStyles1d.swf" weatherClass=".weatherStyles1d" id="0" />
+      </Weathers>
+   </BusinessInfo>
+   <BusinessInfo businessId="397246" name="d45" businessDescription="" accountStatus="0" archiveState="0" applicationId="2" resellerId="300762" fromTemplateId="-1" maxMonitors="1000" maxDataStorage="25" studioLite="0" allowSharing="0" lastLogin="N/A">
+      <Weathers>
+         <Weather name="Static style" weatherSwf="Weather/WeatherStyles4s.swf" weatherClass=".weatherStyles4s" id="3" />
+         <Weather name="Static style" weatherSwf="Weather/WeatherStyles3s.swf" weatherClass=".weatherStyles3s" id="2" />
+         <Weather name="Animated style 2" weatherSwf="Weather/WeatherStyles2d.swf" weatherClass=".weatherStyles2d" id="1" />
+         <Weather name="Animated style 1" weatherSwf="Weather/WeatherStyles1d.swf" weatherClass=".weatherStyles1d" id="0" />
+      </Weathers>
+   </BusinessInfo>
+   <BusinessInfo businessId="397245" name="d45" businessDescription="" accountStatus="0" archiveState="0" applicationId="2" resellerId="300762" fromTemplateId="-1" maxMonitors="1000" maxDataStorage="25" studioLite="0" allowSharing="0" lastLogin="N/A">
+      <Weathers>
+         <Weather name="Static style" weatherSwf="Weather/WeatherStyles4s.swf" weatherClass=".weatherStyles4s" id="3" />
+         <Weather name="Static style" weatherSwf="Weather/WeatherStyles3s.swf" weatherClass=".weatherStyles3s" id="2" />
+         <Weather name="Animated style 2" weatherSwf="Weather/WeatherStyles2d.swf" weatherClass=".weatherStyles2d" id="1" />
+         <Weather name="Animated style 1" weatherSwf="Weather/WeatherStyles1d.swf" weatherClass=".weatherStyles1d" id="0" />
+      </Weathers>
+   </BusinessInfo>
+   <BusinessInfo businessId="397244" name="d45" businessDescription="" accountStatus="0" archiveState="0" applicationId="2" resellerId="300762" fromTemplateId="-1" maxMonitors="1000" maxDataStorage="25" studioLite="0" allowSharing="0" lastLogin="N/A">
+      <Weathers>
+         <Weather name="Static style" weatherSwf="Weather/WeatherStyles4s.swf" weatherClass=".weatherStyles4s" id="3" />
+         <Weather name="Static style" weatherSwf="Weather/WeatherStyles3s.swf" weatherClass=".weatherStyles3s" id="2" />
+         <Weather name="Animated style 2" weatherSwf="Weather/WeatherStyles2d.swf" weatherClass=".weatherStyles2d" id="1" />
+         <Weather name="Animated style 1" weatherSwf="Weather/WeatherStyles1d.swf" weatherClass=".weatherStyles1d" id="0" />
+      </Weathers>
+   </BusinessInfo>
+   <BusinessInfo businessId="397243" name="d45" businessDescription="" accountStatus="0" archiveState="0" applicationId="2" resellerId="300762" fromTemplateId="-1" maxMonitors="1000" maxDataStorage="25" studioLite="0" allowSharing="0" lastLogin="N/A">
+      <Weathers>
+         <Weather name="Static style" weatherSwf="Weather/WeatherStyles4s.swf" weatherClass=".weatherStyles4s" id="3" />
+         <Weather name="Static style" weatherSwf="Weather/WeatherStyles3s.swf" weatherClass=".weatherStyles3s" id="2" />
+         <Weather name="Animated style 2" weatherSwf="Weather/WeatherStyles2d.swf" weatherClass=".weatherStyles2d" id="1" />
+         <Weather name="Animated style 1" weatherSwf="Weather/WeatherStyles1d.swf" weatherClass=".weatherStyles1d" id="0" />
+      </Weathers>
+   </BusinessInfo>
+   <BusinessInfo businessId="397242" name="d45" businessDescription="" accountStatus="0" archiveState="0" applicationId="2" resellerId="300762" fromTemplateId="-1" maxMonitors="1000" maxDataStorage="25" studioLite="0" allowSharing="0" lastLogin="N/A">
+      <Weathers>
+         <Weather name="Static style" weatherSwf="Weather/WeatherStyles4s.swf" weatherClass=".weatherStyles4s" id="3" />
+         <Weather name="Static style" weatherSwf="Weather/WeatherStyles3s.swf" weatherClass=".weatherStyles3s" id="2" />
+         <Weather name="Animated style 2" weatherSwf="Weather/WeatherStyles2d.swf" weatherClass=".weatherStyles2d" id="1" />
+         <Weather name="Animated style 1" weatherSwf="Weather/WeatherStyles1d.swf" weatherClass=".weatherStyles1d" id="0" />
+      </Weathers>
+   </BusinessInfo>
+   <BusinessInfo businessId="393300" name="fresh7" businessDescription="" accountStatus="2" archiveState="0" applicationId="2" resellerId="300762" fromTemplateId="1016" maxMonitors="1000" maxDataStorage="25" studioLite="0" allowSharing="0" lastLogin="44166">
+      <Weathers>
+         <Weather name="Static style" weatherSwf="Weather/WeatherStyles4s.swf" weatherClass=".weatherStyles4s" id="3" />
+         <Weather name="Static style" weatherSwf="Weather/WeatherStyles3s.swf" weatherClass=".weatherStyles3s" id="2" />
+         <Weather name="Animated style 2" weatherSwf="Weather/WeatherStyles2d.swf" weatherClass=".weatherStyles2d" id="1" />
+         <Weather name="Animated style 1" weatherSwf="Weather/WeatherStyles1d.swf" weatherClass=".weatherStyles1d" id="0" />
+      </Weathers>
+   </BusinessInfo>
+   <BusinessInfo businessId="389947" name="aa" businessDescription="" accountStatus="2" archiveState="0" applicationId="2" resellerId="300762" fromTemplateId="1204" maxMonitors="1000" maxDataStorage="25" studioLite="1" allowSharing="0" lastLogin="N/A">
+      <Weathers>
+         <Weather name="Static style" weatherSwf="Weather/WeatherStyles4s.swf" weatherClass=".weatherStyles4s" id="3" />
+         <Weather name="Static style" weatherSwf="Weather/WeatherStyles3s.swf" weatherClass=".weatherStyles3s" id="2" />
+         <Weather name="Animated style 2" weatherSwf="Weather/WeatherStyles2d.swf" weatherClass=".weatherStyles2d" id="1" />
+         <Weather name="Animated style 1" weatherSwf="Weather/WeatherStyles1d.swf" weatherClass=".weatherStyles1d" id="0" />
+      </Weathers>
+   </BusinessInfo>
+   <BusinessInfo businessId="389931" name="born2net@gmail.com" businessDescription="" accountStatus="2" archiveState="0" applicationId="2" resellerId="300762" fromTemplateId="1213" maxMonitors="1000" maxDataStorage="25" studioLite="1" allowSharing="0" lastLogin="453126">
+      <Weathers>
+         <Weather name="Static style" weatherSwf="Weather/WeatherStyles4s.swf" weatherClass=".weatherStyles4s" id="3" />
+         <Weather name="Static style" weatherSwf="Weather/WeatherStyles3s.swf" weatherClass=".weatherStyles3s" id="2" />
+         <Weather name="Animated style 2" weatherSwf="Weather/WeatherStyles2d.swf" weatherClass=".weatherStyles2d" id="1" />
+         <Weather name="Animated style 1" weatherSwf="Weather/WeatherStyles1d.swf" weatherClass=".weatherStyles1d" id="0" />
+      </Weathers>
+   </BusinessInfo>
+   <BusinessInfo businessId="388824" name="abs123" businessDescription="" accountStatus="2" archiveState="0" applicationId="2" resellerId="300762" fromTemplateId="999" maxMonitors="1000" maxDataStorage="25" studioLite="0" allowSharing="0" lastLogin="N/A">
+      <Weathers>
+         <Weather name="Static style" weatherSwf="Weather/WeatherStyles4s.swf" weatherClass=".weatherStyles4s" id="3" />
+         <Weather name="Static style" weatherSwf="Weather/WeatherStyles3s.swf" weatherClass=".weatherStyles3s" id="2" />
+         <Weather name="Animated style 2" weatherSwf="Weather/WeatherStyles2d.swf" weatherClass=".weatherStyles2d" id="1" />
+         <Weather name="Animated style 1" weatherSwf="Weather/WeatherStyles1d.swf" weatherClass=".weatherStyles1d" id="0" />
+      </Weathers>
+   </BusinessInfo>
+   <BusinessInfo businessId="388597" name="newscenes@ms.com" businessDescription="" accountStatus="2" archiveState="0" applicationId="2" resellerId="300762" fromTemplateId="1016" maxMonitors="1000" maxDataStorage="25" studioLite="0" allowSharing="0" lastLogin="349446">
+      <Weathers>
+         <Weather name="Static style" weatherSwf="Weather/WeatherStyles4s.swf" weatherClass=".weatherStyles4s" id="3" />
+         <Weather name="Static style" weatherSwf="Weather/WeatherStyles3s.swf" weatherClass=".weatherStyles3s" id="2" />
+         <Weather name="Animated style 2" weatherSwf="Weather/WeatherStyles2d.swf" weatherClass=".weatherStyles2d" id="1" />
+         <Weather name="Animated style 1" weatherSwf="Weather/WeatherStyles1d.swf" weatherClass=".weatherStyles1d" id="0" />
+      </Weathers>
+   </BusinessInfo>
+   <BusinessInfo businessId="384261" name="test" businessDescription="" accountStatus="2" archiveState="0" applicationId="2" resellerId="300762" fromTemplateId="1201" maxMonitors="1000" maxDataStorage="25" studioLite="1" allowSharing="0" lastLogin="168006">
+      <Weathers>
+         <Weather name="Static style" weatherSwf="Weather/WeatherStyles4s.swf" weatherClass=".weatherStyles4s" id="3" />
+         <Weather name="Static style" weatherSwf="Weather/WeatherStyles3s.swf" weatherClass=".weatherStyles3s" id="2" />
+         <Weather name="Animated style 2" weatherSwf="Weather/WeatherStyles2d.swf" weatherClass=".weatherStyles2d" id="1" />
+         <Weather name="Animated style 1" weatherSwf="Weather/WeatherStyles1d.swf" weatherClass=".weatherStyles1d" id="0" />
+      </Weathers>
+   </BusinessInfo>
+   <BusinessInfo businessId="381610" name="AAA" businessDescription="" accountStatus="2" archiveState="0" applicationId="2" resellerId="300762" fromTemplateId="1201" maxMonitors="1000" maxDataStorage="25" studioLite="1" allowSharing="0" lastLogin="6726">
+      <Weathers>
+         <Weather name="Static style" weatherSwf="Weather/WeatherStyles4s.swf" weatherClass=".weatherStyles4s" id="3" />
+         <Weather name="Static style" weatherSwf="Weather/WeatherStyles3s.swf" weatherClass=".weatherStyles3s" id="2" />
+         <Weather name="Animated style 2" weatherSwf="Weather/WeatherStyles2d.swf" weatherClass=".weatherStyles2d" id="1" />
+         <Weather name="Animated style 1" weatherSwf="Weather/WeatherStyles1d.swf" weatherClass=".weatherStyles1d" id="0" />
+      </Weathers>
+   </BusinessInfo>
+   <BusinessInfo businessId="378874" name="x55" businessDescription="" accountStatus="2" archiveState="0" applicationId="2" resellerId="300762" fromTemplateId="1205" maxMonitors="1000" maxDataStorage="25" studioLite="0" allowSharing="0" lastLogin="153606">
+      <Weathers>
+         <Weather name="Static style" weatherSwf="Weather/WeatherStyles4s.swf" weatherClass=".weatherStyles4s" id="3" />
+         <Weather name="Static style" weatherSwf="Weather/WeatherStyles3s.swf" weatherClass=".weatherStyles3s" id="2" />
+         <Weather name="Animated style 2" weatherSwf="Weather/WeatherStyles2d.swf" weatherClass=".weatherStyles2d" id="1" />
+         <Weather name="Animated style 1" weatherSwf="Weather/WeatherStyles1d.swf" weatherClass=".weatherStyles1d" id="0" />
+      </Weathers>
+   </BusinessInfo>
+   <BusinessInfo businessId="378538" name="my bus" businessDescription="" accountStatus="2" archiveState="0" applicationId="2" resellerId="300762" fromTemplateId="1213" maxMonitors="1000" maxDataStorage="25" studioLite="1" allowSharing="0" lastLogin="67206">
+      <Weathers>
+         <Weather name="Static style" weatherSwf="Weather/WeatherStyles4s.swf" weatherClass=".weatherStyles4s" id="3" />
+         <Weather name="Static style" weatherSwf="Weather/WeatherStyles3s.swf" weatherClass=".weatherStyles3s" id="2" />
+         <Weather name="Animated style 2" weatherSwf="Weather/WeatherStyles2d.swf" weatherClass=".weatherStyles2d" id="1" />
+         <Weather name="Animated style 1" weatherSwf="Weather/WeatherStyles1d.swf" weatherClass=".weatherStyles1d" id="0" />
+      </Weathers>
+   </BusinessInfo>
+   <BusinessInfo businessId="374786" name="player01" businessDescription="" accountStatus="2" archiveState="0" applicationId="2" resellerId="300762" fromTemplateId="1016" maxMonitors="1000" maxDataStorage="25" studioLite="0" allowSharing="1" lastLogin="N/A">
+      <Weathers>
+         <Weather name="Static style" weatherSwf="Weather/WeatherStyles4s.swf" weatherClass=".weatherStyles4s" id="3" />
+         <Weather name="Static style" weatherSwf="Weather/WeatherStyles3s.swf" weatherClass=".weatherStyles3s" id="2" />
+         <Weather name="Animated style 2" weatherSwf="Weather/WeatherStyles2d.swf" weatherClass=".weatherStyles2d" id="1" />
+         <Weather name="Animated style 1" weatherSwf="Weather/WeatherStyles1d.swf" weatherClass=".weatherStyles1d" id="0" />
+      </Weathers>
+   </BusinessInfo>
+   <BusinessInfo businessId="374382" name="Test Games" businessDescription="" accountStatus="2" archiveState="0" applicationId="2" resellerId="300762" fromTemplateId="1019" maxMonitors="1000" maxDataStorage="25" studioLite="0" allowSharing="0" lastLogin="N/A">
+      <Weathers>
+         <Weather name="Static style" weatherSwf="Weather/WeatherStyles4s.swf" weatherClass=".weatherStyles4s" id="3" />
+         <Weather name="Static style" weatherSwf="Weather/WeatherStyles3s.swf" weatherClass=".weatherStyles3s" id="2" />
+         <Weather name="Animated style 2" weatherSwf="Weather/WeatherStyles2d.swf" weatherClass=".weatherStyles2d" id="1" />
+         <Weather name="Animated style 1" weatherSwf="Weather/WeatherStyles1d.swf" weatherClass=".weatherStyles1d" id="0" />
+      </Weathers>
+   </BusinessInfo>
+   <BusinessInfo businessId="374142" name="ver2" businessDescription="" accountStatus="2" archiveState="0" applicationId="2" resellerId="300762" fromTemplateId="1014" maxMonitors="1000" maxDataStorage="25" studioLite="0" allowSharing="0" lastLogin="153606">
+      <Weathers>
+         <Weather name="Static style" weatherSwf="Weather/WeatherStyles4s.swf" weatherClass=".weatherStyles4s" id="3" />
+         <Weather name="Static style" weatherSwf="Weather/WeatherStyles3s.swf" weatherClass=".weatherStyles3s" id="2" />
+         <Weather name="Animated style 2" weatherSwf="Weather/WeatherStyles2d.swf" weatherClass=".weatherStyles2d" id="1" />
+         <Weather name="Animated style 1" weatherSwf="Weather/WeatherStyles1d.swf" weatherClass=".weatherStyles1d" id="0" />
+      </Weathers>
+   </BusinessInfo>
+   <BusinessInfo businessId="374140" name="vera" businessDescription="" accountStatus="2" archiveState="0" applicationId="2" resellerId="300762" fromTemplateId="1016" maxMonitors="1000" maxDataStorage="25" studioLite="0" allowSharing="0" lastLogin="N/A">
+      <Weathers>
+         <Weather name="Static style" weatherSwf="Weather/WeatherStyles4s.swf" weatherClass=".weatherStyles4s" id="3" />
+         <Weather name="Static style" weatherSwf="Weather/WeatherStyles3s.swf" weatherClass=".weatherStyles3s" id="2" />
+         <Weather name="Animated style 2" weatherSwf="Weather/WeatherStyles2d.swf" weatherClass=".weatherStyles2d" id="1" />
+         <Weather name="Animated style 1" weatherSwf="Weather/WeatherStyles1d.swf" weatherClass=".weatherStyles1d" id="0" />
+      </Weathers>
+   </BusinessInfo>
+   <BusinessInfo businessId="371746" name="x11@ms.com" businessDescription="" accountStatus="2" archiveState="0" applicationId="2" resellerId="300762" fromTemplateId="1213" maxMonitors="1000" maxDataStorage="25" studioLite="0" allowSharing="0" lastLogin="480486">
+      <Weathers>
+         <Weather name="Static style" weatherSwf="Weather/WeatherStyles4s.swf" weatherClass=".weatherStyles4s" id="3" />
+         <Weather name="Static style" weatherSwf="Weather/WeatherStyles3s.swf" weatherClass=".weatherStyles3s" id="2" />
+         <Weather name="Animated style 2" weatherSwf="Weather/WeatherStyles2d.swf" weatherClass=".weatherStyles2d" id="1" />
+         <Weather name="Animated style 1" weatherSwf="Weather/WeatherStyles1d.swf" weatherClass=".weatherStyles1d" id="0" />
+      </Weathers>
+   </BusinessInfo>
+   <BusinessInfo businessId="370927" name="fresh6@ms.com" businessDescription="" accountStatus="2" archiveState="0" applicationId="2" resellerId="300762" fromTemplateId="1206" maxMonitors="1000" maxDataStorage="25" studioLite="0" allowSharing="0" lastLogin="358086">
+      <Weathers>
+         <Weather name="Static style" weatherSwf="Weather/WeatherStyles4s.swf" weatherClass=".weatherStyles4s" id="3" />
+         <Weather name="Static style" weatherSwf="Weather/WeatherStyles3s.swf" weatherClass=".weatherStyles3s" id="2" />
+         <Weather name="Animated style 2" weatherSwf="Weather/WeatherStyles2d.swf" weatherClass=".weatherStyles2d" id="1" />
+         <Weather name="Animated style 1" weatherSwf="Weather/WeatherStyles1d.swf" weatherClass=".weatherStyles1d" id="0" />
+      </Weathers>
+   </BusinessInfo>
+   <BusinessInfo businessId="370888" name="fresh5@ms.com" businessDescription="" accountStatus="2" archiveState="0" applicationId="2" resellerId="300762" fromTemplateId="1202" maxMonitors="1000" maxDataStorage="25" studioLite="1" allowSharing="0" lastLogin="N/A">
+      <Weathers>
+         <Weather name="Static style" weatherSwf="Weather/WeatherStyles4s.swf" weatherClass=".weatherStyles4s" id="3" />
+         <Weather name="Static style" weatherSwf="Weather/WeatherStyles3s.swf" weatherClass=".weatherStyles3s" id="2" />
+         <Weather name="Animated style 2" weatherSwf="Weather/WeatherStyles2d.swf" weatherClass=".weatherStyles2d" id="1" />
+         <Weather name="Animated style 1" weatherSwf="Weather/WeatherStyles1d.swf" weatherClass=".weatherStyles1d" id="0" />
+      </Weathers>
+   </BusinessInfo>
+   <BusinessInfo businessId="370886" name="fresh4@ms.com" businessDescription="" accountStatus="2" archiveState="0" applicationId="2" resellerId="300762" fromTemplateId="1205" maxMonitors="1000" maxDataStorage="25" studioLite="1" allowSharing="0" lastLogin="N/A">
+      <Weathers>
+         <Weather name="Static style" weatherSwf="Weather/WeatherStyles4s.swf" weatherClass=".weatherStyles4s" id="3" />
+         <Weather name="Static style" weatherSwf="Weather/WeatherStyles3s.swf" weatherClass=".weatherStyles3s" id="2" />
+         <Weather name="Animated style 2" weatherSwf="Weather/WeatherStyles2d.swf" weatherClass=".weatherStyles2d" id="1" />
+         <Weather name="Animated style 1" weatherSwf="Weather/WeatherStyles1d.swf" weatherClass=".weatherStyles1d" id="0" />
+      </Weathers>
+   </BusinessInfo>
+   <BusinessInfo businessId="369614" name="FRESH 3" businessDescription="" accountStatus="2" archiveState="0" applicationId="2" resellerId="300762" fromTemplateId="1204" maxMonitors="1000" maxDataStorage="25" studioLite="1" allowSharing="0" lastLogin="N/A">
+      <Weathers>
+         <Weather name="Static style" weatherSwf="Weather/WeatherStyles4s.swf" weatherClass=".weatherStyles4s" id="3" />
+         <Weather name="Static style" weatherSwf="Weather/WeatherStyles3s.swf" weatherClass=".weatherStyles3s" id="2" />
+         <Weather name="Animated style 2" weatherSwf="Weather/WeatherStyles2d.swf" weatherClass=".weatherStyles2d" id="1" />
+         <Weather name="Animated style 1" weatherSwf="Weather/WeatherStyles1d.swf" weatherClass=".weatherStyles1d" id="0" />
+      </Weathers>
+   </BusinessInfo>
+   <BusinessInfo businessId="369395" name="fish" businessDescription="" accountStatus="2" archiveState="0" applicationId="2" resellerId="300762" fromTemplateId="1205" maxMonitors="1000" maxDataStorage="25" studioLite="1" allowSharing="0" lastLogin="N/A">
+      <Weathers>
+         <Weather name="Static style" weatherSwf="Weather/WeatherStyles4s.swf" weatherClass=".weatherStyles4s" id="3" />
+         <Weather name="Static style" weatherSwf="Weather/WeatherStyles3s.swf" weatherClass=".weatherStyles3s" id="2" />
+         <Weather name="Animated style 2" weatherSwf="Weather/WeatherStyles2d.swf" weatherClass=".weatherStyles2d" id="1" />
+         <Weather name="Animated style 1" weatherSwf="Weather/WeatherStyles1d.swf" weatherClass=".weatherStyles1d" id="0" />
+      </Weathers>
+   </BusinessInfo>
+   <BusinessInfo businessId="369138" name="x5@ms.com" businessDescription="" accountStatus="2" archiveState="0" applicationId="2" resellerId="300762" fromTemplateId="363432" maxMonitors="1000" maxDataStorage="25" studioLite="1" allowSharing="0" lastLogin="116166">
+      <Weathers>
+         <Weather name="Static style" weatherSwf="Weather/WeatherStyles4s.swf" weatherClass=".weatherStyles4s" id="3" />
+         <Weather name="Static style" weatherSwf="Weather/WeatherStyles3s.swf" weatherClass=".weatherStyles3s" id="2" />
+         <Weather name="Animated style 2" weatherSwf="Weather/WeatherStyles2d.swf" weatherClass=".weatherStyles2d" id="1" />
+         <Weather name="Animated style 1" weatherSwf="Weather/WeatherStyles1d.swf" weatherClass=".weatherStyles1d" id="0" />
+      </Weathers>
+   </BusinessInfo>
+   <BusinessInfo businessId="368984" name="bbb" businessDescription="" accountStatus="2" archiveState="0" applicationId="2" resellerId="300762" fromTemplateId="363432" maxMonitors="1000" maxDataStorage="25" studioLite="1" allowSharing="0" lastLogin="N/A">
+      <Weathers>
+         <Weather name="Static style" weatherSwf="Weather/WeatherStyles4s.swf" weatherClass=".weatherStyles4s" id="3" />
+         <Weather name="Static style" weatherSwf="Weather/WeatherStyles3s.swf" weatherClass=".weatherStyles3s" id="2" />
+         <Weather name="Animated style 2" weatherSwf="Weather/WeatherStyles2d.swf" weatherClass=".weatherStyles2d" id="1" />
+         <Weather name="Animated style 1" weatherSwf="Weather/WeatherStyles1d.swf" weatherClass=".weatherStyles1d" id="0" />
+      </Weathers>
+   </BusinessInfo>
+   <BusinessInfo businessId="368915" name="X2@MS.COM" businessDescription="" accountStatus="2" archiveState="0" applicationId="2" resellerId="300762" fromTemplateId="363434" maxMonitors="1000" maxDataStorage="25" studioLite="1" allowSharing="0" lastLogin="127686">
+      <Weathers>
+         <Weather name="Static style" weatherSwf="Weather/WeatherStyles4s.swf" weatherClass=".weatherStyles4s" id="3" />
+         <Weather name="Static style" weatherSwf="Weather/WeatherStyles3s.swf" weatherClass=".weatherStyles3s" id="2" />
+         <Weather name="Animated style 2" weatherSwf="Weather/WeatherStyles2d.swf" weatherClass=".weatherStyles2d" id="1" />
+         <Weather name="Animated style 1" weatherSwf="Weather/WeatherStyles1d.swf" weatherClass=".weatherStyles1d" id="0" />
+      </Weathers>
+   </BusinessInfo>
+   <BusinessInfo businessId="368913" name="x1@ms.com" businessDescription="" accountStatus="2" archiveState="0" applicationId="2" resellerId="300762" fromTemplateId="363438" maxMonitors="1000" maxDataStorage="25" studioLite="1" allowSharing="0" lastLogin="75846">
+      <Weathers>
+         <Weather name="Static style" weatherSwf="Weather/WeatherStyles4s.swf" weatherClass=".weatherStyles4s" id="3" />
+         <Weather name="Static style" weatherSwf="Weather/WeatherStyles3s.swf" weatherClass=".weatherStyles3s" id="2" />
+         <Weather name="Animated style 2" weatherSwf="Weather/WeatherStyles2d.swf" weatherClass=".weatherStyles2d" id="1" />
+         <Weather name="Animated style 1" weatherSwf="Weather/WeatherStyles1d.swf" weatherClass=".weatherStyles1d" id="0" />
+      </Weathers>
+   </BusinessInfo>
+   <BusinessInfo businessId="367855" name="Video Tutorials" businessDescription="" accountStatus="2" archiveState="0" applicationId="2" resellerId="300762" fromTemplateId="1009" maxMonitors="1000" maxDataStorage="25" studioLite="0" allowSharing="0" lastLogin="N/A">
+      <Weathers>
+         <Weather name="Static style" weatherSwf="Weather/WeatherStyles4s.swf" weatherClass=".weatherStyles4s" id="3" />
+         <Weather name="Static style" weatherSwf="Weather/WeatherStyles3s.swf" weatherClass=".weatherStyles3s" id="2" />
+         <Weather name="Animated style 2" weatherSwf="Weather/WeatherStyles2d.swf" weatherClass=".weatherStyles2d" id="1" />
+         <Weather name="Animated style 1" weatherSwf="Weather/WeatherStyles1d.swf" weatherClass=".weatherStyles1d" id="0" />
+      </Weathers>
+   </BusinessInfo>
+   <BusinessInfo businessId="367272" name="testAccount_xyz" businessDescription="" accountStatus="2" archiveState="0" applicationId="2" resellerId="300762" fromTemplateId="999" maxMonitors="1000" maxDataStorage="25" studioLite="0" allowSharing="0" lastLogin="N/A">
+      <Weathers>
+         <Weather name="Static style" weatherSwf="Weather/WeatherStyles4s.swf" weatherClass=".weatherStyles4s" id="3" />
+         <Weather name="Static style" weatherSwf="Weather/WeatherStyles3s.swf" weatherClass=".weatherStyles3s" id="2" />
+         <Weather name="Animated style 2" weatherSwf="Weather/WeatherStyles2d.swf" weatherClass=".weatherStyles2d" id="1" />
+         <Weather name="Animated style 1" weatherSwf="Weather/WeatherStyles1d.swf" weatherClass=".weatherStyles1d" id="0" />
+      </Weathers>
+   </BusinessInfo>
+   <BusinessInfo businessId="367252" name="TestAccount2" businessDescription="" accountStatus="2" archiveState="0" applicationId="2" resellerId="300762" fromTemplateId="1016" maxMonitors="1000" maxDataStorage="25" studioLite="0" allowSharing="0" lastLogin="N/A">
+      <Weathers>
+         <Weather name="Static style" weatherSwf="Weather/WeatherStyles4s.swf" weatherClass=".weatherStyles4s" id="3" />
+         <Weather name="Static style" weatherSwf="Weather/WeatherStyles3s.swf" weatherClass=".weatherStyles3s" id="2" />
+         <Weather name="Animated style 2" weatherSwf="Weather/WeatherStyles2d.swf" weatherClass=".weatherStyles2d" id="1" />
+         <Weather name="Animated style 1" weatherSwf="Weather/WeatherStyles1d.swf" weatherClass=".weatherStyles1d" id="0" />
+      </Weathers>
+   </BusinessInfo>
+   <BusinessInfo businessId="367038" name="dsdsd" businessDescription="" accountStatus="2" archiveState="0" applicationId="2" resellerId="300762" fromTemplateId="363436" maxMonitors="1000" maxDataStorage="25" studioLite="1" allowSharing="0" lastLogin="N/A">
+      <Weathers>
+         <Weather name="Static style" weatherSwf="Weather/WeatherStyles4s.swf" weatherClass=".weatherStyles4s" id="3" />
+         <Weather name="Static style" weatherSwf="Weather/WeatherStyles3s.swf" weatherClass=".weatherStyles3s" id="2" />
+         <Weather name="Animated style 2" weatherSwf="Weather/WeatherStyles2d.swf" weatherClass=".weatherStyles2d" id="1" />
+         <Weather name="Animated style 1" weatherSwf="Weather/WeatherStyles1d.swf" weatherClass=".weatherStyles1d" id="0" />
+      </Weathers>
+   </BusinessInfo>
+   <BusinessInfo businessId="366354" name="Fresh 2" businessDescription="" accountStatus="2" archiveState="0" applicationId="2" resellerId="300762" fromTemplateId="999" maxMonitors="1000" maxDataStorage="25" studioLite="0" allowSharing="0" lastLogin="N/A">
+      <Weathers>
+         <Weather name="Static style" weatherSwf="Weather/WeatherStyles4s.swf" weatherClass=".weatherStyles4s" id="3" />
+         <Weather name="Static style" weatherSwf="Weather/WeatherStyles3s.swf" weatherClass=".weatherStyles3s" id="2" />
+         <Weather name="Animated style 2" weatherSwf="Weather/WeatherStyles2d.swf" weatherClass=".weatherStyles2d" id="1" />
+         <Weather name="Animated style 1" weatherSwf="Weather/WeatherStyles1d.swf" weatherClass=".weatherStyles1d" id="0" />
+      </Weathers>
+   </BusinessInfo>
+   <BusinessInfo businessId="366352" name="fresh@ms.com" businessDescription="" accountStatus="2" archiveState="0" applicationId="2" resellerId="300762" fromTemplateId="363441" maxMonitors="1000" maxDataStorage="25" studioLite="1" allowSharing="0" lastLogin="404166">
+      <Weathers>
+         <Weather name="Static style" weatherSwf="Weather/WeatherStyles4s.swf" weatherClass=".weatherStyles4s" id="3" />
+         <Weather name="Static style" weatherSwf="Weather/WeatherStyles3s.swf" weatherClass=".weatherStyles3s" id="2" />
+         <Weather name="Animated style 2" weatherSwf="Weather/WeatherStyles2d.swf" weatherClass=".weatherStyles2d" id="1" />
+         <Weather name="Animated style 1" weatherSwf="Weather/WeatherStyles1d.swf" weatherClass=".weatherStyles1d" id="0" />
+      </Weathers>
+   </BusinessInfo>
+   <BusinessInfo businessId="366262" name="f40f40" businessDescription="" accountStatus="2" archiveState="0" applicationId="2" resellerId="300762" fromTemplateId="363432" maxMonitors="1000" maxDataStorage="25" studioLite="0" allowSharing="0" lastLogin="N/A">
+      <Weathers>
+         <Weather name="Static style" weatherSwf="Weather/WeatherStyles4s.swf" weatherClass=".weatherStyles4s" id="3" />
+         <Weather name="Static style" weatherSwf="Weather/WeatherStyles3s.swf" weatherClass=".weatherStyles3s" id="2" />
+         <Weather name="Animated style 2" weatherSwf="Weather/WeatherStyles2d.swf" weatherClass=".weatherStyles2d" id="1" />
+         <Weather name="Animated style 1" weatherSwf="Weather/WeatherStyles1d.swf" weatherClass=".weatherStyles1d" id="0" />
+      </Weathers>
+   </BusinessInfo>
+   <BusinessInfo businessId="366029" name="New Test Lite" businessDescription="" accountStatus="2" archiveState="0" applicationId="2" resellerId="300762" fromTemplateId="363440" maxMonitors="1000" maxDataStorage="25" studioLite="1" allowSharing="0" lastLogin="N/A">
+      <Weathers>
+         <Weather name="Static style" weatherSwf="Weather/WeatherStyles4s.swf" weatherClass=".weatherStyles4s" id="3" />
+         <Weather name="Static style" weatherSwf="Weather/WeatherStyles3s.swf" weatherClass=".weatherStyles3s" id="2" />
+         <Weather name="Animated style 2" weatherSwf="Weather/WeatherStyles2d.swf" weatherClass=".weatherStyles2d" id="1" />
+         <Weather name="Animated style 1" weatherSwf="Weather/WeatherStyles1d.swf" weatherClass=".weatherStyles1d" id="0" />
+      </Weathers>
+   </BusinessInfo>
+   <BusinessInfo businessId="365486" name="Testing333" businessDescription="" accountStatus="2" archiveState="0" applicationId="2" resellerId="300762" fromTemplateId="363438" maxMonitors="1000" maxDataStorage="25" studioLite="1" allowSharing="0" lastLogin="N/A">
+      <Weathers>
+         <Weather name="Static style" weatherSwf="Weather/WeatherStyles4s.swf" weatherClass=".weatherStyles4s" id="3" />
+         <Weather name="Static style" weatherSwf="Weather/WeatherStyles3s.swf" weatherClass=".weatherStyles3s" id="2" />
+         <Weather name="Animated style 2" weatherSwf="Weather/WeatherStyles2d.swf" weatherClass=".weatherStyles2d" id="1" />
+         <Weather name="Animated style 1" weatherSwf="Weather/WeatherStyles1d.swf" weatherClass=".weatherStyles1d" id="0" />
+      </Weathers>
+   </BusinessInfo>
+   <BusinessInfo businessId="365467" name="d97d97" businessDescription="" accountStatus="2" archiveState="0" applicationId="2" resellerId="300762" fromTemplateId="363432" maxMonitors="1000" maxDataStorage="25" studioLite="0" allowSharing="0" lastLogin="N/A">
+      <Weathers>
+         <Weather name="Static style" weatherSwf="Weather/WeatherStyles4s.swf" weatherClass=".weatherStyles4s" id="3" />
+         <Weather name="Static style" weatherSwf="Weather/WeatherStyles3s.swf" weatherClass=".weatherStyles3s" id="2" />
+         <Weather name="Animated style 2" weatherSwf="Weather/WeatherStyles2d.swf" weatherClass=".weatherStyles2d" id="1" />
+         <Weather name="Animated style 1" weatherSwf="Weather/WeatherStyles1d.swf" weatherClass=".weatherStyles1d" id="0" />
+      </Weathers>
+   </BusinessInfo>
+   <BusinessInfo businessId="365466" name="d97d97" businessDescription="" accountStatus="2" archiveState="0" applicationId="2" resellerId="300762" fromTemplateId="363432" maxMonitors="1000" maxDataStorage="25" studioLite="1" allowSharing="0" lastLogin="N/A">
+      <Weathers>
+         <Weather name="Static style" weatherSwf="Weather/WeatherStyles4s.swf" weatherClass=".weatherStyles4s" id="3" />
+         <Weather name="Static style" weatherSwf="Weather/WeatherStyles3s.swf" weatherClass=".weatherStyles3s" id="2" />
+         <Weather name="Animated style 2" weatherSwf="Weather/WeatherStyles2d.swf" weatherClass=".weatherStyles2d" id="1" />
+         <Weather name="Animated style 1" weatherSwf="Weather/WeatherStyles1d.swf" weatherClass=".weatherStyles1d" id="0" />
+      </Weathers>
+   </BusinessInfo>
+   <BusinessInfo businessId="365454" name="TEST LITE NEW" businessDescription="" accountStatus="2" archiveState="0" applicationId="2" resellerId="300762" fromTemplateId="363432" maxMonitors="1000" maxDataStorage="25" studioLite="1" allowSharing="0" lastLogin="N/A">
+      <Weathers>
+         <Weather name="Static style" weatherSwf="Weather/WeatherStyles4s.swf" weatherClass=".weatherStyles4s" id="3" />
+         <Weather name="Static style" weatherSwf="Weather/WeatherStyles3s.swf" weatherClass=".weatherStyles3s" id="2" />
+         <Weather name="Animated style 2" weatherSwf="Weather/WeatherStyles2d.swf" weatherClass=".weatherStyles2d" id="1" />
+         <Weather name="Animated style 1" weatherSwf="Weather/WeatherStyles1d.swf" weatherClass=".weatherStyles1d" id="0" />
+      </Weathers>
+   </BusinessInfo>
+   <BusinessInfo businessId="365339" name="f12f12" businessDescription="" accountStatus="2" archiveState="0" applicationId="2" resellerId="300762" fromTemplateId="363441" maxMonitors="1000" maxDataStorage="25" studioLite="1" allowSharing="0" lastLogin="N/A">
+      <Weathers>
+         <Weather name="Static style" weatherSwf="Weather/WeatherStyles4s.swf" weatherClass=".weatherStyles4s" id="3" />
+         <Weather name="Static style" weatherSwf="Weather/WeatherStyles3s.swf" weatherClass=".weatherStyles3s" id="2" />
+         <Weather name="Animated style 2" weatherSwf="Weather/WeatherStyles2d.swf" weatherClass=".weatherStyles2d" id="1" />
+         <Weather name="Animated style 1" weatherSwf="Weather/WeatherStyles1d.swf" weatherClass=".weatherStyles1d" id="0" />
+      </Weathers>
+   </BusinessInfo>
+   <BusinessInfo businessId="365334" name="d96d96" businessDescription="" accountStatus="2" archiveState="0" applicationId="2" resellerId="300762" fromTemplateId="363439" maxMonitors="1000" maxDataStorage="25" studioLite="1" allowSharing="0" lastLogin="N/A">
+      <Weathers>
+         <Weather name="Static style" weatherSwf="Weather/WeatherStyles4s.swf" weatherClass=".weatherStyles4s" id="3" />
+         <Weather name="Static style" weatherSwf="Weather/WeatherStyles3s.swf" weatherClass=".weatherStyles3s" id="2" />
+         <Weather name="Animated style 2" weatherSwf="Weather/WeatherStyles2d.swf" weatherClass=".weatherStyles2d" id="1" />
+         <Weather name="Animated style 1" weatherSwf="Weather/WeatherStyles1d.swf" weatherClass=".weatherStyles1d" id="0" />
+      </Weathers>
+   </BusinessInfo>
+   <BusinessInfo businessId="365294" name="f6111" businessDescription="" accountStatus="2" archiveState="0" applicationId="2" resellerId="300762" fromTemplateId="363440" maxMonitors="1000" maxDataStorage="25" studioLite="0" allowSharing="0" lastLogin="486246">
+      <Weathers>
+         <Weather name="Static style" weatherSwf="Weather/WeatherStyles4s.swf" weatherClass=".weatherStyles4s" id="3" />
+         <Weather name="Static style" weatherSwf="Weather/WeatherStyles3s.swf" weatherClass=".weatherStyles3s" id="2" />
+         <Weather name="Animated style 2" weatherSwf="Weather/WeatherStyles2d.swf" weatherClass=".weatherStyles2d" id="1" />
+         <Weather name="Animated style 1" weatherSwf="Weather/WeatherStyles1d.swf" weatherClass=".weatherStyles1d" id="0" />
+      </Weathers>
+   </BusinessInfo>
+   <BusinessInfo businessId="365292" name="aaa" businessDescription="" accountStatus="2" archiveState="0" applicationId="2" resellerId="300762" fromTemplateId="1019" maxMonitors="1000" maxDataStorage="25" studioLite="0" allowSharing="0" lastLogin="N/A">
+      <Weathers>
+         <Weather name="Static style" weatherSwf="Weather/WeatherStyles4s.swf" weatherClass=".weatherStyles4s" id="3" />
+         <Weather name="Static style" weatherSwf="Weather/WeatherStyles3s.swf" weatherClass=".weatherStyles3s" id="2" />
+         <Weather name="Animated style 2" weatherSwf="Weather/WeatherStyles2d.swf" weatherClass=".weatherStyles2d" id="1" />
+         <Weather name="Animated style 1" weatherSwf="Weather/WeatherStyles1d.swf" weatherClass=".weatherStyles1d" id="0" />
+      </Weathers>
+   </BusinessInfo>
+   <BusinessInfo businessId="365208" name="f888" businessDescription="" accountStatus="2" archiveState="0" applicationId="2" resellerId="300762" fromTemplateId="363439" maxMonitors="1000" maxDataStorage="25" studioLite="0" allowSharing="0" lastLogin="29766">
+      <Weathers>
+         <Weather name="Static style" weatherSwf="Weather/WeatherStyles4s.swf" weatherClass=".weatherStyles4s" id="3" />
+         <Weather name="Static style" weatherSwf="Weather/WeatherStyles3s.swf" weatherClass=".weatherStyles3s" id="2" />
+         <Weather name="Animated style 2" weatherSwf="Weather/WeatherStyles2d.swf" weatherClass=".weatherStyles2d" id="1" />
+         <Weather name="Animated style 1" weatherSwf="Weather/WeatherStyles1d.swf" weatherClass=".weatherStyles1d" id="0" />
+      </Weathers>
+   </BusinessInfo>
+   <BusinessInfo businessId="365201" name="f3@ms.com" businessDescription="" accountStatus="2" archiveState="0" applicationId="2" resellerId="300762" fromTemplateId="363439" maxMonitors="1000" maxDataStorage="25" studioLite="1" allowSharing="0" lastLogin="N/A">
+      <Weathers>
+         <Weather name="Static style" weatherSwf="Weather/WeatherStyles4s.swf" weatherClass=".weatherStyles4s" id="3" />
+         <Weather name="Static style" weatherSwf="Weather/WeatherStyles3s.swf" weatherClass=".weatherStyles3s" id="2" />
+         <Weather name="Animated style 2" weatherSwf="Weather/WeatherStyles2d.swf" weatherClass=".weatherStyles2d" id="1" />
+         <Weather name="Animated style 1" weatherSwf="Weather/WeatherStyles1d.swf" weatherClass=".weatherStyles1d" id="0" />
+      </Weathers>
+   </BusinessInfo>
+   <BusinessInfo businessId="365200" name="f2@ms.com" businessDescription="" accountStatus="2" archiveState="0" applicationId="2" resellerId="300762" fromTemplateId="363441" maxMonitors="1000" maxDataStorage="25" studioLite="1" allowSharing="0" lastLogin="N/A">
+      <Weathers>
+         <Weather name="Static style" weatherSwf="Weather/WeatherStyles4s.swf" weatherClass=".weatherStyles4s" id="3" />
+         <Weather name="Static style" weatherSwf="Weather/WeatherStyles3s.swf" weatherClass=".weatherStyles3s" id="2" />
+         <Weather name="Animated style 2" weatherSwf="Weather/WeatherStyles2d.swf" weatherClass=".weatherStyles2d" id="1" />
+         <Weather name="Animated style 1" weatherSwf="Weather/WeatherStyles1d.swf" weatherClass=".weatherStyles1d" id="0" />
+      </Weathers>
+   </BusinessInfo>
+   <BusinessInfo businessId="365199" name="fff" businessDescription="" accountStatus="2" archiveState="0" applicationId="2" resellerId="300762" fromTemplateId="363441" maxMonitors="1000" maxDataStorage="25" studioLite="1" allowSharing="0" lastLogin="N/A">
+      <Weathers>
+         <Weather name="Static style" weatherSwf="Weather/WeatherStyles4s.swf" weatherClass=".weatherStyles4s" id="3" />
+         <Weather name="Static style" weatherSwf="Weather/WeatherStyles3s.swf" weatherClass=".weatherStyles3s" id="2" />
+         <Weather name="Animated style 2" weatherSwf="Weather/WeatherStyles2d.swf" weatherClass=".weatherStyles2d" id="1" />
+         <Weather name="Animated style 1" weatherSwf="Weather/WeatherStyles1d.swf" weatherClass=".weatherStyles1d" id="0" />
+      </Weathers>
+   </BusinessInfo>
+   <BusinessInfo businessId="365194" name="d14@ms.com" businessDescription="" accountStatus="2" archiveState="0" applicationId="2" resellerId="300762" fromTemplateId="363438" maxMonitors="1000" maxDataStorage="25" studioLite="1" allowSharing="0" lastLogin="N/A">
+      <Weathers>
+         <Weather name="Static style" weatherSwf="Weather/WeatherStyles4s.swf" weatherClass=".weatherStyles4s" id="3" />
+         <Weather name="Static style" weatherSwf="Weather/WeatherStyles3s.swf" weatherClass=".weatherStyles3s" id="2" />
+         <Weather name="Animated style 2" weatherSwf="Weather/WeatherStyles2d.swf" weatherClass=".weatherStyles2d" id="1" />
+         <Weather name="Animated style 1" weatherSwf="Weather/WeatherStyles1d.swf" weatherClass=".weatherStyles1d" id="0" />
+      </Weathers>
+   </BusinessInfo>
+   <BusinessInfo businessId="365116" name="bbb" businessDescription="" accountStatus="2" archiveState="0" applicationId="2" resellerId="300762" fromTemplateId="363432" maxMonitors="1000" maxDataStorage="25" studioLite="0" allowSharing="0" lastLogin="N/A">
+      <Weathers>
+         <Weather name="Static style" weatherSwf="Weather/WeatherStyles4s.swf" weatherClass=".weatherStyles4s" id="3" />
+         <Weather name="Static style" weatherSwf="Weather/WeatherStyles3s.swf" weatherClass=".weatherStyles3s" id="2" />
+         <Weather name="Animated style 2" weatherSwf="Weather/WeatherStyles2d.swf" weatherClass=".weatherStyles2d" id="1" />
+         <Weather name="Animated style 1" weatherSwf="Weather/WeatherStyles1d.swf" weatherClass=".weatherStyles1d" id="0" />
+      </Weathers>
+   </BusinessInfo>
+   <BusinessInfo businessId="364983" name="d93" businessDescription="" accountStatus="2" archiveState="0" applicationId="2" resellerId="300762" fromTemplateId="351576" maxMonitors="1000" maxDataStorage="25" studioLite="1" allowSharing="0" lastLogin="N/A">
+      <Weathers>
+         <Weather name="Static style" weatherSwf="Weather/WeatherStyles4s.swf" weatherClass=".weatherStyles4s" id="3" />
+         <Weather name="Static style" weatherSwf="Weather/WeatherStyles3s.swf" weatherClass=".weatherStyles3s" id="2" />
+         <Weather name="Animated style 2" weatherSwf="Weather/WeatherStyles2d.swf" weatherClass=".weatherStyles2d" id="1" />
+         <Weather name="Animated style 1" weatherSwf="Weather/WeatherStyles1d.swf" weatherClass=".weatherStyles1d" id="0" />
+      </Weathers>
+   </BusinessInfo>
+   <BusinessInfo businessId="364668" name="Robert Test" businessDescription="" accountStatus="2" archiveState="0" applicationId="2" resellerId="300762" fromTemplateId="351576" maxMonitors="1000" maxDataStorage="25" studioLite="1" allowSharing="0" lastLogin="224166">
+      <Weathers>
+         <Weather name="Static style" weatherSwf="Weather/WeatherStyles4s.swf" weatherClass=".weatherStyles4s" id="3" />
+         <Weather name="Static style" weatherSwf="Weather/WeatherStyles3s.swf" weatherClass=".weatherStyles3s" id="2" />
+         <Weather name="Animated style 2" weatherSwf="Weather/WeatherStyles2d.swf" weatherClass=".weatherStyles2d" id="1" />
+         <Weather name="Animated style 1" weatherSwf="Weather/WeatherStyles1d.swf" weatherClass=".weatherStyles1d" id="0" />
+      </Weathers>
+   </BusinessInfo>
+   <BusinessInfo businessId="363441" name="Karate School " businessDescription="" accountStatus="2" archiveState="0" applicationId="2" resellerId="300762" fromTemplateId="351576" maxMonitors="1000" maxDataStorage="25" studioLite="1" allowSharing="0" lastLogin="N/A">
+      <Weathers>
+         <Weather name="Static style" weatherSwf="Weather/WeatherStyles4s.swf" weatherClass=".weatherStyles4s" id="3" />
+         <Weather name="Static style" weatherSwf="Weather/WeatherStyles3s.swf" weatherClass=".weatherStyles3s" id="2" />
+         <Weather name="Animated style 2" weatherSwf="Weather/WeatherStyles2d.swf" weatherClass=".weatherStyles2d" id="1" />
+         <Weather name="Animated style 1" weatherSwf="Weather/WeatherStyles1d.swf" weatherClass=".weatherStyles1d" id="0" />
+      </Weathers>
+   </BusinessInfo>
+   <BusinessInfo businessId="363440" name="Auto Dealer" businessDescription="" accountStatus="2" archiveState="0" applicationId="2" resellerId="300762" fromTemplateId="351576" maxMonitors="1000" maxDataStorage="25" studioLite="1" allowSharing="0" lastLogin="N/A">
+      <Weathers>
+         <Weather name="Static style" weatherSwf="Weather/WeatherStyles4s.swf" weatherClass=".weatherStyles4s" id="3" />
+         <Weather name="Static style" weatherSwf="Weather/WeatherStyles3s.swf" weatherClass=".weatherStyles3s" id="2" />
+         <Weather name="Animated style 2" weatherSwf="Weather/WeatherStyles2d.swf" weatherClass=".weatherStyles2d" id="1" />
+         <Weather name="Animated style 1" weatherSwf="Weather/WeatherStyles1d.swf" weatherClass=".weatherStyles1d" id="0" />
+      </Weathers>
+   </BusinessInfo>
+   <BusinessInfo businessId="363439" name="Financial Advisor" businessDescription="" accountStatus="2" archiveState="0" applicationId="2" resellerId="300762" fromTemplateId="351576" maxMonitors="1000" maxDataStorage="25" studioLite="1" allowSharing="0" lastLogin="N/A">
+      <Weathers>
+         <Weather name="Static style" weatherSwf="Weather/WeatherStyles4s.swf" weatherClass=".weatherStyles4s" id="3" />
+         <Weather name="Static style" weatherSwf="Weather/WeatherStyles3s.swf" weatherClass=".weatherStyles3s" id="2" />
+         <Weather name="Animated style 2" weatherSwf="Weather/WeatherStyles2d.swf" weatherClass=".weatherStyles2d" id="1" />
+         <Weather name="Animated style 1" weatherSwf="Weather/WeatherStyles1d.swf" weatherClass=".weatherStyles1d" id="0" />
+      </Weathers>
+   </BusinessInfo>
+   <BusinessInfo businessId="363438" name="Fishing Store" businessDescription="" accountStatus="2" archiveState="0" applicationId="2" resellerId="300762" fromTemplateId="351576" maxMonitors="1000" maxDataStorage="25" studioLite="1" allowSharing="0" lastLogin="N/A">
+      <Weathers>
+         <Weather name="Static style" weatherSwf="Weather/WeatherStyles4s.swf" weatherClass=".weatherStyles4s" id="3" />
+         <Weather name="Static style" weatherSwf="Weather/WeatherStyles3s.swf" weatherClass=".weatherStyles3s" id="2" />
+         <Weather name="Animated style 2" weatherSwf="Weather/WeatherStyles2d.swf" weatherClass=".weatherStyles2d" id="1" />
+         <Weather name="Animated style 1" weatherSwf="Weather/WeatherStyles1d.swf" weatherClass=".weatherStyles1d" id="0" />
+      </Weathers>
+   </BusinessInfo>
+   <BusinessInfo businessId="363436" name="Sporting Goods" businessDescription="" accountStatus="2" archiveState="0" applicationId="2" resellerId="300762" fromTemplateId="351576" maxMonitors="1000" maxDataStorage="25" studioLite="1" allowSharing="0" lastLogin="N/A">
+      <Weathers>
+         <Weather name="Static style" weatherSwf="Weather/WeatherStyles4s.swf" weatherClass=".weatherStyles4s" id="3" />
+         <Weather name="Static style" weatherSwf="Weather/WeatherStyles3s.swf" weatherClass=".weatherStyles3s" id="2" />
+         <Weather name="Animated style 2" weatherSwf="Weather/WeatherStyles2d.swf" weatherClass=".weatherStyles2d" id="1" />
+         <Weather name="Animated style 1" weatherSwf="Weather/WeatherStyles1d.swf" weatherClass=".weatherStyles1d" id="0" />
+      </Weathers>
+   </BusinessInfo>
+   <BusinessInfo businessId="363435" name="fitztemp5" businessDescription="" accountStatus="2" archiveState="0" applicationId="2" resellerId="300762" fromTemplateId="351576" maxMonitors="1000" maxDataStorage="25" studioLite="1" allowSharing="1" lastLogin="N/A">
+      <Weathers>
+         <Weather name="Static style" weatherSwf="Weather/WeatherStyles4s.swf" weatherClass=".weatherStyles4s" id="3" />
+         <Weather name="Static style" weatherSwf="Weather/WeatherStyles3s.swf" weatherClass=".weatherStyles3s" id="2" />
+         <Weather name="Animated style 2" weatherSwf="Weather/WeatherStyles2d.swf" weatherClass=".weatherStyles2d" id="1" />
+         <Weather name="Animated style 1" weatherSwf="Weather/WeatherStyles1d.swf" weatherClass=".weatherStyles1d" id="0" />
+      </Weathers>
+   </BusinessInfo>
+   <BusinessInfo businessId="363434" name="Cupcake Bakery" businessDescription="" accountStatus="2" archiveState="0" applicationId="2" resellerId="300762" fromTemplateId="351576" maxMonitors="1000" maxDataStorage="25" studioLite="1" allowSharing="1" lastLogin="N/A">
+      <Weathers>
+         <Weather name="Static style" weatherSwf="Weather/WeatherStyles4s.swf" weatherClass=".weatherStyles4s" id="3" />
+         <Weather name="Static style" weatherSwf="Weather/WeatherStyles3s.swf" weatherClass=".weatherStyles3s" id="2" />
+         <Weather name="Animated style 2" weatherSwf="Weather/WeatherStyles2d.swf" weatherClass=".weatherStyles2d" id="1" />
+         <Weather name="Animated style 1" weatherSwf="Weather/WeatherStyles1d.swf" weatherClass=".weatherStyles1d" id="0" />
+      </Weathers>
+   </BusinessInfo>
+   <BusinessInfo businessId="363433" name="fitztemp3" businessDescription="" accountStatus="2" archiveState="0" applicationId="2" resellerId="300762" fromTemplateId="351576" maxMonitors="1000" maxDataStorage="25" studioLite="1" allowSharing="0" lastLogin="N/A">
+      <Weathers>
+         <Weather name="Static style" weatherSwf="Weather/WeatherStyles4s.swf" weatherClass=".weatherStyles4s" id="3" />
+         <Weather name="Static style" weatherSwf="Weather/WeatherStyles3s.swf" weatherClass=".weatherStyles3s" id="2" />
+         <Weather name="Animated style 2" weatherSwf="Weather/WeatherStyles2d.swf" weatherClass=".weatherStyles2d" id="1" />
+         <Weather name="Animated style 1" weatherSwf="Weather/WeatherStyles1d.swf" weatherClass=".weatherStyles1d" id="0" />
+      </Weathers>
+   </BusinessInfo>
+   <BusinessInfo businessId="363432" name="Ballet" businessDescription="" accountStatus="2" archiveState="0" applicationId="2" resellerId="300762" fromTemplateId="351576" maxMonitors="1000" maxDataStorage="25" studioLite="1" allowSharing="0" lastLogin="N/A">
+      <Weathers>
+         <Weather name="Static style" weatherSwf="Weather/WeatherStyles4s.swf" weatherClass=".weatherStyles4s" id="3" />
+         <Weather name="Static style" weatherSwf="Weather/WeatherStyles3s.swf" weatherClass=".weatherStyles3s" id="2" />
+         <Weather name="Animated style 2" weatherSwf="Weather/WeatherStyles2d.swf" weatherClass=".weatherStyles2d" id="1" />
+         <Weather name="Animated style 1" weatherSwf="Weather/WeatherStyles1d.swf" weatherClass=".weatherStyles1d" id="0" />
+      </Weathers>
+   </BusinessInfo>
+   <BusinessInfo businessId="363428" name="fitztemp1" businessDescription="" accountStatus="2" archiveState="0" applicationId="2" resellerId="300762" fromTemplateId="351576" maxMonitors="1000" maxDataStorage="25" studioLite="1" allowSharing="0" lastLogin="188166">
+      <Weathers>
+         <Weather name="Static style" weatherSwf="Weather/WeatherStyles4s.swf" weatherClass=".weatherStyles4s" id="3" />
+         <Weather name="Static style" weatherSwf="Weather/WeatherStyles3s.swf" weatherClass=".weatherStyles3s" id="2" />
+         <Weather name="Animated style 2" weatherSwf="Weather/WeatherStyles2d.swf" weatherClass=".weatherStyles2d" id="1" />
+         <Weather name="Animated style 1" weatherSwf="Weather/WeatherStyles1d.swf" weatherClass=".weatherStyles1d" id="0" />
+      </Weathers>
+   </BusinessInfo>
+   <BusinessInfo businessId="361153" name="d91" businessDescription="" accountStatus="2" archiveState="0" applicationId="2" resellerId="300762" fromTemplateId="351576" maxMonitors="1000" maxDataStorage="25" studioLite="1" allowSharing="0" lastLogin="N/A">
+      <Weathers>
+         <Weather name="Static style" weatherSwf="Weather/WeatherStyles4s.swf" weatherClass=".weatherStyles4s" id="3" />
+         <Weather name="Static style" weatherSwf="Weather/WeatherStyles3s.swf" weatherClass=".weatherStyles3s" id="2" />
+         <Weather name="Animated style 2" weatherSwf="Weather/WeatherStyles2d.swf" weatherClass=".weatherStyles2d" id="1" />
+         <Weather name="Animated style 1" weatherSwf="Weather/WeatherStyles1d.swf" weatherClass=".weatherStyles1d" id="0" />
+      </Weathers>
+   </BusinessInfo>
+   <BusinessInfo businessId="358613" name="lite28" businessDescription="" accountStatus="2" archiveState="0" applicationId="2" resellerId="300762" fromTemplateId="351576" maxMonitors="1000" maxDataStorage="25" studioLite="1" allowSharing="0" lastLogin="N/A">
+      <Weathers>
+         <Weather name="Static style" weatherSwf="Weather/WeatherStyles4s.swf" weatherClass=".weatherStyles4s" id="3" />
+         <Weather name="Static style" weatherSwf="Weather/WeatherStyles3s.swf" weatherClass=".weatherStyles3s" id="2" />
+         <Weather name="Animated style 2" weatherSwf="Weather/WeatherStyles2d.swf" weatherClass=".weatherStyles2d" id="1" />
+         <Weather name="Animated style 1" weatherSwf="Weather/WeatherStyles1d.swf" weatherClass=".weatherStyles1d" id="0" />
+      </Weathers>
+   </BusinessInfo>
+   <BusinessInfo businessId="358612" name="lite77@" businessDescription="" accountStatus="2" archiveState="0" applicationId="2" resellerId="300762" fromTemplateId="351576" maxMonitors="1000" maxDataStorage="25" studioLite="1" allowSharing="0" lastLogin="68646">
+      <Weathers>
+         <Weather name="Static style" weatherSwf="Weather/WeatherStyles4s.swf" weatherClass=".weatherStyles4s" id="3" />
+         <Weather name="Static style" weatherSwf="Weather/WeatherStyles3s.swf" weatherClass=".weatherStyles3s" id="2" />
+         <Weather name="Animated style 2" weatherSwf="Weather/WeatherStyles2d.swf" weatherClass=".weatherStyles2d" id="1" />
+         <Weather name="Animated style 1" weatherSwf="Weather/WeatherStyles1d.swf" weatherClass=".weatherStyles1d" id="0" />
+      </Weathers>
+   </BusinessInfo>
+   <BusinessInfo businessId="358611" name="d47" businessDescription="" accountStatus="2" archiveState="0" applicationId="2" resellerId="300762" fromTemplateId="351576" maxMonitors="1000" maxDataStorage="25" studioLite="1" allowSharing="0" lastLogin="N/A">
+      <Weathers>
+         <Weather name="Static style" weatherSwf="Weather/WeatherStyles4s.swf" weatherClass=".weatherStyles4s" id="3" />
+         <Weather name="Static style" weatherSwf="Weather/WeatherStyles3s.swf" weatherClass=".weatherStyles3s" id="2" />
+         <Weather name="Animated style 2" weatherSwf="Weather/WeatherStyles2d.swf" weatherClass=".weatherStyles2d" id="1" />
+         <Weather name="Animated style 1" weatherSwf="Weather/WeatherStyles1d.swf" weatherClass=".weatherStyles1d" id="0" />
+      </Weathers>
+   </BusinessInfo>
+   <BusinessInfo businessId="358287" name="lite1" businessDescription="" accountStatus="2" archiveState="0" applicationId="2" resellerId="300762" fromTemplateId="351576" maxMonitors="1000" maxDataStorage="25" studioLite="1" allowSharing="0" lastLogin="N/A">
+      <Weathers>
+         <Weather name="Static style" weatherSwf="Weather/WeatherStyles4s.swf" weatherClass=".weatherStyles4s" id="3" />
+         <Weather name="Static style" weatherSwf="Weather/WeatherStyles3s.swf" weatherClass=".weatherStyles3s" id="2" />
+         <Weather name="Animated style 2" weatherSwf="Weather/WeatherStyles2d.swf" weatherClass=".weatherStyles2d" id="1" />
+         <Weather name="Animated style 1" weatherSwf="Weather/WeatherStyles1d.swf" weatherClass=".weatherStyles1d" id="0" />
+      </Weathers>
+   </BusinessInfo>
+   <BusinessInfo businessId="355181" name="d88" businessDescription="" accountStatus="2" archiveState="0" applicationId="2" resellerId="300762" fromTemplateId="351576" maxMonitors="1000" maxDataStorage="25" studioLite="1" allowSharing="0" lastLogin="355206">
+      <Weathers>
+         <Weather name="Static style" weatherSwf="Weather/WeatherStyles4s.swf" weatherClass=".weatherStyles4s" id="3" />
+         <Weather name="Static style" weatherSwf="Weather/WeatherStyles3s.swf" weatherClass=".weatherStyles3s" id="2" />
+         <Weather name="Animated style 2" weatherSwf="Weather/WeatherStyles2d.swf" weatherClass=".weatherStyles2d" id="1" />
+         <Weather name="Animated style 1" weatherSwf="Weather/WeatherStyles1d.swf" weatherClass=".weatherStyles1d" id="0" />
+      </Weathers>
+   </BusinessInfo>
+   <BusinessInfo businessId="348000" name="my name" businessDescription="" accountStatus="2" archiveState="0" applicationId="2" resellerId="300762" fromTemplateId="1009" maxMonitors="22" maxDataStorage="25" studioLite="0" allowSharing="0" lastLogin="N/A">
+      <Weathers>
+         <Weather name="Static style" weatherSwf="Weather/WeatherStyles4s.swf" weatherClass=".weatherStyles4s" id="3" />
+         <Weather name="Static style" weatherSwf="Weather/WeatherStyles3s.swf" weatherClass=".weatherStyles3s" id="2" />
+         <Weather name="Animated style 2" weatherSwf="Weather/WeatherStyles2d.swf" weatherClass=".weatherStyles2d" id="1" />
+         <Weather name="Animated style 1" weatherSwf="Weather/WeatherStyles1d.swf" weatherClass=".weatherStyles1d" id="0" />
+      </Weathers>
+   </BusinessInfo>
+   <BusinessInfo businessId="347938" name="d243" businessDescription="" accountStatus="2" archiveState="0" applicationId="2" resellerId="300762" fromTemplateId="1032" maxMonitors="1000" maxDataStorage="25" studioLite="0" allowSharing="0" lastLogin="N/A">
+      <Weathers>
+         <Weather name="Static style" weatherSwf="Weather/WeatherStyles4s.swf" weatherClass=".weatherStyles4s" id="3" />
+         <Weather name="Static style" weatherSwf="Weather/WeatherStyles3s.swf" weatherClass=".weatherStyles3s" id="2" />
+         <Weather name="Animated style 2" weatherSwf="Weather/WeatherStyles2d.swf" weatherClass=".weatherStyles2d" id="1" />
+         <Weather name="Animated style 1" weatherSwf="Weather/WeatherStyles1d.swf" weatherClass=".weatherStyles1d" id="0" />
+      </Weathers>
+   </BusinessInfo>
+   <BusinessInfo businessId="347805" name="d25544" businessDescription="" accountStatus="2" archiveState="0" applicationId="2" resellerId="300762" fromTemplateId="100805" maxMonitors="1000" maxDataStorage="25" studioLite="0" allowSharing="0" lastLogin="N/A">
+      <Weathers>
+         <Weather name="Static style" weatherSwf="Weather/WeatherStyles4s.swf" weatherClass=".weatherStyles4s" id="3" />
+         <Weather name="Static style" weatherSwf="Weather/WeatherStyles3s.swf" weatherClass=".weatherStyles3s" id="2" />
+         <Weather name="Animated style 2" weatherSwf="Weather/WeatherStyles2d.swf" weatherClass=".weatherStyles2d" id="1" />
+         <Weather name="Animated style 1" weatherSwf="Weather/WeatherStyles1d.swf" weatherClass=".weatherStyles1d" id="0" />
+      </Weathers>
+   </BusinessInfo>
+   <BusinessInfo businessId="347785" name="msreslldemo" businessDescription="" accountStatus="2" archiveState="0" applicationId="2" resellerId="300762" fromTemplateId="999" maxMonitors="1000" maxDataStorage="25" studioLite="0" allowSharing="0" lastLogin="N/A">
+      <Weathers>
+         <Weather name="Static style" weatherSwf="Weather/WeatherStyles4s.swf" weatherClass=".weatherStyles4s" id="3" />
+         <Weather name="Static style" weatherSwf="Weather/WeatherStyles3s.swf" weatherClass=".weatherStyles3s" id="2" />
+         <Weather name="Animated style 2" weatherSwf="Weather/WeatherStyles2d.swf" weatherClass=".weatherStyles2d" id="1" />
+         <Weather name="Animated style 1" weatherSwf="Weather/WeatherStyles1d.swf" weatherClass=".weatherStyles1d" id="0" />
+      </Weathers>
+   </BusinessInfo>
+   <BusinessInfo businessId="345309" name="gsggs" businessDescription="" accountStatus="2" archiveState="0" applicationId="2" resellerId="300762" fromTemplateId="1025" maxMonitors="1000" maxDataStorage="25" studioLite="0" allowSharing="0" lastLogin="N/A">
+      <Weathers>
+         <Weather name="Static style" weatherSwf="Weather/WeatherStyles4s.swf" weatherClass=".weatherStyles4s" id="3" />
+         <Weather name="Static style" weatherSwf="Weather/WeatherStyles3s.swf" weatherClass=".weatherStyles3s" id="2" />
+         <Weather name="Animated style 2" weatherSwf="Weather/WeatherStyles2d.swf" weatherClass=".weatherStyles2d" id="1" />
+         <Weather name="Animated style 1" weatherSwf="Weather/WeatherStyles1d.swf" weatherClass=".weatherStyles1d" id="0" />
+      </Weathers>
+   </BusinessInfo>
+   <BusinessInfo businessId="342193" name="zwave" businessDescription="" accountStatus="2" archiveState="0" applicationId="2" resellerId="300762" fromTemplateId="1016" maxMonitors="1000" maxDataStorage="25" studioLite="0" allowSharing="0" lastLogin="N/A">
+      <Weathers>
+         <Weather name="Static style" weatherSwf="Weather/WeatherStyles4s.swf" weatherClass=".weatherStyles4s" id="3" />
+         <Weather name="Static style" weatherSwf="Weather/WeatherStyles3s.swf" weatherClass=".weatherStyles3s" id="2" />
+         <Weather name="Animated style 2" weatherSwf="Weather/WeatherStyles2d.swf" weatherClass=".weatherStyles2d" id="1" />
+         <Weather name="Animated style 1" weatherSwf="Weather/WeatherStyles1d.swf" weatherClass=".weatherStyles1d" id="0" />
+      </Weathers>
+   </BusinessInfo>
+   <BusinessInfo businessId="327206" name="demo business" businessDescription="" accountStatus="2" archiveState="0" applicationId="2" resellerId="300762" fromTemplateId="1016" maxMonitors="1000" maxDataStorage="25" studioLite="0" allowSharing="0" lastLogin="106086">
+      <Weathers>
+         <Weather name="Static style" weatherSwf="Weather/WeatherStyles4s.swf" weatherClass=".weatherStyles4s" id="3" />
+         <Weather name="Static style" weatherSwf="Weather/WeatherStyles3s.swf" weatherClass=".weatherStyles3s" id="2" />
+         <Weather name="Animated style 2" weatherSwf="Weather/WeatherStyles2d.swf" weatherClass=".weatherStyles2d" id="1" />
+         <Weather name="Animated style 1" weatherSwf="Weather/WeatherStyles1d.swf" weatherClass=".weatherStyles1d" id="0" />
+      </Weathers>
+   </BusinessInfo>
+   <BusinessInfo businessId="1208" name="Karate School " businessDescription="" accountStatus="2" archiveState="0" applicationId="2" resellerId="300762" fromTemplateId="351576" maxMonitors="1000" maxDataStorage="25" studioLite="1" allowSharing="0" lastLogin="6726">
+      <Weathers>
+         <Weather name="Static style" weatherSwf="Weather/WeatherStyles4s.swf" weatherClass=".weatherStyles4s" id="3" />
+         <Weather name="Static style" weatherSwf="Weather/WeatherStyles3s.swf" weatherClass=".weatherStyles3s" id="2" />
+         <Weather name="Animated style 2" weatherSwf="Weather/WeatherStyles2d.swf" weatherClass=".weatherStyles2d" id="1" />
+         <Weather name="Animated style 1" weatherSwf="Weather/WeatherStyles1d.swf" weatherClass=".weatherStyles1d" id="0" />
+      </Weathers>
+   </BusinessInfo>
+   <BusinessInfo businessId="1207" name="Auto Dealer" businessDescription="" accountStatus="2" archiveState="0" applicationId="2" resellerId="300762" fromTemplateId="351576" maxMonitors="1000" maxDataStorage="25" studioLite="1" allowSharing="0" lastLogin="2406">
+      <Weathers>
+         <Weather name="Static style" weatherSwf="Weather/WeatherStyles4s.swf" weatherClass=".weatherStyles4s" id="3" />
+         <Weather name="Static style" weatherSwf="Weather/WeatherStyles3s.swf" weatherClass=".weatherStyles3s" id="2" />
+         <Weather name="Animated style 2" weatherSwf="Weather/WeatherStyles2d.swf" weatherClass=".weatherStyles2d" id="1" />
+         <Weather name="Animated style 1" weatherSwf="Weather/WeatherStyles1d.swf" weatherClass=".weatherStyles1d" id="0" />
+      </Weathers>
+   </BusinessInfo>
+   <BusinessInfo businessId="1206" name="Financial Advisor" businessDescription="" accountStatus="2" archiveState="0" applicationId="2" resellerId="300762" fromTemplateId="351576" maxMonitors="1000" maxDataStorage="25" studioLite="1" allowSharing="0" lastLogin="966">
+      <Weathers>
+         <Weather name="Static style" weatherSwf="Weather/WeatherStyles4s.swf" weatherClass=".weatherStyles4s" id="3" />
+         <Weather name="Static style" weatherSwf="Weather/WeatherStyles3s.swf" weatherClass=".weatherStyles3s" id="2" />
+         <Weather name="Animated style 2" weatherSwf="Weather/WeatherStyles2d.swf" weatherClass=".weatherStyles2d" id="1" />
+         <Weather name="Animated style 1" weatherSwf="Weather/WeatherStyles1d.swf" weatherClass=".weatherStyles1d" id="0" />
+      </Weathers>
+   </BusinessInfo>
+   <BusinessInfo businessId="1205" name="Fishing Store" businessDescription="" accountStatus="2" archiveState="0" applicationId="2" resellerId="300762" fromTemplateId="351576" maxMonitors="1000" maxDataStorage="25" studioLite="1" allowSharing="0" lastLogin="290">
+      <Weathers>
+         <Weather name="Static style" weatherSwf="Weather/WeatherStyles4s.swf" weatherClass=".weatherStyles4s" id="3" />
+         <Weather name="Static style" weatherSwf="Weather/WeatherStyles3s.swf" weatherClass=".weatherStyles3s" id="2" />
+         <Weather name="Animated style 2" weatherSwf="Weather/WeatherStyles2d.swf" weatherClass=".weatherStyles2d" id="1" />
+         <Weather name="Animated style 1" weatherSwf="Weather/WeatherStyles1d.swf" weatherClass=".weatherStyles1d" id="0" />
+      </Weathers>
+   </BusinessInfo>
+   <BusinessInfo businessId="1204" name="Sporting Goods" businessDescription="" accountStatus="2" archiveState="0" applicationId="2" resellerId="300762" fromTemplateId="351576" maxMonitors="1000" maxDataStorage="25" studioLite="1" allowSharing="0" lastLogin="291">
+      <Weathers>
+         <Weather name="Static style" weatherSwf="Weather/WeatherStyles4s.swf" weatherClass=".weatherStyles4s" id="3" />
+         <Weather name="Static style" weatherSwf="Weather/WeatherStyles3s.swf" weatherClass=".weatherStyles3s" id="2" />
+         <Weather name="Animated style 2" weatherSwf="Weather/WeatherStyles2d.swf" weatherClass=".weatherStyles2d" id="1" />
+         <Weather name="Animated style 1" weatherSwf="Weather/WeatherStyles1d.swf" weatherClass=".weatherStyles1d" id="0" />
+      </Weathers>
+   </BusinessInfo>
+   <BusinessInfo businessId="1202" name="Cupcake Bakery" businessDescription="" accountStatus="2" archiveState="0" applicationId="2" resellerId="300762" fromTemplateId="351576" maxMonitors="1000" maxDataStorage="25" studioLite="1" allowSharing="0" lastLogin="293">
+      <Weathers>
+         <Weather name="Static style" weatherSwf="Weather/WeatherStyles4s.swf" weatherClass=".weatherStyles4s" id="3" />
+         <Weather name="Static style" weatherSwf="Weather/WeatherStyles3s.swf" weatherClass=".weatherStyles3s" id="2" />
+         <Weather name="Animated style 2" weatherSwf="Weather/WeatherStyles2d.swf" weatherClass=".weatherStyles2d" id="1" />
+         <Weather name="Animated style 1" weatherSwf="Weather/WeatherStyles1d.swf" weatherClass=".weatherStyles1d" id="0" />
+      </Weathers>
+   </BusinessInfo>
+   <BusinessInfo businessId="1201" name="Ballet" businessDescription="" accountStatus="2" archiveState="0" applicationId="2" resellerId="300762" fromTemplateId="351576" maxMonitors="1000" maxDataStorage="25" studioLite="1" allowSharing="0" lastLogin="606">
       <Weathers>
          <Weather name="Static style" weatherSwf="Weather/WeatherStyles4s.swf" weatherClass=".weatherStyles4s" id="3" />
          <Weather name="Static style" weatherSwf="Weather/WeatherStyles3s.swf" weatherClass=".weatherStyles3s" id="2" />
