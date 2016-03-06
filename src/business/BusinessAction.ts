@@ -49,7 +49,7 @@ export class BusinessAction extends Actions {
                         var xmlData:string = result.text()
                         xmlData = xmlData.replace(/}\)/, '').replace(/\(\{"result":"/, '');
                         this.parseString(xmlData, {attrkey: '_attr'}, function (err, result) {
-                            var businessUsers = [];
+                            var businessUsers:List<BusinessUser> = List<BusinessUser>();
                             for (var business of result.Users.User) {
                                 const businessUser:BusinessUser = new BusinessUser({
                                     accessMask: business._attr.accessMask,
@@ -57,7 +57,7 @@ export class BusinessAction extends Actions {
                                     emailName: business._attr.name,
                                     businessId: business._attr.businessId,
                                 });
-                                businessUsers.push(businessUser)
+                                businessUsers = businessUsers.push(businessUser)
                             }
                             dispatch(self.receiveBusinessUsers(businessUsers));
                         });
@@ -73,9 +73,15 @@ export class BusinessAction extends Actions {
         };
     }
 
-    public findBusinessIndex(business:BusinessModel, businesses:List<BusinessModel>):number {
-        return businesses.findIndex((i_business:BusinessModel)=> {
+    public findBusinessIndex(business:BusinessModel|BusinessUser, businesses:List<BusinessModel|BusinessUser>):number {
+        return businesses.findIndex((i_business:BusinessModel|BusinessUser)=> {
             return i_business.getKey('businessId') === business.getKey('businessId');
+        });
+    }
+
+    public findBusinessIndexById(businessId:string, businesses:List<BusinessModel|BusinessUser>):number {
+        return businesses.findIndex((i_business:BusinessModel|BusinessUser)=> {
+            return businessId === i_business.getKey('businessId');
         });
     }
 
@@ -208,7 +214,7 @@ export class BusinessAction extends Actions {
         }
     }
 
-    public receiveBusinessUsers(businessUsers:Array<BusinessUser>) {
+    public receiveBusinessUsers(businessUsers:List<BusinessUser>) {
         return {
             type: RECEIVE_BUSINESS_USER,
             businessUsers

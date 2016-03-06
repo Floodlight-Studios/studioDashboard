@@ -55,20 +55,20 @@ import {List, Map} from 'immutable';
              <div class="col-xs-3">
                 <div style="position: relative; top: 10px">
                     <a class="btns" href="#"><span class="fa fa-plus"></span></a>
-                    <a class="btns" [ngClass]="{disabled: !businessesFilteredList || businessesFilteredList && businessesFilteredList.size != 1}" href="#"><span class="fa fa-rocket"></span></a>
-                    <a class="btns" [ngClass]="{disabled: !businessesFilteredList || businessesFilteredList && businessesFilteredList.size != 1}" href="#"><span class="fa fa-remove"></span></a>
-                    <a class="btns" [ngClass]="{disabled: !businessesFilteredList || businessesFilteredList && businessesFilteredList.size != 1}" href="#"><span class="fa fa-key"></span></a>
+                    <a class="btns" [ngClass]="{disabled: !businessesListFiltered || businessesListFiltered && businessesListFiltered.size != 1}" href="#"><span class="fa fa-rocket"></span></a>
+                    <a class="btns" [ngClass]="{disabled: !businessesListFiltered || businessesListFiltered && businessesListFiltered.size != 1}" href="#"><span class="fa fa-remove"></span></a>
+                    <a class="btns" [ngClass]="{disabled: !businessesListFiltered || businessesListFiltered && businessesListFiltered.size != 1}" href="#"><span class="fa fa-key"></span></a>
                 </div>
                 <br/>
                 <SimpleList *ngIf="businessesUsers" #simpleList [list]="businessesList" 
-                    (selected)="updateFilteredSelection()"
+                    (selected)="onFilteredSelection()"
                     [contentId]="getBusinessesId()"
                     [content]="getBusinesses()">
                 </SimpleList>
                 <Loading *ngIf="!businessesUsers" [src]="'assets/preload6.gif'" [style]="{'margin-top': '150px'}"></Loading>
              </div>
              <div class="col-xs-9 userView">
-               <UsersDetails *ngIf="businessesUsers" [businesses]="businessesFilteredList"></UsersDetails>
+               <UsersDetails *ngIf="businessesUsers" [businesses]="businessesListFiltered"></UsersDetails>
                <Loading *ngIf="!businessesUsers" [src]="'assets/preload6.gif'" [style]="{'margin-top': '150px'}"></Loading>
              </div>
         </div>
@@ -84,7 +84,8 @@ export class Users {
     simpleList:SimpleList;
 
     private businessesList:List<BusinessModel> = List<BusinessModel>();
-    private businessesFilteredList:List<BusinessModel>
+    private businessesListFiltered:List<BusinessModel>
+    private businessUsersListFiltered:List<BusinessUser>
     private businessesUsers:List<BusinessUser>
     private unsub:Function;
     private unsub2:Function;
@@ -97,33 +98,47 @@ export class Users {
             this.businessesList = i_businesses;
         }, 'business.businesses');
 
-        this.businessesUsers = i_businesses.getIn(['businessUser']);
+        this.businessesUsers = i_businesses.getIn(['businessUsers']);
         this.unsub2 = this.appStore.sub((businessUsers:List<BusinessUser>) => {
             this.businessesUsers = businessUsers;
-        }, 'business.businessUser');
+        }, 'business.businessUsers');
     }
 
     ngOnInit() {
         this.commBroker.getService(Consts.Services().App).appResized();
     }
 
-    private updateFilteredSelection() {
+    private onFilteredSelection() {
         var businessSelected = this.simpleList.getSelected();
-        this.businessesFilteredList = this.businessesList.filter((businessModel:BusinessModel)=> {
+
+        this.businessesListFiltered = this.businessesList.filter((businessModel:BusinessModel)=> {
             var businessId = businessModel.getKey('businessId');
             return businessSelected[businessId] && businessSelected[businessId].selected;
         }) as List<any>;
 
-        var businessIds = [];
-        this.businessesFilteredList.forEach((businessModel:BusinessModel)=> {
-            businessIds.push(businessModel.getKey('businessId'));
+        this.businessUsersListFiltered = List<BusinessUser>();
+        this.businessesListFiltered.forEach((businessModel:BusinessModel)=> {
+            let businessId = businessModel.getKey('businessId');
+            this.businessesUsers.forEach(value=> {
+                console.log(value);
+            })
+
+            // var businessUsers:List<BusinessUser> = this.appStore.getState().business.get('businessUsers');
+            // let index = this.businessActions.findBusinessIndexById(businessId, businessUsers);
+            // let businessUser:BusinessUser = businessUsers.get(index);
+            // this.businessUsersListFiltered = this.businessUsersListFiltered.push(businessUser);
         })
-        this.appStore.dispatch(this.businessActions.fetchBusinessUser(businessIds))
+
+        // var businessIds = [];
+        // this.businessesListFiltered.forEach((businessModel:BusinessModel)=> {
+        //     businessIds.push(businessModel.getKey('businessId'));
+        // })
+        // this.appStore.dispatch(this.businessActions.fetchBusinessUser(businessIds))
 
 
-        // if (this.businessesFilteredList.size != 1)
+        // if (this.businessesListFiltered.size != 1)
         //     return;
-        // var businessId = this.businessesFilteredList.first().getKey('businessId');
+        // var businessId = this.businessesListFiltered.first().getKey('businessId');
         // this.appStore.dispatch(this.businessActions.fetchBusinessUser(businessId));
     }
 

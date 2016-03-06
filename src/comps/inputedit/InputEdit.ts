@@ -67,13 +67,5 @@ export class InputEdit {
         if (this._type == 'password')
             this._value = '*********';
     }
-
-    constructor() {
-    }
-
-    ngOnChanges(changes) {
-        console.log(changes);
-    }
-
 }
 

@@ -101,10 +101,10 @@ export class UserInfo {
     }
 
     ngAfterViewChecked() {
-        // this.unsub = this.appStore.sub((businessUser:BusinessUser) => {
-        //     this.nameEmail = businessUser.getKey('emailName');
+        // this.unsub = this.appStore.sub((businessUsers:BusinessUsers) => {
+        //     this.nameEmail = businessUsers.getKey('emailName');
         //     this.updateUi();
-        // }, 'business.businessUser');
+        // }, 'business.businessUsers');
     }
 
     ngOnDestroy() {
