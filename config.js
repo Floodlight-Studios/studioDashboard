@@ -84,15 +84,12 @@ System.config({
     "reselect": "npm:reselect@2.0.3",
     "rxjs": "npm:rxjs@5.0.0-beta.0",
     "text": "github:systemjs/plugin-text@0.0.4",
-    "ts": "github:frankwallis/plugin-typescript@2.6.0",
+    "ts": "github:frankwallis/plugin-typescript@4.0.2",
     "twbs/bootstrap": "github:twbs/bootstrap@3.3.6",
     "typescript": "npm:typescript@1.8.0",
     "underscore": "npm:underscore@1.8.3",
     "xml2js": "npm:xml2js@0.4.16",
     "zone.js": "npm:zone.js@0.5.14",
-    "github:frankwallis/plugin-typescript@2.6.0": {
-      "typescript": "npm:typescript@1.7.5"
-    },
     "github:frankwallis/plugin-typescript@4.0.2": {
       "typescript": "npm:typescript@1.8.7"
     },
