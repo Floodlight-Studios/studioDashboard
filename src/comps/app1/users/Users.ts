@@ -68,7 +68,7 @@ import {List, Map} from 'immutable';
                 <Loading *ngIf="!businessesUsers" [src]="'assets/preload6.gif'" [style]="{'margin-top': '150px'}"></Loading>
              </div>
              <div class="col-xs-9 userView">
-               <UsersDetails *ngIf="businessesUsers" [businesses]="businessesListFiltered"></UsersDetails>
+               <UsersDetails *ngIf="businessesUsers" [businesses]="businessUsersListFiltered"></UsersDetails>
                <Loading *ngIf="!businessesUsers" [src]="'assets/preload6.gif'" [style]="{'margin-top': '150px'}"></Loading>
              </div>
         </div>
@@ -85,7 +85,7 @@ export class Users {
 
     private businessesList:List<BusinessModel> = List<BusinessModel>();
     private businessesListFiltered:List<BusinessModel>
-    private businessUsersListFiltered:List<BusinessUser>
+    private businessUsersListFiltered:List<BusinessUser>;
     private businessesUsers:List<BusinessUser>
     private unsub:Function;
     private unsub2:Function;
@@ -116,30 +116,17 @@ export class Users {
             return businessSelected[businessId] && businessSelected[businessId].selected;
         }) as List<any>;
 
-        this.businessUsersListFiltered = List<BusinessUser>();
+        let arr = [];
         this.businessesListFiltered.forEach((businessModel:BusinessModel)=> {
-            let businessId = businessModel.getKey('businessId');
-            this.businessesUsers.forEach(value=> {
-                console.log(value);
+            let businessModelId = businessModel.getKey('businessId');
+            this.businessesUsers.forEach((businessUser:BusinessUser) => {
+                var businessUserId = businessUser.getKey('businessId');
+                if (businessUserId == businessModelId) {
+                    arr.push(businessUser);
+                }
             })
-
-            // var businessUsers:List<BusinessUser> = this.appStore.getState().business.get('businessUsers');
-            // let index = this.businessActions.findBusinessIndexById(businessId, businessUsers);
-            // let businessUser:BusinessUser = businessUsers.get(index);
-            // this.businessUsersListFiltered = this.businessUsersListFiltered.push(businessUser);
         })
-
-        // var businessIds = [];
-        // this.businessesListFiltered.forEach((businessModel:BusinessModel)=> {
-        //     businessIds.push(businessModel.getKey('businessId'));
-        // })
-        // this.appStore.dispatch(this.businessActions.fetchBusinessUser(businessIds))
-
-
-        // if (this.businessesListFiltered.size != 1)
-        //     return;
-        // var businessId = this.businessesListFiltered.first().getKey('businessId');
-        // this.appStore.dispatch(this.businessActions.fetchBusinessUser(businessId));
+        this.businessUsersListFiltered = List<BusinessUser>(arr);
     }
 
     private getBusinesses() {
