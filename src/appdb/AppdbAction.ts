@@ -2,6 +2,10 @@ import {Injectable} from "angular2/core";
 import {Actions, AppStore} from "angular2-redux-util";
 import {Http, Jsonp} from "angular2/http";
 import {FlagsAuth} from "../services/AuthService";
+import 'rxjs/add/operator/map';
+import 'rxjs/add/operator/mergeMap';
+import 'rxjs/add/operator/merge';
+import 'rxjs/add/operator/debounceTime';
 
 export const APP_INIT = 'APP_INIT';
 export const SERVERS_STATUS = 'SERVERS_STATUS';
