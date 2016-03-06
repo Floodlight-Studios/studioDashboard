@@ -142,6 +142,10 @@ export class BusinessAction extends Actions {
                         dispatch(self.receiveBusinessesStats(accountStats));
                         dispatch(self.fetchBusinessUser(businessIds));
 
+                        // example of setting and getting businessId
+                        // var businessId = businessModel.getBusinessId();
+                        // var newBusinessModel = businessModel.setBusinessId('123')
+
                         //parseString(result, {attrkey: 'attr'}, function (err, result) {
                         //    var arr = [];
                         //    result.Businesses[0].BusinessInfo.forEach((business)=> {
@@ -162,7 +166,7 @@ export class BusinessAction extends Actions {
                         //            businessDescription: business.attr.businessDescription
                         //        });
                         //
-                        //        // update a field in instance via setKey
+                        //        // this is an update of field in instance via setKey
                         //        var busUpd:BusinessModel = bus.setKey<BusinessModel>(BusinessModel, 'businessId', business.attr.businessId + Math.random());
                         //
                         //        // insert a new field in instance

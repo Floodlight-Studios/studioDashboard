@@ -112,15 +112,15 @@ export class Users {
         var businessSelected = this.simpleList.getSelected();
 
         this.businessesListFiltered = this.businessesList.filter((businessModel:BusinessModel)=> {
-            var businessId = businessModel.getKey('businessId');
+            var businessId = businessModel.getBusinessId();
             return businessSelected[businessId] && businessSelected[businessId].selected;
         }) as List<any>;
 
         let arr = [];
         this.businessesListFiltered.forEach((businessModel:BusinessModel)=> {
-            let businessModelId = businessModel.getKey('businessId');
+            let businessModelId = businessModel.getBusinessId();
             this.businessesUsers.forEach((businessUser:BusinessUser) => {
-                var businessUserId = businessUser.getKey('businessId');
+                var businessUserId = businessUser.getBusinessId();
                 if (businessUserId == businessModelId) {
                     arr.push(businessUser);
                 }
