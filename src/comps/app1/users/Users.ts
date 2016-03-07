@@ -75,9 +75,6 @@ export class Users {
     private unsub2:Function;
 
     constructor(private appStore:AppStore) {
-    }
-
-    ngAfterViewInit() {
         var i_businesses = this.appStore.getState().business;
 
         this.businessesList = i_businesses.getIn(['businesses']);
@@ -133,9 +130,3 @@ export class Users {
     }
 }
 
-// if (this.appStore.getState().business.size == 0) {
-//     this.appStore.dispatch(this.businessActions.fetchBusinesses());
-// } else {
-//     var i_businesses = this.appStore.getState().business;
-//     this.businessesList = i_businesses.getIn(['businesses']);
-// }
