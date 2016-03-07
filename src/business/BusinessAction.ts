@@ -16,6 +16,7 @@ export const REQUEST_BUSINESSES = 'REQUEST_BUSINESSES';
 export const RECEIVE_BUSINESSES = 'RECEIVE_BUSINESSES';
 export const RECEIVE_BUSINESSES_STATS = 'RECEIVE_BUSINESSES_STATS';
 export const SET_BUSINESS_DATA = 'SET_BUSINESS_DATA';
+export const SET_BUSINESS_USER = 'SET_BUSINESS_USER';
 
 @Injectable()
 export class BusinessAction extends Actions {
@@ -54,7 +55,7 @@ export class BusinessAction extends Actions {
                                 const businessUser:BusinessUser = new BusinessUser({
                                     accessMask: business._attr.accessMask,
                                     privilegeId: business._attr.privilegeId,
-                                    emailName: business._attr.name,
+                                    name: business._attr.name,
                                     businessId: business._attr.businessId,
                                 });
                                 businessUsers = businessUsers.push(businessUser)
@@ -75,13 +76,13 @@ export class BusinessAction extends Actions {
 
     public findBusinessIndex(business:BusinessModel|BusinessUser, businesses:List<BusinessModel|BusinessUser>):number {
         return businesses.findIndex((i_business:BusinessModel|BusinessUser)=> {
-            return i_business.getKey('businessId') === business.getKey('businessId');
+            return i_business.getBusinessId() === business.getBusinessId();
         });
     }
 
     public findBusinessIndexById(businessId:string, businesses:List<BusinessModel|BusinessUser>):number {
         return businesses.findIndex((i_business:BusinessModel|BusinessUser)=> {
-            return businessId === i_business.getKey('businessId');
+            return businessId === i_business.getBusinessId();
         });
     }
 
@@ -203,6 +204,14 @@ export class BusinessAction extends Actions {
         }
     }
 
+    public setBusinessUserField(businessId:string, key:string, value:any) {
+        return {
+            type: SET_BUSINESS_USER,
+            businessId: businessId,
+            key: key,
+            value: value
+        }
+    }
     public requestBusinessUser() {
         return {type: REQUEST_BUSINESS_USER};
     }

@@ -13,7 +13,7 @@ export interface IBusinessAction {
 export default (state:List<BusinessModel> = List<BusinessModel>(), action:IBusinessAction):List<BusinessModel> => {
 
     function indexOf(businessId:string) {
-        return state.findIndex((i:BusinessModel) => i.getKey('businessId') === businessId);
+        return state.findIndex((i:BusinessModel) => i.getBusinessId() === businessId);
     }
 
     switch (action.type) {

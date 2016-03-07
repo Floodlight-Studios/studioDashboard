@@ -41,7 +41,7 @@ export class UserInfo {
 
     @Input()
     set user(i_user:List<BusinessModel>) {
-        this.businessId = i_user.first().getKey('businessId');
+        this.businessId = i_user.first().getBusinessId();
         this.userName = i_user.first().getKey('name');
         this.maxMonitors = i_user.first().getKey('maxMonitors');
         this.businessDescription = i_user.first().getKey('businessDescription');

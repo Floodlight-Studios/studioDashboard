@@ -13,7 +13,6 @@ import {BusinessUser} from "../../../business/BusinessUser";
 import {Loading} from "../../loading/Loading";
 import {List, Map} from 'immutable';
 
-
 //todo: add access mask
 // var bits = [1, 2, 4, 8, 16, 32, 64, 128];
 // total: 149 & number in offset 4

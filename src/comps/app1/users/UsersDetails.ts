@@ -6,6 +6,7 @@ import {SIMPLEGRID_DIRECTIVES, ISimpleGridEdit} from "../../simplegrid/SimpleGri
 import {AppStore} from "angular2-redux-util/dist/index";
 import {BusinessAction} from "../../../business/BusinessAction";
 import {UserInfo} from "./UserInfo";
+import {BusinessUser} from "../../../business/BusinessUser";
 
 @Component({
     selector: 'UsersDetails',
@@ -47,22 +48,19 @@ import {UserInfo} from "./UserInfo";
                 <thead>
                 <tr>
                   <th sortableHeader="name" [sort]="sort">name</th>
-                  <th>login</th>
                   <th sortableHeader="businessId" [sort]="sort">business</th>
-                  <th sortableHeader="studioLite" [sort]="sort">lite/pro</th>
-                  <th sortableHeader="maxDataStorage" [sort]="sort">max gigs</th>
-                  <th sortableHeader="maxMonitors" [sort]="sort">max screen</th>
+                  <th>privileges</th>
+                  <th>access keys</th>
                 </tr>
               </thead>
               <tbody>                                                                          
-              <tr class="simpleGridRecord" simpleGridRecord *ngFor="#item of _businesses | OrderBy:sort.field:sort.desc; #index=index" 
-                [item]="item" [index]="index">
+              <tr class="simpleGridRecord" simpleGridRecord *ngFor="#item of _businesses | OrderBy:sort.field:sort.desc; #index=index"[item]="item" [index]="index">
                     <td simpleGridData (labelEdited)="onLabelEdited($event,'name')" editable="true" field="name" [item]="item"></td>
-                    <td simpleGridData field="lastLogin" [item]="item"></td>
                     <td simpleGridData field="businessId" [item]="item"></td>
-                    <td simpleGridDataImage color="dodgerblue" [field]="item.getKey('studioLite') == '0' ? 'fa-circle' : 'fa-circle-o'" [item]="item"></td>
-                    <td simpleGridData field="maxDataStorage" [item]="item"></td>
-                    <td simpleGridData (labelEdited)="onLabelEdited($event,'maxMonitors')" editable="true" field="maxMonitors" [item]="item"></td>
+                    <td simpleGridData field="privilegeId" [item]="item"></td>
+                    <td simpleGridData field="accessMask" [item]="item"></td>
+                    <!--<td simpleGridData (labelEdited)="onLabelEdited($event,'maxMonitors')" editable="true" field="maxMonitors" [item]="item"></td>-->
+                    <!-- <td simpleGridDataImage color="dodgerblue" [field]="item.getKey('studioLite') == '0' ? 'fa-circle' : 'fa-circle-o'" [item]="item"></td> -->
               </tr>
               </tbody>                 
         </simpleGridTable>
@@ -75,10 +73,11 @@ export class UsersDetails {
     private _businesses:List<BusinessModel>;
 
     private onLabelEdited(event:ISimpleGridEdit, field) {
-        var value = event.value;
-        var businessModel = event.item;
-        var businessId = businessModel.getKey('businessId');
-        this.appStore.dispatch(this.businessActions.setBusinessField(businessId, field, value));
+        var newValue = event.value;
+        var businessUser:BusinessUser = event.item as BusinessUser;
+        var oldValue = businessUser.getKey('name');
+        var businessId = businessUser.getBusinessId();
+        this.appStore.dispatch(this.businessActions.setBusinessUserField(businessId, field, {newValue, oldValue}));
     }
 
     @Input()
