@@ -1,5 +1,5 @@
 import {Component, Input, Output, EventEmitter, ChangeDetectionStrategy, OnChanges, SimpleChange} from 'angular2/core'
-import {List} from 'immutable';
+import {List, Map} from 'immutable';
 import {BusinessModel} from "../../../business/BusinessModel";
 import {OrderBy} from "../../../pipes/OrderBy";
 import {SIMPLEGRID_DIRECTIVES, ISimpleGridEdit} from "../../simplegrid/SimpleGrid";
@@ -58,7 +58,7 @@ import {BusinessUser} from "../../../business/BusinessUser";
                     <td simpleGridData (labelEdited)="onLabelEdited($event,'name')" editable="true" field="name" [item]="item"></td>
                     <td simpleGridData field="businessId" [item]="item"></td>
                     <td simpleGridData field="privilegeId" [item]="item"></td>
-                    <td simpleGridData field="accessMask" [item]="item"></td>
+                    <td simpleGridDataChecks field="accessMask" (changed)="setAccessMask($event)" [item]="item" [checkboxes]="getAccessMask(item)"></td>
                     <!--<td simpleGridData (labelEdited)="onLabelEdited($event,'maxMonitors')" editable="true" field="maxMonitors" [item]="item"></td>-->
                     <!-- <td simpleGridDataImage color="dodgerblue" [field]="item.getKey('studioLite') == '0' ? 'fa-circle' : 'fa-circle-o'" [item]="item"></td> -->
               </tr>
@@ -90,7 +90,65 @@ export class UsersDetails {
 
     constructor(private appStore:AppStore, private businessActions:BusinessAction) {
     }
+
+    private setAccessMask(event){
+        var businessUser:BusinessUser = event.item as BusinessUser;
+        var businessId = businessUser.getBusinessId();
+        var name = businessUser.getName();
+        var accessMask = event.value;
+        var bits = [1, 2, 4, 8, 16, 32, 64, 128];
+        var computedAccessMask = 0;
+        accessMask.forEach(value=>{
+            var bit = bits.shift();
+            if (value)
+                computedAccessMask = computedAccessMask + bit;
+
+        })
+        this.appStore.dispatch(this.businessActions.setBusinessUserField2(businessId, name, 'accessMask', computedAccessMask));
+    }
+
+    private getAccessMask(businessUser:BusinessUser) {
+        var accessMask = businessUser.getAccessMask();
+        var checks = List();
+        var bits = [1, 2, 4, 8, 16, 32, 64, 128];
+        bits.forEach((bit, idx) =>{
+            let checked = (bit & accessMask) > 0 ? true : false;
+            var checkBox = {
+                'name': idx,
+                'value': idx,
+                'checked': checked
+            }
+            checks = checks.push(checkBox)
+        })
+        return checks;
+
+    }
 }
 
 
 
+
+
+
+
+// var bits = [1, 2, 4, 8, 16, 32, 64, 128];
+// total: 149 & number in offset 4
+// self.m_WEEKDAYS.forEach(function (v, i) {
+//     var n = weekDays & v;
+//     if (n == v) {
+//         $(elDays).find('input').eq(i).prop('checked', true);
+//     } else {
+//         $(elDays).find('input').eq(i).prop('checked', false);
+//     }
+// });
+//
+// var checks = [{
+//     'name': '0',
+//     'value': '0',
+//     'checked': true
+// }, {
+//     'name': '1',
+//     'value': '1',
+//     'checked': false
+// }];
+//return List(checks);

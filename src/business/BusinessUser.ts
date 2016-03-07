@@ -17,4 +17,12 @@ export class BusinessUser extends StoreModel {
     public getBusinessId(){
         return this.getKey('businessId');
     }
+
+    public getName(){
+        return this.getKey('name');
+    }
+
+    public getAccessMask(){
+        return this.getKey('accessMask');
+    }
 }

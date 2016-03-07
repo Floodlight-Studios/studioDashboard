@@ -1,29 +1,14 @@
 import {Component, ViewChild, QueryList} from 'angular2/core'
-import {CanActivate, OnActivate, ComponentInstruction, Router} from "angular2/router";
+import {CanActivate, ComponentInstruction} from "angular2/router";
 import {SimpleList} from "../../simplelist/SimpleList";
 import {AppStore} from "angular2-redux-util/dist/index";
-import {BusinessAction} from "../../../business/BusinessAction";
 import {BusinessModel} from "../../../business/BusinessModel";
-import {CommBroker} from "../../../services/CommBroker";
-import {Consts} from "../../../Conts";
 import {UsersDetails} from "./UsersDetails";
 import {AuthService} from "../../../services/AuthService";
 import {appInjService} from "../../../services/AppInjService";
 import {BusinessUser} from "../../../business/BusinessUser";
 import {Loading} from "../../loading/Loading";
-import {List, Map} from 'immutable';
-
-//todo: add access mask
-// var bits = [1, 2, 4, 8, 16, 32, 64, 128];
-// total: 149 & number in offset 4
-// self.m_WEEKDAYS.forEach(function (v, i) {
-//     var n = weekDays & v;
-//     if (n == v) {
-//         $(elDays).find('input').eq(i).prop('checked', true);
-//     } else {
-//         $(elDays).find('input').eq(i).prop('checked', false);
-//     }
-// });
+import {List} from 'immutable';
 
 @Component({
     selector: 'Users',
@@ -89,7 +74,10 @@ export class Users {
     private unsub:Function;
     private unsub2:Function;
 
-    constructor(private appStore:AppStore, private commBroker:CommBroker, private businessActions:BusinessAction) {
+    constructor(private appStore:AppStore) {
+    }
+
+    ngAfterViewInit() {
         var i_businesses = this.appStore.getState().business;
 
         this.businessesList = i_businesses.getIn(['businesses']);
@@ -100,14 +88,13 @@ export class Users {
         this.businessesUsers = i_businesses.getIn(['businessUsers']);
         this.unsub2 = this.appStore.sub((businessUsers:List<BusinessUser>) => {
             this.businessesUsers = businessUsers;
+            this.onFilteredSelection();
         }, 'business.businessUsers');
     }
 
-    ngOnInit() {
-        this.commBroker.getService(Consts.Services().App).appResized();
-    }
-
     private onFilteredSelection() {
+        if (!this.simpleList)
+            return;
         var businessSelected = this.simpleList.getSelected();
 
         this.businessesListFiltered = this.businessesList.filter((businessModel:BusinessModel)=> {

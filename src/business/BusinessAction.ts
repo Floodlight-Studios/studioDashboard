@@ -16,7 +16,8 @@ export const REQUEST_BUSINESSES = 'REQUEST_BUSINESSES';
 export const RECEIVE_BUSINESSES = 'RECEIVE_BUSINESSES';
 export const RECEIVE_BUSINESSES_STATS = 'RECEIVE_BUSINESSES_STATS';
 export const SET_BUSINESS_DATA = 'SET_BUSINESS_DATA';
-export const SET_BUSINESS_USER = 'SET_BUSINESS_USER';
+export const CHANGE_BUSINESS_USER_NAME = 'CHANGE_BUSINESS_USER_NAME';
+export const SET_BUSINESS_USER_FIELD = 'SET_BUSINESS_USER_FIELD';
 
 @Injectable()
 export class BusinessAction extends Actions {
@@ -206,12 +207,23 @@ export class BusinessAction extends Actions {
 
     public setBusinessUserField(businessId:string, key:string, value:any) {
         return {
-            type: SET_BUSINESS_USER,
+            type: CHANGE_BUSINESS_USER_NAME,
             businessId: businessId,
             key: key,
             value: value
         }
     }
+
+    public setBusinessUserField2(businessId:string, name:string, key:string, value:any) {
+        return {
+            type: SET_BUSINESS_USER_FIELD,
+            businessId: businessId,
+            name: name,
+            key: key,
+            value: value
+        }
+    }
+
     public requestBusinessUser() {
         return {type: REQUEST_BUSINESS_USER};
     }
