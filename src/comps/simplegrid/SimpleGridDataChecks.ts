@@ -1,6 +1,5 @@
 import {
-    Component, Input, ChangeDetectionStrategy, Output, EventEmitter, ViewChildren, QueryList,
-    ContentChildren
+    Component, Input, ChangeDetectionStrategy, Output, EventEmitter, ViewChildren, QueryList, HostListener
 } from 'angular2/core'
 import {List} from "immutable";
 import {StoreModel} from "../../models/StoreModel";
@@ -16,7 +15,7 @@ import {StoreModel} from "../../models/StoreModel";
     template: `        
         <div *ngFor="#item of m_checkboxes">
           <label class="pull-left">{{item.name}}</label>
-          <Input #checkInputs type="checkbox" (change)="onChange($event.target.value)" [checked]="item.checked" value="{{item.value}}" class="pull-left" style="margin-right: 2px">
+          <Input #checkInputs type="checkbox" [checked]="item.checked" value="{{item.value}}" class="pull-left" style="margin-right: 2px">
         </div>
     `
 })
@@ -41,12 +40,14 @@ export class SimpleGridDataChecks {
     @Output()
     changed:EventEmitter<any> = new EventEmitter();
 
-    private onChange(value) {
+    @HostListener('click', ['$event'])
+    onClick(e) {
         let values = []
-        this.inputs.map(v=>{
+        this.inputs.map(v=> {
             values.push(v.nativeElement.checked);
         });
         this.changed.next({item: this.m_storeModel, value: values});
+        return true;
     }
 }
 

@@ -1,4 +1,7 @@
-import {Component, Input, Output, EventEmitter, ChangeDetectionStrategy, OnChanges, SimpleChange} from 'angular2/core'
+import {
+    Component, Input, Output, EventEmitter, ChangeDetectionStrategy, OnChanges, SimpleChange,
+    ViewChild
+} from 'angular2/core'
 import {List, Map} from 'immutable';
 import {BusinessModel} from "../../../business/BusinessModel";
 import {OrderBy} from "../../../pipes/OrderBy";
@@ -7,11 +10,13 @@ import {AppStore} from "angular2-redux-util/dist/index";
 import {BusinessAction} from "../../../business/BusinessAction";
 import {UserInfo} from "./UserInfo";
 import {BusinessUser} from "../../../business/BusinessUser";
+import {SimpleGridTable} from "../../simplegrid/SimpleGridTable";
 
 @Component({
     selector: 'UsersDetails',
     changeDetection: ChangeDetectionStrategy.OnPush,
     directives: [SIMPLEGRID_DIRECTIVES, UserInfo],
+    providers: [SIMPLEGRID_DIRECTIVES],
     pipes: [OrderBy],
     styles: [`
             .embossed {
@@ -44,7 +49,7 @@ import {BusinessUser} from "../../../business/BusinessUser";
         <UserInfo [user]="_businesses"></UserInfo>
     </div>
     <div *ngIf="_businesses && _businesses.size > 1">
-         <simpleGridTable>
+         <simpleGridTable #userSimpleGridTable>
                 <thead>
                 <tr>
                   <th sortableHeader="name" [sort]="sort">name</th>
@@ -54,7 +59,7 @@ import {BusinessUser} from "../../../business/BusinessUser";
                 </tr>
               </thead>
               <tbody>                                                                          
-              <tr class="simpleGridRecord" simpleGridRecord *ngFor="#item of _businesses | OrderBy:sort.field:sort.desc; #index=index"[item]="item" [index]="index">
+              <tr class="simpleGridRecord" [table]="userSimpleGridTable" simpleGridRecord *ngFor="#item of _businesses | OrderBy:sort.field:sort.desc; #index=index" [item]="item" [index]="index">
                     <td simpleGridData (labelEdited)="onLabelEdited($event,'name')" editable="true" field="name" [item]="item"></td>
                     <td simpleGridData field="businessId" [item]="item"></td>
                     <td simpleGridData field="privilegeId" [item]="item"></td>
@@ -80,9 +85,14 @@ export class UsersDetails {
         this.appStore.dispatch(this.businessActions.setBusinessUserField(businessId, field, {newValue, oldValue}));
     }
 
+    @ViewChild(SimpleGridTable)
+    simpleGridTable:SimpleGridTable
+
     @Input()
     set businesses(i_businesses) {
         this._businesses = i_businesses;
+        if (this.simpleGridTable)
+            this.simpleGridTable.deselect();
     }
 
     // @Output()

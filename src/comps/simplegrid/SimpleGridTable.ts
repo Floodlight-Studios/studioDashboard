@@ -1,9 +1,10 @@
-import {Component, ChangeDetectionStrategy, Input} from "angular2/core";
+import {Component, ChangeDetectionStrategy, Input, ContentChildren, QueryList} from "angular2/core";
 import {SimpleGridSortableHeader} from "./SimpleGridSortableHeader";
 import {COMMON_DIRECTIVES} from "angular2/common";
 import {OrderBy} from "../../pipes/OrderBy";
 import {SimpleGridRecord} from "./SimpleGridRecord";
 import {SimpleGridData} from "./SimpleGridData";
+import {BusinessUser} from "../../business/BusinessUser";
 
 @Component({
     selector: 'simpleGridTable',
@@ -19,17 +20,34 @@ import {SimpleGridData} from "./SimpleGridData";
 })
 
 export class SimpleGridTable {
-    someVal;
     @Input()
     sort;
+
     @Input()
     list;
-    // private zipControl:Control = new Control();
-    // ngAfterViewInit() {
-    //     this.zipControl.updateValue('91301');
-    // }
-    public hello(){
-        alert('hello');
-        this.someVal = Math.random();
+
+    private selected;
+
+    @ContentChildren(SimpleGridRecord)
+    simpleGridRecord:QueryList<SimpleGridRecord>;
+
+    public setSelected(i_selected:SimpleGridRecord) {
+        this.deselect();
+        this.selected = i_selected;
+
+        //todo: test
+        var rec:BusinessUser = i_selected.item;
+        console.log(rec.getBusinessId() + ' ' + rec.getName());
+
+    }
+
+    public deselect(){
+        this.simpleGridRecord.map((i_simpleGridRecord:SimpleGridRecord) => {
+            i_simpleGridRecord.selectedClass = false;
+        })
+    }
+
+    public getSelected():SimpleGridRecord {
+        return this.selected;
     }
 }

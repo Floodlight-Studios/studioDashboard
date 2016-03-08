@@ -786,14 +786,6 @@ Language selector
     color: #d73814;
 }
 
-.simpleGridRecord:nth-child(odd) {
-    background-color: #eee;
-}
-
-.simpleGridRecord:nth-child(even) {
-    background-color: #fff;
-}
-
 .container {
     height: 100%;
 }
@@ -818,4 +810,18 @@ Language selector
     height: 100%;
     min-height: 100%;
     padding-bottom: 50px;
+}
+
+/** SimpleTable **/
+
+.selectedTr {
+    background-color: #ABD3FB !important;
+}
+
+.simpleGridRecord:nth-child(odd) {
+    background-color: #eee;
+}
+
+.simpleGridRecord:nth-child(even) {
+    background-color: #fff;
 }

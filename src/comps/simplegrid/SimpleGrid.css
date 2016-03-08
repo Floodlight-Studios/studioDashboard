@@ -2,14 +2,6 @@
     background-color: white;
 }
 
-.simpleGridRecord:nth-child(odd) {
-    background-color: #eee;
-}
-
-.simpleGridRecord:nth-child(even) {
-    background-color: #fff;
-}
-
 * {
     font-size: 0.9em;
 }
