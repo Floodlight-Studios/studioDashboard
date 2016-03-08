@@ -94,6 +94,7 @@ import {SimpleGridTable} from "../../simplegrid/SimpleGridTable";
 export class UsersDetails {
     public sort:{field: string, desc: boolean} = {field: null, desc: false};
     private _businesses:List<BusinessModel>;
+    private totalBusinessSelected:number = 0;
 
     private onLabelEdited(event:ISimpleGridEdit, field) {
         var newValue = event.value;
@@ -109,21 +110,23 @@ export class UsersDetails {
     @Input()
     set businesses(i_businesses) {
         this._businesses = i_businesses;
-        if (this.simpleGridTable)
+        if (i_businesses && this.simpleGridTable && this._businesses.size != this.totalBusinessSelected){
             this.simpleGridTable.deselect();
+            this.totalBusinessSelected = this._businesses.size;
+        }
     }
 
     constructor(private appStore:AppStore, private businessActions:BusinessAction) {
     }
 
-    private setAccessMask(event){
+    private setAccessMask(event) {
         var businessUser:BusinessUser = event.item as BusinessUser;
         var businessId = businessUser.getBusinessId();
         var name = businessUser.getName();
         var accessMask = event.value;
         var bits = [1, 2, 4, 8, 16, 32, 64, 128];
         var computedAccessMask = 0;
-        accessMask.forEach(value=>{
+        accessMask.forEach(value=> {
             var bit = bits.shift();
             if (value)
                 computedAccessMask = computedAccessMask + bit;
@@ -136,7 +139,7 @@ export class UsersDetails {
         var accessMask = businessUser.getAccessMask();
         var checks = List();
         var bits = [1, 2, 4, 8, 16, 32, 64, 128];
-        bits.forEach((bit, idx) =>{
+        bits.forEach((bit, idx) => {
             let checked = (bit & accessMask) > 0 ? true : false;
             var checkBox = {
                 'name': idx,
@@ -149,11 +152,6 @@ export class UsersDetails {
 
     }
 }
-
-
-
-
-
 
 
 // var bits = [1, 2, 4, 8, 16, 32, 64, 128];

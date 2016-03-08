@@ -30,6 +30,9 @@ export class SimpleGridTable {
     @ContentChildren(SimpleGridRecord)
     simpleGridRecord:QueryList<SimpleGridRecord>;
 
+    constructor(){
+        console.log('new table');
+    }
     public setSelected(i_selected:SimpleGridRecord) {
         this.deselect();
         this.selected = i_selected;
@@ -38,6 +41,9 @@ export class SimpleGridTable {
         //console.log(rec.getBusinessId() + ' ' + rec.getName() + ' ' + rec.getAccessMask());
     }
 
+    /**
+     * Deselect the currently selected UI, but keep current selection in selected var
+     */
     public deselect(){
         this.selected = null;
         this.simpleGridRecord.map((i_simpleGridRecord:SimpleGridRecord) => {
