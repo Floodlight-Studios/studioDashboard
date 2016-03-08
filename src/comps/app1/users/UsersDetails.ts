@@ -95,9 +95,6 @@ export class UsersDetails {
             this.simpleGridTable.deselect();
     }
 
-    // @Output()
-    // addToCart:EventEmitter<any> = new EventEmitter();
-
     constructor(private appStore:AppStore, private businessActions:BusinessAction) {
     }
 
