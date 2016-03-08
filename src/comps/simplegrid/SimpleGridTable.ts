@@ -37,7 +37,7 @@ export class SimpleGridTable {
 
         //todo: test
         var rec:BusinessUser = i_selected.item;
-        console.log(rec.getBusinessId() + ' ' + rec.getName());
+        console.log(rec.getBusinessId() + ' ' + rec.getName() + ' ' + rec.getAccessMask());
     }
 
     public deselect(){
