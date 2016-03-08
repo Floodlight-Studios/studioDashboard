@@ -37,9 +37,27 @@ import {SimpleGridTable} from "../../simplegrid/SimpleGridTable";
                 top: -60px;
                 letter-spacing: -1px;
               }
+              .disabled {
+                 opacity: 0.2;
+                 cursor: default;
+              }
+              .btns {
+                 padding: 0 20px 20px 0px;
+                 font-size: 1.4em;
+                 color: #313131;
+              }
+              .btns:hover {
+                color: red;
+              }
     `],
 
-    template: `
+    template: `    
+    <div style="position: relative; top: 10px">
+        <a class="btns" [ngClass]="{disabled: !simpleGridTable || simpleGridTable.getSelected() == null}" href="#"><span class="fa fa-plus"></span></a>
+        <a class="btns" [ngClass]="{disabled: !simpleGridTable || simpleGridTable.getSelected() == null}" href="#"><span class="fa fa-rocket"></span></a>
+        <a class="btns" [ngClass]="{disabled: !simpleGridTable || simpleGridTable.getSelected() == null}" href="#"><span class="fa fa-remove"></span></a>
+        <a class="btns" [ngClass]="{disabled: !simpleGridTable || simpleGridTable.getSelected() == null}" href="#"><span class="fa fa-key"></span></a>
+    </div>
     <br/>
     <div  *ngIf="!_businesses || _businesses.size == 0">
         <h1 class="embossed">USER DETAILS</h1>

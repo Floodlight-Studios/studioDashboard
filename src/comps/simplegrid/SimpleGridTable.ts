@@ -4,7 +4,6 @@ import {COMMON_DIRECTIVES} from "angular2/common";
 import {OrderBy} from "../../pipes/OrderBy";
 import {SimpleGridRecord} from "./SimpleGridRecord";
 import {SimpleGridData} from "./SimpleGridData";
-import {BusinessUser} from "../../business/BusinessUser";
 
 @Component({
     selector: 'simpleGridTable',
@@ -35,12 +34,12 @@ export class SimpleGridTable {
         this.deselect();
         this.selected = i_selected;
 
-        //todo: test
-        var rec:BusinessUser = i_selected.item;
-        console.log(rec.getBusinessId() + ' ' + rec.getName() + ' ' + rec.getAccessMask());
+        //var rec:BusinessUser = i_selected.item;
+        //console.log(rec.getBusinessId() + ' ' + rec.getName() + ' ' + rec.getAccessMask());
     }
 
     public deselect(){
+        this.selected = null;
         this.simpleGridRecord.map((i_simpleGridRecord:SimpleGridRecord) => {
             i_simpleGridRecord.selectedClass = false;
         })

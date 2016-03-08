@@ -48,13 +48,7 @@ import {List} from 'immutable';
                 </SimpleList>
                 <Loading *ngIf="!businessesUsers" [src]="'assets/preload6.gif'" [style]="{'margin-top': '150px'}"></Loading>
              </div>
-             <div class="col-xs-9 userView">
-                <div style="position: relative; top: 10px">
-                    <a class="btns" href="#"><span class="fa fa-plus"></span></a>
-                    <a class="btns" [ngClass]="{disabled: !businessesListFiltered || businessesListFiltered && businessesListFiltered.size != 1}" href="#"><span class="fa fa-rocket"></span></a>
-                    <a class="btns" [ngClass]="{disabled: !businessesListFiltered || businessesListFiltered && businessesListFiltered.size != 1}" href="#"><span class="fa fa-remove"></span></a>
-                    <a class="btns" [ngClass]="{disabled: !businessesListFiltered || businessesListFiltered && businessesListFiltered.size != 1}" href="#"><span class="fa fa-key"></span></a>
-                </div>
+             <div class="col-xs-9 userView">                
                <UsersDetails *ngIf="businessesUsers" [businesses]="businessUsersListFiltered"></UsersDetails>
                <Loading *ngIf="!businessesUsers" [src]="'assets/preload6.gif'" [style]="{'margin-top': '150px'}"></Loading>
              </div>
