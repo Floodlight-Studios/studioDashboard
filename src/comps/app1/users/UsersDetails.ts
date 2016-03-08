@@ -16,7 +16,6 @@ import {SimpleGridTable} from "../../simplegrid/SimpleGridTable";
     selector: 'UsersDetails',
     changeDetection: ChangeDetectionStrategy.OnPush,
     directives: [SIMPLEGRID_DIRECTIVES, UserInfo],
-    providers: [SIMPLEGRID_DIRECTIVES],
     pipes: [OrderBy],
     styles: [`
             .embossed {
