@@ -1,6 +1,6 @@
 import {Component, ViewChild, QueryList} from 'angular2/core'
 import {CanActivate, ComponentInstruction} from "angular2/router";
-import {SimpleList} from "../../simplelist/SimpleList";
+import {SimpleList, ISimpleListItem} from "../../simplelist/SimpleList";
 import {AppStore} from "angular2-redux-util/dist/index";
 import {BusinessModel} from "../../../business/BusinessModel";
 import {UsersDetails} from "./UsersDetails";
@@ -43,14 +43,15 @@ import {List} from 'immutable';
                 </div>
                 <SimpleList *ngIf="businessesUsers" #simpleList [list]="businessesList" 
                     (selected)="onFilteredSelection()"
+                    (iconClicked)="onShowUserInfo($event)"
                     [contentId]="getBusinessesId()"
-                    [icon]="'fa-edit'"
+                    [icon]="'fa-user'"
                     [content]="getBusinesses()">
                 </SimpleList>
                 <Loading *ngIf="!businessesUsers" [src]="'assets/preload6.gif'" [style]="{'margin-top': '150px'}"></Loading>
              </div>
              <div class="col-xs-9 userView">                
-               <UsersDetails *ngIf="businessesUsers" [businesses]="businessUsersListFiltered"></UsersDetails>
+               <UsersDetails *ngIf="businessesUsers" [showUserInfo]="showUserInfo" [businesses]="businessUsersListFiltered"></UsersDetails>
                <Loading *ngIf="!businessesUsers" [src]="'assets/preload6.gif'" [style]="{'margin-top': '150px'}"></Loading>
              </div>
         </div>
@@ -69,6 +70,7 @@ export class Users {
     private businessesListFiltered:List<BusinessModel>
     private businessUsersListFiltered:List<BusinessUser>;
     private businessesUsers:List<BusinessUser>
+    private showUserInfo:Object = null;
     private unsub:Function;
     private unsub2:Function;
 
@@ -87,7 +89,12 @@ export class Users {
         }, 'business.businessUsers');
     }
 
+    private onShowUserInfo(selectedBusiness:ISimpleListItem){
+        this.showUserInfo = selectedBusiness;
+    }
+
     private onFilteredSelection() {
+        this.showUserInfo = null;
         if (!this.simpleList)
             return;
         var businessSelected = this.simpleList.getSelected();

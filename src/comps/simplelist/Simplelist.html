@@ -19,7 +19,9 @@
           (mouseover)="hover.next(item)" (mouseout)="hover.next(null)">
         <!-- {{getContent(item) | json}} -->
         {{getContent(item)}}
-        <span *ngIf="icon" (click)="onIconClick($event)" class="fa {{icon}} pull-right"></span>
+        <span *ngIf="icon" class="pull-right">
+          <button (click)="onIconClick($event, index)" style="padding: 0; margin: 0" class="pull-right btn fa {{icon}}"></button>
+        </span>
       </li>
     </ul>
   </div>

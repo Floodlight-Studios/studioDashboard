@@ -10,6 +10,7 @@ import {InputEdit} from "../../inputedit/InputEdit";
 import {AppStore} from "angular2-redux-util/dist/index";
 import {BusinessUser} from "../../../business/BusinessUser";
 import {BusinessAction} from "../../../business/BusinessAction";
+import {ISimpleListItem} from "../../simplelist/Simplelist";
 
 @Component({
     selector: 'UserInfo',
@@ -40,19 +41,20 @@ export class UserInfo {
     unsub;
 
     @Input()
-    set user(i_user:List<BusinessModel>) {
-        this.businessId = i_user.first().getBusinessId();
-        this.userName = i_user.first().getKey('name');
-        this.maxMonitors = i_user.first().getKey('maxMonitors');
-        this.businessDescription = i_user.first().getKey('businessDescription');
-        this.lastLogin = i_user.first().getKey('lastLogin');
-        this.allowSharing = i_user.first().getKey('allowSharing') == '0' ? '' : 'checked';
-        this.studioVersion = i_user.first().getKey('studioLite') == 1 ? 'StudioLite' : 'StudioPro';
+    set user(i_simpleListItem:ISimpleListItem) {
+        var businessUser:BusinessModel = i_simpleListItem.item.item;
+        this.businessId = businessUser.getBusinessId();
+        this.userName = businessUser.getKey('name');
+        this.maxMonitors = businessUser.getKey('maxMonitors');
+        this.businessDescription = businessUser.getKey('businessDescription');
+        this.lastLogin = businessUser.getKey('lastLogin');
+        this.allowSharing = businessUser.getKey('allowSharing') == '0' ? '' : 'checked';
+        this.studioVersion = businessUser.getKey('studioLite') == 1 ? 'StudioLite' : 'StudioPro';
         this.studioIcon = this.studioVersion == 'StudioLite' ? 'fa-circle-o' : 'fa-circle';
-        this.fromTemplateId = i_user.first().getKey('fromTemplateId');
-        this.accountStatus = i_user.first().getKey('accountStatus');
+        this.fromTemplateId = businessUser.getKey('fromTemplateId');
+        this.accountStatus = businessUser.getKey('accountStatus');
         this.verifiedIcon = this.accountStatus == '2' ? 'fa-check' : 'fa-remove';
-        this.resellerId = i_user.first().getKey('resellerId');
+        this.resellerId = businessUser.getKey('resellerId');
 
         //this.appStore.dispatch(this.businessActions.fetchBusinessUser(this.businessId));
     }

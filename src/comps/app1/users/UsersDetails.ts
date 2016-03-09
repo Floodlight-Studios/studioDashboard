@@ -11,6 +11,7 @@ import {BusinessAction} from "../../../business/BusinessAction";
 import {UserInfo} from "./UserInfo";
 import {BusinessUser} from "../../../business/BusinessUser";
 import {SimpleGridTable} from "../../simplegrid/SimpleGridTable";
+import {ISimpleListItem} from "../../simplelist/Simplelist";
 
 @Component({
     selector: 'UsersDetails',
@@ -62,10 +63,10 @@ import {SimpleGridTable} from "../../simplegrid/SimpleGridTable";
         <h1 class="embossed">USER DETAILS</h1>
         <h6 class="embossedSmaller embossed">select user(s) from the list to load up the related properties</h6>
     </div>
-    <!--<div *ngIf="_businesses && _businesses.size > 0">-->
-        <!--<UserInfo [user]="_businesses"></UserInfo>-->
-    <!--</div>-->
-    <div *ngIf="_businesses && _businesses.size > 0">
+    <div *ngIf="showUserInfo">
+        <UserInfo [user]="showUserInfo"></UserInfo>
+    </div>
+    <div *ngIf="_businesses && _businesses.size > 0 && !showUserInfo">
          <simpleGridTable #userSimpleGridTable>
                 <thead>
                 <tr>
@@ -105,6 +106,8 @@ export class UsersDetails {
 
     @ViewChild(SimpleGridTable)
     simpleGridTable:SimpleGridTable
+
+    @Input() showUserInfo:ISimpleListItem = null;
 
     @Input()
     set businesses(i_businesses) {

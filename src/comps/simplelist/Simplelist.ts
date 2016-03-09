@@ -2,6 +2,13 @@ import {Component, Input, Output, EventEmitter, ChangeDetectionStrategy,} from '
 import {COMMON_DIRECTIVES} from "angular2/src/common/common_directives";
 import {FilterPipe} from "../../pipes/FilterPipe";
 import {List} from 'immutable';
+let _ = require('underscore');
+
+export interface  ISimpleListItem {
+    item: any,
+    index: number,
+    selected: boolean
+}
 
 @Component({
     selector: 'SimpleList',
@@ -15,7 +22,7 @@ export class SimpleList {
 
     private filter = '';
     private _metadata:Object = {};
-
+    private _editClickPending = false;
     @Input()
     list:List<any>;
     @Input()
@@ -27,6 +34,8 @@ export class SimpleList {
     @Output()
     hover:EventEmitter<any> = new EventEmitter();
     @Output()
+    iconClicked:EventEmitter<any> = new EventEmitter();
+    @Output()
     current:EventEmitter<any> = new EventEmitter();
     @Output()
     selected:EventEmitter<any> = new EventEmitter();
@@ -34,8 +43,12 @@ export class SimpleList {
     private itemSelected(item, index) {
         let id = this.contentId ? this.contentId(item) : index;
         this._metadata[id] = {
-            selected: !this._metadata[id].selected
-        };
+            item: item,
+            index: index,
+            selected: this._editClickPending ? true : !this._metadata[id].selected
+        }
+
+        this._editClickPending = false;
         this.current.next({item, selected: this._metadata[id].selected});
         this.selected.next(this._metadata);
     }
@@ -49,11 +62,19 @@ export class SimpleList {
         })
     }
 
-    private onIconClick(event) {
-        event.preventDefault();
-        event.stopImmediatePropagation();
-        alert('icon clicked');
-        return false;
+    private onIconClick(event, index) {
+        var self = this;
+        this._editClickPending = true;
+        setTimeout(()=> {
+            let match = _.find(self._metadata, (i) => i.index == index);
+            console.log(match.item.getBusinessId() + ' ' + match.item.getKey('name'));
+            this.iconClicked.next({
+                item: match,
+                target: event.target,
+                index: index
+            });
+        }, 300)
+        return true;
     }
 
     private getMetadata(index, item) {
