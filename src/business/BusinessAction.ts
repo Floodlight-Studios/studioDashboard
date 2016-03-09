@@ -205,7 +205,7 @@ export class BusinessAction extends Actions {
         }
     }
 
-    public setBusinessUserField(businessId:string, key:string, value:any) {
+    public setBusinessUserName(businessId:string, key:string, value:any) {
         return {
             type: CHANGE_BUSINESS_USER_NAME,
             businessId: businessId,
@@ -214,7 +214,7 @@ export class BusinessAction extends Actions {
         }
     }
 
-    public setBusinessUserField2(businessId:string, name:string, key:string, value:any) {
+    public setBusinessUserField(businessId:string, name:string, key:string, value:any) {
         return {
             type: SET_BUSINESS_USER_FIELD,
             businessId: businessId,

@@ -30,15 +30,12 @@ export class SimpleGridTable {
     @ContentChildren(SimpleGridRecord)
     simpleGridRecord:QueryList<SimpleGridRecord>;
 
-    constructor(){
-        console.log('new table');
-    }
     public setSelected(i_selected:SimpleGridRecord) {
         this.deselect();
         this.selected = i_selected;
 
         //todo: test
-        // var rec:BusinessUser = i_selected.item;
+        // var rec = i_selected.item;
         // console.log(rec.getBusinessId() + ' ' + rec.getName() + ' ' + rec.getAccessMask());
     }
 

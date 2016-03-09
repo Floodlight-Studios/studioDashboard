@@ -225,6 +225,8 @@ gulp.task('x_copy_files',function(){
     gulp.src(['./src/**/*.html','./src/**/*.woff2','./src/**/*.css'
     ]).pipe(gulp.dest(paths.dist));
 
+    gulp.src(['./src/public/world_data.js']).pipe(gulp.dest(paths.bundleHTML));
+
     return gulp.src(['./**/*.html','./**/*.woff2','./**/*.css'
     ]).pipe(gulp.dest(paths.dist));
 });

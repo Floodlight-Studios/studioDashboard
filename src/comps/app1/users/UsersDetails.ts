@@ -62,10 +62,10 @@ import {SimpleGridTable} from "../../simplegrid/SimpleGridTable";
         <h1 class="embossed">USER DETAILS</h1>
         <h6 class="embossedSmaller embossed">select user(s) from the list to load up the related properties</h6>
     </div>
-    <div *ngIf="_businesses && _businesses.size == 1">
-        <UserInfo [user]="_businesses"></UserInfo>
-    </div>
-    <div *ngIf="_businesses && _businesses.size > 1">
+    <!--<div *ngIf="_businesses && _businesses.size > 0">-->
+        <!--<UserInfo [user]="_businesses"></UserInfo>-->
+    <!--</div>-->
+    <div *ngIf="_businesses && _businesses.size > 0">
          <simpleGridTable #userSimpleGridTable>
                 <thead>
                 <tr>
@@ -100,7 +100,7 @@ export class UsersDetails {
         var businessUser:BusinessUser = event.item as BusinessUser;
         var oldValue = businessUser.getKey('name');
         var businessId = businessUser.getBusinessId();
-        this.appStore.dispatch(this.businessActions.setBusinessUserField(businessId, field, {newValue, oldValue}));
+        this.appStore.dispatch(this.businessActions.setBusinessUserName(businessId, field, {newValue, oldValue}));
     }
 
     @ViewChild(SimpleGridTable)
@@ -131,7 +131,7 @@ export class UsersDetails {
                 computedAccessMask = computedAccessMask + bit;
 
         })
-        this.appStore.dispatch(this.businessActions.setBusinessUserField2(businessId, name, 'accessMask', computedAccessMask));
+        this.appStore.dispatch(this.businessActions.setBusinessUserField(businessId, name, 'accessMask', computedAccessMask));
     }
 
     private getAccessMask(businessUser:BusinessUser) {

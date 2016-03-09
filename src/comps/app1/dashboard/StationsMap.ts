@@ -1,3 +1,9 @@
+// http://jsfiddle.net/dnbtkmyz/
+// http://jsfiddle.net/gh/get/jquery/1.9.1/highslide-software/highcharts.com/tree/master/samples/maps/demo/map-bubble/
+// http://www.highcharts.com/samples/view.php?path=maps/demo/latlon-advanced
+// http://plnkr.co/edit/YX7W20?p=preview
+// https://github.com/SebastianM/angular2-google-maps
+
 import {Component, OnInit} from 'angular2/core';
 import {Http} from 'angular2/http';
 import {Ng2Highmaps} from '../../ng2-highcharts/ng2-highcharts';
@@ -17,16 +23,11 @@ window['Highmaps'] = require('highcharts/modules/map')(Highcharts);
 export class StationsMap {
     chartStock = {};
     chartMap = {};
-    // http://jsfiddle.net/dnbtkmyz/
-    // http://jsfiddle.net/gh/get/jquery/1.9.1/highslide-software/highcharts.com/tree/master/samples/maps/demo/map-bubble/
-    // http://www.highcharts.com/samples/view.php?path=maps/demo/latlon-advanced
-    // http://plnkr.co/edit/YX7W20?p=preview
-    // https://github.com/SebastianM/angular2-google-maps
 
     constructor(private http:Http) {
         var self = this;
-        jQuery.getJSON('https://www.highcharts.com/samples/data/jsonp.php?filename=world-population.json&callback=?', function (data) {
-            jQuery.getScript('https://code.highcharts.com/mapdata/custom/world.js', ()=> {
+        jQuery.getScript('world_data.js', function (data) {
+            jQuery.getJSON('https://www.highcharts.com/samples/data/jsonp.php?filename=world-population.json&callback=?', function (data) {
                 var mapData = Highcharts['maps']['custom/world'];
                 self.chartMap = {
                     chart: {
@@ -77,7 +78,8 @@ export class StationsMap {
                     }]
 
                 };
-            })
+            });
         });
+
     }
 }

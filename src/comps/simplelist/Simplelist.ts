@@ -14,7 +14,6 @@ import {List} from 'immutable';
 export class SimpleList {
 
     private filter = '';
-    private m_icon;
     private _metadata:Object = {};
 
     @Input()
@@ -24,10 +23,7 @@ export class SimpleList {
     @Input()
     contentId:((any)=>string);
     @Input()
-    set setIcon(i_icon) {
-        alert(1)
-        this.m_icon = i_icon;
-    }
+    icon:string;
     @Output()
     hover:EventEmitter<any> = new EventEmitter();
     @Output()
@@ -56,6 +52,7 @@ export class SimpleList {
     private onIconClick(event) {
         event.preventDefault();
         event.stopImmediatePropagation();
+        alert('icon clicked');
         return false;
     }
 
