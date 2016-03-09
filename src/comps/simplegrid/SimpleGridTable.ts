@@ -37,8 +37,9 @@ export class SimpleGridTable {
         this.deselect();
         this.selected = i_selected;
 
-        //var rec:BusinessUser = i_selected.item;
-        //console.log(rec.getBusinessId() + ' ' + rec.getName() + ' ' + rec.getAccessMask());
+        //todo: test
+        // var rec:BusinessUser = i_selected.item;
+        // console.log(rec.getBusinessId() + ' ' + rec.getName() + ' ' + rec.getAccessMask());
     }
 
     /**
