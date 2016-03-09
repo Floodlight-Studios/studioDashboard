@@ -26,7 +26,8 @@ export class StationsMap {
 
     constructor(private http:Http) {
         var self = this;
-        jQuery.getScript('world_data.ts', function (data) {
+
+        jQuery.getScript('world_data.js', function (data) {
             jQuery.getJSON('https://www.highcharts.com/samples/data/jsonp.php?filename=world-population.json&callback=?', function (data) {
                 var mapData = Highcharts['maps']['custom/world'];
                 self.chartMap = {

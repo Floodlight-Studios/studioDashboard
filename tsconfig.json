@@ -16,7 +16,7 @@
     "/src/typings/app.d.ts"
   ],
   "exclude": [
-    "src/comps/app4/in_dev",
+    "src/public/world_data.ts",
     "node_modules",
     "jspm_packages",
     "typings",
