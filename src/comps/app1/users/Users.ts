@@ -44,6 +44,7 @@ import {List} from 'immutable';
                 <SimpleList *ngIf="businessesUsers" #simpleList [list]="businessesList" 
                     (selected)="onFilteredSelection()"
                     [contentId]="getBusinessesId()"
+                    [setIcon]="'fa-edit'"
                     [content]="getBusinesses()">
                 </SimpleList>
                 <Loading *ngIf="!businessesUsers" [src]="'assets/preload6.gif'" [style]="{'margin-top': '150px'}"></Loading>

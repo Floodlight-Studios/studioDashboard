@@ -4,12 +4,11 @@ import {ModalDialog} from "../../modaldialog/ModalDialog";
 import {CommBroker} from "../../../services/CommBroker";
 import {NotesBase} from "./NotesBase";
 import {MyIp} from "../../myip/Myip";
-import {MODAL_DIRECTIVES} from 'ng2-bs3-modal/dist/ng2-bs3-modal'
 
 @Component({
     selector: 'Notes2',
     providers: [MyIp],
-    directives: [ModalDialog, MyIp, MODAL_DIRECTIVES],
+    directives: [ModalDialog, MyIp],
     template: `
                 <button type="button" (click)="onPrev($event)" class="btn btn-default btn-sm">
                     <span class="fa fa-arrow-left"></span>

@@ -14,6 +14,7 @@ import {List} from 'immutable';
 export class SimpleList {
 
     private filter = '';
+    private m_icon;
     private _metadata:Object = {};
 
     @Input()
@@ -22,6 +23,11 @@ export class SimpleList {
     content:((any)=>string);
     @Input()
     contentId:((any)=>string);
+    @Input()
+    set setIcon(i_icon) {
+        alert(1)
+        this.m_icon = i_icon;
+    }
     @Output()
     hover:EventEmitter<any> = new EventEmitter();
     @Output()
@@ -47,6 +53,12 @@ export class SimpleList {
         })
     }
 
+    private onIconClick(event) {
+        event.preventDefault();
+        event.stopImmediatePropagation();
+        return false;
+    }
+
     private getMetadata(index, item) {
         let id = this.contentId ? this.contentId(item) : index;
         return this._metadata[id];
@@ -70,7 +82,7 @@ export class SimpleList {
         }
     }
 
-    public getSelected(){
+    public getSelected() {
         return this._metadata;
     }
 }
