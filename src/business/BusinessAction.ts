@@ -17,7 +17,7 @@ export const RECEIVE_BUSINESSES = 'RECEIVE_BUSINESSES';
 export const RECEIVE_BUSINESSES_STATS = 'RECEIVE_BUSINESSES_STATS';
 export const SET_BUSINESS_DATA = 'SET_BUSINESS_DATA';
 export const CHANGE_BUSINESS_USER_NAME = 'CHANGE_BUSINESS_USER_NAME';
-export const SET_BUSINESS_USER_FIELD = 'SET_BUSINESS_USER_FIELD';
+export const SET_BUSINESS_USER_ACCESS = 'SET_BUSINESS_USER_ACCESS';
 
 @Injectable()
 export class BusinessAction extends Actions {
@@ -40,7 +40,7 @@ export class BusinessAction extends Actions {
             })
             .debounceTime(100)
             .switchMap((values:{businessIds:Array<string>, dispatch:(value:any)=>any}):any => {
-                if (values.businessIds.length==0)
+                if (values.businessIds.length == 0)
                     return 'CANCEL_PENDING_NET_CALLS';
                 var businessIds:string = values.businessIds.join('.');
                 var dispatch = values.dispatch;
@@ -214,14 +214,30 @@ export class BusinessAction extends Actions {
         }
     }
 
-    public setBusinessUserField(businessId:string, name:string, key:string, value:any) {
-        return {
-            type: SET_BUSINESS_USER_FIELD,
-            businessId: businessId,
-            name: name,
-            key: key,
-            value: value
+    public saveBusinessUserAccess(businessId:string, name:any, accessMask:number, privilegeId:number) {
+        return (dispatch)=> {
+            var appdb:Map<string,any> = this.appStore.getState().appdb;
+            var url = appdb.get('appBaseUrlUser') + `&command=UpdateUserPrivilege&privilegeId=${privilegeId}&accessMask=${accessMask}&customerUserName=${name}`;
+            console.log(url);
+            this._http.get(url)
+                .map(result => {
+                    var xmlData:string = result.text()
+                    xmlData = xmlData.replace(/}\)/, '').replace(/\(\{"result":"/, '');
+                    dispatch(this.savedBusinessUserAccess({
+                        businessId: businessId,
+                        privilegeId: privilegeId,
+                        accessMask: accessMask,
+                        name: name
+                    }))
+                }).subscribe();
         }
+    }
+
+    private savedBusinessUserAccess(i_payload) {
+        return {
+            type: SET_BUSINESS_USER_ACCESS,
+            payload: i_payload
+        };
     }
 
     public requestBusinessUser() {

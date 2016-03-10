@@ -45,11 +45,12 @@ export function business(state:Map<string,any> = Map<string,any>(), action:any):
             return state.setIn(['businessUsers'], businessUsers);
         }
 
-        case BusinessAction.SET_BUSINESS_USER_FIELD:
+        case BusinessAction.SET_BUSINESS_USER_ACCESS:
         {
             var businessUsers:List<BusinessUser> = state.getIn(['businessUsers'])
-            businessUsers = businessUsers.update(indexOfName(action.businessId, action.name), (business:BusinessUser) => {
-                return business.setKey<BusinessUser>(BusinessUser, action.key, action.value)
+            businessUsers = businessUsers.update(indexOfName(action.payload.businessId, action.payload.name), (business:BusinessUser) => {
+                let businessUser:BusinessUser = business.setKey<BusinessUser>(BusinessUser, 'accessMask', action.payload.accessMask)
+                return businessUser.setKey<BusinessUser>(BusinessUser, 'privilegeId', action.payload.privilegeId)
             });
             return state.setIn(['businessUsers'], businessUsers);
         }

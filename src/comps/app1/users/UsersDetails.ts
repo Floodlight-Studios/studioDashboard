@@ -127,6 +127,7 @@ export class UsersDetails {
         var businessUser:BusinessUser = event.item as BusinessUser;
         var businessId = businessUser.getBusinessId();
         var name = businessUser.getName();
+        var privilegeId = businessUser.privilegeId();
         var accessMask = event.value;
         var bits = [1, 2, 4, 8, 16, 32, 64, 128];
         var computedAccessMask = 0;
@@ -136,7 +137,7 @@ export class UsersDetails {
                 computedAccessMask = computedAccessMask + bit;
 
         })
-        this.appStore.dispatch(this.businessActions.setBusinessUserField(businessId, name, 'accessMask', computedAccessMask));
+        this.appStore.dispatch(this.businessActions.saveBusinessUserAccess(businessId, name, computedAccessMask, privilegeId));
     }
 
     private getAccessMask(businessUser:BusinessUser) {
