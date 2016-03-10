@@ -35,8 +35,8 @@ export class SimpleList {
     hover:EventEmitter<any> = new EventEmitter();
     @Output()
     iconClicked:EventEmitter<any> = new EventEmitter();
-    @Output()
-    current:EventEmitter<any> = new EventEmitter();
+    // @Output()
+    // current:EventEmitter<any> = new EventEmitter();
     @Output()
     selected:EventEmitter<any> = new EventEmitter();
 
@@ -48,16 +48,21 @@ export class SimpleList {
             selected: this._editClickPending ? true : !this._metadata[id].selected
         }
 
-        this._editClickPending = false;
-        this.current.next({item, selected: this._metadata[id].selected});
+
+        if (this._editClickPending){
+            this._editClickPending = false;
+            return;
+        }
+        //this.current.next({item, selected: this._metadata[id].selected});
         this.selected.next(this._metadata);
+
     }
 
     private itemAllSelected() {
         for (let id in this._metadata)
             this._metadata[id].selected = true;
         this.list.forEach((i_item)=> {
-            this.current.next({item: i_item, selected: true});
+            //this.current.next({item: i_item, selected: true});
             this.selected.next(this._metadata);
         })
     }
@@ -73,7 +78,7 @@ export class SimpleList {
                 target: event.target,
                 index: index
             });
-        }, 300)
+        }, 1)
         return true;
     }
 
