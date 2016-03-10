@@ -74,15 +74,16 @@ import {ISimpleListItem} from "../../simplelist/Simplelist";
                   <th sortableHeader="businessId" [sort]="sort">business</th>
                   <th>privileges</th>
                   <th>access keys</th>
+                  <th>privileges</th>
                 </tr>
               </thead>
               <tbody>                                                                          
               <tr class="simpleGridRecord" [table]="userSimpleGridTable" simpleGridRecord *ngFor="#item of _businesses | OrderBy:sort.field:sort.desc; #index=index" [item]="item" [index]="index">
-                    <td simpleGridData (labelEdited)="onLabelEdited($event,'name')" editable="true" field="name" [item]="item"></td>
-                    <td simpleGridData field="businessId" [item]="item"></td>
-                    <td simpleGridData field="privilegeId" [item]="item"></td>
-                    <td simpleGridDataChecks field="accessMask" (changed)="setAccessMask($event)" [item]="item" [checkboxes]="getAccessMask(item)"></td>
-                    <td simpleGridDataDropdown></td>
+                    <td style="width: 10%" simpleGridData (labelEdited)="onLabelEdited($event,'name')" editable="true" field="name" [item]="item"></td>
+                    <td style="width: 10%" simpleGridData field="businessId" [item]="item"></td>
+                    <td style="width: 10%" simpleGridData field="privilegeId" [item]="item"></td>
+                    <td style="width: 30%" simpleGridDataChecks field="accessMask" (changed)="setAccessMask($event)" [item]="item" [checkboxes]="getAccessMask(item)"></td>
+                    <td style="width: 40%" simpleGridDataDropdown></td>
                     <!--<td simpleGridData (labelEdited)="onLabelEdited($event,'maxMonitors')" editable="true" field="maxMonitors" [item]="item"></td>-->
                     <!-- <td simpleGridDataImage color="dodgerblue" [field]="item.getKey('studioLite') == '0' ? 'fa-circle' : 'fa-circle-o'" [item]="item"></td> -->
               </tr>

@@ -18,7 +18,7 @@
           class="list-group-item" (click)="itemSelected(item, index)" [class.active]="getMetadata(index,item).selected"
           (mouseover)="hover.next(item)" (mouseout)="hover.next(null)">
         <!-- {{getContent(item) | json}} -->
-        {{getContent(item)}}
+        <span class="li-content pull-left">{{getContent(item)}}</span>
         <span *ngIf="icon" class="pull-right">
           <button (click)="onIconClick($event, index)" style="padding: 0; margin: 0" class="pull-right btn fa {{icon}}"></button>
         </span>
