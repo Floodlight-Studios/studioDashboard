@@ -1,3 +1,18 @@
+* {
+    border-radius: 0 !important;
+}
+
+.btn {
+    margin: 0;
+    height: 40px;
+    width: 35px;
+    position: relative;
+    top: -10px;
+    padding-left: 10px;
+    padding-right: 10px;
+    left: 15px;
+    color: #646465;
+}
 .list-group {
     padding-right: 15px;
 }
