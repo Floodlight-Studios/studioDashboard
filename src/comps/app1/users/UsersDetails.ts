@@ -82,6 +82,7 @@ import {ISimpleListItem} from "../../simplelist/Simplelist";
                     <td simpleGridData field="businessId" [item]="item"></td>
                     <td simpleGridData field="privilegeId" [item]="item"></td>
                     <td simpleGridDataChecks field="accessMask" (changed)="setAccessMask($event)" [item]="item" [checkboxes]="getAccessMask(item)"></td>
+                    <td simpleGridDataDropdown></td>
                     <!--<td simpleGridData (labelEdited)="onLabelEdited($event,'maxMonitors')" editable="true" field="maxMonitors" [item]="item"></td>-->
                     <!-- <td simpleGridDataImage color="dodgerblue" [field]="item.getKey('studioLite') == '0' ? 'fa-circle' : 'fa-circle-o'" [item]="item"></td> -->
               </tr>

@@ -11,7 +11,8 @@
     padding-left: 10px;
     padding-right: 10px;
     left: 15px;
-    color: #646465;
+    color: white;
+    background-color: #454545;
 }
 .list-group {
     padding-right: 15px;
