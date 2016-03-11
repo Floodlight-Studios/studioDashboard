@@ -10,6 +10,7 @@ import {BusinessUser} from "../../../business/BusinessUser";
 import {SimpleGridTable} from "../../simplegrid/SimpleGridTable";
 import {ISimpleListItem} from "../../simplelist/Simplelist";
 import {MODAL_DIRECTIVES, ModalResult} from 'ng2-bs3-modal/ng2-bs3-modal';
+import {AddUser} from "./AddUser";
 let _ = require('underscore');
 
 
@@ -18,7 +19,7 @@ let _ = require('underscore');
 @Component({
     selector: 'UsersDetails',
     changeDetection: ChangeDetectionStrategy.OnPush,
-    directives: [SIMPLEGRID_DIRECTIVES, UserInfo, MODAL_DIRECTIVES],
+    directives: [SIMPLEGRID_DIRECTIVES, UserInfo, AddUser, MODAL_DIRECTIVES],
     pipes: [OrderBy],
     styles: [`
             .embossed {
@@ -66,12 +67,8 @@ let _ = require('underscore');
             <h4 class="modal-title">{{someData}}</h4>
         </modal-header>
         <modal-body>
-            <ul>
-                <li *ngFor="#item of items">
-                    <a href="#" (click)="$event.preventDefault(); modalSelected = item">{{ item }}</a>
-                </li>
-            </ul>
-            Selected: <b>{{ modalSelected }}</b>    
+            Selected: <b>{{ modalSelected }}</b> 
+            <addUser></addUser>
         </modal-body>
         <modal-footer [show-default-buttons]="true"></modal-footer>
     </modal>
