@@ -1,18 +1,16 @@
-
-import {Component, provide} from 'angular2/core';
+import {Component, EventEmitter, ChangeDetectionStrategy} from 'angular2/core';
 import {ModalDialog} from "../../modaldialog/ModalDialog";
-import {MailModel} from "../../../models/MailModel";
 import {
     FORM_DIRECTIVES, FormBuilder, ControlGroup, Validators, AbstractControl, Control
 } from 'angular2/common'
-import StartCapValidator from "../../../validators/StartCapValidator";
-import NameTakenValidator from "../../../validators/NameTakenValidator";
+import {ModalComponent} from "ng2-bs3-modal/ng2-bs3-modal";
 
 
 @Component({
     selector: 'addUser',
     directives: [ModalDialog, FORM_DIRECTIVES],
     templateUrl: '/src/comps/app1/users/AddUser.html',
+    changeDetection: ChangeDetectionStrategy.OnPush,
     styleUrls: ['../comps/app1/users/AddUser.css']
 })
 
@@ -23,46 +21,66 @@ import NameTakenValidator from "../../../validators/NameTakenValidator";
 export class AddUser {
 
     private notesForm:ControlGroup;
-    private notesTextArea:AbstractControl;
     private userName:AbstractControl;
-    private reference:AbstractControl;
-    private phone:AbstractControl;
-    private login:AbstractControl;
-    private model:MailModel;
-    private mapModel:Map<any, any>; // demonstrates map although we are not using it for anything
+    private passwordGroup;
+    private sub:EventEmitter<any>;
 
-    constructor(fb:FormBuilder) {
+    constructor(private fb:FormBuilder, private modal:ModalComponent) {
 
         this.notesForm = fb.group({
             'userName': ['', Validators.required],
-            'reference': ['', Validators.required],
-            'phone': ['(xxx)-xxxx-xxx', Validators.minLength(10)],
-            'notesTextArea': ['enter text here',
-                Validators.compose([
-                    Validators.required,
-                    StartCapValidator])],
-            'login': ['',
-                Validators.compose([
-                    Validators.required,
-                    StartCapValidator]), NameTakenValidator]
+            matchingPassword: fb.group({
+                password: ['', Validators.required],
+                confirmPassword: ['', Validators.required]
+            }, {validator: this.areEqual}),
+            'privileges': ['', Validators.required]
         });
+        this.sub = modal.onClose.subscribe(()=> {
+            console.log(this.notesForm.controls['userName'].value);
+            var control:Control = this.notesForm.controls['userName'] as Control;
+            this.passwordGroup.controls['password'].updateValue('')
+            this.passwordGroup.controls['confirmPassword'].updateValue('')
+            control.updateValue('')
+        })
+
+
+        // expose easy access to passworGroup to html
+        this.passwordGroup = this.notesForm.controls['matchingPassword'];
 
         // map to instances from form
-        this.notesTextArea = this.notesForm.controls['notesTextArea'];
         this.userName = this.notesForm.controls['userName'];
-        this.reference = this.notesForm.controls['reference'];
-        this.login = this.notesForm.controls['login'];
-        this.phone = this.notesForm.controls['phone'];
-        this.model = new MailModel(0, '', true, '', '');
+        // this.model = new MailModel(0, '', true, '', '');
 
-        // unrelated, demonstrate usage of Map
-        this.mapModel = new Map();
-        this.mapModel.set('my name', 'Sean Levy');
-        //console.log(this.mapModel.get('my name'));
 
         this.observeNameChange();
         this.observeFormChange();
 
+
+    }
+
+    areEqual(group:ControlGroup) {
+        let val;
+        let valid = true;
+        for (name in group.controls) {
+            if (val === undefined) {
+                val = group.controls[name].value
+                if (val.length < 4) {
+                    valid = false;
+                    break;
+                }
+            } else {
+                if (val !== group.controls[name].value) {
+                    valid = false;
+                    break;
+                }
+            }
+        }
+        if (valid) {
+            return null;
+        }
+        return {
+            areEqual: true
+        };
     }
 
     /**
@@ -87,12 +105,17 @@ export class AddUser {
     }
 
     onSubmit(event) {
-        bootbox.alert(`sent ${event.notesTextArea}`);
+        console.log('Form data ' + JSON.stringify(event));
+        this.modal.close();
     }
 
     onChange(event) {
         if (event.target.value.length < 3)
             console.log('text too short for subject');
+    }
+
+    ngOnDestroy(){
+        this.sub.unsubscribe();
     }
 }
 

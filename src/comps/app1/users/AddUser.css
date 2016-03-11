@@ -35,6 +35,15 @@
     }
 }
 
+.invalid {
+    background-color: red;
+}
+
+.material-switch {
+    position: relative;
+    top: 8px;
+}
+
 .form-control {
     width: 20%;
 }
@@ -52,5 +61,5 @@
     background-color: #ffe4e4;
 }
 .longInput {
-    width: 200px;
+    width: 100%;
 }

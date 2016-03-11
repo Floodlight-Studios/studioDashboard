@@ -56,7 +56,7 @@ let _ = require('underscore');
 
     template: `    
     <div style="position: relative; top: 10px">
-        <a class="btns" href="#" (click)="$event.preventDefault(); updSomeData() ; !simpleGridTable || simpleGridTable.getSelected() == null ? '' : launch.open()" [ngClass]="{disabled: !simpleGridTable || simpleGridTable.getSelected() == null}" href="#"><span class="fa fa-plus"></span></a>
+        <a class="btns" href="#" (click)="$event.preventDefault(); updSomeData() ; !simpleGridTable || simpleGridTable.getSelected() == null ? '' : launch.open('lg')" [ngClass]="{disabled: !simpleGridTable || simpleGridTable.getSelected() == null}" href="#"><span class="fa fa-plus"></span></a>
         <a class="btns" href="#" (click)="$event.preventDefault(); !simpleGridTable || simpleGridTable.getSelected() == null ? '' : launch.open()" [ngClass]="{disabled: !simpleGridTable || simpleGridTable.getSelected() == null}" href="#"><span class="fa fa-rocket"></span></a>
         <a class="btns" [ngClass]="{disabled: !simpleGridTable || simpleGridTable.getSelected() == null}" href="#"><span class="fa fa-remove"></span></a>
         <a class="btns" [ngClass]="{disabled: !simpleGridTable || simpleGridTable.getSelected() == null}" href="#"><span class="fa fa-key"></span></a>
@@ -64,13 +64,14 @@ let _ = require('underscore');
     
      <modal #launch [animation]="animationsEnabled" (onClose)="onClose($event)">
         <modal-header [show-close]="true">
-            <h4 class="modal-title">{{someData}}</h4>
+            <h4 class="modal-title">
+            <span class="fa fa-user"></span>
+            Add new user</h4>
         </modal-header>
         <modal-body>
-            Selected: <b>{{ modalSelected }}</b> 
             <addUser></addUser>
         </modal-body>
-        <modal-footer [show-default-buttons]="true"></modal-footer>
+        <modal-footer [show-default-buttons]="false"></modal-footer>
     </modal>
                 
     <br/>
@@ -114,12 +115,10 @@ export class UsersDetails {
     private totalBusinessSelected:number = 0;
     private someData:number = 1;
 
-    items: string[] = ['item1', 'item2', 'item3'];
-    modalSelected: string;
-    selected: string;
-    animationsEnabled: boolean = true;
-
-
+    items:string[] = ['item1', 'item2', 'item3'];
+    modalSelected:string;
+    selected:string;
+    animationsEnabled:boolean = true;
 
     private updSomeData() {
         this.someData = _.random(1, 10);
@@ -137,15 +136,11 @@ export class UsersDetails {
         this.appStore.dispatch(this.businessActions.setBusinessUserName(businessId, field, {newValue, oldValue}));
     }
 
-    private cancel(event) {
-        event.preventDefault();
-        event.stopImmediatePropagation();
-        return false;
-
-    }
-
     @ViewChild(SimpleGridTable)
     simpleGridTable:SimpleGridTable
+
+    // @ViewChild('launch')
+    // launch:ModalComponent
 
     @Input()
     showUserInfo:ISimpleListItem = null;
@@ -160,7 +155,26 @@ export class UsersDetails {
     }
 
     constructor(private appStore:AppStore, private businessActions:BusinessAction) {
+
     }
+
+    // ngAfterViewInit() {
+    //     console.log(this.launch);
+    //
+    // }
+    // ngOnInit() {
+    //     var self = this;
+    //     setTimeout(()=>{
+    //         console.log(self.launch);
+    //         try {
+    //             self.launch.close();
+    //         } catch (e){
+    //
+    //         }
+    //     },3000)
+    //
+    //     //self.launch.close();
+    // }
 
     private setAccessMask(event) {
         var businessUser:BusinessUser = event.item as BusinessUser;
