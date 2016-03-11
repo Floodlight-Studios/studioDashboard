@@ -1,7 +1,4 @@
-import {
-    Component, Input, Output, EventEmitter, ChangeDetectionStrategy, OnChanges, SimpleChange,
-    ViewChild
-} from 'angular2/core'
+import {Component, Input, ChangeDetectionStrategy, ViewChild} from 'angular2/core'
 import {List, Map} from 'immutable';
 import {BusinessModel} from "../../../business/BusinessModel";
 import {OrderBy} from "../../../pipes/OrderBy";
@@ -12,11 +9,16 @@ import {UserInfo} from "./UserInfo";
 import {BusinessUser} from "../../../business/BusinessUser";
 import {SimpleGridTable} from "../../simplegrid/SimpleGridTable";
 import {ISimpleListItem} from "../../simplelist/Simplelist";
+import {MODAL_DIRECTIVES, ModalResult} from 'ng2-bs3-modal/ng2-bs3-modal';
+let _ = require('underscore');
+
+
+// https://github.com/dougludlow/ng2-bs3-modal
 
 @Component({
     selector: 'UsersDetails',
     changeDetection: ChangeDetectionStrategy.OnPush,
-    directives: [SIMPLEGRID_DIRECTIVES, UserInfo],
+    directives: [SIMPLEGRID_DIRECTIVES, UserInfo, MODAL_DIRECTIVES],
     pipes: [OrderBy],
     styles: [`
             .embossed {
@@ -53,11 +55,27 @@ import {ISimpleListItem} from "../../simplelist/Simplelist";
 
     template: `    
     <div style="position: relative; top: 10px">
-        <a class="btns" [ngClass]="{disabled: !simpleGridTable || simpleGridTable.getSelected() == null}" href="#"><span class="fa fa-plus"></span></a>
-        <a class="btns" [ngClass]="{disabled: !simpleGridTable || simpleGridTable.getSelected() == null}" href="#"><span class="fa fa-rocket"></span></a>
+        <a class="btns" href="#" (click)="$event.preventDefault(); updSomeData() ; !simpleGridTable || simpleGridTable.getSelected() == null ? '' : launch.open()" [ngClass]="{disabled: !simpleGridTable || simpleGridTable.getSelected() == null}" href="#"><span class="fa fa-plus"></span></a>
+        <a class="btns" href="#" (click)="$event.preventDefault(); !simpleGridTable || simpleGridTable.getSelected() == null ? '' : launch.open()" [ngClass]="{disabled: !simpleGridTable || simpleGridTable.getSelected() == null}" href="#"><span class="fa fa-rocket"></span></a>
         <a class="btns" [ngClass]="{disabled: !simpleGridTable || simpleGridTable.getSelected() == null}" href="#"><span class="fa fa-remove"></span></a>
         <a class="btns" [ngClass]="{disabled: !simpleGridTable || simpleGridTable.getSelected() == null}" href="#"><span class="fa fa-key"></span></a>
     </div>
+    
+     <modal #launch [animation]="animationsEnabled" (onClose)="onClose($event)">
+        <modal-header [show-close]="true">
+            <h4 class="modal-title">{{someData}}</h4>
+        </modal-header>
+        <modal-body>
+            <ul>
+                <li *ngFor="#item of items">
+                    <a href="#" (click)="$event.preventDefault(); modalSelected = item">{{ item }}</a>
+                </li>
+            </ul>
+            Selected: <b>{{ modalSelected }}</b>    
+        </modal-body>
+        <modal-footer [show-default-buttons]="true"></modal-footer>
+    </modal>
+                
     <br/>
     <div  *ngIf="!_businesses || _businesses.size == 0">
         <h1 class="embossed">USER DETAILS</h1>
@@ -94,9 +112,25 @@ import {ISimpleListItem} from "../../simplelist/Simplelist";
 })
 
 export class UsersDetails {
-    public sort:{field: string, desc: boolean} = {field: null, desc: false};
+    public sort:{field:string, desc:boolean} = {field: null, desc: false};
     private _businesses:List<BusinessModel>;
     private totalBusinessSelected:number = 0;
+    private someData:number = 1;
+
+    items: string[] = ['item1', 'item2', 'item3'];
+    modalSelected: string;
+    selected: string;
+    animationsEnabled: boolean = true;
+
+
+
+    private updSomeData() {
+        this.someData = _.random(1, 10);
+    }
+
+    private onClose(result:ModalResult) {
+        console.log(result);
+    }
 
     private onLabelEdited(event:ISimpleGridEdit, field) {
         var newValue = event.value;
@@ -106,15 +140,23 @@ export class UsersDetails {
         this.appStore.dispatch(this.businessActions.setBusinessUserName(businessId, field, {newValue, oldValue}));
     }
 
+    private cancel(event) {
+        event.preventDefault();
+        event.stopImmediatePropagation();
+        return false;
+
+    }
+
     @ViewChild(SimpleGridTable)
     simpleGridTable:SimpleGridTable
 
-    @Input() showUserInfo:ISimpleListItem = null;
+    @Input()
+    showUserInfo:ISimpleListItem = null;
 
     @Input()
     set businesses(i_businesses) {
         this._businesses = i_businesses;
-        if (i_businesses && this.simpleGridTable && this._businesses.size != this.totalBusinessSelected){
+        if (i_businesses && this.simpleGridTable && this._businesses.size != this.totalBusinessSelected) {
             this.simpleGridTable.deselect();
             this.totalBusinessSelected = this._businesses.size;
         }
@@ -157,26 +199,3 @@ export class UsersDetails {
 
     }
 }
-
-
-// var bits = [1, 2, 4, 8, 16, 32, 64, 128];
-// total: 149 & number in offset 4
-// self.m_WEEKDAYS.forEach(function (v, i) {
-//     var n = weekDays & v;
-//     if (n == v) {
-//         $(elDays).find('input').eq(i).prop('checked', true);
-//     } else {
-//         $(elDays).find('input').eq(i).prop('checked', false);
-//     }
-// });
-//
-// var checks = [{
-//     'name': '0',
-//     'value': '0',
-//     'checked': true
-// }, {
-//     'name': '1',
-//     'value': '1',
-//     'checked': false
-// }];
-//return List(checks);

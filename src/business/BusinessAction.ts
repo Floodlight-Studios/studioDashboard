@@ -1,10 +1,6 @@
 import {Http, Jsonp} from "angular2/http";
 import {Injectable} from "angular2/core";
 import {Actions, AppStore} from "angular2-redux-util";
-import 'rxjs/add/operator/map';
-import 'rxjs/add/operator/mergeMap';
-import 'rxjs/add/operator/merge';
-import 'rxjs/add/operator/debounceTime';
 import {BusinessModel} from "./BusinessModel";
 import {List} from 'immutable';
 import {BusinessUser} from "./BusinessUser";
@@ -186,7 +182,6 @@ export class BusinessAction extends Actions {
 
                         //var xResult = jQuery(result);
                         //var businesses = xResult.find('BusinessInfo');
-                        //console.log(result)
                     });
                 }).subscribe();
             //.map(json => {
@@ -218,7 +213,6 @@ export class BusinessAction extends Actions {
         return (dispatch)=> {
             var appdb:Map<string,any> = this.appStore.getState().appdb;
             var url = appdb.get('appBaseUrlUser') + `&command=UpdateUserPrivilege&privilegeId=${privilegeId}&accessMask=${accessMask}&customerUserName=${name}`;
-            console.log(url);
             this._http.get(url)
                 .map(result => {
                     var xmlData:string = result.text()
