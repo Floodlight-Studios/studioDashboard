@@ -53,6 +53,9 @@ let _ = require('underscore');
               .btns:hover {
                 color: red;
               }
+             hr { 
+                border-top: 3px double #d7d7d7;
+            }
     `],
 
     template: `    
@@ -62,7 +65,7 @@ let _ = require('underscore');
         <a class="btns" [ngClass]="{disabled: !simpleGridTable || simpleGridTable.getSelected() == null}" href="#"><span class="fa fa-remove"></span></a>
         <a class="btns" [ngClass]="{disabled: !simpleGridTable || simpleGridTable.getSelected() == null}" href="#"><span class="fa fa-key"></span></a>
     </div>
-    
+    <hr/>
      <modal #launch [animation]="animationsEnabled" (onClose)="onClose($event)">
         <modal-header [show-close]="true">
             <h4 class="modal-title">
@@ -77,10 +80,10 @@ let _ = require('underscore');
     </modal>
                 
     <br/>
-    <div  *ngIf="!m_businesses || m_businesses.size == 0">
-        <h1 class="embossed">USER DETAILS</h1>
-        <h6 class="embossedSmaller embossed">select user(s) from the list to load up the related properties</h6>
-    </div>
+    <!--<div *ngIf="showUserInfo == 'null' || !m_businesses || m_businesses.size == 0">-->
+        <!--<h1 class="embossed">USER DETAILS</h1>-->
+        <!--<h6 class="embossedSmaller embossed">select user(s) from the list to load up the related properties</h6>-->
+    <!--</div>-->
     <div *ngIf="showUserInfo">
         <UserInfo [user]="showUserInfo"></UserInfo>
     </div>

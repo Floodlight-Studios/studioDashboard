@@ -16,7 +16,7 @@ import {ISimpleListItem} from "../../simplelist/Simplelist";
     selector: 'UserInfo',
     directives: [Infobox, UserStorage, InputEdit],
     templateUrl: `/src/comps/app1/users/UserInfo.html`,
-    // changeDetection: ChangeDetectionStrategy.OnPush,
+    changeDetection: ChangeDetectionStrategy.OnPush,
     styleUrls: [`../comps/app1/users/UserInfo.css`]
 
 })
