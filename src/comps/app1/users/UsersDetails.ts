@@ -77,14 +77,14 @@ let _ = require('underscore');
     </modal>
                 
     <br/>
-    <div  *ngIf="!_businesses || _businesses.size == 0">
+    <div  *ngIf="!m_businesses || m_businesses.size == 0">
         <h1 class="embossed">USER DETAILS</h1>
         <h6 class="embossedSmaller embossed">select user(s) from the list to load up the related properties</h6>
     </div>
     <div *ngIf="showUserInfo">
         <UserInfo [user]="showUserInfo"></UserInfo>
     </div>
-    <div *ngIf="_businesses && _businesses.size > 0 && !showUserInfo">
+    <div *ngIf="m_businesses && m_businesses.size > 0 && !showUserInfo">
          <simpleGridTable #userSimpleGridTable>
                 <thead>
                 <tr>
@@ -96,7 +96,7 @@ let _ = require('underscore');
                 </tr>
               </thead>
               <tbody>                                                                          
-              <tr class="simpleGridRecord" [table]="userSimpleGridTable" simpleGridRecord *ngFor="#item of _businesses | OrderBy:sort.field:sort.desc; #index=index" [item]="item" [index]="index">
+              <tr class="simpleGridRecord" [table]="userSimpleGridTable" simpleGridRecord *ngFor="#item of m_businesses | OrderBy:sort.field:sort.desc; #index=index" [item]="item" [index]="index">
                     <td style="width: 10%" simpleGridData (labelEdited)="onLabelEdited($event,'name')" editable="true" field="name" [item]="item"></td>
                     <td style="width: 10%" simpleGridData field="businessId" [item]="item"></td>
                     <td style="width: 10%" simpleGridData field="privilegeId" [item]="item"></td>
@@ -127,18 +127,16 @@ export class UsersDetails {
 
     @Input()
     set businesses(i_businesses) {
-        this._businesses = i_businesses;
-        if (i_businesses && this.simpleGridTable && this._businesses.size != this.totalBusinessSelected) {
+        this.m_businesses = i_businesses;
+        if (i_businesses && this.simpleGridTable && this.m_businesses.size != this.totalBusinessSelected) {
             this.simpleGridTable.deselect();
-            this.totalBusinessSelected = this._businesses.size;
+            this.totalBusinessSelected = this.m_businesses.size;
         }
     }
 
     public sort:{field:string, desc:boolean} = {field: null, desc: false};
-
-    private _businesses:List<BusinessModel>;
+    private m_businesses:List<BusinessModel>;
     private totalBusinessSelected:number = 0;
-    private someData:number = 1;
     private animationsEnabled:boolean = true;
 
     private onClose(result:ModalResult) {
