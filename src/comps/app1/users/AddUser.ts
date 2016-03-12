@@ -4,7 +4,6 @@ import {
     FORM_DIRECTIVES, FormBuilder, ControlGroup, Validators, AbstractControl, Control
 } from 'angular2/common'
 import {ModalComponent} from "ng2-bs3-modal/ng2-bs3-modal";
-import {SimpleGridRecord} from "../../simplegrid/SimpleGridRecord";
 import {BusinessModel} from "../../../business/BusinessModel";
 
 
@@ -44,8 +43,17 @@ export class AddUser {
         this.observeFormChange();
     }
 
+    private key0:string = 'checked';
+    private key1:string = '';
+    private key2:string = '';
+    private key3:string = '';
+    private key4:string = '';
+    private key5:string = '';
+    private key6:string = '';
+    private key7:string = '';
+
     @Input()
-    businessId:SimpleGridRecord;
+    businessModel:BusinessModel;
 
     private notesForm:ControlGroup;
     private userName:AbstractControl;
@@ -98,8 +106,7 @@ export class AddUser {
     }
 
     private onSubmit(event) {
-        var businessModel:BusinessModel = this.businessId.item;
-        console.log(`Form data businessId: ${businessModel.getBusinessId()} ${JSON.stringify(event)}`);
+        console.log(`Form data businessId: ${this.businessModel.getBusinessId()} ${JSON.stringify(event)}`);
         this.modal.close();
     }
 

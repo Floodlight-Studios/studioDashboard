@@ -71,7 +71,7 @@ let _ = require('underscore');
             </h4>
         </modal-header>
         <modal-body>
-            <addUser [businessId]="getSelectedBusinessId()"></addUser>
+            <addUser [businessModel]="selectedBusinessModel()"></addUser>
         </modal-body>
         <modal-footer [show-default-buttons]="false"></modal-footer>
     </modal>
@@ -150,10 +150,11 @@ export class UsersDetails {
         this.appStore.dispatch(this.businessActions.setBusinessUserName(businessId, field, {newValue, oldValue}));
     }
 
-    private getSelectedBusinessId():SimpleGridRecord {
+    private selectedBusinessModel():BusinessModel {
         if (!this.simpleGridTable)
             return null;
-        return this.simpleGridTable.getSelected();
+        let selected:SimpleGridRecord = this.simpleGridTable.getSelected();
+        return selected ? this.simpleGridTable.getSelected().item : '';
     }
 
     private setAccessMask(event) {
