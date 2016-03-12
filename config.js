@@ -63,7 +63,7 @@ System.config({
     "lodash": "npm:lodash@4.5.1",
     "moment": "npm:moment@2.11.2",
     "ng2-bootstrap": "npm:ng2-bootstrap@1.0.5",
-    "ng2-bs3-modal": "npm:ng2-bs3-modal@0.2.0",
+    "ng2-bs3-modal": "npm:ng2-bs3-modal@0.2.1",
     "plugin-typescript": "github:frankwallis/plugin-typescript@4.0.2",
     "redux": "npm:redux@3.3.1",
     "redux-thunk": "npm:redux-thunk@1.0.3",
@@ -604,7 +604,7 @@ System.config({
       "systemjs-json": "github:systemjs/plugin-json@0.1.0",
       "zlib": "github:jspm/nodelibs-zlib@0.1.0"
     },
-    "npm:ng2-bs3-modal@0.2.0": {
+    "npm:ng2-bs3-modal@0.2.1": {
       "angular2": "npm:angular2@2.0.0-beta.8",
       "bootstrap": "npm:bootstrap@3.3.6"
     },

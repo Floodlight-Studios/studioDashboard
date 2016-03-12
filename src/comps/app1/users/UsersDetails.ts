@@ -11,6 +11,7 @@ import {SimpleGridTable} from "../../simplegrid/SimpleGridTable";
 import {ISimpleListItem} from "../../simplelist/Simplelist";
 import {MODAL_DIRECTIVES, ModalResult} from 'ng2-bs3-modal/ng2-bs3-modal';
 import {AddUser} from "./AddUser";
+import {SimpleGridRecord} from "../../simplegrid/SimpleGridRecord";
 let _ = require('underscore');
 
 
@@ -56,7 +57,7 @@ let _ = require('underscore');
 
     template: `    
     <div style="position: relative; top: 10px">
-        <a class="btns" href="#" (click)="$event.preventDefault(); updSomeData() ; !simpleGridTable || simpleGridTable.getSelected() == null ? '' : launch.open('lg')" [ngClass]="{disabled: !simpleGridTable || simpleGridTable.getSelected() == null}" href="#"><span class="fa fa-plus"></span></a>
+        <a class="btns" href="#" (click)="$event.preventDefault(); !simpleGridTable || simpleGridTable.getSelected() == null ? '' : launch.open('lg')" [ngClass]="{disabled: !simpleGridTable || simpleGridTable.getSelected() == null}" href="#"><span class="fa fa-plus"></span></a>
         <a class="btns" href="#" (click)="$event.preventDefault(); !simpleGridTable || simpleGridTable.getSelected() == null ? '' : launch.open()" [ngClass]="{disabled: !simpleGridTable || simpleGridTable.getSelected() == null}" href="#"><span class="fa fa-rocket"></span></a>
         <a class="btns" [ngClass]="{disabled: !simpleGridTable || simpleGridTable.getSelected() == null}" href="#"><span class="fa fa-remove"></span></a>
         <a class="btns" [ngClass]="{disabled: !simpleGridTable || simpleGridTable.getSelected() == null}" href="#"><span class="fa fa-key"></span></a>
@@ -65,11 +66,12 @@ let _ = require('underscore');
      <modal #launch [animation]="animationsEnabled" (onClose)="onClose($event)">
         <modal-header [show-close]="true">
             <h4 class="modal-title">
-            <span class="fa fa-user"></span>
-            Add new user</h4>
+              <span class="fa fa-user"></span>
+              Add new user
+            </h4>
         </modal-header>
         <modal-body>
-            <addUser></addUser>
+            <addUser [businessId]="getSelectedBusinessId()"></addUser>
         </modal-body>
         <modal-footer [show-default-buttons]="false"></modal-footer>
     </modal>
@@ -110,30 +112,8 @@ let _ = require('underscore');
 })
 
 export class UsersDetails {
-    public sort:{field:string, desc:boolean} = {field: null, desc: false};
-    private _businesses:List<BusinessModel>;
-    private totalBusinessSelected:number = 0;
-    private someData:number = 1;
 
-    items:string[] = ['item1', 'item2', 'item3'];
-    modalSelected:string;
-    selected:string;
-    animationsEnabled:boolean = true;
-
-    private updSomeData() {
-        this.someData = _.random(1, 10);
-    }
-
-    private onClose(result:ModalResult) {
-        console.log(result);
-    }
-
-    private onLabelEdited(event:ISimpleGridEdit, field) {
-        var newValue = event.value;
-        var businessUser:BusinessUser = event.item as BusinessUser;
-        var oldValue = businessUser.getKey('name');
-        var businessId = businessUser.getBusinessId();
-        this.appStore.dispatch(this.businessActions.setBusinessUserName(businessId, field, {newValue, oldValue}));
+    constructor(private appStore:AppStore, private businessActions:BusinessAction) {
     }
 
     @ViewChild(SimpleGridTable)
@@ -154,27 +134,29 @@ export class UsersDetails {
         }
     }
 
-    constructor(private appStore:AppStore, private businessActions:BusinessAction) {
+    public sort:{field:string, desc:boolean} = {field: null, desc: false};
 
+    private _businesses:List<BusinessModel>;
+    private totalBusinessSelected:number = 0;
+    private someData:number = 1;
+    private animationsEnabled:boolean = true;
+
+    private onClose(result:ModalResult) {
     }
 
-    // ngAfterViewInit() {
-    //     console.log(this.launch);
-    //
-    // }
-    // ngOnInit() {
-    //     var self = this;
-    //     setTimeout(()=>{
-    //         console.log(self.launch);
-    //         try {
-    //             self.launch.close();
-    //         } catch (e){
-    //
-    //         }
-    //     },3000)
-    //
-    //     //self.launch.close();
-    // }
+    private onLabelEdited(event:ISimpleGridEdit, field) {
+        var newValue = event.value;
+        var businessUser:BusinessUser = event.item as BusinessUser;
+        var oldValue = businessUser.getKey('name');
+        var businessId = businessUser.getBusinessId();
+        this.appStore.dispatch(this.businessActions.setBusinessUserName(businessId, field, {newValue, oldValue}));
+    }
+
+    private getSelectedBusinessId():SimpleGridRecord {
+        if (!this.simpleGridTable)
+            return null;
+        return this.simpleGridTable.getSelected();
+    }
 
     private setAccessMask(event) {
         var businessUser:BusinessUser = event.item as BusinessUser;
@@ -207,6 +189,5 @@ export class UsersDetails {
             checks = checks.push(checkBox)
         })
         return checks;
-
     }
 }
