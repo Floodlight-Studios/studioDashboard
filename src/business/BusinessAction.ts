@@ -231,24 +231,19 @@ export class BusinessAction extends Actions {
 
     public addNewBusinessUser(businessUser:BusinessUser) {
         return (dispatch)=> {
-            //todo: add new business user via reducer
-           // BusinessAction.ADD_BUSINESS_USER
-            dispatch({type: ADD_BUSINESS_USER, BusinessUser: businessUser})
-
-            // var appdb:Map<string,any> = this.appStore.getState().appdb;
-            // `&command=AddBusinessUser&businessId=385360&newUserName=d999@ms.com&newUserPassword=123123&privilegeId=11&accessMask=4`
-            // var url = appdb.get('appBaseUrlUser') + `&command=UpdateUserPrivilege&privilegeId=${privilegeId}&accessMask=${accessMask}&customerUserName=${name}`;
-            // this._http.get(url)
-            //     .map(result => {
-            //         var xmlData:string = result.text()
-            //         xmlData = xmlData.replace(/}\)/, '').replace(/\(\{"result":"/, '');
-            //         dispatch(this.savedBusinessUserAccess({
-            //             businessId: businessId,
-            //             privilegeId: privilegeId,
-            //             accessMask: accessMask,
-            //             name: name
-            //         }))
-            //     }).subscribe();
+            var appdb:Map<string,any> = this.appStore.getState().appdb;
+            let businessId = businessUser.getBusinessId();
+            let name = businessUser.getName();
+            let password = businessUser.getPassword();
+            let accessMask = businessUser.getAccessMask();
+            var url = appdb.get('appBaseUrlUser') + `&command=AddBusinessUser&businessId=${businessId}&newUserName=${name}&newUserPassword=${password}&privilegeId=11&accessMask=${accessMask}`
+            console.log(url);
+            this._http.get(url)
+                .map(result => {
+                    var xmlData:string = result.text()
+                    xmlData = xmlData.replace(/}\)/, '').replace(/\(\{"result":"/, '');
+                    dispatch({type: ADD_BUSINESS_USER, BusinessUser: businessUser})
+                }).subscribe();
         }
     }
 

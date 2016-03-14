@@ -22,6 +22,10 @@ export class BusinessUser extends StoreModel {
         return this.getKey('name');
     }
 
+    public getPassword(){
+        return this.getKey('password');
+    }
+
     public privilegeId(){
         return this.getKey('privilegeId');
     }
