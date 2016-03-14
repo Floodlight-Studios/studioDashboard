@@ -9,6 +9,7 @@ import {LocalStorage} from "./services/LocalStorage";
 import {AuthService} from "./services/AuthService";
 import {StoreService} from "./services/StoreService";
 import {BusinessAction} from "./business/BusinessAction";
+import {ResellerAction} from "./reseller/ResellerAction";
 import {CharCount} from "./pipes/CharCount";
 import {bootstrap} from 'angular2/platform/browser';
 import {HTTP_PROVIDERS, JSONP_PROVIDERS} from "angular2/http";
@@ -44,6 +45,7 @@ import notify from "./appdb/NotifyReducer"
 import appdb from "./appdb/AppdbReducer"
 import stations from "./appdb/StationsReducer"
 import {business} from "./business/BusinessReducer"
+import {reseller} from "./reseller/ResellerReducer"
 import {AppdbAction} from "./appdb/AppdbAction";
 import {Welcome} from "./comps/welcome/Welcome";
 // import {enableProdMode} from 'angular2/core';
@@ -109,9 +111,10 @@ export class App {
 
 // enableProdMode();
 bootstrap(App, [ROUTER_PROVIDERS, HTTP_PROVIDERS, JSONP_PROVIDERS,
-    provide(AppStore, {useFactory: Lib.StoreFactory({notify, appdb, business, stations})}),
+    provide(AppStore, {useFactory: Lib.StoreFactory({notify, appdb, business, stations, reseller})}),
     provide(StoreService, {useClass: StoreService}),
     provide(BusinessAction, {useClass: BusinessAction}),
+    provide(ResellerAction, {useClass: ResellerAction}),
     provide(AppdbAction, {useClass: AppdbAction}),
     provide(AuthService, {useClass: AuthService}),
     provide(LocalStorage, {useClass: LocalStorage}),

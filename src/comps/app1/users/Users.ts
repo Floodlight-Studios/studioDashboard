@@ -9,6 +9,7 @@ import {appInjService} from "../../../services/AppInjService";
 import {BusinessUser} from "../../../business/BusinessUser";
 import {Loading} from "../../loading/Loading";
 import {List} from 'immutable';
+import {PrivelegesModel} from "../../../reseller/PrivelegesModel";
 
 @Component({
     selector: 'Users',
@@ -41,18 +42,18 @@ import {List} from 'immutable';
                     <a class="btns" href="#"><span class="fa fa-plus"></span></a>
                     <a class="btns" [ngClass]="{disabled: !businessesListFiltered || businessesListFiltered && businessesListFiltered.size != 1}" href="#"><span class="fa fa-remove"></span></a>
                 </div>
-                <SimpleList *ngIf="businessesUsers" #simpleList [list]="businessesList" 
+                <SimpleList *ngIf="businessesUsers && priveleges" #simpleList [list]="businessesList" 
                     (selected)="onFilteredSelection()"
                     (iconClicked)="onShowUserInfo($event)"
                     [contentId]="getBusinessesId()"
                     [icon]="'fa-user'"
                     [content]="getBusinesses()">
                 </SimpleList>
-                <Loading *ngIf="!businessesUsers" [src]="'assets/preload6.gif'" [style]="{'margin-top': '150px'}"></Loading>
+                <Loading *ngIf="!businessesUsers || !priveleges" [src]="'assets/preload6.gif'" [style]="{'margin-top': '150px'}"></Loading>
              </div>
              <div class="col-xs-9 userView">                
-               <UsersDetails *ngIf="businessesUsers" [showUserInfo]="showUserInfo" [businesses]="businessUsersListFiltered"></UsersDetails>
-               <Loading *ngIf="!businessesUsers" [src]="'assets/preload6.gif'" [style]="{'margin-top': '150px'}"></Loading>
+               <UsersDetails *ngIf="businessesUsers && priveleges" [showUserInfo]="showUserInfo" [businesses]="businessUsersListFiltered"></UsersDetails>
+               <Loading *ngIf="!businessesUsers || !priveleges" [src]="'assets/preload6.gif'" [style]="{'margin-top': '150px'}"></Loading>
              </div>
         </div>
     `
@@ -70,12 +71,15 @@ export class Users {
     private businessesListFiltered:List<BusinessModel>
     private businessUsersListFiltered:List<BusinessUser>;
     private businessesUsers:List<BusinessUser>
+    private priveleges:List<PrivelegesModel>
     private showUserInfo:Object = null;
     private unsub:Function;
     private unsub2:Function;
+    private unsub3:Function;
 
     constructor(private appStore:AppStore) {
         var i_businesses = this.appStore.getState().business;
+        var i_reseller = this.appStore.getState().reseller;
 
         this.businessesList = i_businesses.getIn(['businesses']);
         this.unsub = this.appStore.sub((i_businesses:List<BusinessModel>) => {
@@ -87,6 +91,11 @@ export class Users {
             this.businessesUsers = businessUsers;
             this.onFilteredSelection();
         }, 'business.businessUsers');
+
+        this.priveleges = i_reseller.getIn(['privileges']);
+        this.unsub3 = this.appStore.sub((privelegesModel:List<PrivelegesModel>) => {
+            this.priveleges = privelegesModel;
+        }, 'reseller.privileges');
     }
 
     private onShowUserInfo(selectedBusiness:ISimpleListItem){
@@ -132,6 +141,7 @@ export class Users {
     private ngOnDestroy() {
         this.unsub();
         this.unsub2();
+        this.unsub3();
     }
 }
 

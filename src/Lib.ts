@@ -57,16 +57,20 @@ export class Lib {
     static GetAccessMask(accessMask):List<any> {
         var checks = List();
         var bits = [1, 2, 4, 8, 16, 32, 64, 128];
-        bits.forEach((bit, idx) => {
-            let checked = (bit & accessMask) > 0 ? true : false;
-            var checkBox = {
-                'name': idx,
-                'value': idx,
-                'checked': checked
-            }
-            checks = checks.push(checkBox)
-        })
+        for (var i = 0; i< bits.length; i++){
+            let checked = (bits[i] & accessMask) > 0 ? true : false;
+            checks = checks.push(checked)
+        }
         return checks;
+        // bits.forEach((bit, idx) => {
+        //     let checked = (bit & accessMask) > 0 ? true : false;
+        //     var checkBox = {
+        //         'name': idx,
+        //         'value': idx,
+        //         'checked': checked
+        //     }
+        //     checks = checks.push(checked)
+        // })
     }
 
     static log(msg) {

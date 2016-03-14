@@ -13,6 +13,7 @@ import {MODAL_DIRECTIVES, ModalResult} from 'ng2-bs3-modal/ng2-bs3-modal';
 import {AddUser} from "./AddUser";
 import {SimpleGridRecord} from "../../simplegrid/SimpleGridRecord";
 import {Lib} from "../../../Lib";
+import {PrivelegesModel} from "../../../reseller/PrivelegesModel";
 let _ = require('underscore');
 const bootbox = require('bootbox');
 
@@ -104,9 +105,8 @@ const bootbox = require('bootbox');
                     <td style="width: 10%" simpleGridData (labelEdited)="onLabelEdited($event,'name')" editable="true" field="name" [item]="item"></td>
                     <td style="width: 10%" simpleGridData field="businessId" [item]="item"></td>
                     <td style="width: 10%" simpleGridData field="privilegeId" [item]="item"></td>
-                    <td style="width: 30%" simpleGridDataChecks field="accessMask" (changed)="setAccessMask($event)" [item]="item" [checkboxes]="getAccessMask(item)"></td>
-                    <td style="width: 40%" simpleGridDataDropdown></td>
-                    <!--<td simpleGridData (labelEdited)="onLabelEdited($event,'maxMonitors')" editable="true" field="maxMonitors" [item]="item"></td>-->
+                    <td style="width: 30%" simpleGridDataChecks (changed)="setAccessMask($event)" [item]="item" [checkboxes]="getAccessMask(item)"></td>
+                    <td style="width: 40%" simpleGridDataDropdown (changed)="setPriveleges($event)" [item]="item" [dropdown]="getPriveleges(item)"></td>
                     <!-- <td simpleGridDataImage color="dodgerblue" [field]="item.getKey('studioLite') == '0' ? 'fa-circle' : 'fa-circle-o'" [item]="item"></td> -->
               </tr>
               </tbody>                 
@@ -138,8 +138,14 @@ export class UsersDetails {
         }
     }
 
+    @Input()
+    set priveleges(i_priveleges) {
+        this.m_priveleges = i_priveleges;
+    }
+
     public sort:{field:string, desc:boolean} = {field: null, desc: false};
     private m_businesses:List<BusinessModel>;
+    private m_priveleges:List<PrivelegesModel>;
     private totalBusinessSelected:number = 0;
     private animationsEnabled:boolean = true;
 
@@ -170,6 +176,14 @@ export class UsersDetails {
         return selected ? this.simpleGridTable.getSelected().item : '';
     }
 
+    private setPriveleges(event){
+
+    }
+
+    private getPriveleges(businessUser:BusinessUser) {
+        let name = businessUser.getBusinessId();
+    }
+
     private setAccessMask(event) {
         var businessUser:BusinessUser = event.item as BusinessUser;
         var businessId = businessUser.getBusinessId();
@@ -178,32 +192,10 @@ export class UsersDetails {
         var accessMask = event.value;
         var computedAccessMask = Lib.ComputeAccessMask(accessMask);
         this.appStore.dispatch(this.businessActions.saveBusinessUserAccess(businessId, name, computedAccessMask, privilegeId));
-
-        // var bits = [1, 2, 4, 8, 16, 32, 64, 128];
-        // var computedAccessMask = 0;
-        // accessMask.forEach(value=> {
-        //     var bit = bits.shift();
-        //     if (value)
-        //         computedAccessMask = computedAccessMask + bit;
-        //
-        // })
     }
 
     private getAccessMask(businessUser:BusinessUser) {
         var accessMask = businessUser.getAccessMask();
         return Lib.GetAccessMask(accessMask);
-
-        // var checks = List();
-        // var bits = [1, 2, 4, 8, 16, 32, 64, 128];
-        // bits.forEach((bit, idx) => {
-        //     let checked = (bit & accessMask) > 0 ? true : false;
-        //     var checkBox = {
-        //         'name': idx,
-        //         'value': idx,
-        //         'checked': checked
-        //     }
-        //     checks = checks.push(checkBox)
-        // })
-        // return checks;
     }
 }

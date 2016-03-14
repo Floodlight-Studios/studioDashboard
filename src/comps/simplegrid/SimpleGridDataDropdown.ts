@@ -34,15 +34,15 @@ import {StoreModel} from "../../models/StoreModel";
 })
 export class SimpleGridDataDropdown {
 
-    private m_checkboxes:List<any>
+    private m_dropdown:List<any>
     private m_storeModel:StoreModel;
 
     @ViewChildren('checkInputs')
     inputs:QueryList<any>
 
     @Input()
-    set checkboxes(i_checkboxes:List<any>) {
-        this.m_checkboxes = i_checkboxes
+    set dropdown(i_dropdown:List<any>) {
+        this.m_dropdown = i_dropdown
     }
 
     @Input()

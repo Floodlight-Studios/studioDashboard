@@ -37,9 +37,6 @@ export class SimpleGridTable {
         console.log(`user selected ${rec.getBusinessId()}  ${rec.getName()} ${rec.getAccessMask()}`);
     }
 
-    /**
-     * Deselect the currently selected UI, but keep current selection in selected var
-     */
     public deselect(){
         this.selected = null;
         this.simpleGridRecord.map((i_simpleGridRecord:SimpleGridRecord) => {

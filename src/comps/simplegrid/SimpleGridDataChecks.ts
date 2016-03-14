@@ -15,7 +15,7 @@ import {StoreModel} from "../../models/StoreModel";
     template: `        
         <div *ngFor="#item of m_checkboxes">
           <label class="pull-left">{{item.name}}</label>
-          <Input #checkInputs type="checkbox" [checked]="item.checked" value="{{item.value}}" class="pull-left" style="margin-right: 2px">
+          <Input #checkInputs type="checkbox" [checked]="item" value="{{item}}" class="pull-left" style="margin-right: 2px">
         </div>
     `
 })
