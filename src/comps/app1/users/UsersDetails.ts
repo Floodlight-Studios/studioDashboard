@@ -14,7 +14,7 @@ import {AddUser} from "./AddUser";
 import {SimpleGridRecord} from "../../simplegrid/SimpleGridRecord";
 import {Lib} from "../../../Lib";
 let _ = require('underscore');
-
+const bootbox = require('bootbox');
 
 // https://github.com/dougludlow/ng2-bs3-modal
 
@@ -63,7 +63,7 @@ let _ = require('underscore');
     <div style="position: relative; top: 10px">
         <a class="btns" href="#" (click)="$event.preventDefault(); !simpleGridTable || simpleGridTable.getSelected() == null ? '' : launch.open('lg')" [ngClass]="{disabled: !simpleGridTable || simpleGridTable.getSelected() == null}" href="#"><span class="fa fa-plus"></span></a>
         <a class="btns" href="#" (click)="$event.preventDefault(); !simpleGridTable || simpleGridTable.getSelected() == null ? '' : launch.open()" [ngClass]="{disabled: !simpleGridTable || simpleGridTable.getSelected() == null}" href="#"><span class="fa fa-rocket"></span></a>
-        <a class="btns" [ngClass]="{disabled: !simpleGridTable || simpleGridTable.getSelected() == null}" href="#"><span class="fa fa-remove"></span></a>
+        <a class="btns" href="#" (click)="$event.preventDefault(); !simpleGridTable || simpleGridTable.getSelected() == null ? '' : removeBusinessUser()" [ngClass]="{disabled: !simpleGridTable || simpleGridTable.getSelected() == null}" href="#"><span class="fa fa-remove"></span></a>
         <a class="btns" [ngClass]="{disabled: !simpleGridTable || simpleGridTable.getSelected() == null}" href="#"><span class="fa fa-key"></span></a>
     </div>
     <hr/>
@@ -75,7 +75,7 @@ let _ = require('underscore');
             </h4>
         </modal-header>
         <modal-body>
-            <addUser [businessModel]="selectedBusinessModel()"></addUser>
+            <addUser [businessModel]="selectedBusinessUser()"></addUser>
         </modal-body>
         <modal-footer [show-default-buttons]="false"></modal-footer>
     </modal>
@@ -146,6 +146,15 @@ export class UsersDetails {
     private onClose(result:ModalResult) {
     }
 
+    private removeBusinessUser(){
+        var businessUser:BusinessUser = this.selectedBusinessUser();
+        bootbox.confirm(`Are you sure you want to remove the user ${businessUser.getName()}?`, (result) => {
+            if (result){
+                this.appStore.dispatch(this.businessActions.removeBusinessUser(businessUser));
+            }
+        });
+    }
+
     private onLabelEdited(event:ISimpleGridEdit, field) {
         var newValue = event.value;
         var businessUser:BusinessUser = event.item as BusinessUser;
@@ -154,7 +163,7 @@ export class UsersDetails {
         this.appStore.dispatch(this.businessActions.setBusinessUserName(businessId, field, {newValue, oldValue}));
     }
 
-    private selectedBusinessModel():BusinessModel {
+    private selectedBusinessUser():BusinessUser {
         if (!this.simpleGridTable)
             return null;
         let selected:SimpleGridRecord = this.simpleGridTable.getSelected();

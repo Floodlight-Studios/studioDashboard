@@ -62,8 +62,12 @@ export function business(state:Map<string,any> = Map<string,any>(), action:any):
             return state.setIn(['businessUsers'], businessUsers);
         }
 
-        //case 'REMOVE':
-        //    return List<BusinessModel>(state.filter((i: BusinessModel) => i.uuid !== action.itemId));
+        case BusinessAction.REMOVE_BUSINESS_USER:
+        {
+            var businessUsers:List<BusinessUser> = state.getIn(['businessUsers'])
+            var updatedBusinessUsers:List<BusinessUser> = businessUsers.filter((businessUser: BusinessUser) => businessUser.getName() !== action.BusinessUser.getName()) as List<BusinessUser>;
+            return state.setIn(['businessUsers'], updatedBusinessUsers);
+        }
 
         default:
             return state;

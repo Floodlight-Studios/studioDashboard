@@ -5,6 +5,7 @@ import {BusinessModel} from "./BusinessModel";
 import {List} from 'immutable';
 import {BusinessUser} from "./BusinessUser";
 import {Subject} from "rxjs/Subject";
+const bootbox = require('bootbox');
 
 export const REQUEST_BUSINESS_USER = 'REQUEST_BUSINESS_USER';
 export const RECEIVE_BUSINESS_USER = 'RECEIVE_BUSINESS_USER';
@@ -15,6 +16,7 @@ export const SET_BUSINESS_DATA = 'SET_BUSINESS_DATA';
 export const CHANGE_BUSINESS_USER_NAME = 'CHANGE_BUSINESS_USER_NAME';
 export const SET_BUSINESS_USER_ACCESS = 'SET_BUSINESS_USER_ACCESS';
 export const ADD_BUSINESS_USER = 'ADD_BUSINESS_USER';
+export const REMOVE_BUSINESS_USER = 'REMOVE_BUSINESS_USER';
 
 @Injectable()
 export class BusinessAction extends Actions {
@@ -237,12 +239,32 @@ export class BusinessAction extends Actions {
             let password = businessUser.getPassword();
             let accessMask = businessUser.getAccessMask();
             var url = appdb.get('appBaseUrlUser') + `&command=AddBusinessUser&businessId=${businessId}&newUserName=${name}&newUserPassword=${password}&privilegeId=11&accessMask=${accessMask}`
-            console.log(url);
             this._http.get(url)
                 .map(result => {
-                    var xmlData:string = result.text()
-                    xmlData = xmlData.replace(/}\)/, '').replace(/\(\{"result":"/, '');
-                    dispatch({type: ADD_BUSINESS_USER, BusinessUser: businessUser})
+                    var jData:string = result.text()
+                    jData = jData.replace(/}\)/, '').replace(/\(\{"result":"/, '');
+                    if (jData.indexOf('true') > -1 ){
+                        dispatch({type: ADD_BUSINESS_USER, BusinessUser: businessUser})
+                    } else {
+                        bootbox.alert('Problem adding user, this user name may be already taken');
+                    }
+                }).subscribe();
+        }
+    }
+
+    public removeBusinessUser(businessUser:BusinessUser) {
+        return (dispatch)=> {
+            var appdb:Map<string,any> = this.appStore.getState().appdb;
+            var url = appdb.get('appBaseUrlUser') + `&command=RemoveBusinessUser&customerUserName=${businessUser.getName()}`
+            this._http.get(url)
+                .map(result => {
+                    var jData:string = result.text()
+                    jData = jData.replace(/}\)/, '').replace(/\(\{"result":"/, '');
+                    if (jData.indexOf('true') > -1 ){
+                        dispatch({type: REMOVE_BUSINESS_USER, BusinessUser: businessUser})
+                    } else {
+                        bootbox.alert('Problem removing user');
+                    }
                 }).subscribe();
         }
     }
