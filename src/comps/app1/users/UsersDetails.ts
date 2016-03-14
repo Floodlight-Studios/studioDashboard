@@ -12,6 +12,7 @@ import {ISimpleListItem} from "../../simplelist/Simplelist";
 import {MODAL_DIRECTIVES, ModalResult} from 'ng2-bs3-modal/ng2-bs3-modal';
 import {AddUser} from "./AddUser";
 import {SimpleGridRecord} from "../../simplegrid/SimpleGridRecord";
+import {Lib} from "../../../Lib";
 let _ = require('underscore');
 
 
@@ -166,30 +167,34 @@ export class UsersDetails {
         var name = businessUser.getName();
         var privilegeId = businessUser.privilegeId();
         var accessMask = event.value;
-        var bits = [1, 2, 4, 8, 16, 32, 64, 128];
-        var computedAccessMask = 0;
-        accessMask.forEach(value=> {
-            var bit = bits.shift();
-            if (value)
-                computedAccessMask = computedAccessMask + bit;
-
-        })
+        var computedAccessMask = Lib.ComputeAccessMask(accessMask);
         this.appStore.dispatch(this.businessActions.saveBusinessUserAccess(businessId, name, computedAccessMask, privilegeId));
+
+        // var bits = [1, 2, 4, 8, 16, 32, 64, 128];
+        // var computedAccessMask = 0;
+        // accessMask.forEach(value=> {
+        //     var bit = bits.shift();
+        //     if (value)
+        //         computedAccessMask = computedAccessMask + bit;
+        //
+        // })
     }
 
     private getAccessMask(businessUser:BusinessUser) {
         var accessMask = businessUser.getAccessMask();
-        var checks = List();
-        var bits = [1, 2, 4, 8, 16, 32, 64, 128];
-        bits.forEach((bit, idx) => {
-            let checked = (bit & accessMask) > 0 ? true : false;
-            var checkBox = {
-                'name': idx,
-                'value': idx,
-                'checked': checked
-            }
-            checks = checks.push(checkBox)
-        })
-        return checks;
+        return Lib.GetAccessMask(accessMask);
+
+        // var checks = List();
+        // var bits = [1, 2, 4, 8, 16, 32, 64, 128];
+        // bits.forEach((bit, idx) => {
+        //     let checked = (bit & accessMask) > 0 ? true : false;
+        //     var checkBox = {
+        //         'name': idx,
+        //         'value': idx,
+        //         'checked': checked
+        //     }
+        //     checks = checks.push(checkBox)
+        // })
+        // return checks;
     }
 }

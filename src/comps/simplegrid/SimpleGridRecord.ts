@@ -11,10 +11,10 @@ import {SimpleGridTable} from "./SimpleGridTable";
 export class SimpleGridRecord {
     private m_table:SimpleGridTable
     private m_index;
-    
+
     @Input()
     item;
-    
+
     @Input()
     set table(i_table) {
         this.m_table = i_table;

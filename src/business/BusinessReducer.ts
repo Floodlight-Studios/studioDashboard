@@ -54,9 +54,17 @@ export function business(state:Map<string,any> = Map<string,any>(), action:any):
             });
             return state.setIn(['businessUsers'], businessUsers);
         }
-            
+
+        case BusinessAction.ADD_BUSINESS_USER:
+        {
+            var businessUsers:List<BusinessUser> = state.getIn(['businessUsers'])
+            businessUsers = businessUsers.push(action.BusinessUser);
+            return state.setIn(['businessUsers'], businessUsers);
+        }
+
         //case 'REMOVE':
         //    return List<BusinessModel>(state.filter((i: BusinessModel) => i.uuid !== action.itemId));
+
         default:
             return state;
     }

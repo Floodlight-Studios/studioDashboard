@@ -14,6 +14,7 @@ export const RECEIVE_BUSINESSES_STATS = 'RECEIVE_BUSINESSES_STATS';
 export const SET_BUSINESS_DATA = 'SET_BUSINESS_DATA';
 export const CHANGE_BUSINESS_USER_NAME = 'CHANGE_BUSINESS_USER_NAME';
 export const SET_BUSINESS_USER_ACCESS = 'SET_BUSINESS_USER_ACCESS';
+export const ADD_BUSINESS_USER = 'ADD_BUSINESS_USER';
 
 @Injectable()
 export class BusinessAction extends Actions {
@@ -52,6 +53,7 @@ export class BusinessAction extends Actions {
                                 const businessUser:BusinessUser = new BusinessUser({
                                     accessMask: business._attr.accessMask,
                                     privilegeId: business._attr.privilegeId,
+                                    password: '',
                                     name: business._attr.name,
                                     businessId: business._attr.businessId,
                                 });
@@ -224,6 +226,29 @@ export class BusinessAction extends Actions {
                         name: name
                     }))
                 }).subscribe();
+        }
+    }
+
+    public addNewBusinessUser(businessUser:BusinessUser) {
+        return (dispatch)=> {
+            //todo: add new business user via reducer
+           // BusinessAction.ADD_BUSINESS_USER
+            dispatch({type: ADD_BUSINESS_USER, BusinessUser: businessUser})
+
+            // var appdb:Map<string,any> = this.appStore.getState().appdb;
+            // `&command=AddBusinessUser&businessId=385360&newUserName=d999@ms.com&newUserPassword=123123&privilegeId=11&accessMask=4`
+            // var url = appdb.get('appBaseUrlUser') + `&command=UpdateUserPrivilege&privilegeId=${privilegeId}&accessMask=${accessMask}&customerUserName=${name}`;
+            // this._http.get(url)
+            //     .map(result => {
+            //         var xmlData:string = result.text()
+            //         xmlData = xmlData.replace(/}\)/, '').replace(/\(\{"result":"/, '');
+            //         dispatch(this.savedBusinessUserAccess({
+            //             businessId: businessId,
+            //             privilegeId: privilegeId,
+            //             accessMask: accessMask,
+            //             name: name
+            //         }))
+            //     }).subscribe();
         }
     }
 

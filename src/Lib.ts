@@ -4,8 +4,11 @@ import {Injectable} from 'angular2/core';
 import {createStore, combineReducers, applyMiddleware, compose} from "redux";
 import * as thunkMiddleware from 'redux-thunk';
 import {AppStore} from "angular2-redux-util";
+import {List} from 'immutable';
+
 
 import {LoggerMiddleware} from "angular2-redux-util";
+import {BusinessUser} from "./business/BusinessUser";
 
 @Injectable()
 export class Lib {
@@ -37,6 +40,33 @@ export class Lib {
         //        alert(JSON.stringify(e));
         //        return System.import('App1').then(c => c[name]);
         //    });
+    }
+
+    static ComputeAccessMask(accessMask):number {
+        var bits = [1, 2, 4, 8, 16, 32, 64, 128];
+        var computedAccessMask = 0;
+        accessMask.forEach(value=> {
+            var bit = bits.shift();
+            if (value)
+                computedAccessMask = computedAccessMask + bit;
+
+        })
+        return computedAccessMask;
+    }
+
+    static GetAccessMask(accessMask):List<any> {
+        var checks = List();
+        var bits = [1, 2, 4, 8, 16, 32, 64, 128];
+        bits.forEach((bit, idx) => {
+            let checked = (bit & accessMask) > 0 ? true : false;
+            var checkBox = {
+                'name': idx,
+                'value': idx,
+                'checked': checked
+            }
+            checks = checks.push(checkBox)
+        })
+        return checks;
     }
 
     static log(msg) {
