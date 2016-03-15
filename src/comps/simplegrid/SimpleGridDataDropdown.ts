@@ -37,7 +37,7 @@ export class SimpleGridDataDropdown {
     private m_storeModel:StoreModel;
     private m_field:string = '';
     private value:string = '';
-    private m_testSelection:(dropItem:any, storeModel:StoreModel)=>'checked'|'';
+    private m_testSelection:Function;
 
     @ViewChildren('checkInputs')
     inputs:QueryList<any>

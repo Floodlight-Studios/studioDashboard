@@ -17,8 +17,6 @@ import {PrivelegesModel} from "../../../reseller/PrivelegesModel";
 let _ = require('underscore');
 const bootbox = require('bootbox');
 
-// https://github.com/dougludlow/ng2-bs3-modal
-
 @Component({
     selector: 'UsersDetails',
     changeDetection: ChangeDetectionStrategy.OnPush,
