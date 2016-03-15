@@ -14,17 +14,10 @@ import {StoreModel} from "../../models/StoreModel";
     `],
     template: `   
                <div class="btn-group">
-                  <div>
-                        <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
-                        <span>Scrollable Menu this is a test 12</span> <span class="caret"></span></button>
-                        <ul class="dropdown-menu scrollable-menu scrollbar" role="menu" >
-                            <li><a href="#">Drop10</a></li>
-                            <li><a href="#">Drop11</a></li>
-                            <li><a href="#">Drop12</a></li>
-                            <li><a href="#">Drop13</a></li>
-                            <li><a href="#">Drop14</a></li>
-                        </ul>
-                        </div>
+                    <!--<select class="form-control longInput" [ngFormControl]="notesForm.controls['privileges']">-->
+                    <select class="form-control longInput">
+                      <option *ngFor="#dropItem of m_dropdown" [selected]="getSelected(dropItem)">{{dropItem.getKey(m_field)}}</option>
+                    </select>
                </div>
         <!--<div *ngFor="#item of m_checkboxes">-->
           <!--<label class="pull-left">{{item.name}}</label>-->
@@ -36,6 +29,9 @@ export class SimpleGridDataDropdown {
 
     private m_dropdown:List<any>
     private m_storeModel:StoreModel;
+    private m_field:string = '';
+    private value:string = '';
+    private m_testSelection:(dropItem:any, storeModel:StoreModel)=>'checked'|'';
 
     @ViewChildren('checkInputs')
     inputs:QueryList<any>
@@ -50,6 +46,16 @@ export class SimpleGridDataDropdown {
         this.m_storeModel = i_storeModel
     }
 
+    @Input()
+    set field(i_field) {
+        this.m_field = i_field;
+    }
+
+    @Input()
+    set testSelection(i_testSelection:(dropItem:any, storeModel:StoreModel)=>'checked'|'') {
+        this.m_testSelection = i_testSelection;
+    }
+
     @Output()
     changed:EventEmitter<any> = new EventEmitter();
 
@@ -61,6 +67,13 @@ export class SimpleGridDataDropdown {
         });
         this.changed.next({item: this.m_storeModel, value: values});
         return true;
+    }
+
+    private getSelected(i_dropItem):string {
+        if (this.m_testSelection) {
+            return this.m_testSelection(i_dropItem, this.m_storeModel);
+        }
+        return '';
     }
 }
 

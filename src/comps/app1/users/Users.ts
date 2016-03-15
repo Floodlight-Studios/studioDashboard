@@ -52,7 +52,7 @@ import {PrivelegesModel} from "../../../reseller/PrivelegesModel";
                 <Loading *ngIf="!businessesUsers || !priveleges" [src]="'assets/preload6.gif'" [style]="{'margin-top': '150px'}"></Loading>
              </div>
              <div class="col-xs-9 userView">                
-               <UsersDetails *ngIf="businessesUsers && priveleges" [showUserInfo]="showUserInfo" [businesses]="businessUsersListFiltered"></UsersDetails>
+               <UsersDetails *ngIf="businessesUsers && priveleges" [showUserInfo]="showUserInfo" [priveleges]="priveleges" [businesses]="businessUsersListFiltered"></UsersDetails>
                <Loading *ngIf="!businessesUsers || !priveleges" [src]="'assets/preload6.gif'" [style]="{'margin-top': '150px'}"></Loading>
              </div>
         </div>

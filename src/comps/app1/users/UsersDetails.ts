@@ -106,7 +106,7 @@ const bootbox = require('bootbox');
                     <td style="width: 10%" simpleGridData field="businessId" [item]="item"></td>
                     <td style="width: 10%" simpleGridData field="privilegeId" [item]="item"></td>
                     <td style="width: 30%" simpleGridDataChecks (changed)="setAccessMask($event)" [item]="item" [checkboxes]="getAccessMask(item)"></td>
-                    <td style="width: 40%" simpleGridDataDropdown (changed)="setPriveleges($event)" [item]="item" [dropdown]="getPriveleges(item)"></td>
+                    <td style="width: 40%" simpleGridDataDropdown [testSelection]="selectedPriveleges()" (changed)="setPriveleges($event)" field="name" [item]="item" [dropdown]="m_priveleges"></td>
                     <!-- <td simpleGridDataImage color="dodgerblue" [field]="item.getKey('studioLite') == '0' ? 'fa-circle' : 'fa-circle-o'" [item]="item"></td> -->
               </tr>
               </tbody>                 
@@ -152,10 +152,10 @@ export class UsersDetails {
     private onClose(result:ModalResult) {
     }
 
-    private removeBusinessUser(){
+    private removeBusinessUser() {
         var businessUser:BusinessUser = this.selectedBusinessUser();
         bootbox.confirm(`Are you sure you want to remove the user ${businessUser.getName()}?`, (result) => {
-            if (result){
+            if (result) {
                 this.appStore.dispatch(this.businessActions.removeBusinessUser(businessUser));
             }
         });
@@ -176,12 +176,17 @@ export class UsersDetails {
         return selected ? this.simpleGridTable.getSelected().item : '';
     }
 
-    private setPriveleges(event){
-
+    private setPriveleges(event) {
     }
 
     private getPriveleges(businessUser:BusinessUser) {
         let name = businessUser.getBusinessId();
+    }
+
+    private selectedPriveleges() {
+        return (privelegesModel:PrivelegesModel, businessUser:BusinessUser) => {
+            return businessUser.getKey('privilegeId') == privelegesModel.getKey('privilegesId') ? 'selected' : '';
+        }
     }
 
     private setAccessMask(event) {
