@@ -56,6 +56,7 @@ export class AddUser {
     @Input()
     priveleges:Array<PrivelegesModel> = [];
 
+    private privilegeName:string = '';
     private notesForm:ControlGroup;
     private userName:AbstractControl;
     private passwordGroup;
@@ -106,12 +107,22 @@ export class AddUser {
         );
     }
 
+    private onPriveleges(event) {
+        this.privilegeName = event.target.value;
+    }
+
     private onSubmit(event) {
-        // console.log(`Form data businessId: ${this.businessModel.getBusinessId()} ${JSON.stringify(event)}`);
+        let privilegeId = '-1';
         let computedAccessMask = Lib.ComputeAccessMask(this.accessKeys);
+        var privileges:Array<PrivelegesModel> = this.appStore.getState().reseller.getIn(['privileges']);
+        privileges.forEach((privelegesModel:PrivelegesModel)=>{
+            if (privelegesModel.getName() == this.privilegeName){
+                privilegeId = privelegesModel.getPrivelegesId();
+            }
+        })
         const businessUser:BusinessUser = new BusinessUser({
             accessMask: computedAccessMask,
-            privilegeId: 0,
+            privilegeId: privilegeId,
             password: event.matchingPassword.password,
             name: event.userName,
             businessId: this.businessModel.getBusinessId(),

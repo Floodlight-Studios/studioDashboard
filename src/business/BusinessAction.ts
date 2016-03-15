@@ -238,7 +238,8 @@ export class BusinessAction extends Actions {
             let name = businessUser.getName();
             let password = businessUser.getPassword();
             let accessMask = businessUser.getAccessMask();
-            var url = appdb.get('appBaseUrlUser') + `&command=AddBusinessUser&businessId=${businessId}&newUserName=${name}&newUserPassword=${password}&privilegeId=11&accessMask=${accessMask}`
+            let privilegeId = businessUser.privilegeId();
+            var url = appdb.get('appBaseUrlUser') + `&command=AddBusinessUser&businessId=${businessId}&newUserName=${name}&newUserPassword=${password}&privilegeId=${privilegeId}&accessMask=${accessMask}`
             this._http.get(url)
                 .map(result => {
                     var jData:string = result.text()

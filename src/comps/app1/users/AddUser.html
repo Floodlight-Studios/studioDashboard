@@ -24,7 +24,7 @@
               </li>
               <li class="list-group-item">
                 <!--<input type="text" class="longInput form-control" placeholder="privileges" required [ngFormControl]="notesForm.controls['privileges']">-->
-                <select class="form-control longInput" [ngFormControl]="notesForm.controls['privileges']">
+                <select class="form-control longInput" (change)="onPriveleges($event)" [ngFormControl]="notesForm.controls['privileges']">
                   <option *ngFor="#item of priveleges">{{item.getKey('name')}}</option>
                 </select>
               </li>
