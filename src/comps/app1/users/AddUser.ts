@@ -48,7 +48,7 @@ export class AddUser {
         this.observeFormChange();
     }
 
-    private accessKeys:Array<boolean> = [false,false,false,false,false,false,false,false];
+    private accessKeys:Array<boolean> = [false, false, false, false, false, false, false, false];
 
     @Input()
     businessModel:BusinessModel;
@@ -115,8 +115,8 @@ export class AddUser {
         let privilegeId = '-1';
         let computedAccessMask = Lib.ComputeAccessMask(this.accessKeys);
         var privileges:Array<PrivelegesModel> = this.appStore.getState().reseller.getIn(['privileges']);
-        privileges.forEach((privelegesModel:PrivelegesModel)=>{
-            if (privelegesModel.getName() == this.privilegeName){
+        privileges.forEach((privelegesModel:PrivelegesModel)=> {
+            if (privelegesModel.getName() == this.privilegeName) {
                 privilegeId = privelegesModel.getPrivelegesId();
             }
         })

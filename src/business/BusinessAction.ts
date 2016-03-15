@@ -213,7 +213,7 @@ export class BusinessAction extends Actions {
         }
     }
 
-    public saveBusinessUserAccess(businessId:string, name:any, accessMask:number, privilegeId:number) {
+    public updateBusinessUserAccess(businessId:string, name:any, accessMask:number, privilegeId:number) {
         return (dispatch)=> {
             var appdb:Map<string,any> = this.appStore.getState().appdb;
             var url = appdb.get('appBaseUrlUser') + `&command=UpdateUserPrivilege&privilegeId=${privilegeId}&accessMask=${accessMask}&customerUserName=${name}`;
@@ -232,6 +232,27 @@ export class BusinessAction extends Actions {
     }
 
     public addNewBusinessUser(businessUser:BusinessUser) {
+        return (dispatch)=> {
+            var appdb:Map<string,any> = this.appStore.getState().appdb;
+            let businessId = businessUser.getBusinessId();
+            let name = businessUser.getName();
+            let password = businessUser.getPassword();
+            let accessMask = businessUser.getAccessMask();
+            let privilegeId = businessUser.privilegeId();
+            var url = appdb.get('appBaseUrlUser') + `&command=AddBusinessUser&businessId=${businessId}&newUserName=${name}&newUserPassword=${password}&privilegeId=${privilegeId}&accessMask=${accessMask}`
+            this._http.get(url)
+                .map(result => {
+                    var jData:string = result.text()
+                    jData = jData.replace(/}\)/, '').replace(/\(\{"result":"/, '');
+                    if (jData.indexOf('true') > -1 ){
+                        dispatch({type: ADD_BUSINESS_USER, BusinessUser: businessUser})
+                    } else {
+                        bootbox.alert('Problem adding user, this user name may be already taken');
+                    }
+                }).subscribe();
+        }
+    }
+    public updateBusinessUser(businessUser:BusinessUser, field:string, value:any) {
         return (dispatch)=> {
             var appdb:Map<string,any> = this.appStore.getState().appdb;
             let businessId = businessUser.getBusinessId();

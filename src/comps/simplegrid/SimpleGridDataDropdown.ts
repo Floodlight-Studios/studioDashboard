@@ -21,7 +21,7 @@ import {StoreModel} from "../../models/StoreModel";
     template: `   
                <div class="btn-group">
                     <!--<select class="form-control longInput" [ngFormControl]="notesForm.controls['privileges']">-->
-                    <select class="form-control custom longInput">
+                    <select (change)="onChanges($event)" class="form-control custom longInput">
                       <option *ngFor="#dropItem of m_dropdown" [selected]="getSelected(dropItem)">{{dropItem.getKey(m_field)}}</option>
                     </select>
                </div>
@@ -65,14 +65,8 @@ export class SimpleGridDataDropdown {
     @Output()
     changed:EventEmitter<any> = new EventEmitter();
 
-    @HostListener('click', ['$event'])
-    onClick(e) {
-        let values = []
-        this.inputs.map(v=> {
-            values.push(v.nativeElement.checked);
-        });
-        this.changed.next({item: this.m_storeModel, value: values});
-        return true;
+    onChanges(event) {
+        this.changed.next({item: this.m_storeModel, value: event.target.value});
     }
 
     private getSelected(i_dropItem):string {

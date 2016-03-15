@@ -175,15 +175,24 @@ export class UsersDetails {
     }
 
     private setPriveleges(event) {
-    }
-
-    private getPriveleges(businessUser:BusinessUser) {
-        let name = businessUser.getBusinessId();
+        let privilegeId = -1;
+        let privelegesName:string = event.value;
+        var businessUser:BusinessUser = event.item as BusinessUser;
+        var businessId = businessUser.getBusinessId();
+        var name = businessUser.getName();
+        var accessMask = businessUser.getAccessMask();
+        var privileges:Array<PrivelegesModel> = this.appStore.getState().reseller.getIn(['privileges']);
+        privileges.forEach((privelegesModel:PrivelegesModel)=> {
+            if (privelegesModel.getName() == privelegesName) {
+                privilegeId = privelegesModel.getPrivelegesId();
+            }
+        })
+        this.appStore.dispatch(this.businessActions.updateBusinessUserAccess(businessId, name, accessMask, privilegeId));
     }
 
     private selectedPriveleges() {
         return (privelegesModel:PrivelegesModel, businessUser:BusinessUser) => {
-            return businessUser.getKey('privilegeId') == privelegesModel.getKey('privilegesId') ? 'selected' : '';
+            return businessUser.privilegeId() == privelegesModel.getPrivelegesId() ? 'selected' : '';
         }
     }
 
@@ -194,7 +203,7 @@ export class UsersDetails {
         var privilegeId = businessUser.privilegeId();
         var accessMask = event.value;
         var computedAccessMask = Lib.ComputeAccessMask(accessMask);
-        this.appStore.dispatch(this.businessActions.saveBusinessUserAccess(businessId, name, computedAccessMask, privilegeId));
+        this.appStore.dispatch(this.businessActions.updateBusinessUserAccess(businessId, name, computedAccessMask, privilegeId));
     }
 
     private getAccessMask(businessUser:BusinessUser) {
