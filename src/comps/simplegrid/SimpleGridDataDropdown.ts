@@ -11,11 +11,17 @@ import {StoreModel} from "../../models/StoreModel";
         i {
             cursor: pointer;
          }    
+        
+        .select button {width:100%; text-align:left;}
+        .select .caret {position:absolute; right:10px; margin-top:10px;}
+        .select:last-child>.btn {border-top-left-radius:5px; border-bottom-left-radius:5px;}
+        .selected {padding-right:10px;}
+        .option {width:100%;}
     `],
     template: `   
                <div class="btn-group">
                     <!--<select class="form-control longInput" [ngFormControl]="notesForm.controls['privileges']">-->
-                    <select class="form-control longInput">
+                    <select class="form-control custom longInput">
                       <option *ngFor="#dropItem of m_dropdown" [selected]="getSelected(dropItem)">{{dropItem.getKey(m_field)}}</option>
                     </select>
                </div>
