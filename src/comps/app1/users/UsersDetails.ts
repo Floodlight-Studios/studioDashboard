@@ -76,7 +76,7 @@ const bootbox = require('bootbox');
             </h4>
         </modal-header>
         <modal-body>
-            <addUser [businessModel]="selectedBusinessUser()"></addUser>
+            <addUser [businessModel]="selectedBusinessUser()" [priveleges]="m_priveleges"></addUser>
         </modal-body>
         <modal-footer [show-default-buttons]="false"></modal-footer>
     </modal>
@@ -145,7 +145,7 @@ export class UsersDetails {
 
     public sort:{field:string, desc:boolean} = {field: null, desc: false};
     private m_businesses:List<BusinessModel>;
-    private m_priveleges:List<PrivelegesModel>;
+    private m_priveleges:Array<PrivelegesModel>;
     private totalBusinessSelected:number = 0;
     private animationsEnabled:boolean = true;
 

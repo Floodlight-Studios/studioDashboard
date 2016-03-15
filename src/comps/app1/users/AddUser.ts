@@ -9,6 +9,7 @@ import {BusinessUser} from "../../../business/BusinessUser";
 import {Lib} from "../../../Lib";
 import {AppStore} from "angular2-redux-util/dist/index";
 import {BusinessAction} from "../../../business/BusinessAction";
+import {PrivelegesModel} from "../../../reseller/PrivelegesModel";
 
 
 @Component({
@@ -51,6 +52,9 @@ export class AddUser {
 
     @Input()
     businessModel:BusinessModel;
+
+    @Input()
+    priveleges:Array<PrivelegesModel> = [];
 
     private notesForm:ControlGroup;
     private userName:AbstractControl;
