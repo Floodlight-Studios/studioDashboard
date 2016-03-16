@@ -11,6 +11,7 @@ import {SimpleGridTable} from "../../simplegrid/SimpleGridTable";
 import {ISimpleListItem} from "../../simplelist/Simplelist";
 import {MODAL_DIRECTIVES, ModalResult} from 'ng2-bs3-modal/ng2-bs3-modal';
 import {AddUser} from "./AddUser";
+import {ChangePass} from "./ChangePass";
 import {SimpleGridRecord} from "../../simplegrid/SimpleGridRecord";
 import {Lib} from "../../../Lib";
 import {PrivelegesModel} from "../../../reseller/PrivelegesModel";
@@ -20,7 +21,7 @@ const bootbox = require('bootbox');
 @Component({
     selector: 'UsersDetails',
     changeDetection: ChangeDetectionStrategy.OnPush,
-    directives: [SIMPLEGRID_DIRECTIVES, UserInfo, AddUser, MODAL_DIRECTIVES],
+    directives: [SIMPLEGRID_DIRECTIVES, UserInfo, AddUser, ChangePass, MODAL_DIRECTIVES],
     pipes: [OrderBy],
     styles: [`
             .embossed {
@@ -60,13 +61,13 @@ const bootbox = require('bootbox');
 
     template: `    
     <div style="position: relative; top: 10px">
-        <a class="btns" href="#" (click)="$event.preventDefault(); !simpleGridTable || simpleGridTable.getSelected() == null ? '' : launch.open('lg')" [ngClass]="{disabled: !simpleGridTable || simpleGridTable.getSelected() == null}" href="#"><span class="fa fa-plus"></span></a>
-        <a class="btns" href="#" (click)="$event.preventDefault(); !simpleGridTable || simpleGridTable.getSelected() == null ? '' : launch.open()" [ngClass]="{disabled: !simpleGridTable || simpleGridTable.getSelected() == null}" href="#"><span class="fa fa-rocket"></span></a>
+        <a class="btns" href="#" (click)="$event.preventDefault(); !simpleGridTable || simpleGridTable.getSelected() == null ? '' : modalAddUser.open('lg')" [ngClass]="{disabled: !simpleGridTable || simpleGridTable.getSelected() == null}" href="#"><span class="fa fa-plus"></span></a>
+        <a class="btns" href="#" (click)="$event.preventDefault(); !simpleGridTable || simpleGridTable.getSelected() == null ? '' : modalAddUser.open()" [ngClass]="{disabled: !simpleGridTable || simpleGridTable.getSelected() == null}" href="#"><span class="fa fa-rocket"></span></a>
         <a class="btns" href="#" (click)="$event.preventDefault(); !simpleGridTable || simpleGridTable.getSelected() == null ? '' : removeBusinessUser()" [ngClass]="{disabled: !simpleGridTable || simpleGridTable.getSelected() == null}" href="#"><span class="fa fa-remove"></span></a>
-        <a class="btns" [ngClass]="{disabled: !simpleGridTable || simpleGridTable.getSelected() == null}" href="#"><span class="fa fa-key"></span></a>
+        <a class="btns" href="#" (click)="$event.preventDefault(); !simpleGridTable || simpleGridTable.getSelected() == null ? '' : modalChangePassword.open()" [ngClass]="{disabled: !simpleGridTable || simpleGridTable.getSelected() == null}" href="#"><span class="fa fa-key"></span></a>
     </div>
     <hr/>
-     <modal #launch [animation]="animationsEnabled" (onClose)="onClose($event)">
+    <modal #modalAddUser [animation]="animationsEnabled" (onClose)="onClose($event)">
         <modal-header [show-close]="true">
             <h4 class="modal-title">
               <span class="fa fa-user"></span>
@@ -78,6 +79,20 @@ const bootbox = require('bootbox');
         </modal-body>
         <modal-footer [show-default-buttons]="false"></modal-footer>
     </modal>
+              
+    <modal #modalChangePassword [animation]="animationsEnabled" (onClose)="onClose($event)">
+        <modal-header [show-close]="true">
+            <h4 class="modal-title">
+              <span class="fa fa-key"></span>
+              Existing user password
+            </h4>
+        </modal-header>
+        <modal-body>
+            <changePass [businessModel]="selectedBusinessUser()" [priveleges]="m_priveleges"></changePass>
+        </modal-body>
+        <modal-footer [show-default-buttons]="false"></modal-footer>
+    </modal>
+    
                 
     <br/>
     <!--<div *ngIf="showUserInfo == 'null' || !m_businesses || m_businesses.size == 0">-->
@@ -121,8 +136,8 @@ export class UsersDetails {
     @ViewChild(SimpleGridTable)
     simpleGridTable:SimpleGridTable
 
-    // @ViewChild('launch')
-    // launch:ModalComponent
+    // @ViewChild('modalAddUser')
+    // modalAddUser:ModalComponent
 
     @Input()
     showUserInfo:ISimpleListItem = null;
