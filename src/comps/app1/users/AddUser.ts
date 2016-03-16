@@ -4,7 +4,6 @@ import {
     FORM_DIRECTIVES, FormBuilder, ControlGroup, Validators, AbstractControl, Control
 } from 'angular2/common'
 import {ModalComponent} from "ng2-bs3-modal/ng2-bs3-modal";
-import {BusinessModel} from "../../../business/BusinessModel";
 import {BusinessUser} from "../../../business/BusinessUser";
 import {Lib} from "../../../Lib";
 import {AppStore} from "angular2-redux-util/dist/index";
@@ -51,7 +50,7 @@ export class AddUser {
     private accessKeys:Array<boolean> = [false, false, false, false, false, false, false, false];
 
     @Input()
-    businessModel:BusinessModel;
+    businessUser:BusinessUser;
 
     @Input()
     priveleges:Array<PrivelegesModel> = [];
@@ -125,7 +124,7 @@ export class AddUser {
             privilegeId: privilegeId,
             password: event.matchingPassword.password,
             name: event.userName,
-            businessId: this.businessModel.getBusinessId(),
+            businessId: this.businessUser.getBusinessId(),
         });
         this.appStore.dispatch(this.businessActions.addNewBusinessUser(businessUser));
         this.modal.close();

@@ -1,16 +1,11 @@
 import {Component, EventEmitter, ChangeDetectionStrategy, Input} from 'angular2/core';
-import {ModalDialog} from "../../modaldialog/ModalDialog";
-import {
-    FORM_DIRECTIVES, FormBuilder, ControlGroup, Validators, AbstractControl, Control
-} from 'angular2/common'
+import {FORM_DIRECTIVES, FormBuilder, ControlGroup, Validators} from 'angular2/common'
 import {ModalComponent} from "ng2-bs3-modal/ng2-bs3-modal";
-import {BusinessModel} from "../../../business/BusinessModel";
-import {BusinessUser} from "../../../business/BusinessUser";
-import {Lib} from "../../../Lib";
+import {ModalDialog} from "../../modaldialog/ModalDialog";
 import {AppStore} from "angular2-redux-util/dist/index";
 import {BusinessAction} from "../../../business/BusinessAction";
 import {PrivelegesModel} from "../../../reseller/PrivelegesModel";
-
+import {BusinessUser} from "../../../business/BusinessUser";
 
 @Component({
     selector: 'changePass',
@@ -33,23 +28,14 @@ export class ChangePass {
                 confirmPassword: ['', Validators.required]
             }, {validator: this.areEqual})
         });
-
-        this.sub = modal.onClose.subscribe(()=> {
-            this.passwordGroup.controls['password'].updateValue('')
-            this.passwordGroup.controls['confirmPassword'].updateValue('')
-        })
         this.passwordGroup = this.notesForm.controls['matchingPassword'];
     }
 
     @Input()
-    businessModel:BusinessModel;
-
-    @Input()
-    priveleges:Array<PrivelegesModel> = [];
+    businessUser:BusinessUser;
 
     private notesForm:ControlGroup;
     private passwordGroup;
-    private sub:EventEmitter<any>;
 
     private areEqual(group:ControlGroup) {
         let valid = true, val;
@@ -76,24 +62,13 @@ export class ChangePass {
     }
 
     private onSubmit(event) {
-        // const businessUser:BusinessUser = new BusinessUser({
-        //     accessMask: computedAccessMask,
-        //     privilegeId: privilegeId,
-        //     password: event.matchingPassword.password,
-        //     name: event.userName,
-        //     businessId: this.businessModel.getBusinessId(),
-        // });
-        // this.appStore.dispatch(this.businessActions.addNewBusinessUser(businessUser));
+        this.appStore.dispatch(this.businessActions.updateBusinessPassword(this.businessUser.getName(),event.matchingPassword.password));
         this.modal.close();
     }
 
     private onChange(event) {
         if (event.target.value.length < 3)
             console.log('text too short for subject');
-    }
-
-    private ngOnDestroy() {
-        this.sub.unsubscribe();
     }
 }
 

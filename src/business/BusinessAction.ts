@@ -109,7 +109,7 @@ export class BusinessAction extends Actions {
                     var xmlData:string = result.text()
                     xmlData = xmlData.replace(/}\)/, '').replace(/\(\{"result":"/, '');
                     this.parseString(xmlData, {attrkey: '_attr'}, function (err, result) {
-                        var businssess = [], businessIds = [];
+                        var businesses = [], businessIds = [];
                         result.Businesses.BusinessInfo.forEach((business)=> {
                             var bus:BusinessModel = new BusinessModel({
                                 businessId: business._attr.businessId,
@@ -136,11 +136,11 @@ export class BusinessAction extends Actions {
                                 accountStats.lastLogin = business._attr.lastLogin;
                             }
                             businessIds.push(business._attr.businessId)
-                            businssess.push(bus);
+                            businesses.push(bus);
                         });
-                        accountStats.totalBusinesses = businssess.length;
+                        accountStats.totalBusinesses = businesses.length;
 
-                        dispatch(self.receiveBusinesses(businssess));
+                        dispatch(self.receiveBusinesses(businesses));
                         dispatch(self.receiveBusinessesStats(accountStats));
                         dispatch(self.fetchBusinessUser(businessIds));
 
@@ -148,50 +148,18 @@ export class BusinessAction extends Actions {
                         // var businessId = businessModel.getBusinessId();
                         // var newBusinessModel = businessModel.setBusinessId('123')
 
-                        //parseString(result, {attrkey: 'attr'}, function (err, result) {
-                        //    var arr = [];
-                        //    result.Businesses[0].BusinessInfo.forEach((business)=> {
-                        //        // create new
-                        //        var bus:BusinessModel = new BusinessModel({
-                        //            businessId: business.attr.businessId,
-                        //            name: business.attr.name,
-                        //            accountStatus: business.attr.accountStatus,
-                        //            applicationId: business.attr.applicationId,
-                        //            archiveState: business.attr.archiveState,
-                        //            fromTemplateId: business.attr.fromTemplateId,
-                        //            maxMonitors: business.attr.maxMonitors,
-                        //            maxDataStorage: business.attr.maxDataStorage,
-                        //            allowSharing: business.attr.allowSharing,
-                        //            studioLite: business.attr.studioLite,
-                        //            lastLogin: business.attr.lastLogin,
-                        //            resellerId: business.attr.resellerId,
-                        //            businessDescription: business.attr.businessDescription
-                        //        });
-                        //
-                        //        // this is an update of field in instance via setKey
-                        //        var busUpd:BusinessModel = bus.setKey<BusinessModel>(BusinessModel, 'businessId', business.attr.businessId + Math.random());
-                        //
-                        //        // insert a new field in instance
-                        //        busUpd = busUpd.setKey<BusinessModel>(BusinessModel, 'JS', 'Ninja');
-                        //
-                        //        // override entire instance with new data via setData
-                        //        //var busUpd:BusinessModel = bus.setData<BusinessModel>(BusinessModel, {
-                        //        //    businessId: business.attr.businessId + Math.random(),
-                        //        //});
-                        //        arr.push(busUpd);
-                        //
-                        //    });
-                        //    dispatch(self.receiveBusinesses(arr));
-                        //});
+                        // this is an update of field in instance via setKey
+                        // var busUpd:BusinessModel = bus.setKey<BusinessModel>(BusinessModel, 'businessId', business.attr.businessId + Math.random());
 
-                        //var xResult = jQuery(result);
-                        //var businesses = xResult.find('BusinessInfo');
+                        // insert a new field in instance
+                        // busUpd = busUpd.setKey<BusinessModel>(BusinessModel, 'JS', 'Ninja');
+
+                        // override entire instance with new data via setData
+                        // var busUpd:BusinessModel = bus.setData<BusinessModel>(BusinessModel, {
+                        // businessId: business.attr.businessId + Math.random(),
+
                     });
                 }).subscribe();
-            //.map(json => {
-            //    dispatch(this.receiveBusinesses(json.results));
-            //    dispatch(this.receiveNumberOfFilms(json.count));
-            //})
         };
     }
 
@@ -244,7 +212,7 @@ export class BusinessAction extends Actions {
                 .map(result => {
                     var jData:string = result.text()
                     jData = jData.replace(/}\)/, '').replace(/\(\{"result":"/, '');
-                    if (jData.indexOf('true') > -1 ){
+                    if (jData.indexOf('true') > -1) {
                         dispatch({type: ADD_BUSINESS_USER, BusinessUser: businessUser})
                     } else {
                         bootbox.alert('Problem adding user, this user name may be already taken');
@@ -252,7 +220,8 @@ export class BusinessAction extends Actions {
                 }).subscribe();
         }
     }
-    public updateBusinessUser(businessUser:BusinessUser, field:string, value:any) {
+
+    public updateBusinessUserXXXXXXXXXX(businessUser:BusinessUser, field:string, value:any) {
         return (dispatch)=> {
             var appdb:Map<string,any> = this.appStore.getState().appdb;
             let businessId = businessUser.getBusinessId();
@@ -265,11 +234,32 @@ export class BusinessAction extends Actions {
                 .map(result => {
                     var jData:string = result.text()
                     jData = jData.replace(/}\)/, '').replace(/\(\{"result":"/, '');
-                    if (jData.indexOf('true') > -1 ){
+                    if (jData.indexOf('true') > -1) {
                         dispatch({type: ADD_BUSINESS_USER, BusinessUser: businessUser})
                     } else {
                         bootbox.alert('Problem adding user, this user name may be already taken');
                     }
+                }).subscribe();
+        }
+    }
+
+    public updateBusinessPassword(userName:string, newPassword:string) {
+        return (dispatch)=> {
+            var appdb:Map<string,any> = this.appStore.getState().appdb;
+            var url = appdb.get('appBaseUrlUser') + `&command=ChangePassword&userName=${userName}&newPassword=${newPassword}`;
+            this._http.get(url)
+                .map(result => {
+                    var jData:string = result.text()
+                    jData = jData.replace(/}\)/, '').replace(/\(\{"result":"/, '');
+                    if (jData.indexOf('true') == -1) {
+                        bootbox.alert('Problem changing password');
+                    }
+                    // dispatch(this.savedBusinessUserAccess({
+                    //     businessId: businessId,
+                    //     privilegeId: privilegeId,
+                    //     accessMask: accessMask,
+                    //     name: name
+                    // }))
                 }).subscribe();
         }
     }
@@ -282,7 +272,7 @@ export class BusinessAction extends Actions {
                 .map(result => {
                     var jData:string = result.text()
                     jData = jData.replace(/}\)/, '').replace(/\(\{"result":"/, '');
-                    if (jData.indexOf('true') > -1 ){
+                    if (jData.indexOf('true') > -1) {
                         dispatch({type: REMOVE_BUSINESS_USER, BusinessUser: businessUser})
                     } else {
                         bootbox.alert('Problem removing user');

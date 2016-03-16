@@ -1,0 +1,33 @@
+.embossed {
+    font-size: 7.2em;
+    background-color: #666666;
+    -webkit-background-clip: text;
+    -moz-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    text-shadow: rgba(255,255,255,0.5) 0px 3px 3px;
+    margin: 50px auto;
+    text-align: center;
+    opacity: 0.3;
+}
+.embossedSmaller {
+    font-size: 2em !important;
+    position: relative;;
+    top: -60px;
+    letter-spacing: -1px;
+}
+.disabled {
+    opacity: 0.2;
+    cursor: default;
+}
+.btns {
+    padding: 0 20px 20px 0px;
+    font-size: 1.4em;
+    color: #313131;
+}
+.btns:hover {
+    color: red;
+}
+hr {
+    border-top: 3px double #d7d7d7;
+}
