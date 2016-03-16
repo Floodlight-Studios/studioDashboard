@@ -43,8 +43,8 @@ export class AddUser {
         })
         this.passwordGroup = this.notesForm.controls['matchingPassword'];
         this.userName = this.notesForm.controls['userName'];
-        this.observeNameChange();
-        this.observeFormChange();
+        // this.observeNameChange();
+        // this.observeFormChange();
     }
 
     private accessKeys:Array<boolean> = [false, false, false, false, false, false, false, false];
@@ -85,26 +85,26 @@ export class AddUser {
         };
     }
 
-    /**
-     * Listen to observable emitted events from name control
-     * use one of the many RX operators debounceTime to control
-     * the number of events emitted per milliseconds
-     **/
-    private observeNameChange() {
-        this.userName.valueChanges.debounceTime(100).subscribe(
-            (value:string) => {
-                console.log('name changed, notified via observable: ', value);
-            }
-        );
-    }
-
-    private observeFormChange() {
-        this.notesForm.valueChanges.debounceTime(100).subscribe(
-            (value:string) => {
-                console.log('forum changed, notified via observable: ', value);
-            }
-        );
-    }
+    // /**
+    //  * Listen to observable emitted events from name control
+    //  * use one of the many RX operators debounceTime to control
+    //  * the number of events emitted per milliseconds
+    //  **/
+    // private observeNameChange() {
+    //     this.userName.valueChanges.debounceTime(100).subscribe(
+    //         (value:string) => {
+    //             console.log('name changed, notified via observable: ', value);
+    //         }
+    //     );
+    // }
+    //
+    // private observeFormChange() {
+    //     this.notesForm.valueChanges.debounceTime(100).subscribe(
+    //         (value:string) => {
+    //             console.log('forum changed, notified via observable: ', value);
+    //         }
+    //     );
+    // }
 
     private onPriveleges(event) {
         this.privilegeName = event.target.value;

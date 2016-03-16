@@ -1,6 +1,6 @@
 <div style="position: relative; top: 10px">
   <a class="btns" href="#" (click)="$event.preventDefault(); !simpleGridTable || simpleGridTable.getSelected() == null ? '' : modalAddUser.open('lg')" [ngClass]="{disabled: !simpleGridTable || simpleGridTable.getSelected() == null}" href="#"><span class="fa fa-plus"></span></a>
-  <a class="btns" href="#" (click)="$event.preventDefault(); !simpleGridTable || simpleGridTable.getSelected() == null ? '' : modalAddUser.open()" [ngClass]="{disabled: !simpleGridTable || simpleGridTable.getSelected() == null}" href="#"><span class="fa fa-rocket"></span></a>
+  <a class="btns" href="#" (click)="$event.preventDefault(); !simpleGridTable || simpleGridTable.getSelected() == null ? '' : launchStudio()" [ngClass]="{disabled: !simpleGridTable || simpleGridTable.getSelected() == null}" href="#"><span class="fa fa-rocket"></span></a>
   <a class="btns" href="#" (click)="$event.preventDefault(); !simpleGridTable || simpleGridTable.getSelected() == null ? '' : removeBusinessUser()" [ngClass]="{disabled: !simpleGridTable || simpleGridTable.getSelected() == null}" href="#"><span class="fa fa-remove"></span></a>
   <a class="btns" href="#" (click)="$event.preventDefault(); !simpleGridTable || simpleGridTable.getSelected() == null ? '' : modalChangePassword.open()" [ngClass]="{disabled: !simpleGridTable || simpleGridTable.getSelected() == null}" href="#"><span class="fa fa-key"></span></a>
 </div>
@@ -42,17 +42,17 @@
     <tr>
       <th sortableHeader="name" [sort]="sort">name</th>
       <th sortableHeader="businessId" [sort]="sort">business</th>
-      <th>privileges</th>
       <th>access keys</th>
-      <th>privileges</th>
+      <th>privileges (id)</th>
+      <th>privileges (name)</th>
     </tr>
     </thead>
     <tbody>
     <tr class="simpleGridRecord" [table]="userSimpleGridTable" simpleGridRecord *ngFor="#item of m_businesses | OrderBy:sort.field:sort.desc; #index=index" [item]="item" [index]="index">
-      <td style="width: 10%" simpleGridData (labelEdited)="onLabelEdited($event,'name')" editable="true" field="name" [item]="item"></td>
-      <td style="width: 10%" simpleGridData field="businessId" [item]="item"></td>
-      <td style="width: 10%" simpleGridData field="privilegeId" [item]="item"></td>
-      <td style="width: 30%" simpleGridDataChecks (changed)="setAccessMask($event)" [item]="item" [checkboxes]="getAccessMask(item)"></td>
+      <td style="width: 20%" simpleGridData (labelEdited)="onLabelEdited($event,'name')" editable="true" field="name" [item]="item"></td>
+      <td style="width: 8%" simpleGridData field="businessId" [item]="item"></td>
+      <td style="width: 20%" simpleGridDataChecks (changed)="setAccessMask($event)" [item]="item" [checkboxes]="getAccessMask(item)"></td>
+      <td style="width: 12%" simpleGridData field="privilegeId" [item]="item"></td>
       <td style="width: 40%" simpleGridDataDropdown [testSelection]="selectedPriveleges()" (changed)="setPriveleges($event)" field="name" [item]="item" [dropdown]="m_priveleges"></td>
       <!-- <td simpleGridDataImage color="dodgerblue" [field]="item.getKey('studioLite') == '0' ? 'fa-circle' : 'fa-circle-o'" [item]="item"></td> -->
     </tr>

@@ -61,6 +61,19 @@ export class UsersDetails {
     private totalBusinessSelected:number = 0;
     private animationsEnabled:boolean = true;
 
+    private launchStudio() {
+        let businessUser:BusinessUser = this.selectedBusinessUser();
+        let businessId = businessUser.getBusinessId();
+        let businesses:List<BusinessModel> = this.appStore.getState().business.getIn(['businesses']);
+        let index = this.businessActions.findBusinessIndexById(businessId, businesses);
+        let businessModel:BusinessModel = this.appStore.getState().business.getIn(['businesses']).get(index);
+        if (businessModel.getKey('studioLite') == '0') {
+            window.open('http://galaxy.digitalsignage.com/WebService/signagestudio.aspx', '_blank');
+        } else {
+            window.open('https://secure.digitalsignage.com/_studiolite-dist/studiolite.html', '_blank');
+        }
+    }
+
     private onModalClose(result:ModalResult) {
     }
 
