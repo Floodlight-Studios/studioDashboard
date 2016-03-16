@@ -26,6 +26,8 @@ export class SimpleList {
     @Input()
     list:List<any>;
     @Input()
+    multi:boolean = true;
+    @Input()
     content:((any)=>string);
     @Input()
     contentId:((any)=>string);
@@ -47,7 +49,6 @@ export class SimpleList {
             index: index,
             selected: this._editClickPending ? true : !this._metadata[id].selected
         }
-
 
         if (this._editClickPending){
             this._editClickPending = false;

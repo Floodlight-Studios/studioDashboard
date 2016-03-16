@@ -58,6 +58,7 @@ import {PrivelegesModel} from "../../../reseller/PrivelegesModel";
         </div>
     `
 })
+
 @CanActivate((to:ComponentInstruction, from:ComponentInstruction) => {
     let authService:AuthService = appInjService().get(AuthService);
     return authService.checkAccess(to, from, ['/Login/Login']);
