@@ -4,8 +4,8 @@ import {Injectable} from 'angular2/core';
 import {createStore, combineReducers, applyMiddleware, compose} from "redux";
 import * as thunkMiddleware from 'redux-thunk';
 import {AppStore} from "angular2-redux-util";
-import {List} from 'immutable';
-
+import {List, Map} from 'immutable';
+var Immutable = require('immutable');
 
 import {LoggerMiddleware} from "angular2-redux-util";
 import {BusinessUser} from "./business/BusinessUser";
@@ -54,10 +54,30 @@ export class Lib {
         return computedAccessMask;
     }
 
+    static ConstructImmutableFromTable(path):Array<any> {
+        var arr = [];
+        path.forEach((member)=> {
+            var obj = {};
+            obj[member._attr.name] = {
+                table: {}
+            }
+            for (var k in member._attr) {
+                var value = member._attr[k]
+                obj[member._attr.name][k] = value;
+                for (var t in member.Tables["0"]._attr) {
+                    var value = member.Tables["0"]._attr[t]
+                    obj[member._attr.name]['table'][t] = value;
+                }
+            }
+            arr.push(Immutable.fromJS(obj));
+        });
+        return arr;
+    }
+
     static GetAccessMask(accessMask):List<any> {
         var checks = List();
         var bits = [1, 2, 4, 8, 16, 32, 64, 128];
-        for (var i = 0; i< bits.length; i++){
+        for (var i = 0; i < bits.length; i++) {
             let checked = (bits[i] & accessMask) > 0 ? true : false;
             checks = checks.push(checked)
         }

@@ -11,6 +11,10 @@ export function reseller(state:Map<string,any> = Map<string,any>(), action:any):
         {
             return state.setIn(['privileges'], action.privilegesModels);
         }
+        case ResellerAction.RECEIVE_PRIVILEGES_SYSTEM:
+        {
+            return state.setIn(['privilegesSystem'], action.privelegesSystemModels);
+        }
         default:
             return state;
     }
