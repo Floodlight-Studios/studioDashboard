@@ -37,12 +37,21 @@ export class ResellerAction extends Actions {
 
                         // redux inject privileges system
                         var privilegesSystemModels = [];
-                        var serializedData:Array<any> = Lib.ConstructImmutableFromTable(result.User.BusinessInfo["0"].ResellerInfo["0"].BusinessInfo["0"].Privilege["0"].Groups["0"].Group)
-                        serializedData.forEach((immObj:Map<string,any>)=> {
-                            let privelegesSystemModel:PrivelegesSystemModel = new PrivelegesSystemModel(immObj);
-                            privilegesSystemModels.push(privelegesSystemModel)
+                        var tables = result.User.BusinessInfo["0"].Privileges["0"].Privilege["0"].Groups["0"].Group;
+                        tables.forEach((table)=> {
+                            let privelegesSystemModel:PrivelegesSystemModel = new PrivelegesSystemModel({
+                                tableName: table._attr.name,
+                                columns: Immutable.fromJS(table.Tables["0"]._attr)
+                            });
+                            if (privelegesSystemModel.getColumnSize() > 0)
+                                privilegesSystemModels.push(privelegesSystemModel)
                         })
                         dispatch(self.receivePrivilegesSystem(privilegesSystemModels));
+                        // var serializedData:Array<any> = Lib.ConstructImmutableFromTable(result.User.BusinessInfo["0"].ResellerInfo["0"].BusinessInfo["0"].Privilege["0"].Groups["0"].Group)
+                        // var serializedData:Array<any> = Lib.ConstructImmutableFromTable(columns)
+                        // serializedData.forEach((immObj:Map<string,any>)=> {
+                        // })
+
 
                         // redux inject privileges user
                         var privilegesModels = [];

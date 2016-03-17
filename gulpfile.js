@@ -72,7 +72,7 @@ gulp.task("production", function (callback) {
 
 gulp.task('development', function (done) {
     console.log(util.env.restart)
-    if (util.env.restart){
+    if (util.env.restart) {
         runSequence('x_open_server_development_auto', done);
     } else {
         runSequence('x_open_server_development', done);
@@ -195,9 +195,9 @@ gulp.task('x_open_server_development', ['x_watch_source'], function () {
 });
 
 /**
- * to get a fresh server every 10 minutes for better dev performance run:
+ * to get a fresh server every x minutes for better dev performance run:
  * forever stop 0 ; forever start -a -l f.log node_modules/gulp/bin/gulp.js development_auto ; tail -f ~/.forever/f.log
-  **/
+ **/
 gulp.task('x_open_server_development_auto', ['x_watch_source'], function () {
     process.stdout.write('Starting browserSync and superstatic...\n');
     browserSync({
@@ -212,22 +212,24 @@ gulp.task('x_open_server_development_auto', ['x_watch_source'], function () {
         }
     });
     // exit every 20 minutes so forever will restart it
-    setTimeout(function(){process.exit()},1200000);
+    setTimeout(function () {
+        process.exit()
+    }, 3200000);
 });
 
-gulp.task('x_assets',function(){
+gulp.task('x_assets', function () {
     return gulp.src([
         './src/public/assets/**/*'
     ]).pipe(gulp.dest(paths.assets));
 });
 
-gulp.task('x_copy_files',function(){
-    gulp.src(['./src/**/*.html','./src/**/*.woff2','./src/**/*.css'
+gulp.task('x_copy_files', function () {
+    gulp.src(['./src/**/*.html', './src/**/*.woff2', './src/**/*.css'
     ]).pipe(gulp.dest(paths.dist));
 
     gulp.src(['./src/public/world_data.js']).pipe(gulp.dest(paths.bundleHTML));
 
-    return gulp.src(['./**/*.html','./**/*.woff2','./**/*.css'
+    return gulp.src(['./**/*.html', './**/*.woff2', './**/*.css'
     ]).pipe(gulp.dest(paths.dist));
 });
 

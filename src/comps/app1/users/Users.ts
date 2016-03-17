@@ -46,6 +46,7 @@ import {PrivelegesModel} from "../../../reseller/PrivelegesModel";
                     (selected)="onFilteredSelection()"
                     (iconClicked)="onShowUserInfo($event)"
                     [contentId]="getBusinessesId()"
+                    [multi]="false"
                     [icon]="'fa-user'"
                     [content]="getBusinesses()">
                 </SimpleList>
@@ -66,7 +67,7 @@ import {PrivelegesModel} from "../../../reseller/PrivelegesModel";
 export class Users {
 
     @ViewChild(SimpleList)
-    simpleList:SimpleList;
+simpleList:SimpleList;
 
     private businessesList:List<BusinessModel> = List<BusinessModel>();
     private businessesListFiltered:List<BusinessModel>

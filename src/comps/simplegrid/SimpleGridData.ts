@@ -49,6 +49,11 @@ export class SimpleGridData {
     }
 
     @Input()
+    set processField(i_processField:(storeModel:StoreModel)=>string) {
+        this.value = i_processField(this.storeModel)
+    }
+
+    @Input()
     set editable(i_editable) {
         this._editable = i_editable;
     }
