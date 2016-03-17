@@ -50,6 +50,7 @@ export class ResellerAction extends Actions {
 
                         /** redux inject privileges user **/
                         var privilegesModels = [];
+                        //todo: build full group privileges...
                         result.User.BusinessInfo["0"].Privileges["0"].Privilege.forEach((privileges)=> {
                             let privilegesModel:PrivelegesModel = new PrivelegesModel({
                                 privilegesId: privileges._attr.id,
