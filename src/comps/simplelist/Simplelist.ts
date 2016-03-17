@@ -60,6 +60,7 @@ export class SimpleList {
             return;
         }
         //this.current.next({item, selected: this._metadata[id].selected});
+        debugger;
         this.selected.next(this._metadata);
 
     }
