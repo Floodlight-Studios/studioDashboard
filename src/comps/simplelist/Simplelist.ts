@@ -5,9 +5,9 @@ import {List} from 'immutable';
 let _ = require('underscore');
 
 export interface  ISimpleListItem {
-    item: any,
-    index: number,
-    selected: boolean
+    item:any,
+    index:number,
+    selected:boolean
 }
 
 @Component({
@@ -37,20 +37,25 @@ export class SimpleList {
     hover:EventEmitter<any> = new EventEmitter();
     @Output()
     iconClicked:EventEmitter<any> = new EventEmitter();
-    // @Output()
-    // current:EventEmitter<any> = new EventEmitter();
     @Output()
     selected:EventEmitter<any> = new EventEmitter();
 
     private itemSelected(item, index) {
         let id = this.contentId ? this.contentId(item) : index;
+        if (!this.multi) {
+            for (let id in this._metadata) {
+                this._metadata[id] = {
+                    selected: false
+                }
+            }
+        }
         this._metadata[id] = {
             item: item,
             index: index,
             selected: this._editClickPending ? true : !this._metadata[id].selected
-        }
 
-        if (this._editClickPending){
+        }
+        if (this._editClickPending) {
             this._editClickPending = false;
             return;
         }
@@ -73,7 +78,7 @@ export class SimpleList {
         this._editClickPending = true;
         setTimeout(()=> {
             let match = _.find(self._metadata, (i) => i.index == index);
-            console.log(match.item.getBusinessId() + ' ' + match.item.getKey('name'));
+            // console.log(match.item.getBusinessId() + ' ' + match.item.getKey('name'));
             this.iconClicked.next({
                 item: match,
                 target: event.target,
