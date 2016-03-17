@@ -34,7 +34,7 @@ export class SimpleGridTable {
         this.deselect();
         this.selected = i_selected;
         var rec = i_selected.item;
-        console.log(`user selected ${rec.getBusinessId()}  ${rec.getName()} ${rec.getAccessMask()}`);
+        // console.log(`user selected ${rec.getBusinessId()}  ${rec.getName()} ${rec.getAccessMask()}`);
     }
 
     public deselect(){

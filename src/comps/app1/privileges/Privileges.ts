@@ -29,7 +29,7 @@ import {PrivilegesDetails} from "./PrivilegesDetails";
              </div>
              <div class="col-xs-9 userView">                
                 <Loading *ngIf="!privelegesList" [src]="'assets/preload6.gif'" [style]="{'margin-top': '150px'}"></Loading>
-                <privilegesDetails [priveleges]="privelegesList" ></privilegesDetails>
+                <privilegesDetails [selected]="privelegesModelSelected" [priveleges]="privelegesList" ></privilegesDetails>
              </div>
         </div>
     `

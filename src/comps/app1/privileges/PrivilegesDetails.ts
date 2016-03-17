@@ -9,7 +9,12 @@ import {PrivelegesSystemModel} from "../../../reseller/PrivelegesSystemModel";
     selector: 'privilegesDetails',
     directives: [SIMPLEGRID_DIRECTIVES],
     template: `
-          <div *ngIf="m_privelegesSystemModelList">
+          <div *ngIf="!m_privelegesSystemModelList || !selected">
+            <center>
+              <h3>select | create privileges</h3>
+            </center>
+          </div>
+          <div *ngIf="m_privelegesSystemModelList && selected">
               <div *ngFor="#privilegesItem of m_privelegesSystemModelList">
                 <simpleGridTable #userSimpleGridTable>
                     <thead>
@@ -21,8 +26,8 @@ import {PrivelegesSystemModel} from "../../../reseller/PrivelegesSystemModel";
                         </tr>
                     </thead>
                     <tbody>
-                        <tr class="simpleGridRecord" [table]="userSimpleGridTable" simpleGridRecord *ngFor="#item of processPrivilegesTable(privilegesItem); #index=index" [item]="item" [index]="index">
-                            <td style="width: 70%" simpleGridData [processField]="processTableName()" [item]="item"></td>
+                        <tr class="simpleGridRecord" [table]="userSimpleGridTable" simpleGridRecord *ngFor="#item of processPrivilegesTable(privilegesItem); #index=index" [item]="item" [index]="index" [selectable]="false">
+                            <td style="width: 70%" [editable]="false" simpleGridData [processField]="processTableName()" [item]="item"></td>
                             <td style="width: 10%" simpleGridDataChecks [checkboxes]="getPrivilegesChecks(privilegesItem)"></td>
                             <td style="width: 10%" simpleGridDataChecks [checkboxes]="getPrivilegesChecks(privilegesItem)"></td>
                             <td style="width: 10%" simpleGridDataChecks [checkboxes]="getPrivilegesChecks(privilegesItem)"></td>
@@ -51,21 +56,15 @@ export class PrivilegesDetails {
     private m_privelegesSystemModelList:List<PrivelegesSystemModel>
 
     @Input()
+    selected:PrivelegesModel;
+
+    @Input()
     set priveleges(i_privileges:List<PrivelegesModel>) {
         this.m_privileges = i_privileges;
-        // if (i_businesses && this.simpleGridTable && this.m_businesses.size != this.totalBusinessSelected) {
-        //     this.simpleGridTable.deselect();
-        //     this.totalBusinessSelected = this.m_businesses.size;
-        // }
     }
 
     private processPrivilegesTable(privelegesSystemModel:PrivelegesSystemModel):Map<string,any> {
         return privelegesSystemModel.getColumns();
-        // var columns:Map<string,any> = privelegesSystemModel.getColumns();
-        // columns.forEach((k,v)=>{
-        //     console.log(k,v);
-        // })
-        // return [1,2,3,4];
     }
 
     private processTableName() {
@@ -75,6 +74,7 @@ export class PrivilegesDetails {
     }
 
     private getPrivilegesChecks(item) {
+        console.log('getPrivilegesChecks ' + item + ' ' + this.selected);
         return [1];
     }
 

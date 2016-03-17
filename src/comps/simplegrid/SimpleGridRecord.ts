@@ -16,12 +16,17 @@ export class SimpleGridRecord {
     item;
 
     @Input()
+    selectable:boolean = true;
+
+    @Input()
     set table(i_table) {
         this.m_table = i_table;
     }
 
     @HostListener('click', ['$event'])
     onSelected() {
+        if (!this.selectable)
+            return;
         this.setSelected();
         return true;
     }
