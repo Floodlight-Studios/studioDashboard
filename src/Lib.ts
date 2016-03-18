@@ -42,17 +42,6 @@ export class Lib {
         //    });
     }
 
-    static ComputeAccessMask(accessMask):number {
-        var bits = [1, 2, 4, 8, 16, 32, 64, 128];
-        var computedAccessMask = 0;
-        accessMask.forEach(value=> {
-            var bit = bits.shift();
-            if (value)
-                computedAccessMask = computedAccessMask + bit;
-
-        })
-        return computedAccessMask;
-    }
 
     static ConstructImmutableFromTable(path):Array<any> {
         var arr = [];
@@ -72,6 +61,18 @@ export class Lib {
             arr.push(Immutable.fromJS(obj));
         });
         return arr;
+    }
+
+    static ComputeAccessMask(accessMask):number {
+        var bits = [1, 2, 4, 8, 16, 32, 64, 128];
+        var computedAccessMask = 0;
+        accessMask.forEach(value=> {
+            var bit = bits.shift();
+            if (value)
+                computedAccessMask = computedAccessMask + bit;
+
+        })
+        return computedAccessMask;
     }
 
     static GetAccessMask(accessMask):List<any> {

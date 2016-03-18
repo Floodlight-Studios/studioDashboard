@@ -78,13 +78,7 @@ export class PrivilegesDetails {
         }
     }
 
-    private renderPrivilegesChecks(i_privelegesSystemModel:PrivelegesSystemModel, index, privModeEnum:PrivModeEnum) {
-
-        // 1 bit = upd
-        // 2 bit = add
-        // 3 bit = del
-
-        // console.log(privModeEnum + ' ' + PrivModeEnum.ADD);
+    private renderPrivilegesChecks(i_privelegesSystemModel:PrivelegesSystemModel, index, privModeEnum:PrivModeEnum):any {
 
         var tableName:string = i_privelegesSystemModel.getTableName();
 
@@ -98,25 +92,31 @@ export class PrivilegesDetails {
             if (k.tableName == tableName)
                 return true;
         })
-        console.log(111);
         var selColumnsJs = selColumn.columns.toJS();
         var selColumnsPairs = _.pairs(selColumnsJs);
         var dst = selColumnsPairs[index];
 
         console.log(src,dst);
-        // var selColumnJs = selColumn.toJS();
-        // var selColumnPairs = _.pairs(selColumnJs);
-        // var currentSelColumn = selColumnPairs[index];
+        var bit;
+        switch (privModeEnum){
+            case PrivModeEnum.UPD: {
+                bit = 1;
+                break;
+            }
+            case PrivModeEnum.ADD: {
+                bit = 2;
+                break;
+            }
+            case PrivModeEnum.DEL: {
+                bit = 4;
+                break;
+            }
+        }
 
+        var value = dst[1];
+        var a = bit & value;
+        return [a];
 
-        // let columnName = columns.keySeq().first();
-        // let selectedPrivGroup = this.selected.getData().get('groups');
-        // let matcedGroup:Map<string,any> = selectedGroups.find((value)=> {
-        //     if (value.tableName == tableName)
-        //         return value.columns;
-        // })
-        // console.log('renderPrivilegesChecks ' + i_privelegesSystemModel + ' ' + this.selected);
-        return [0];
     }
 
     private ngOnDestroy() {
