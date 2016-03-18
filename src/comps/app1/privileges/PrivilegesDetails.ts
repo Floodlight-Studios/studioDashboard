@@ -73,9 +73,11 @@ export class PrivilegesDetails {
         }
     }
 
-    private getPrivilegesChecks(item) {
-        console.log('getPrivilegesChecks ' + item + ' ' + this.selected);
-        return [1];
+    private getPrivilegesChecks(i_privelegesSystemModel:PrivelegesSystemModel) {
+        let tableName = i_privelegesSystemModel.getTableName();
+        let selectedGroups = this.selected.getData().get('groups');
+        console.log('getPrivilegesChecks ' + i_privelegesSystemModel + ' ' + this.selected);
+        return [0];
     }
 
     private ngOnDestroy() {
