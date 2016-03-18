@@ -1,9 +1,12 @@
 import {Component, Input, Output, EventEmitter, ChangeDetectionStrategy} from 'angular2/core'
 import {PrivelegesModel} from "../../../reseller/PrivelegesModel";
-import {List} from 'immutable';
+import {List, Map} from 'immutable';
 import {SIMPLEGRID_DIRECTIVES} from "../../simplegrid/SimpleGrid";
 import {AppStore} from "angular2-redux-util/dist/index";
 import {PrivelegesSystemModel} from "../../../reseller/PrivelegesSystemModel";
+const _ = require('underscore');
+
+enum PrivModeEnum {ADD, DEL, UPD}
 
 @Component({
     selector: 'privilegesDetails',
@@ -26,11 +29,11 @@ import {PrivelegesSystemModel} from "../../../reseller/PrivelegesSystemModel";
                         </tr>
                     </thead>
                     <tbody>
-                        <tr class="simpleGridRecord" [table]="userSimpleGridTable" simpleGridRecord *ngFor="#item of processPrivilegesTable(privilegesItem); #index=index" [item]="item" [index]="index" [selectable]="false">
-                            <td style="width: 70%" [editable]="false" simpleGridData [processField]="processTableName()" [item]="item"></td>
-                            <td style="width: 10%" simpleGridDataChecks [checkboxes]="getPrivilegesChecks(privilegesItem)"></td>
-                            <td style="width: 10%" simpleGridDataChecks [checkboxes]="getPrivilegesChecks(privilegesItem)"></td>
-                            <td style="width: 10%" simpleGridDataChecks [checkboxes]="getPrivilegesChecks(privilegesItem)"></td>
+                        <tr class="simpleGridRecord" [table]="userSimpleGridTable" simpleGridRecord *ngFor="#item of renderPrivilegesTable(privilegesItem); #index=index" [item]="item" [index]="index" [selectable]="false">
+                            <td style="width: 70%" [editable]="false" simpleGridData [processField]="renderTableName()" [item]="item"></td>
+                            <td style="width: 10%" simpleGridDataChecks [checkboxes]="renderPrivilegesChecks(privilegesItem, index, PrivModeEnum.DEL)"></td>
+                            <td style="width: 10%" simpleGridDataChecks [checkboxes]="renderPrivilegesChecks(privilegesItem, index, PrivModeEnum.ADD)"></td>
+                            <td style="width: 10%" simpleGridDataChecks [checkboxes]="renderPrivilegesChecks(privilegesItem, index, PrivModeEnum.UPD)"></td>
                             <!--<td style="width: 20%" simpleGridDataChecks (changed)="setAccessMask($event)" [item]="item" [checkboxes]="getAccessMask(item)"></td>-->
                         </tr>
                     </tbody>
@@ -41,6 +44,8 @@ import {PrivelegesSystemModel} from "../../../reseller/PrivelegesSystemModel";
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class PrivilegesDetails {
+
+    private PrivModeEnum = PrivModeEnum;
 
     constructor(private appStore:AppStore) {
         var i_reseller = this.appStore.getState().reseller;
@@ -63,20 +68,54 @@ export class PrivilegesDetails {
         this.m_privileges = i_privileges;
     }
 
-    private processPrivilegesTable(privelegesSystemModel:PrivelegesSystemModel):Map<string,any> {
+    private renderPrivilegesTable(privelegesSystemModel:PrivelegesSystemModel):Map<string,any> {
         return privelegesSystemModel.getColumns();
     }
 
-    private processTableName() {
+    private renderTableName() {
         return (field) => {
             return field[0];
         }
     }
 
-    private getPrivilegesChecks(i_privelegesSystemModel:PrivelegesSystemModel) {
-        let tableName = i_privelegesSystemModel.getTableName();
-        let selectedGroups = this.selected.getData().get('groups');
-        console.log('getPrivilegesChecks ' + i_privelegesSystemModel + ' ' + this.selected);
+    private renderPrivilegesChecks(i_privelegesSystemModel:PrivelegesSystemModel, index, privModeEnum:PrivModeEnum) {
+
+        // 1 bit = upd
+        // 2 bit = add
+        // 3 bit = del
+
+        // console.log(privModeEnum + ' ' + PrivModeEnum.ADD);
+
+        var tableName:string = i_privelegesSystemModel.getTableName();
+
+        var allColumns:Map<string,any> = i_privelegesSystemModel.getColumns();
+        var allColumnsJs = allColumns.toJS();
+        var allColumnsPairs = _.pairs(allColumnsJs);
+        var src = allColumnsPairs[index];
+
+        var selColumn = this.selected.getColumns();
+        selColumn = selColumn.find((k,v)=>{
+            if (k.tableName == tableName)
+                return true;
+        })
+        console.log(111);
+        var selColumnsJs = selColumn.columns.toJS();
+        var selColumnsPairs = _.pairs(selColumnsJs);
+        var dst = selColumnsPairs[index];
+
+        console.log(src,dst);
+        // var selColumnJs = selColumn.toJS();
+        // var selColumnPairs = _.pairs(selColumnJs);
+        // var currentSelColumn = selColumnPairs[index];
+
+
+        // let columnName = columns.keySeq().first();
+        // let selectedPrivGroup = this.selected.getData().get('groups');
+        // let matcedGroup:Map<string,any> = selectedGroups.find((value)=> {
+        //     if (value.tableName == tableName)
+        //         return value.columns;
+        // })
+        // console.log('renderPrivilegesChecks ' + i_privelegesSystemModel + ' ' + this.selected);
         return [0];
     }
 

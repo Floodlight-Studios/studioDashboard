@@ -9,6 +9,10 @@ export class PrivelegesModel extends StoreModel {
         return this.getKey('name');
     }
 
+    public getColumns(){
+        return this.getData().get('groups');
+    }
+
     public getPrivelegesId(){
         return this.getKey('privilegesId');
     }

@@ -1,6 +1,7 @@
 {
   "compilerOptions": {
     "target": "ES5",
+    "inlineSources": true,
     "module": "commonjs",
     "moduleResolution": "node",
     "removeComments": true,
