@@ -72,7 +72,6 @@ export class Privileges {
             return selected[privelegesId] && selected[privelegesId].selected;
         });
        this.privelegesModelSelected = selected && selected[0];
-       console.log(this.privelegesModelSelected);
     }
 
     private getPrivilege() {
