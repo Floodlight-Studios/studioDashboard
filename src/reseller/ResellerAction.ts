@@ -4,6 +4,7 @@ import {Http, Jsonp} from "angular2/http";
 import {PrivelegesModel} from "./PrivelegesModel";
 import {PrivelegesSystemModel} from "./PrivelegesSystemModel";
 import {Lib} from "../Lib";
+import {List} from 'immutable';
 var Immutable = require('immutable');
 
 export const RECEIVE_PRIVILEGES = 'RECEIVE_PRIVILEGES';
@@ -50,11 +51,19 @@ export class ResellerAction extends Actions {
 
                         /** redux inject privileges user **/
                         var privilegesModels = [];
-                        //todo: build full group privileges...
                         result.User.BusinessInfo["0"].Privileges["0"].Privilege.forEach((privileges)=> {
+                            let groups = List();
+                            privileges.Groups["0"].Group.forEach((privilegesGroups)=>{
+                                var group = {
+                                    tableName: privilegesGroups._attr.name,
+                                    columns: Immutable.fromJS(privilegesGroups.Tables["0"]._attr)
+                                }
+                                groups = groups.push(group)
+                            })
                             let privilegesModel:PrivelegesModel = new PrivelegesModel({
                                 privilegesId: privileges._attr.id,
-                                name: privileges._attr.name
+                                name: privileges._attr.name,
+                                groups: groups
                             });
                             privilegesModels.push(privilegesModel)
                         });
