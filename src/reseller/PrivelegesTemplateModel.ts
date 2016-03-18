@@ -1,5 +1,5 @@
 import {StoreModel} from "../models/StoreModel";
-export class PrivelegesSystemModel extends StoreModel {
+export class PrivelegesTemplateModel extends StoreModel {
 
     constructor(data:any = {}) {
         super(data);

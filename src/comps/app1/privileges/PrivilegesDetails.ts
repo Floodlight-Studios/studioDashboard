@@ -3,7 +3,7 @@ import {PrivelegesModel} from "../../../reseller/PrivelegesModel";
 import {List, Map} from 'immutable';
 import {SIMPLEGRID_DIRECTIVES} from "../../simplegrid/SimpleGrid";
 import {AppStore} from "angular2-redux-util/dist/index";
-import {PrivelegesSystemModel} from "../../../reseller/PrivelegesSystemModel";
+import {PrivelegesTemplateModel} from "../../../reseller/PrivelegesTemplateModel";
 const _ = require('underscore');
 
 enum PrivModeEnum {ADD, DEL, UPD}
@@ -51,14 +51,14 @@ export class PrivilegesDetails {
         var i_reseller = this.appStore.getState().reseller;
 
         this.m_privelegesSystemModelList = i_reseller.getIn(['privilegesSystem']);
-        this.unsub = this.appStore.sub((privelegesSystemModel:List<PrivelegesSystemModel>) => {
+        this.unsub = this.appStore.sub((privelegesSystemModel:List<PrivelegesTemplateModel>) => {
             this.m_privelegesSystemModelList = privelegesSystemModel;
         }, 'reseller.privilegesSystem');
     }
 
     private unsub;
     private m_privileges:List<PrivelegesModel>
-    private m_privelegesSystemModelList:List<PrivelegesSystemModel>
+    private m_privelegesSystemModelList:List<PrivelegesTemplateModel>
 
     @Input()
     selected:PrivelegesModel;
@@ -68,7 +68,7 @@ export class PrivilegesDetails {
         this.m_privileges = i_privileges;
     }
 
-    private renderPrivilegesTable(privelegesSystemModel:PrivelegesSystemModel):Map<string,any> {
+    private renderPrivilegesTable(privelegesSystemModel:PrivelegesTemplateModel):Map<string,any> {
         return privelegesSystemModel.getColumns();
     }
 
@@ -78,13 +78,19 @@ export class PrivilegesDetails {
         }
     }
 
-    private renderPrivilegesChecks(i_privelegesSystemModel:PrivelegesSystemModel, index, privModeEnum:PrivModeEnum):Array<number> {
+    private renderPrivilegesChecks(i_privelegesSystemModel:PrivelegesTemplateModel, index, privModeEnum:PrivModeEnum):Array<number> {
         var tableName:string = i_privelegesSystemModel.getTableName();
         var selColumn = this.selected.getColumns();
         selColumn = selColumn.find((k)=>{
             if (k.tableName == tableName)
                 return true;
         })
+
+        // if selColumn does not exist it means a new field privilege table has been added
+        // so on the next save it will be added to our config, we just set it to checked [x] by default on UI
+        if (!selColumn)
+            return [1]
+
         var selColumnsJs = selColumn.columns.toJS();
         var selColumnsPairs = _.pairs(selColumnsJs);
         var finalColumn = selColumnsPairs[index];

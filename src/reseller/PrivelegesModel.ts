@@ -10,7 +10,6 @@ export class PrivelegesModel extends StoreModel {
     }
 
     public getColumns(){
-        console.log(this)
         return this.getData().get('groups');
     }
 

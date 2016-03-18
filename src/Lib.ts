@@ -5,10 +5,10 @@ import {createStore, combineReducers, applyMiddleware, compose} from "redux";
 import * as thunkMiddleware from 'redux-thunk';
 import {AppStore} from "angular2-redux-util";
 import {List, Map} from 'immutable';
-var Immutable = require('immutable');
-
 import {LoggerMiddleware} from "angular2-redux-util";
 import {BusinessUser} from "./business/BusinessUser";
+var Immutable = require('immutable');
+
 
 @Injectable()
 export class Lib {
@@ -25,6 +25,68 @@ export class Lib {
             const reduxAppStore = createStoreWithEnhancers(reducers);
             return new AppStore(reduxAppStore);
         };
+    }
+
+    static PrivilegesXmlTemplate(callBack:(err,result)=>any) {
+        const parseString = require('xml2js').parseString;
+        var xmlData = `
+          <Privilege>
+              <Groups>
+                <Group name="Global" visible="-1">
+                  <Tables global_settings="-1"/>
+                </Group>
+                <Group name="Screens" visible="-1">
+                  <Tables boards="-1" board_templates="-1" board_template_viewers="-1"/>
+                </Group>
+                <Group name="Resources" visible="-1" resourceMode="-1">
+                  <Tables resources="-1"/>
+                </Group>
+                <Group name="Editors" visible="-1">
+                  <Tables player_data="-1"/>
+                </Group>
+                <Group name="Catalog" visible="-1">
+                  <Tables catalog_items="-1" catalog_item_infos="-1" catalog_item_resources="-1" catalog_item_categories="-1" category_values="-1"/>
+                </Group>
+                <Group name="Campaigns" visible="-1">
+                  <Tables campaigns="-1" campaign_events="-1" campaign_timelines="-1" campaign_timeline_sequences="-1" campaign_timeline_schedules="-1" campaign_sequences="-1" campaign_sequence_timelines="-1" campaign_sequence_schedules="-1" campaign_timeline_channels="-1" campaign_timeline_chanels="-1" campaign_timeline_chanel_players="-1" campaign_timeline_board_viewer_channels="-1" campaign_timeline_board_viewer_chanels="-1" campaign_timeline_board_templates="-1" campaign_channels="-1" campaign_channel_players="-1" campaign_boards="-1"/>
+                </Group>
+                <Group name="Transitions" visible="-1">
+                  <Tables transition_pools="-1" transition_pool_items="-1"/>
+                </Group>
+                <Group name="Scripts" visible="-1">
+                  <Tables scripts="-1"/>
+                </Group>
+                <Group name="AdLocal" visible="-1">
+                  <Tables ad_local_packages="-1" ad_local_contents="-1"/>
+                </Group>
+                <Group name="AdOut" visible="-1" globalSearch="-1">
+                  <Tables ad_out_packages="-1" ad_out_package_stations="-1" ad_out_package_contents="-1"/>
+                </Group>
+                <Group name="AdIn" visible="-1">
+                  <Tables ad_in_domains="-1" ad_in_domain_businesses="-1" ad_in_domain_business_packages="-1" ad_in_domain_business_package_stations="-1" ad_rates="-1"/>
+                </Group>
+                <Group name="AdRate" visible="-1">
+                  <Tables ad_rates="-1"/>
+                </Group>
+                <Group name="AdAnalytic" visible="-1">
+                  <Tables/>
+                </Group>
+                <Group name="Music" visible="-1">
+                  <Tables music_channels="-1" music_channel_songs="-1"/>
+                </Group>
+                <Group name="Stations" visible="-1" stationsNetwork="-1" updateOnSave="-1" lanServer="-1" zwave="-1">
+                  <Tables branch_stations="-1" station_ads="-1"/>
+                </Group>
+                <Group name="Changelist" visible="-1">
+                  <Tables/>
+                </Group>
+              </Groups>
+        </Privilege>
+        `
+
+        parseString(xmlData, {attrkey: '_attr'}, function (err, result) {
+            callBack(err,result);
+        });
     }
 
     static LoadComponentAsync(name:string, path:string) {

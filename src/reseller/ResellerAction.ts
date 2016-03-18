@@ -2,7 +2,7 @@ import {Injectable} from "angular2/core";
 import {Actions, AppStore} from "angular2-redux-util";
 import {Http, Jsonp} from "angular2/http";
 import {PrivelegesModel} from "./PrivelegesModel";
-import {PrivelegesSystemModel} from "./PrivelegesSystemModel";
+import {PrivelegesTemplateModel} from "./PrivelegesTemplateModel";
 import {Lib} from "../Lib";
 import {List} from 'immutable';
 var Immutable = require('immutable');
@@ -36,42 +36,48 @@ export class ResellerAction extends Actions {
                             return;
                         }
 
-                        /** redux inject privileges system **/
-                        var privilegesSystemModels = [];
-                        var tables = result.User.BusinessInfo["0"].Privileges["0"].Privilege["0"].Groups["0"].Group;
-                        tables.forEach((table)=> {
-                            let privelegesSystemModel:PrivelegesSystemModel = new PrivelegesSystemModel({
-                                tableName: table._attr.name,
-                                columns: Immutable.fromJS(table.Tables["0"]._attr)
-                            });
-                            if (privelegesSystemModel.getColumnSize() > 0)
-                                privilegesSystemModels.push(privelegesSystemModel)
-                        })
-                        dispatch(self.receivePrivilegesSystem(privilegesSystemModels));
+                        Lib.PrivilegesXmlTemplate((err,privilegesXmlTemplate)=>{
 
-                        /** redux inject privileges user **/
-                        var privilegesModels = [];
-                        result.User.BusinessInfo["0"].Privileges["0"].Privilege.forEach((privileges)=> {
-                            let groups = List();
-                            privileges.Groups["0"].Group.forEach((privilegesGroups)=>{
-                                var group = {
-                                    tableName: privilegesGroups._attr.name,
-                                    columns: Immutable.fromJS(privilegesGroups.Tables["0"]._attr)
-                                }
-                                groups = groups.push(group)
+                            /** redux inject privileges XML template system **/
+                            var privilegesSystemModels = [];
+                            // var tables = result.User.BusinessInfo["0"].Privileges["0"].Privilege["0"].Groups["0"].Group;
+                            privilegesXmlTemplate.Privilege.Groups["0"].Group.forEach((table)=> {
+                                let privelegesSystemModel:PrivelegesTemplateModel = new PrivelegesTemplateModel({
+                                    tableName: table._attr.name,
+                                    columns: Immutable.fromJS(table.Tables["0"]._attr)
+                                });
+                                if (privelegesSystemModel.getColumnSize() > 0)
+                                    privilegesSystemModels.push(privelegesSystemModel)
                             })
-                            let privilegesModel:PrivelegesModel = new PrivelegesModel({
-                                privilegesId: privileges._attr.id,
-                                name: privileges._attr.name,
-                                groups: groups
-                            });
-                            privilegesModels.push(privilegesModel)
-                        });
-                        dispatch(self.receivePrivileges(privilegesModels));
+                            dispatch(self.receivePrivilegesSystem(privilegesSystemModels));
 
-                        // var serializedData:Array<any> = Lib.ConstructImmutableFromTable(columns)
-                        // serializedData.forEach((immObj:Map<string,any>)=> {
-                        // })
+                            /** redux inject privileges user **/
+                            var privilegesModels = [];
+                            result.User.BusinessInfo["0"].Privileges["0"].Privilege.forEach((privileges)=> {
+                                let groups = List();
+                                privileges.Groups["0"].Group.forEach((privilegesGroups)=>{
+                                    var group = {
+                                        tableName: privilegesGroups._attr.name,
+                                        columns: Immutable.fromJS(privilegesGroups.Tables["0"]._attr)
+                                    }
+                                    groups = groups.push(group)
+                                })
+                                let privilegesModel:PrivelegesModel = new PrivelegesModel({
+                                    privilegesId: privileges._attr.id,
+                                    name: privileges._attr.name,
+                                    groups: groups
+                                });
+                                privilegesModels.push(privilegesModel)
+                            });
+                            dispatch(self.receivePrivileges(privilegesModels));
+
+                            // var serializedData:Array<any> = Lib.ConstructImmutableFromTable(columns)
+                            // serializedData.forEach((immObj:Map<string,any>)=> {
+                            // })
+
+                        });
+
+
 
                     });
 
@@ -86,7 +92,7 @@ export class ResellerAction extends Actions {
         }
     }
 
-    public receivePrivilegesSystem(privelegesSystemModels:Array<PrivelegesSystemModel>) {
+    public receivePrivilegesSystem(privelegesSystemModels:Array<PrivelegesTemplateModel>) {
         return {
             type: RECEIVE_PRIVILEGES_SYSTEM,
             privelegesSystemModels
