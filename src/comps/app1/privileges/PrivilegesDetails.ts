@@ -78,25 +78,16 @@ export class PrivilegesDetails {
         }
     }
 
-    private renderPrivilegesChecks(i_privelegesSystemModel:PrivelegesSystemModel, index, privModeEnum:PrivModeEnum):any {
-
+    private renderPrivilegesChecks(i_privelegesSystemModel:PrivelegesSystemModel, index, privModeEnum:PrivModeEnum):Array<number> {
         var tableName:string = i_privelegesSystemModel.getTableName();
-
-        var allColumns:Map<string,any> = i_privelegesSystemModel.getColumns();
-        var allColumnsJs = allColumns.toJS();
-        var allColumnsPairs = _.pairs(allColumnsJs);
-        var src = allColumnsPairs[index];
-
         var selColumn = this.selected.getColumns();
-        selColumn = selColumn.find((k,v)=>{
+        selColumn = selColumn.find((k)=>{
             if (k.tableName == tableName)
                 return true;
         })
         var selColumnsJs = selColumn.columns.toJS();
         var selColumnsPairs = _.pairs(selColumnsJs);
-        var dst = selColumnsPairs[index];
-
-        console.log(src,dst);
+        var finalColumn = selColumnsPairs[index];
         var bit;
         switch (privModeEnum){
             case PrivModeEnum.UPD: {
@@ -112,11 +103,8 @@ export class PrivilegesDetails {
                 break;
             }
         }
-
-        var value = dst[1];
-        var a = bit & value;
-        return [a];
-
+        var result = bit & finalColumn[1];
+        return [result];
     }
 
     private ngOnDestroy() {
@@ -125,3 +113,8 @@ export class PrivilegesDetails {
 
 }
 
+
+// var allColumns:Map<string,any> = i_privelegesSystemModel.getColumns();
+// var allColumnsJs = allColumns.toJS();
+// var allColumnsPairs = _.pairs(allColumnsJs);
+// var src = allColumnsPairs[index];
