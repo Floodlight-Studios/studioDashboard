@@ -5,7 +5,7 @@ import {SimpleGridTable} from "./SimpleGridTable";
     selector: 'tr[simpleGridRecord]',
     changeDetection: ChangeDetectionStrategy.OnPush,
     template: `
-        <ng-content></ng-content>
+          <ng-content></ng-content>
     `
 })
 export class SimpleGridRecord {
@@ -23,13 +23,13 @@ export class SimpleGridRecord {
         this.m_table = i_table;
     }
 
-    @HostListener('click', ['$event'])
-    onSelected() {
-        if (!this.selectable)
-            return;
-        this.setSelected();
-        return true;
-    }
+    // @HostListener('click', ['$event'])
+    // onSelected() {
+    //     if (!this.selectable)
+    //         return;
+    //     this.setSelected();
+    //     return true;
+    // }
 
     @HostBinding('class.selectedTr')
     selectedClass:boolean = false;
@@ -49,6 +49,10 @@ export class SimpleGridRecord {
         // is out of sync inside table, so we need to update to latest version of this
         if (selected && selected.m_index == this.index)
             this.setSelected();
+    }
+
+    private onDivClick(event){
+        alert(123)
     }
 
     private setSelected(){

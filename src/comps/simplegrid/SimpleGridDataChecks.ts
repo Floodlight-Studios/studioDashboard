@@ -1,12 +1,13 @@
 import {
-    Component, Input, ChangeDetectionStrategy, Output, EventEmitter, ViewChildren, QueryList, HostListener
+    Component, Input, ChangeDetectionStrategy, Output, EventEmitter, ViewChildren, QueryList, HostListener,
+    ChangeDetectorRef
 } from 'angular2/core'
 import {List} from "immutable";
 import {StoreModel} from "../../models/StoreModel";
 
 @Component({
     selector: 'td[simpleGridDataChecks]',
-    changeDetection: ChangeDetectionStrategy.OnPush,
+    changeDetection: ChangeDetectionStrategy.CheckOnce,
     styles: [`
         i {
             cursor: pointer;
@@ -15,12 +16,15 @@ import {StoreModel} from "../../models/StoreModel";
     template: `        
         <div *ngFor="#item of m_checkboxes">
           <label class="pull-left">{{item.name}}</label>
-          <Input #checkInputs type="checkbox" [checked]="item" value="{{item}}" class="pull-left" style="margin-right: 2px">
+          <Input (click)="onClick()" #checkInputs type="checkbox" [checked]="item" value="{{item}}" class="pull-left" style="margin-right: 2px">
         </div>
     `
 })
 export class SimpleGridDataChecks {
+    constructor(private cdr:ChangeDetectorRef) {
+    }
 
+    private t = 0;
     private m_checkboxes:List<any>
     private m_storeModel:StoreModel;
 
@@ -40,13 +44,18 @@ export class SimpleGridDataChecks {
     @Output()
     changed:EventEmitter<any> = new EventEmitter();
 
-    @HostListener('click', ['$event'])
+    //@HostListener('click', ['$event'])
     onClick(e) {
+        this.cdr.detach();
+        this.t++;
+        console.log(this.t);
+        if (this.t==2)
+            return;
         let values = []
         this.inputs.map(v=> {
             values.push(v.nativeElement.checked);
         });
-        this.changed.next({item: this.m_storeModel, value: values});
+        this.changed.emit({item: this.m_storeModel, value: values});
         return true;
     }
 }
