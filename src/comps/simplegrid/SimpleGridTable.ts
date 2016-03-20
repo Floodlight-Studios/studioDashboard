@@ -31,6 +31,7 @@ export class SimpleGridTable {
     simpleGridRecord:QueryList<SimpleGridRecord>;
 
     public setSelected(i_selected:SimpleGridRecord) {
+        alert(2)
         this.deselect();
         this.selected = i_selected;
         var rec = i_selected.item;

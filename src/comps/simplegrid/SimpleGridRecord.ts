@@ -1,5 +1,6 @@
-import {Component, Input, ChangeDetectionStrategy, HostListener, HostBinding} from 'angular2/core'
+import {Component, Input, ChangeDetectionStrategy, HostListener, HostBinding, ElementRef} from 'angular2/core'
 import {SimpleGridTable} from "./SimpleGridTable";
+import {Observable} from "rxjs/Observable";
 
 @Component({
     selector: 'tr[simpleGridRecord]',
@@ -9,6 +10,19 @@ import {SimpleGridTable} from "./SimpleGridTable";
     `
 })
 export class SimpleGridRecord {
+
+    constructor(private elementRef:ElementRef) {
+        var self = this;
+        this.sub = Observable.fromEvent(self.elementRef.nativeElement, 'click')
+            .subscribe(()=> {
+                if (!self.selectable)
+                    return;
+                self.setSelected();
+                return true;
+            });
+    }
+
+    private sub;
     private m_table:SimpleGridTable
     private m_index;
 
@@ -39,7 +53,7 @@ export class SimpleGridRecord {
         this.m_index = i_index;
     }
 
-    get index(){
+    get index() {
         return this.m_index;
     }
 
@@ -51,13 +65,14 @@ export class SimpleGridRecord {
             this.setSelected();
     }
 
-    private onDivClick(event){
-        alert(123)
-    }
-
-    private setSelected(){
+    private setSelected() {
+        alert(1)
         this.m_table.setSelected(this);
         this.selectedClass = true;
+    }
+
+    ngOnDestroy() {
+        this.sub.unsubscribe();
     }
 }
 
