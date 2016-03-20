@@ -4,6 +4,7 @@ import {List, Map} from 'immutable';
 import {SIMPLEGRID_DIRECTIVES} from "../../simplegrid/SimpleGrid";
 import {AppStore} from "angular2-redux-util/dist/index";
 import {PrivelegesTemplateModel} from "../../../reseller/PrivelegesTemplateModel";
+import {ResellerAction} from "../../../reseller/ResellerAction";
 const _ = require('underscore');
 
 enum PrivModeEnum {ADD, DEL, UPD}
@@ -31,9 +32,9 @@ enum PrivModeEnum {ADD, DEL, UPD}
                     <tbody>
                         <tr class="simpleGridRecord" *ngFor="#item of renderPrivilegesTable(privilegesItem); #index=index">
                             <td style="width: 70%" [editable]="false" simpleGridData [processField]="renderTableName()" [item]="item"></td>
-                            <td style="width: 10%" (changed)="onChange($event)" [item]="{item: privilegesItem, index: index, PrivModeEnum: PrivModeEnum.DEL}" simpleGridDataChecks [checkboxes]="renderPrivilegesChecks(privilegesItem, index, PrivModeEnum.DEL)"></td>
-                            <td style="width: 10%" (changed)="onChange($event)" [item]="{item: privilegesItem, index: index, PrivModeEnum: PrivModeEnum.ADD}" simpleGridDataChecks [checkboxes]="renderPrivilegesChecks(privilegesItem, index, PrivModeEnum.ADD)"></td>
-                            <td style="width: 10%" (changed)="onChange($event)" [item]="{item: privilegesItem, index: index, PrivModeEnum: PrivModeEnum.UPD}" simpleGridDataChecks [checkboxes]="renderPrivilegesChecks(privilegesItem, index, PrivModeEnum.UPD)"></td>
+                            <td style="width: 10%" (changed)="onPrivilegeChange($event)" [item]="{item: privilegesItem, index: index, PrivModeEnum: PrivModeEnum.DEL}" simpleGridDataChecks [checkboxes]="renderPrivilegesChecks(privilegesItem, index, PrivModeEnum.DEL)"></td>
+                            <td style="width: 10%" (changed)="onPrivilegeChange($event)" [item]="{item: privilegesItem, index: index, PrivModeEnum: PrivModeEnum.ADD}" simpleGridDataChecks [checkboxes]="renderPrivilegesChecks(privilegesItem, index, PrivModeEnum.ADD)"></td>
+                            <td style="width: 10%" (changed)="onPrivilegeChange($event)" [item]="{item: privilegesItem, index: index, PrivModeEnum: PrivModeEnum.UPD}" simpleGridDataChecks [checkboxes]="renderPrivilegesChecks(privilegesItem, index, PrivModeEnum.UPD)"></td>
                         </tr>
                     </tbody>
                 </simpleGridTable>
@@ -46,7 +47,7 @@ export class PrivilegesDetails {
 
     private PrivModeEnum = PrivModeEnum;
 
-    constructor(private appStore:AppStore) {
+    constructor(private appStore:AppStore, private resellerAction:ResellerAction) {
         var i_reseller = this.appStore.getState().reseller;
 
         this.m_privelegesSystemModelList = i_reseller.getIn(['privilegesSystem']);
@@ -67,8 +68,27 @@ export class PrivilegesDetails {
         this.m_privileges = i_privileges;
     }
 
-    private onChange(event){
-        console.log('on checkbox ' + event);
+    private onPrivilegeChange(event:{
+        value:Array<number>,
+        item:{
+            PrivModeEnum:PrivModeEnum,
+            index:number,
+            item:PrivelegesTemplateModel
+        }
+    }) {
+        console.log(event.item.PrivModeEnum);
+        console.log(event.item.PrivModeEnum);
+        console.log(event.item.PrivModeEnum);
+        console.log(event.item.PrivModeEnum);
+        var privilegeValues = {
+            value: event.value[0],
+            tableName: event.item.item.getTableName(),
+            privModeEnum: event.item.PrivModeEnum,
+            index: event.item.index
+        }
+        this.appStore.dispatch(this.resellerAction.updatePrivilegesSystem(privilegeValues));
+        this.appStore.dispatch(this.resellerAction.updatePrivilegesSystem(privilegeValues));
+        this.appStore.dispatch(this.resellerAction.updatePrivilegesSystem(privilegeValues));
     }
 
     private renderPrivilegesTable(privelegesSystemModel:PrivelegesTemplateModel):Map<string,any> {
@@ -84,7 +104,7 @@ export class PrivilegesDetails {
     private renderPrivilegesChecks(i_privelegesSystemModel:PrivelegesTemplateModel, index, privModeEnum:PrivModeEnum):Array<number> {
         var tableName:string = i_privelegesSystemModel.getTableName();
         var selColumn = this.selected.getColumns();
-        selColumn = selColumn.find((k)=>{
+        selColumn = selColumn.find((k)=> {
             if (k.tableName == tableName)
                 return true;
         })
@@ -98,16 +118,19 @@ export class PrivilegesDetails {
         var selColumnsPairs = _.pairs(selColumnsJs);
         var finalColumn = selColumnsPairs[index];
         var bit;
-        switch (privModeEnum){
-            case PrivModeEnum.UPD: {
+        switch (privModeEnum) {
+            case PrivModeEnum.UPD:
+            {
                 bit = 1;
                 break;
             }
-            case PrivModeEnum.ADD: {
+            case PrivModeEnum.ADD:
+            {
                 bit = 2;
                 break;
             }
-            case PrivModeEnum.DEL: {
+            case PrivModeEnum.DEL:
+            {
                 bit = 4;
                 break;
             }

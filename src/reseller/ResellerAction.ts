@@ -9,6 +9,7 @@ var Immutable = require('immutable');
 
 export const RECEIVE_PRIVILEGES = 'RECEIVE_PRIVILEGES';
 export const RECEIVE_PRIVILEGES_SYSTEM = 'RECEIVE_PRIVILEGES_SYSTEM';
+export const UPDATE_PRIVILEGES = 'UPDATE_PRIVILEGES';
 
 
 @Injectable()
@@ -96,6 +97,12 @@ export class ResellerAction extends Actions {
         return {
             type: RECEIVE_PRIVILEGES_SYSTEM,
             privelegesSystemModels
+        }
+    }
+    public updatePrivilegesSystem(payload) {
+        return {
+            type: UPDATE_PRIVILEGES,
+            payload
         }
     }
 }

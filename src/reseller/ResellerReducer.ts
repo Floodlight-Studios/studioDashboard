@@ -15,6 +15,12 @@ export function reseller(state:Map<string,any> = Map<string,any>(), action:any):
         {
             return state.setIn(['privilegesSystem'], action.privelegesSystemModels);
         }
+        case ResellerAction.UPDATE_PRIVILEGES:
+        {
+            console.log(action);
+            console.log(action);
+           // return state.setIn(['privileges'], action.privelegesSystemModels);
+        }
         default:
             return state;
     }
