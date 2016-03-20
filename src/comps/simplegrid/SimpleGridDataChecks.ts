@@ -24,7 +24,6 @@ export class SimpleGridDataChecks {
     constructor(private cdr:ChangeDetectorRef) {
     }
 
-    private t = 0;
     private m_checkboxes:List<any>
     private m_storeModel:StoreModel;
 
@@ -47,10 +46,6 @@ export class SimpleGridDataChecks {
     //@HostListener('click', ['$event'])
     onClick(e) {
         this.cdr.detach();
-        this.t++;
-        console.log(this.t);
-        if (this.t==2)
-            return;
         let values = []
         this.inputs.map(v=> {
             values.push(v.nativeElement.checked);

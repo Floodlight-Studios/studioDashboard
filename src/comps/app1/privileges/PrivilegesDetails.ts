@@ -29,12 +29,11 @@ enum PrivModeEnum {ADD, DEL, UPD}
                         </tr>
                     </thead>
                     <tbody>
-                        <tr class="simpleGridRecord" [table]="userSimpleGridTable" simpleGridRecord *ngFor="#item of renderPrivilegesTable(privilegesItem); #index=index" [item]="item" [index]="index" [selectable]="false">
+                        <tr class="simpleGridRecord" *ngFor="#item of renderPrivilegesTable(privilegesItem); #index=index">
                             <td style="width: 70%" [editable]="false" simpleGridData [processField]="renderTableName()" [item]="item"></td>
-                            <td style="width: 10%" simpleGridDataChecks [checkboxes]="renderPrivilegesChecks(privilegesItem, index, PrivModeEnum.DEL)"></td>
-                            <td style="width: 10%" simpleGridDataChecks [checkboxes]="renderPrivilegesChecks(privilegesItem, index, PrivModeEnum.ADD)"></td>
-                            <td style="width: 10%" simpleGridDataChecks [checkboxes]="renderPrivilegesChecks(privilegesItem, index, PrivModeEnum.UPD)"></td>
-                            <!--<td style="width: 20%" simpleGridDataChecks (changed)="setAccessMask($event)" [item]="item" [checkboxes]="getAccessMask(item)"></td>-->
+                            <td style="width: 10%" (changed)="onChange($event)" [item]="{item: privilegesItem, index: index, PrivModeEnum: PrivModeEnum.DEL}" simpleGridDataChecks [checkboxes]="renderPrivilegesChecks(privilegesItem, index, PrivModeEnum.DEL)"></td>
+                            <td style="width: 10%" (changed)="onChange($event)" [item]="{item: privilegesItem, index: index, PrivModeEnum: PrivModeEnum.ADD}" simpleGridDataChecks [checkboxes]="renderPrivilegesChecks(privilegesItem, index, PrivModeEnum.ADD)"></td>
+                            <td style="width: 10%" (changed)="onChange($event)" [item]="{item: privilegesItem, index: index, PrivModeEnum: PrivModeEnum.UPD}" simpleGridDataChecks [checkboxes]="renderPrivilegesChecks(privilegesItem, index, PrivModeEnum.UPD)"></td>
                         </tr>
                     </tbody>
                 </simpleGridTable>
@@ -66,6 +65,10 @@ export class PrivilegesDetails {
     @Input()
     set priveleges(i_privileges:List<PrivelegesModel>) {
         this.m_privileges = i_privileges;
+    }
+
+    private onChange(event){
+        console.log('on checkbox ' + event);
     }
 
     private renderPrivilegesTable(privelegesSystemModel:PrivelegesTemplateModel):Map<string,any> {

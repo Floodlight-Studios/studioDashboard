@@ -10,19 +10,6 @@ import {Observable} from "rxjs/Observable";
     `
 })
 export class SimpleGridRecord {
-
-    constructor(private elementRef:ElementRef) {
-        var self = this;
-        this.sub = Observable.fromEvent(self.elementRef.nativeElement, 'click')
-            .subscribe(()=> {
-                if (!self.selectable)
-                    return;
-                self.setSelected();
-                return true;
-            });
-    }
-
-    private sub;
     private m_table:SimpleGridTable
     private m_index;
 
@@ -37,13 +24,13 @@ export class SimpleGridRecord {
         this.m_table = i_table;
     }
 
-    // @HostListener('click', ['$event'])
-    // onSelected() {
-    //     if (!this.selectable)
-    //         return;
-    //     this.setSelected();
-    //     return true;
-    // }
+    @HostListener('click', ['$event'])
+    onSelected() {
+        if (!this.selectable)
+            return;
+        this.setSelected();
+        return true;
+    }
 
     @HostBinding('class.selectedTr')
     selectedClass:boolean = false;
@@ -66,13 +53,8 @@ export class SimpleGridRecord {
     }
 
     private setSelected() {
-        alert(1)
         this.m_table.setSelected(this);
         this.selectedClass = true;
-    }
-
-    ngOnDestroy() {
-        this.sub.unsubscribe();
     }
 }
 
