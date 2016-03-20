@@ -76,16 +76,95 @@ export class PrivilegesDetails {
             item:PrivelegesTemplateModel
         }
     }) {
-        console.log(event.item.PrivModeEnum);
-        console.log(event.item.PrivModeEnum);
-        console.log(event.item.PrivModeEnum);
-        console.log(event.item.PrivModeEnum);
-        var privilegeValues = {
-            value: event.value[0],
-            tableName: event.item.item.getTableName(),
-            privModeEnum: event.item.PrivModeEnum,
-            index: event.item.index
+
+        let index:number = event.item.index;
+        let value:boolean = Boolean(event.value[0]);
+        let tableName:string = event.item.item.getTableName();
+        let privModeEnum:PrivModeEnum = event.item.PrivModeEnum;
+
+        var selColumn = this.selected.getColumns();
+        selColumn = selColumn.find((k)=> {
+            if (k.tableName == tableName)
+                return true;
+        })
+        var selColumnsJs = selColumn.columns.toJS();
+        var selColumnsPairs = _.pairs(selColumnsJs);
+        var column = selColumnsPairs[index];
+        var colmnName:string = column[0];
+        var totalBits:number = Number(column[1]);
+
+        let bit;
+        let totalBits;
+        switch (privModeEnum) {
+            case PrivModeEnum.UPD:
+            {
+                bit = 1;
+                if (value){
+                    totalBits = bit;
+                    return;
+                } else {
+                    totalBits = 0
+                    return;
+                }
+                break;
+            }
+            case PrivModeEnum.ADD:
+            {
+                bit = 2;
+                break;
+            }
+            case PrivModeEnum.DEL:
+            {
+                bit = 4;
+                if (value){
+                    totalBits = 7;
+                    return;
+                } else {
+                    totalBits = totalBits - bit;
+                    return;
+                }
+                break;
+            }
         }
+
+
+        if (value){
+            totalBits = totalBits + bit;
+        } else {
+            totalBits = totalBits - bit;
+        }
+        console.log(totalBits);
+        console.log(totalBits);
+        return;
+
+
+
+        //todo: find source total bits and sub or add value per add/del/upd
+        let bit;
+        switch (event.item.PrivModeEnum) {
+            case PrivModeEnum.UPD:
+            {
+                bit = 1;
+                break;
+            }
+            case PrivModeEnum.ADD:
+            {
+                bit = 2;
+                break;
+            }
+            case PrivModeEnum.DEL:
+            {
+                bit = 4;
+                break;
+            }
+        }
+        // if checkbox adding
+        if (event.value[0]) {
+
+        } else {
+
+        }
+
         this.appStore.dispatch(this.resellerAction.updatePrivilegesSystem(privilegeValues));
         this.appStore.dispatch(this.resellerAction.updatePrivilegesSystem(privilegeValues));
         this.appStore.dispatch(this.resellerAction.updatePrivilegesSystem(privilegeValues));
@@ -116,7 +195,7 @@ export class PrivilegesDetails {
 
         var selColumnsJs = selColumn.columns.toJS();
         var selColumnsPairs = _.pairs(selColumnsJs);
-        var finalColumn = selColumnsPairs[index];
+        var totalBits = selColumnsPairs[index];
         var bit;
         switch (privModeEnum) {
             case PrivModeEnum.UPD:
@@ -135,7 +214,7 @@ export class PrivilegesDetails {
                 break;
             }
         }
-        var result = bit & finalColumn[1];
+        var result = bit & totalBits[1];
         return [result];
     }
 

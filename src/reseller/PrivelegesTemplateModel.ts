@@ -9,7 +9,7 @@ export class PrivelegesTemplateModel extends StoreModel {
         return this.getKey('privilegesId');
     }
 
-    public getTableName() {
+    public getTableName():string {
         return this.getKey('tableName');
     }
 
