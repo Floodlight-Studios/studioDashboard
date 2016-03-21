@@ -33,7 +33,6 @@ export function reseller(state:Map<string,any> = Map<string,any>(), action:any):
                     })
                 }
             })
-            console.log();
             return state.setIn(['privileges'], privileges);
         }
         default:

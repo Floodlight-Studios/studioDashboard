@@ -86,11 +86,6 @@ export class PrivilegesDetails {
                 return true;
         })
         var totalBits = Number(Lib.GetValueFromMapIndex(selColumn.get('columns'),index));
-        // var selColumnsJs = selColumn.get('columns').toJS();
-        // var selColumnsPairs = _.pairs(selColumnsJs);
-        // var column = selColumnsPairs[index];
-        // var colmnName:string = column[0];
-        // var totalBits:number = Number(column[1]);
 
         var updTotalBits = this.calcMask(privModeEnum, adding, totalBits);
 
@@ -159,9 +154,6 @@ export class PrivilegesDetails {
             return [1]
 
         var totalBits = Number(Lib.GetValueFromMapIndex(selColumn.get('columns'),index));
-        // var selColumnsJs = selColumn.get('columns').toJS();
-        // var selColumnsPairs = _.pairs(selColumnsJs);
-        // var totalBits = selColumnsPairs[index];
         var bit;
         switch (privModeEnum) {
             case PrivModeEnum.UPD:
