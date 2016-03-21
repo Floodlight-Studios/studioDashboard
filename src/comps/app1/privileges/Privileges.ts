@@ -46,6 +46,7 @@ export class Privileges {
         this.privelegesList = i_reseller.getIn(['privileges']);
         this.unsub = this.appStore.sub((privelegesModel:List<PrivelegesModel>) => {
             this.privelegesList = privelegesModel;
+            this.onPrivilegeSelected();
         }, 'reseller.privileges');
     }
 
@@ -67,11 +68,11 @@ export class Privileges {
     private onPrivilegeSelected() {
 
         var selected = this.simpleList.getSelected();
-        selected = this.privelegesList.filter((privelegesModel:PrivelegesModel)=> {
+        var selectedList:List<PrivelegesModel> = this.privelegesList.filter((privelegesModel:PrivelegesModel)=> {
             var privelegesId = privelegesModel.getPrivelegesId();
             return selected[privelegesId] && selected[privelegesId].selected;
-        });
-       this.privelegesModelSelected = selected && selected[0];
+        }) as List<PrivelegesModel>;
+       this.privelegesModelSelected = selectedList.first()// && selected[0];
     }
 
     private getPrivilege() {

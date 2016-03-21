@@ -4,7 +4,7 @@ import {Http, Jsonp} from "angular2/http";
 import {PrivelegesModel} from "./PrivelegesModel";
 import {PrivelegesTemplateModel} from "./PrivelegesTemplateModel";
 import {Lib} from "../Lib";
-import {List} from 'immutable';
+import {List, Map} from 'immutable';
 var Immutable = require('immutable');
 
 export const RECEIVE_PRIVILEGES = 'RECEIVE_PRIVILEGES';
@@ -53,14 +53,14 @@ export class ResellerAction extends Actions {
                             dispatch(self.receivePrivilegesSystem(privilegesSystemModels));
 
                             /** redux inject privileges user **/
-                            var privilegesModels = [];
+                            var privilegesModels:List<PrivelegesModel> = List<PrivelegesModel>();
                             result.User.BusinessInfo["0"].Privileges["0"].Privilege.forEach((privileges)=> {
                                 let groups = List();
                                 privileges.Groups["0"].Group.forEach((privilegesGroups)=>{
-                                    var group = {
+                                    var group = Map({
                                         tableName: privilegesGroups._attr.name,
                                         columns: Immutable.fromJS(privilegesGroups.Tables["0"]._attr)
-                                    }
+                                    });
                                     groups = groups.push(group)
                                 })
                                 let privilegesModel:PrivelegesModel = new PrivelegesModel({
@@ -68,7 +68,7 @@ export class ResellerAction extends Actions {
                                     name: privileges._attr.name,
                                     groups: groups
                                 });
-                                privilegesModels.push(privilegesModel)
+                                privilegesModels = privilegesModels.push(privilegesModel)
                             });
                             dispatch(self.receivePrivileges(privilegesModels));
 
@@ -86,7 +86,7 @@ export class ResellerAction extends Actions {
         }
     }
 
-    public receivePrivileges(privilegesModels:Array<PrivelegesModel>) {
+    public receivePrivileges(privilegesModels:List<PrivelegesModel>) {
         return {
             type: RECEIVE_PRIVILEGES,
             privilegesModels
@@ -99,6 +99,7 @@ export class ResellerAction extends Actions {
             privelegesSystemModels
         }
     }
+
     public updatePrivilegesSystem(payload) {
         return {
             type: UPDATE_PRIVILEGES,

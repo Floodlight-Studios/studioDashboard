@@ -13,12 +13,12 @@ enum PrivModeEnum {ADD, DEL, UPD}
     selector: 'privilegesDetails',
     directives: [SIMPLEGRID_DIRECTIVES],
     template: `
-          <div *ngIf="!m_privelegesSystemModelList || !selected">
+          <div *ngIf="!m_privelegesSystemModelList || !m_selected">
             <center>
               <h3>select | create privileges</h3>
             </center>
           </div>
-          <div *ngIf="m_privelegesSystemModelList && selected">
+          <div *ngIf="m_privelegesSystemModelList && m_selected">
               <div *ngFor="#privilegesItem of m_privelegesSystemModelList">
                 <simpleGridTable #userSimpleGridTable>
                     <thead>
@@ -57,117 +57,80 @@ export class PrivilegesDetails {
     }
 
     private unsub;
+    private m_selected:PrivelegesModel;
     private m_privileges:List<PrivelegesModel>
     private m_privelegesSystemModelList:List<PrivelegesTemplateModel>
 
     @Input()
-    selected:PrivelegesModel;
+    set selected(i_selected:PrivelegesModel){
+        this.m_selected = i_selected;
+    }
 
     @Input()
     set priveleges(i_privileges:List<PrivelegesModel>) {
         this.m_privileges = i_privileges;
     }
 
-    private onPrivilegeChange(event:{
-        value:Array<number>,
-        item:{
-            PrivModeEnum:PrivModeEnum,
-            index:number,
-            item:PrivelegesTemplateModel
-        }
-    }) {
+    private onPrivilegeChange(event:{ value:Array<number>, item:{ PrivModeEnum:PrivModeEnum, index:number, item:PrivelegesTemplateModel } }) {
 
+        let selPrivName = this.m_selected.getName();
         let index:number = event.item.index;
-        let value:boolean = Boolean(event.value[0]);
+        let adding:boolean = Boolean(event.value[0]);
         let tableName:string = event.item.item.getTableName();
         let privModeEnum:PrivModeEnum = event.item.PrivModeEnum;
 
-        var selColumn = this.selected.getColumns();
+        var selColumn = this.m_selected.getColumns();
         selColumn = selColumn.find((k)=> {
-            if (k.tableName == tableName)
+            if (k.get('tableName') == tableName)
                 return true;
         })
-        var selColumnsJs = selColumn.columns.toJS();
+        var selColumnsJs = selColumn.get('columns').toJS();
         var selColumnsPairs = _.pairs(selColumnsJs);
         var column = selColumnsPairs[index];
         var colmnName:string = column[0];
         var totalBits:number = Number(column[1]);
 
-        let bit;
-        let totalBits;
-        switch (privModeEnum) {
+        var updTotalBits = this.calcMask(privModeEnum, adding, totalBits);
+
+        var payload = {
+            selPrivName,
+            tableName,
+            index,
+            privModeEnum,
+            updTotalBits
+        }
+        this.appStore.dispatch(this.resellerAction.updatePrivilegesSystem(payload));
+    }
+
+    private calcMask(i_privModeEnum, i_adding, i_totalBits) {
+
+        switch (i_privModeEnum) {
             case PrivModeEnum.UPD:
             {
-                bit = 1;
-                if (value){
-                    totalBits = bit;
-                    return;
+                if (i_adding) {
+                    return 1;
                 } else {
-                    totalBits = 0
-                    return;
+                    return 0;
                 }
-                break;
             }
             case PrivModeEnum.ADD:
             {
-                bit = 2;
-                break;
-            }
-            case PrivModeEnum.DEL:
-            {
-                bit = 4;
-                if (value){
-                    totalBits = 7;
-                    return;
+                if (i_adding) {
+                    return 3;
                 } else {
-                    totalBits = totalBits - bit;
-                    return;
+                    return 1;
                 }
-                break;
-            }
-        }
-
-
-        if (value){
-            totalBits = totalBits + bit;
-        } else {
-            totalBits = totalBits - bit;
-        }
-        console.log(totalBits);
-        console.log(totalBits);
-        return;
-
-
-
-        //todo: find source total bits and sub or add value per add/del/upd
-        let bit;
-        switch (event.item.PrivModeEnum) {
-            case PrivModeEnum.UPD:
-            {
-                bit = 1;
-                break;
-            }
-            case PrivModeEnum.ADD:
-            {
-                bit = 2;
-                break;
             }
             case PrivModeEnum.DEL:
             {
-                bit = 4;
-                break;
+                if (i_adding) {
+                    return 7;
+                } else {
+                    return i_totalBits - 4;
+
+                }
             }
         }
-        // if checkbox adding
-        if (event.value[0]) {
-
-        } else {
-
-        }
-
-        this.appStore.dispatch(this.resellerAction.updatePrivilegesSystem(privilegeValues));
-        this.appStore.dispatch(this.resellerAction.updatePrivilegesSystem(privilegeValues));
-        this.appStore.dispatch(this.resellerAction.updatePrivilegesSystem(privilegeValues));
     }
 
     private renderPrivilegesTable(privelegesSystemModel:PrivelegesTemplateModel):Map<string,any> {
@@ -182,9 +145,9 @@ export class PrivilegesDetails {
 
     private renderPrivilegesChecks(i_privelegesSystemModel:PrivelegesTemplateModel, index, privModeEnum:PrivModeEnum):Array<number> {
         var tableName:string = i_privelegesSystemModel.getTableName();
-        var selColumn = this.selected.getColumns();
+        var selColumn = this.m_selected.getColumns();
         selColumn = selColumn.find((k)=> {
-            if (k.tableName == tableName)
+            if (k.get('tableName') == tableName)
                 return true;
         })
 
@@ -193,7 +156,7 @@ export class PrivilegesDetails {
         if (!selColumn)
             return [1]
 
-        var selColumnsJs = selColumn.columns.toJS();
+        var selColumnsJs = selColumn.get('columns').toJS();
         var selColumnsPairs = _.pairs(selColumnsJs);
         var totalBits = selColumnsPairs[index];
         var bit;

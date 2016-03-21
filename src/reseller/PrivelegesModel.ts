@@ -1,19 +1,20 @@
 import {StoreModel} from "../models/StoreModel";
+import List = Immutable.List;
 export class PrivelegesModel extends StoreModel {
 
     constructor(data:any = {}) {
         super(data);
     }
 
-    public getName(){
+    public getName() {
         return this.getKey('name');
     }
 
-    public getColumns(){
-        return this.getData().get('groups');
+    public getColumns() {
+        return this.getKey('groups');
     }
 
-    public getPrivelegesId(){
+    public getPrivelegesId() {
         return this.getKey('privilegesId');
     }
 }
