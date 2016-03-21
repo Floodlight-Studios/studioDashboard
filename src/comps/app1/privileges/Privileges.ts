@@ -66,7 +66,8 @@ export class Privileges {
     private privelegesModelSelected:PrivelegesModel;
 
     private onPrivilegeSelected() {
-
+        if (!this.simpleList)
+            return;
         var selected = this.simpleList.getSelected();
         var selectedList:List<PrivelegesModel> = this.privelegesList.filter((privelegesModel:PrivelegesModel)=> {
             var privelegesId = privelegesModel.getPrivelegesId();

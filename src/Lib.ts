@@ -8,6 +8,7 @@ import {List, Map} from 'immutable';
 import {LoggerMiddleware} from "angular2-redux-util";
 import {BusinessUser} from "./business/BusinessUser";
 var Immutable = require('immutable');
+const _ = require('underscore');
 
 
 @Injectable()
@@ -27,7 +28,19 @@ export class Lib {
         };
     }
 
-    static PrivilegesXmlTemplate(callBack:(err,result)=>any) {
+    static GetKeyFromMapIndex(map:Map<string,any>, index:number):string {
+        var mapJs = map.toJS();
+        var mapJsPairs = _.pairs(mapJs);
+        return mapJsPairs[index][0];
+    }
+
+    static GetValueFromMapIndex(map:Map<string,any>, index:number):string {
+        var mapJs = map.toJS();
+        var mapJsPairs = _.pairs(mapJs);
+        return mapJsPairs[index][1];
+    }
+
+    static PrivilegesXmlTemplate(callBack:(err, result)=>any) {
         const parseString = require('xml2js').parseString;
         var xmlData = `
           <Privilege>
@@ -85,7 +98,7 @@ export class Lib {
         `
 
         parseString(xmlData, {attrkey: '_attr'}, function (err, result) {
-            callBack(err,result);
+            callBack(err, result);
         });
     }
 

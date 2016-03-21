@@ -5,6 +5,7 @@ import {SIMPLEGRID_DIRECTIVES} from "../../simplegrid/SimpleGrid";
 import {AppStore} from "angular2-redux-util/dist/index";
 import {PrivelegesTemplateModel} from "../../../reseller/PrivelegesTemplateModel";
 import {ResellerAction} from "../../../reseller/ResellerAction";
+import {Lib} from "../../../Lib";
 const _ = require('underscore');
 
 enum PrivModeEnum {ADD, DEL, UPD}
@@ -84,11 +85,12 @@ export class PrivilegesDetails {
             if (k.get('tableName') == tableName)
                 return true;
         })
-        var selColumnsJs = selColumn.get('columns').toJS();
-        var selColumnsPairs = _.pairs(selColumnsJs);
-        var column = selColumnsPairs[index];
-        var colmnName:string = column[0];
-        var totalBits:number = Number(column[1]);
+        var totalBits = Number(Lib.GetValueFromMapIndex(selColumn.get('columns'),index));
+        // var selColumnsJs = selColumn.get('columns').toJS();
+        // var selColumnsPairs = _.pairs(selColumnsJs);
+        // var column = selColumnsPairs[index];
+        // var colmnName:string = column[0];
+        // var totalBits:number = Number(column[1]);
 
         var updTotalBits = this.calcMask(privModeEnum, adding, totalBits);
 
@@ -156,9 +158,10 @@ export class PrivilegesDetails {
         if (!selColumn)
             return [1]
 
-        var selColumnsJs = selColumn.get('columns').toJS();
-        var selColumnsPairs = _.pairs(selColumnsJs);
-        var totalBits = selColumnsPairs[index];
+        var totalBits = Number(Lib.GetValueFromMapIndex(selColumn.get('columns'),index));
+        // var selColumnsJs = selColumn.get('columns').toJS();
+        // var selColumnsPairs = _.pairs(selColumnsJs);
+        // var totalBits = selColumnsPairs[index];
         var bit;
         switch (privModeEnum) {
             case PrivModeEnum.UPD:
@@ -177,7 +180,7 @@ export class PrivilegesDetails {
                 break;
             }
         }
-        var result = bit & totalBits[1];
+        var result = bit & totalBits;
         return [result];
     }
 
@@ -186,9 +189,3 @@ export class PrivilegesDetails {
     }
 
 }
-
-
-// var allColumns:Map<string,any> = i_privelegesSystemModel.getColumns();
-// var allColumnsJs = allColumns.toJS();
-// var allColumnsPairs = _.pairs(allColumnsJs);
-// var src = allColumnsPairs[index];

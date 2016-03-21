@@ -2,6 +2,7 @@ import {List} from 'immutable';
 import {Map} from 'immutable';
 import * as ResellerAction from './ResellerAction';
 import {PrivelegesModel} from "./PrivelegesModel";
+import {Lib} from "../Lib";
 const _ = require('underscore');
 
 export function reseller(state:Map<string,any> = Map<string,any>(), action:any):Map<string,any> {
@@ -23,18 +24,14 @@ export function reseller(state:Map<string,any> = Map<string,any>(), action:any):
                 if (i_privelegesModel.getName() == action.payload.selPrivName) {
                     i_privelegesModel.getColumns().forEach((group, c) => {
                         if (group.get('tableName') == action.payload.tableName) {
-                            var selColumnsJs = group.get('columns').toJS();
-                            var selColumnsPairs = _.pairs(selColumnsJs);
-                            var key = selColumnsPairs[action.payload.index][0];
+                            var key = Lib.GetKeyFromMapIndex(group.get('columns'), action.payload.index);
                             var path = ['groups', c, 'columns', key];
                             var data = i_privelegesModel.getData().updateIn(path, v=> action.payload.updTotalBits)
                             var updPriv = i_privelegesModel.setData<PrivelegesModel>(PrivelegesModel, data);
                             privileges = privileges.set(counter, updPriv);
                         }
                     })
-
                 }
-
             })
             console.log();
             return state.setIn(['privileges'], privileges);
