@@ -22,6 +22,7 @@ import {PrivilegesDetails} from "./PrivilegesDetails";
                 <SimpleList *ngIf="privelegesList" #simpleList [list]="privelegesList" 
                     (selected)="onPrivilegeSelected()"
                     [multi]="false"
+                    [iconSelectiondMode]="true"
                     [contentId]="getPrivilegeId()"
                     [content]="getPrivilege()">
                 </SimpleList>
