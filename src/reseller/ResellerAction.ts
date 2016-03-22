@@ -10,6 +10,7 @@ var Immutable = require('immutable');
 export const RECEIVE_PRIVILEGES = 'RECEIVE_PRIVILEGES';
 export const RECEIVE_PRIVILEGES_SYSTEM = 'RECEIVE_PRIVILEGES_SYSTEM';
 export const UPDATE_PRIVILEGES = 'UPDATE_PRIVILEGES';
+export const RECEIVE_DEFAULT_PRIVILEGE = 'RECEIVE_DEFAULT_PRIVILEGE';
 
 
 @Injectable()
@@ -53,6 +54,8 @@ export class ResellerAction extends Actions {
                             dispatch(self.receivePrivilegesSystem(privilegesSystemModels));
 
                             /** redux inject privileges user **/
+                            var defaultPrivId = result.User.BusinessInfo[0].Privileges[0]._attr.defaultPrivilegeId;
+                            dispatch(self.receiveDefaultPrivilege(defaultPrivId));
                             var privilegesModels:List<PrivelegesModel> = List<PrivelegesModel>();
                             result.User.BusinessInfo["0"].Privileges["0"].Privilege.forEach((privileges)=> {
                                 let groups = List();
@@ -90,6 +93,13 @@ export class ResellerAction extends Actions {
         return {
             type: RECEIVE_PRIVILEGES,
             privilegesModels
+        }
+    }
+
+    public receiveDefaultPrivilege(privilegeId:number) {
+        return {
+            type: RECEIVE_DEFAULT_PRIVILEGE,
+            privilegeId
         }
     }
 
