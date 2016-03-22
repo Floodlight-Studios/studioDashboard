@@ -5,8 +5,6 @@ window['Highcharts'] = require('highcharts');
 
 @Component({
     selector: 'ServerStats',
-})
-@View({
     template: `
         <div style="width: 100%">
             <div *ngIf!="_data.length != 0">

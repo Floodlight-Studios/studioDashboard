@@ -5,8 +5,6 @@ window['Highcharts'] = require('highcharts');
 
 @Component({
     selector: 'ServerAvg',
-})
-@View({
     template: `
         <div style="width: 100%; height: 150px">
             <div *ngIf="_data == 0">

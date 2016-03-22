@@ -4,14 +4,11 @@ import {Ng2Highcharts} from '../../ng2-highcharts/ng2-highcharts';
 window['Highcharts'] = require('highcharts');
 
 @Component({
-    selector: 'UserStorage'
-})
-@View({
+    selector: 'UserStorage',
     template: `
         <div style="width: 100%; height: 80%">
              <div [ng2-highcharts]="chartBar" class="graph"></div>
         </div>
-
     `,
     directives: [Ng2Highcharts]
 })
