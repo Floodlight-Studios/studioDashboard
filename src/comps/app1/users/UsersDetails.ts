@@ -9,12 +9,12 @@ import {UserInfo} from "./UserInfo";
 import {BusinessUser} from "../../../business/BusinessUser";
 import {SimpleGridTable} from "../../simplegrid/SimpleGridTable";
 import {ISimpleListItem} from "../../simplelist/Simplelist";
-import {MODAL_DIRECTIVES, ModalResult} from 'ng2-bs3-modal/ng2-bs3-modal';
 import {AddUser} from "./AddUser";
 import {ChangePass} from "./ChangePass";
 import {SimpleGridRecord} from "../../simplegrid/SimpleGridRecord";
 import {Lib} from "../../../Lib";
 import {PrivelegesModel} from "../../../reseller/PrivelegesModel";
+import {MODAL_DIRECTIVES, ModalResult} from "../../ng2-bs3-modal/ng2-bs3-modal";
 let _ = require('underscore');
 const bootbox = require('bootbox');
 

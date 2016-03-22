@@ -3,12 +3,12 @@ import {ModalDialog} from "../../modaldialog/ModalDialog";
 import {
     FORM_DIRECTIVES, FormBuilder, ControlGroup, Validators, AbstractControl, Control
 } from 'angular2/common'
-import {ModalComponent} from "ng2-bs3-modal/ng2-bs3-modal";
 import {BusinessUser} from "../../../business/BusinessUser";
 import {Lib} from "../../../Lib";
 import {AppStore} from "angular2-redux-util/dist/index";
 import {BusinessAction} from "../../../business/BusinessAction";
 import {PrivelegesModel} from "../../../reseller/PrivelegesModel";
+import {ModalComponent} from "../../ng2-bs3-modal/components/modal";
 
 
 @Component({

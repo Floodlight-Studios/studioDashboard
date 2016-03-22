@@ -1,11 +1,11 @@
 import {Component, EventEmitter, ChangeDetectionStrategy, Input} from 'angular2/core';
 import {FORM_DIRECTIVES, FormBuilder, ControlGroup, Validators} from 'angular2/common'
-import {ModalComponent} from "ng2-bs3-modal/ng2-bs3-modal";
 import {ModalDialog} from "../../modaldialog/ModalDialog";
 import {AppStore} from "angular2-redux-util/dist/index";
 import {BusinessAction} from "../../../business/BusinessAction";
 import {PrivelegesModel} from "../../../reseller/PrivelegesModel";
 import {BusinessUser} from "../../../business/BusinessUser";
+import {ModalComponent} from "../../ng2-bs3-modal/components/modal";
 
 @Component({
     selector: 'changePass',

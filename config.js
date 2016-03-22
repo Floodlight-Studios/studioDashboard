@@ -46,7 +46,7 @@ System.config({
   },
 
   map: {
-    "angular2": "npm:angular2@2.0.0-beta.8",
+    "angular2": "npm:angular2@2.0.0-beta.9",
     "angular2-polyfill": "npm:angular2-polyfill@0.0.2",
     "angular2-redux-util": "npm:angular2-redux-util@0.8.57",
     "angular2-uuid": "npm:angular2-uuid@1.0.6",
@@ -156,7 +156,7 @@ System.config({
       "object-path": "npm:object-path@0.9.2",
       "redux": "npm:redux@3.3.1"
     },
-    "npm:angular2@2.0.0-beta.8": {
+    "npm:angular2@2.0.0-beta.9": {
       "crypto": "github:jspm/nodelibs-crypto@0.1.0",
       "es6-promise": "npm:es6-promise@3.1.2",
       "es6-shim": "npm:es6-shim@0.33.13",
@@ -596,7 +596,7 @@ System.config({
       "stream": "github:jspm/nodelibs-stream@0.1.0"
     },
     "npm:ng2-bootstrap@1.0.5": {
-      "angular2": "npm:angular2@2.0.0-beta.8",
+      "angular2": "npm:angular2@2.0.0-beta.9",
       "fs": "github:jspm/nodelibs-fs@0.1.2",
       "moment": "npm:moment@2.11.2",
       "path": "github:jspm/nodelibs-path@0.1.0",
@@ -605,7 +605,7 @@ System.config({
       "zlib": "github:jspm/nodelibs-zlib@0.1.0"
     },
     "npm:ng2-bs3-modal@0.2.1": {
-      "angular2": "npm:angular2@2.0.0-beta.8",
+      "angular2": "npm:angular2@2.0.0-beta.9",
       "bootstrap": "npm:bootstrap@3.3.6"
     },
     "npm:normalize-package-data@2.3.5": {
