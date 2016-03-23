@@ -35,6 +35,12 @@ export function reseller(state:Map<string,any> = Map<string,any>(), action:any):
             })
             return state.setIn(['privileges'], privileges);
         }
+        case ResellerAction.ADD_PRIVILEGE:
+        {
+            var privileges = state.get('privileges');
+            var updatedPrivelegesModels:List<PrivelegesModel> = privileges.push(action.privelegesModel);
+            return state.setIn(['privileges'], updatedPrivelegesModels);
+        }
         case ResellerAction.REMOVE_PRIVILEGE:
         {
             var privileges = state.get('privileges');

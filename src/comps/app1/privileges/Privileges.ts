@@ -40,7 +40,7 @@ const bootbox = require('bootbox');
              <div class="col-xs-3">
                 <div style="position: relative; top: 10px">
                     <div>
-                      <a class="btns" href="#"><span class="fa fa-plus"></span></a>
+                      <a class="btns" (click)="onAdd($event);$event.preventDefault()" href="#"><span class="fa fa-plus"></span></a>
                       <a class="btns" (click)="onRemove($event);$event.preventDefault()" [ngClass]="{disabled: !privelegesModelSelected}" href="#">
                        <span class="fa fa-remove"></span>
                       </a>
@@ -148,6 +148,10 @@ export class Privileges {
         }
     }
 
+    private onAdd(){
+        this.appStore.dispatch(this.resellerAction.createPrivilege());
+    }
+    
     private onRemove() {
         if (!this.privelegesModelSelected)
             return;
