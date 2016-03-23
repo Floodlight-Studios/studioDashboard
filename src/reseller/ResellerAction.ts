@@ -13,6 +13,7 @@ export const UPDATE_PRIVILEGES = 'UPDATE_PRIVILEGES';
 export const UPDATE_PRIVILEGE_NAME = 'UPDATE_PRIVILEGE_NAME';
 export const RECEIVE_DEFAULT_PRIVILEGE = 'RECEIVE_DEFAULT_PRIVILEGE';
 export const UPDATE_DEFAULT_PRIVILEGE = 'UPDATE_DEFAULT_PRIVILEGE';
+export const REMOVE_PRIVILEGE = 'REMOVE_PRIVILEGE';
 
 
 @Injectable()
@@ -125,6 +126,13 @@ export class ResellerAction extends Actions {
         return {
             type: RECEIVE_PRIVILEGES_SYSTEM,
             privelegesSystemModels
+        }
+    }
+
+    public removePrivilege(privilegeId:number) {
+        return {
+            type: REMOVE_PRIVILEGE,
+            privilegeId
         }
     }
 

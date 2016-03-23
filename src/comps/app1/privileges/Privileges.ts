@@ -9,7 +9,8 @@ import {AuthService} from "../../../services/AuthService";
 import {appInjService} from "../../../services/AppInjService";
 import {PrivilegesDetails} from "./PrivilegesDetails";
 import {ResellerAction} from "../../../reseller/ResellerAction";
-var _ = require('underscore');
+const _ = require('underscore');
+const bootbox = require('bootbox');
 
 @Component({
     selector: 'privileges',
@@ -33,7 +34,6 @@ var _ = require('underscore');
         opacity: 0.2;
         cursor: default;
       }
-
     `],
     template: `
         <div class="row">
@@ -41,7 +41,9 @@ var _ = require('underscore');
                 <div style="position: relative; top: 10px">
                     <div>
                       <a class="btns" href="#"><span class="fa fa-plus"></span></a>
-                      <a class="btns" [ngClass]="{disabled: !businessesListFiltered || businessesListFiltered && businessesListFiltered.size != 1}" href="#"><span class="fa fa-remove"></span></a>
+                      <a class="btns" (click)="onRemove($event);$event.preventDefault()" [ngClass]="{disabled: !privelegesModelSelected}" href="#">
+                       <span class="fa fa-remove"></span>
+                      </a>
                     </div>
                 </div>
                 <SimpleList *ngIf="privelegesList" #simpleList [list]="privelegesList" 
@@ -102,7 +104,7 @@ export class Privileges {
     private privilegeDefault:number;
 
     private onPrivilegeRenamed(event:{item:PrivelegesModel, value:string}) {
-        if (event.value.trim().length==0)
+        if (event.value.trim().length == 0)
             return;
         var privilegeId = event.item.getPrivelegesId();
         this.appStore.dispatch(this.resellerAction.updateDefaultPrivilegeName(privilegeId, event.value));
@@ -123,7 +125,7 @@ export class Privileges {
             var privelegesId = privelegesModel.getPrivelegesId();
             return selected[privelegesId] && selected[privelegesId].selected;
         }) as List<PrivelegesModel>;
-        this.privelegesModelSelected = selectedList.first()// && selected[0];
+        this.privelegesModelSelected = selectedList.first();
     }
 
     private getPrivilege() {
@@ -144,6 +146,20 @@ export class Privileges {
                 return true
             return false;
         }
+    }
+
+    private onRemove() {
+        if (!this.privelegesModelSelected)
+            return;
+        var simpleListItems = this.simpleList.getSelected();
+        var simpleListDefaultIndex = this.simpleList.selectedIconIndex;
+        for (var i in simpleListItems) {
+            if (simpleListItems[i].selected && simpleListItems[i].index == simpleListDefaultIndex) {
+                bootbox.alert('Sorry can not delete the default privilege set. Be sure to apply the default privilege to another set and try again')
+                return;
+            }
+        }
+        this.appStore.dispatch(this.resellerAction.removePrivilege(this.privelegesModelSelected.getPrivelegesId()));
     }
 
     private ngOnDestroy() {

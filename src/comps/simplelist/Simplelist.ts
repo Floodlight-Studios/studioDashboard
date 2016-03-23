@@ -107,6 +107,7 @@ export class SimpleList {
             return this.m_icon;
         if (this.iconSelected) {
             if (this.iconSelected(index, item)) {
+                this.m_iconSelectedIndex = index;
                 return this.m_iconSelected;
             } else {
                 return this.m_icon;
@@ -167,7 +168,7 @@ export class SimpleList {
         // return id;
     }
 
-    public getContent(item):string {
+    private getContent(item):string {
         if (this.content) {
             return this.content(item);
         } else {
@@ -179,8 +180,12 @@ export class SimpleList {
         return this.m_metadata;
     }
 
-    public setSelectedIcon(i_index) {
+    public set selectedIconIndex(i_index) {
         this.m_iconSelectedIndex = i_index;
+    }
+
+    public get selectedIconIndex() {
+        return this.m_iconSelectedIndex;
     }
 }
 
