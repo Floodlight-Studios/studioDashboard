@@ -18,10 +18,11 @@
           class="list-group-item" (click)="itemSelected(item, index)" [class.active]="getMetadata(index,item).selected"
           (mouseover)="hover.next(item)" (mouseout)="hover.next(null)">
         <!-- {{getContent(item) | json}} -->
-        <span class="li-content pull-left">{{getContent(item)}}</span>
+        <!--<span *ngIf="!m_editing" class="li-content pull-left">{{getContent(item)}}</span>-->
         <span *ngIf="m_icon" class="pull-right">
           <button (click)="onIconClick($event, index)" style="padding: 0; margin: 0" class="pull-right btn fa {{renderIcon(index, item)}}"></button>
         </span>
+        <simpleListEditable (editChange)="onEditChanged($event)" [item]="item" [content]="content" [editable]="editable"></simpleListEditable>
       </li>
     </ul>
   </div>

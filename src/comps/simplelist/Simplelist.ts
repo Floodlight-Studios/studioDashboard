@@ -2,6 +2,7 @@ import {Component, Input, Output, EventEmitter, ChangeDetectionStrategy,} from '
 import {COMMON_DIRECTIVES} from "angular2/src/common/common_directives";
 import {FilterPipe} from "../../pipes/FilterPipe";
 import {List} from 'immutable';
+import {SimplelistEditable} from "./SimplelistEditable";
 let _ = require('underscore');
 
 export interface  ISimpleListItem {
@@ -14,27 +15,36 @@ export interface  ISimpleListItem {
     selector: 'SimpleList',
     templateUrl: '/src/comps/simplelist/SimpleList.html',
     styleUrls: ['../comps/simplelist/SimpleList.css'],
-    directives: [COMMON_DIRECTIVES],
+    directives: [COMMON_DIRECTIVES, SimplelistEditable],
     pipes: [FilterPipe],
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class SimpleList {
 
-    private filter = '';
-    private m_icon = '';
+    private filter:string = '';
+    private m_icon:string = '';
+    private m_editing:boolean = false;
     private m_iconSelected:string = '';
     private m_iconSelectedIndex:number = -1;
     private m_iconSelectedMode:boolean = false;
     private m_metadata:Object = {};
     private m_editClickPending = false;
+
     @Input()
     list:List<any>;
+
     @Input()
     multi:boolean = true;
+
+    @Input()
+    editable:boolean = false;
+
     @Input()
     content:((any)=>string);
+
     @Input()
     contentId:((any)=>string);
+
     @Input()
     iconSelected:((index:number, item:any)=>boolean);
 
@@ -43,13 +53,6 @@ export class SimpleList {
         this.m_icon = i_icon;
     }
 
-    @Output()
-    hover:EventEmitter<any> = new EventEmitter();
-    @Output()
-    iconClicked:EventEmitter<any> = new EventEmitter();
-    @Output()
-    selected:EventEmitter<any> = new EventEmitter();
-
     @Input()
     set iconSelectiondMode(mode:boolean) {
         if (mode) {
@@ -57,6 +60,22 @@ export class SimpleList {
             this.m_icon = 'fa-circle-o'
             this.m_iconSelected = 'fa-check-circle'
         }
+    }
+
+    @Output()
+    hover:EventEmitter<any> = new EventEmitter();
+
+    @Output()
+    iconClicked:EventEmitter<any> = new EventEmitter();
+
+    @Output()
+    selected:EventEmitter<any> = new EventEmitter();
+
+    @Output()
+    edited:EventEmitter<any> = new EventEmitter();
+
+    private onEditChanged(event){
+        this.edited.emit((event))
     }
 
     private itemSelected(item, index) {

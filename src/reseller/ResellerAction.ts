@@ -10,6 +10,7 @@ var Immutable = require('immutable');
 export const RECEIVE_PRIVILEGES = 'RECEIVE_PRIVILEGES';
 export const RECEIVE_PRIVILEGES_SYSTEM = 'RECEIVE_PRIVILEGES_SYSTEM';
 export const UPDATE_PRIVILEGES = 'UPDATE_PRIVILEGES';
+export const UPDATE_PRIVILEGE_NAME = 'UPDATE_PRIVILEGE_NAME';
 export const RECEIVE_DEFAULT_PRIVILEGE = 'RECEIVE_DEFAULT_PRIVILEGE';
 export const UPDATE_DEFAULT_PRIVILEGE = 'UPDATE_DEFAULT_PRIVILEGE';
 
@@ -110,6 +111,15 @@ export class ResellerAction extends Actions {
             privilegeId
         }
     }
+
+    public updateDefaultPrivilegeName(privilegeId:number, privilegeName:string) {
+        return {
+            type: UPDATE_PRIVILEGE_NAME,
+            privilegeId,
+            privilegeName
+        }
+    }
+
 
     public receivePrivilegesSystem(privelegesSystemModels:Array<PrivelegesTemplateModel>) {
         return {

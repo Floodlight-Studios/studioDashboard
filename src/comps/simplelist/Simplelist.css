@@ -2,6 +2,13 @@
     border-radius: 0 !important;
 }
 
+.editable {
+    opacity: 0.7;
+    font-size: 1.1em;
+    padding-top: 14px;
+    padding-right: 5px;
+}
+
 .btn {
     height: 40px;
     width: 35px;
@@ -41,4 +48,8 @@ li {
 
 .list-arrows button {
     margin-bottom: 20px;
+}
+
+input {
+    color: black;
 }

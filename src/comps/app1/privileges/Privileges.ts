@@ -14,17 +14,42 @@ var _ = require('underscore');
 @Component({
     selector: 'privileges',
     directives: [Loading, SimpleList, PrivilegesDetails],
+    styles: [`
+      .userView {
+        /*background-color: red; */
+      }      
+      .btns {
+          padding: 0 20px 20px 0px;
+          font-size: 1.4em;
+          color: #313131;
+      }
+      .btns:hover {
+        color: red;
+      }
+      .enabled {
+        opacity: 1
+      }
+       .disabled {
+        opacity: 0.2;
+        cursor: default;
+      }
+
+    `],
     template: `
         <div class="row">
              <div class="col-xs-3">
                 <div style="position: relative; top: 10px">
-                    <!--<a class="btns" href="#"><span class="fa fa-plus"></span></a>-->
-                    <!--<a class="btns" [ngClass]="{disabled: !businessesListFiltered || businessesListFiltered && businessesListFiltered.size != 1}" href="#"><span class="fa fa-remove"></span></a>-->
+                    <div>
+                      <a class="btns" href="#"><span class="fa fa-plus"></span></a>
+                      <a class="btns" [ngClass]="{disabled: !businessesListFiltered || businessesListFiltered && businessesListFiltered.size != 1}" href="#"><span class="fa fa-remove"></span></a>
+                    </div>
                 </div>
                 <SimpleList *ngIf="privelegesList" #simpleList [list]="privelegesList" 
                     (selected)="onPrivilegeSelected()"
                     (iconClicked)="onDefaultPrivilegeChanged($event)"
+                    (edited)="onPrivilegeRenamed($event)"
                     [multi]="false"
+                    [editable]="true"
                     [iconSelectiondMode]="true"
                     [iconSelected]="getDefaultPrivilege()"
                     [contentId]="getPrivilegeId()"
@@ -76,7 +101,14 @@ export class Privileges {
     private privelegesModelSelected:PrivelegesModel;
     private privilegeDefault:number;
 
-    private onDefaultPrivilegeChanged(event){
+    private onPrivilegeRenamed(event:{item:PrivelegesModel, value:string}) {
+        if (event.value.trim().length==0)
+            return;
+        var privilegeId = event.item.getPrivelegesId();
+        this.appStore.dispatch(this.resellerAction.updateDefaultPrivilegeName(privilegeId, event.value));
+    }
+
+    private onDefaultPrivilegeChanged(event) {
         for (var id in event.metadata) {
             if (event.metadata[id].index == event.index)
                 this.appStore.dispatch(this.resellerAction.updateDefaultPrivilege(Number(id)));
@@ -91,13 +123,13 @@ export class Privileges {
             var privelegesId = privelegesModel.getPrivelegesId();
             return selected[privelegesId] && selected[privelegesId].selected;
         }) as List<PrivelegesModel>;
-       this.privelegesModelSelected = selectedList.first()// && selected[0];
+        this.privelegesModelSelected = selectedList.first()// && selected[0];
     }
 
     private getPrivilege() {
-         return (privelegesModel:PrivelegesModel)=> {
-             return privelegesModel.getName();
-         }
+        return (privelegesModel:PrivelegesModel)=> {
+            return privelegesModel.getName();
+        }
     }
 
     private getPrivilegeId() {
@@ -107,8 +139,8 @@ export class Privileges {
     }
 
     private getDefaultPrivilege() {
-        return (index, privelegesModel:PrivelegesModel)=>{
-            if (privelegesModel.getPrivelegesId()== this.privilegeDefault)
+        return (index, privelegesModel:PrivelegesModel)=> {
+            if (privelegesModel.getPrivelegesId() == this.privilegeDefault)
                 return true
             return false;
         }
