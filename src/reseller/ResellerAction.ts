@@ -11,6 +11,7 @@ export const RECEIVE_PRIVILEGES = 'RECEIVE_PRIVILEGES';
 export const RECEIVE_PRIVILEGES_SYSTEM = 'RECEIVE_PRIVILEGES_SYSTEM';
 export const UPDATE_PRIVILEGES = 'UPDATE_PRIVILEGES';
 export const RECEIVE_DEFAULT_PRIVILEGE = 'RECEIVE_DEFAULT_PRIVILEGE';
+export const UPDATE_DEFAULT_PRIVILEGE = 'UPDATE_DEFAULT_PRIVILEGE';
 
 
 @Injectable()
@@ -99,6 +100,13 @@ export class ResellerAction extends Actions {
     public receiveDefaultPrivilege(privilegeId:number) {
         return {
             type: RECEIVE_DEFAULT_PRIVILEGE,
+            privilegeId
+        }
+    }
+
+    public updateDefaultPrivilege(privilegeId:number) {
+        return {
+            type: UPDATE_DEFAULT_PRIVILEGE,
             privilegeId
         }
     }

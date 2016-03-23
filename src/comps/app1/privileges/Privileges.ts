@@ -8,6 +8,7 @@ import {CanActivate, ComponentInstruction} from "angular2/router";
 import {AuthService} from "../../../services/AuthService";
 import {appInjService} from "../../../services/AppInjService";
 import {PrivilegesDetails} from "./PrivilegesDetails";
+import {ResellerAction} from "../../../reseller/ResellerAction";
 var _ = require('underscore');
 
 @Component({
@@ -44,7 +45,7 @@ var _ = require('underscore');
 })
 export class Privileges {
 
-    constructor(private appStore:AppStore) {
+    constructor(private appStore:AppStore, private resellerAction:ResellerAction) {
         var i_reseller = this.appStore.getState().reseller;
 
         this.privilegeDefault = i_reseller.getIn(['privilegeDefault']);
@@ -77,9 +78,8 @@ export class Privileges {
 
     private onDefaultPrivilegeChanged(event){
         for (var id in event.metadata) {
-            if (event.metadata[id].index == event.index){
-                console.log(id);
-            }
+            if (event.metadata[id].index == event.index)
+                this.appStore.dispatch(this.resellerAction.updateDefaultPrivilege(Number(id)));
         }
     }
 
