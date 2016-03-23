@@ -63,7 +63,7 @@ export class PrivilegesDetails {
     private m_privelegesSystemModelList:List<PrivelegesTemplateModel>
 
     @Input()
-    set selected(i_selected:PrivelegesModel){
+    set selected(i_selected:PrivelegesModel) {
         this.m_selected = i_selected;
     }
 
@@ -85,7 +85,7 @@ export class PrivilegesDetails {
             if (k.get('tableName') == tableName)
                 return true;
         })
-        var totalBits = Number(Lib.GetValueFromMapIndex(selColumn.get('columns'),index));
+        var totalBits = Number(Lib.MapOfIndex(selColumn.get('columns'), index, 'last'));
 
         var updTotalBits = this.calcMask(privModeEnum, adding, totalBits);
 
@@ -153,7 +153,7 @@ export class PrivilegesDetails {
         if (!selColumn)
             return [1]
 
-        var totalBits = Number(Lib.GetValueFromMapIndex(selColumn.get('columns'),index));
+        var totalBits = Number(Lib.MapOfIndex(selColumn.get('columns'), index, 'last'));
         var bit;
         switch (privModeEnum) {
             case PrivModeEnum.UPD:

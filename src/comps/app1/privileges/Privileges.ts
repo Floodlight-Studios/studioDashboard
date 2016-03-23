@@ -8,6 +8,7 @@ import {CanActivate, ComponentInstruction} from "angular2/router";
 import {AuthService} from "../../../services/AuthService";
 import {appInjService} from "../../../services/AppInjService";
 import {PrivilegesDetails} from "./PrivilegesDetails";
+var _ = require('underscore');
 
 @Component({
     selector: 'privileges',
@@ -21,8 +22,10 @@ import {PrivilegesDetails} from "./PrivilegesDetails";
                 </div>
                 <SimpleList *ngIf="privelegesList" #simpleList [list]="privelegesList" 
                     (selected)="onPrivilegeSelected()"
+                    (iconClicked)="onDefaultPrivilegeChanged($event)"
                     [multi]="false"
                     [iconSelectiondMode]="true"
+                    [iconSelected]="getDefaultPrivilege()"
                     [contentId]="getPrivilegeId()"
                     [content]="getPrivilege()">
                 </SimpleList>
@@ -43,6 +46,11 @@ export class Privileges {
 
     constructor(private appStore:AppStore) {
         var i_reseller = this.appStore.getState().reseller;
+
+        this.privilegeDefault = i_reseller.getIn(['privilegeDefault']);
+        this.unsub = this.appStore.sub((privilegeDefault:number) => {
+            this.privilegeDefault = privilegeDefault;
+        }, 'reseller.privilegeDefault');
 
         this.privelegesList = i_reseller.getIn(['privileges']);
         this.unsub = this.appStore.sub((privelegesModel:List<PrivelegesModel>) => {
@@ -65,6 +73,15 @@ export class Privileges {
     private unsub;
     private privelegesList:List<PrivelegesModel>
     private privelegesModelSelected:PrivelegesModel;
+    private privilegeDefault:number;
+
+    private onDefaultPrivilegeChanged(event){
+        for (var id in event.metadata) {
+            if (event.metadata[id].index == event.index){
+                console.log(id);
+            }
+        }
+    }
 
     private onPrivilegeSelected() {
         if (!this.simpleList)
@@ -86,6 +103,14 @@ export class Privileges {
     private getPrivilegeId() {
         return (privilegeModel:PrivelegesModel)=> {
             return privilegeModel.getPrivelegesId();
+        }
+    }
+
+    private getDefaultPrivilege() {
+        return (index, privelegesModel:PrivelegesModel)=>{
+            if (privelegesModel.getPrivelegesId()== this.privilegeDefault)
+                return true
+            return false;
         }
     }
 

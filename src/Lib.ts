@@ -28,16 +28,11 @@ export class Lib {
         };
     }
 
-    static GetKeyFromMapIndex(map:Map<string,any>, index:number):string {
+    static MapOfIndex(map:Map<string,any>, index:number, position:"first" | "last"):string {
         var mapJs = map.toJS();
         var mapJsPairs = _.pairs(mapJs);
-        return mapJsPairs[index][0];
-    }
-
-    static GetValueFromMapIndex(map:Map<string,any>, index:number):string {
-        var mapJs = map.toJS();
-        var mapJsPairs = _.pairs(mapJs);
-        return mapJsPairs[index][1];
+        var offset = position == 'first' ? 0 : 1;
+        return mapJsPairs[index][offset];
     }
 
     static PrivilegesXmlTemplate(callBack:(err, result)=>any) {

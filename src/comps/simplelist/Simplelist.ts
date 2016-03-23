@@ -36,21 +36,26 @@ export class SimpleList {
     @Input()
     contentId:((any)=>string);
     @Input()
+    iconSelected:((index:number, item:any)=>boolean);
+
+    @Input()
     set icon(i_icon:string) {
         this.m_icon = i_icon;
     }
+
     @Output()
     hover:EventEmitter<any> = new EventEmitter();
     @Output()
     iconClicked:EventEmitter<any> = new EventEmitter();
     @Output()
     selected:EventEmitter<any> = new EventEmitter();
+
     @Input()
     set iconSelectiondMode(mode:boolean) {
-        if (mode){
+        if (mode) {
             this.m_iconSelectedMode = true;
             this.m_icon = 'fa-circle-o'
-            this.m_iconSelected = 'fa-circle'
+            this.m_iconSelected = 'fa-check-circle'
         }
     }
 
@@ -81,7 +86,14 @@ export class SimpleList {
     private renderIcon(index, item) {
         if (!this.m_iconSelectedMode)
             return this.m_icon;
-        if (index==this.m_iconSelectedIndex)
+        if (this.iconSelected) {
+            if (this.iconSelected(index, item)) {
+                return this.m_iconSelected;
+            } else {
+                return this.m_icon;
+            }
+        }
+        if (index == this.m_iconSelectedIndex)
             return this.m_iconSelected;
         return this.m_icon;
     }
@@ -105,10 +117,11 @@ export class SimpleList {
             this.iconClicked.next({
                 item: match,
                 target: event.target,
-                index: index
+                index: index,
+                metadata: this.m_metadata
             });
         }, 1)
-        if (this.m_iconSelectedMode){
+        if (this.m_iconSelectedMode) {
             event.stopImmediatePropagation();
             event.preventDefault();
             return false;
@@ -123,12 +136,16 @@ export class SimpleList {
 
     public getContentId(item, index):string {
         let id = this.contentId ? this.contentId(item) : index;
-        if (this.m_metadata[id])
-            return id;
-        this.m_metadata[id] = {
-            selected: false
-        };
+        if (!this.m_metadata[id])
+            this.m_metadata[id] = {};
+        this.m_metadata[id].index = index;
         return id;
+        // if (this.m_metadata[id])
+        //     return id;
+        // this.m_metadata[id] = {
+        //     selected: false
+        // };
+        // return id;
     }
 
     public getContent(item):string {
@@ -143,7 +160,7 @@ export class SimpleList {
         return this.m_metadata;
     }
 
-    public setSelectedIcon(i_index){
+    public setSelectedIcon(i_index) {
         this.m_iconSelectedIndex = i_index;
     }
 }
