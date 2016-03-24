@@ -19,38 +19,35 @@ export const REMOVE_PRIVILEGE = 'REMOVE_PRIVILEGE';
 
 @Injectable()
 export class ResellerAction extends Actions {
-    parseString;
+
 
     constructor(private appStore:AppStore, private _http:Http, private jsonp:Jsonp) {
         super(appStore);
-        this.parseString = require('xml2js').parseString;
+        this.m_parseString = require('xml2js').parseString;
     }
 
-    private privilegesModelFactory(i_defaultPrivId:number, i_defaultPrivName, i_privilegesSystemModels:Array<PrivelegesTemplateModel>, i_groups?:Array<any>):PrivelegesModel {
+    private m_parseString;
+    private m_privilegesSystemModels:Array<PrivelegesTemplateModel> = [];
+
+    private privilegesModelFactory(i_defaultPrivId:number, i_defaultPrivName, i_existingGroups?:Array<any>):PrivelegesModel {
         let groups = List();
         let tablesDst = [];
-        if (i_groups) {
-            i_groups.forEach((privilegesGroups:any)=> {
+        if (i_existingGroups) {
+            i_existingGroups.forEach((privilegesGroups:any)=> {
                 var tableName = privilegesGroups._attr.name;
                 tablesDst.push(tableName)
                 var group = Map({
                     tableName: tableName,
                     columns: Immutable.fromJS(privilegesGroups.Tables["0"]._attr)
                 });
-                groups = groups.push(group)
+                groups = groups.push(group);
             })
         }
         // fill up any new or missing tables
-        i_privilegesSystemModels.forEach((privelegesTemplateModel:PrivelegesTemplateModel)=>{
+        this.m_privilegesSystemModels.forEach((privelegesTemplateModel:PrivelegesTemplateModel)=> {
             var srcTableName = privelegesTemplateModel.getTableName();
-            // need to add a new tables
-            if (tablesDst.indexOf(srcTableName)==-1){
-                console.log();
-                console.log();
-                console.log();
-                console.log();
-                groups = groups.push(privelegesTemplateModel.getData())
-            }
+            if (tablesDst.indexOf(srcTableName) == -1)
+                groups = groups.push(privelegesTemplateModel.getData());
         })
         let privilegesModel:PrivelegesModel = new PrivelegesModel({
             privilegesId: i_defaultPrivId,
@@ -69,7 +66,7 @@ export class ResellerAction extends Actions {
                 .map(result => {
                     var xmlData:string = result.text()
                     xmlData = xmlData.replace(/}\)/, '').replace(/\(\{"result":"/, '');
-                    this.parseString(xmlData, {attrkey: '_attr'}, function (err, result) {
+                    this.m_parseString(xmlData, {attrkey: '_attr'}, function (err, result) {
 
                         console.log(result);
                         if (err) {
@@ -81,16 +78,16 @@ export class ResellerAction extends Actions {
                             /**
                              * redux inject privileges XML template system
                              **/
-                            var privilegesSystemModels = [];
+                            //var privilegesSystemModels = [];
                             privilegesXmlTemplate.Privilege.Groups["0"].Group.forEach((table)=> {
                                 let privelegesSystemModel:PrivelegesTemplateModel = new PrivelegesTemplateModel({
                                     tableName: table._attr.name,
                                     columns: Immutable.fromJS(table.Tables["0"]._attr)
                                 });
                                 if (privelegesSystemModel.getColumnSize() > 0)
-                                    privilegesSystemModels.push(privelegesSystemModel)
+                                    self.m_privilegesSystemModels.push(privelegesSystemModel)
                             })
-                            dispatch(self.receivePrivilegesSystem(privilegesSystemModels));
+                            dispatch(self.receivePrivilegesSystem(self.m_privilegesSystemModels));
                             /**
                              * redux inject privileges user
                              **/
@@ -99,7 +96,7 @@ export class ResellerAction extends Actions {
                             var privilegesModels:List<PrivelegesModel> = List<PrivelegesModel>();
 
                             result.User.BusinessInfo["0"].Privileges["0"].Privilege.forEach((privileges)=> {
-                                let privilegesModel:PrivelegesModel = self.privilegesModelFactory(privileges._attr.id, privileges._attr.name, privilegesSystemModels, privileges.Groups["0"].Group)
+                                let privilegesModel:PrivelegesModel = self.privilegesModelFactory(privileges._attr.id, privileges._attr.name, privileges.Groups["0"].Group);
                                 privilegesModels = privilegesModels.push(privilegesModel)
                             });
                             dispatch(self.receivePrivileges(privilegesModels));
@@ -118,22 +115,11 @@ export class ResellerAction extends Actions {
             //     .map(result => {
             //         var xmlData:string = result.text()
             //         xmlData = xmlData.replace(/}\)/, '').replace(/\(\{"result":"/, '');
-            //         this.parseString(xmlData, {attrkey: '_attr'}, function (err, result) {
+            //         this.m_parseString(xmlData, {attrkey: '_attr'}, function (err, result) {
             //     }).subscribe();
-            //todo: contact server for creation of privilege id, emulating server for now
-            let groups = List();
-            // var group = Map({
-            //     tableName: privilegesGroups._attr.name,
-            //     columns: Immutable.fromJS(privilegesGroups.Tables["0"]._attr)
-            // });
-            // groups = groups.push(group)
-            var privilegesModel:PrivelegesModel = new PrivelegesModel({
-                privilegesId: _.random(1000, 9999),
-                name: 'Privilege set',
-                groups: groups
-            });
 
-            // privilegesModel:PrivelegesModel = this.privilegesModelFactory(_.random(1000, 9999),'privilege set',[],[])
+            //todo: contact server for creation of privilege id, emulating server for now
+            var privilegesModel:PrivelegesModel = this.privilegesModelFactory(_.random(1000, 9999), 'privilege set')
             setTimeout(()=> {
                 dispatch(self.addPrivilege(privilegesModel));
             }, 100)
