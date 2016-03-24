@@ -9,7 +9,6 @@ import {AuthService} from "../../../services/AuthService";
 import {appInjService} from "../../../services/AppInjService";
 import {PrivilegesDetails} from "./PrivilegesDetails";
 import {ResellerAction} from "../../../reseller/ResellerAction";
-const _ = require('underscore');
 const bootbox = require('bootbox');
 
 @Component({

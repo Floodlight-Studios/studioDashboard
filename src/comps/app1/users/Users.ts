@@ -10,10 +10,11 @@ import {BusinessUser} from "../../../business/BusinessUser";
 import {Loading} from "../../loading/Loading";
 import {List} from 'immutable';
 import {PrivelegesModel} from "../../../reseller/PrivelegesModel";
+import {DROPDOWN_DIRECTIVES} from "ng2-bootstrap/ng2-bootstrap";
 
 @Component({
     selector: 'Users',
-    directives: [SimpleList, UsersDetails, Loading],
+    directives: [SimpleList, UsersDetails, Loading, DROPDOWN_DIRECTIVES],
     styles: [`
       .userView {
         /*background-color: red; */
@@ -33,14 +34,40 @@ import {PrivelegesModel} from "../../../reseller/PrivelegesModel";
         opacity: 0.2;
         cursor: default;
       }
+      
+      .dropdown {
+         padding-top: 10px;
+         position: relative;
+         left: -14px;
+      }
+      .users {
+        margin-top: 10px;
+        padding-top: 10px
+        font-size: 14px;
+      }
+      
+      .remove {
+        font-size: 23px;
+        position: relative; 
+        left: -20px;
+      }
 
     `],
     template: `
         <div class="row">
              <div class="col-xs-3">
-                <div style="position: relative; top: 10px">
-                    <a class="btns" href="#"><span class="fa fa-plus"></span></a>
-                    <a class="btns" [ngClass]="{disabled: !businessesListFiltered || businessesListFiltered && businessesListFiltered.size != 1}" href="#"><span class="fa fa-remove"></span></a>
+                <div class="users">
+                    <div (click)="$event.preventDefault()">
+                      <span dropdown (on-toggle)="toggled($event)">
+                      <a class="btns addUser" dropdownToggle href="#"><span class="fa fa-plus"></span></a>
+                        <ul class="dropdown-menu" aria-labelledby="simple-dropdown">
+                          <li *ngFor="#choice of ['Add account from sample','Add a clean account','Add an existing account']">
+                            <a (click)="onAddUser(choice)" class="dropdown-item" href="#">{{choice}}</a>
+                          </li>
+                        </ul>
+                      </span>
+                      <a (click)="onRemoveUser($event)" [ngClass]="{disabled: !businessesListFiltered || businessesListFiltered && businessesListFiltered.size != 1}" href="#"><span class="remove fa fa-remove"></span></a>
+                      </div>
                 </div>
                 <SimpleList *ngIf="businessesUsers && priveleges" #simpleList [list]="businessesList" 
                     (selected)="onFilteredSelection()"
@@ -66,19 +93,6 @@ import {PrivelegesModel} from "../../../reseller/PrivelegesModel";
 })
 export class Users {
 
-    @ViewChild(SimpleList)
-simpleList:SimpleList;
-
-    private businessesList:List<BusinessModel> = List<BusinessModel>();
-    private businessesListFiltered:List<BusinessModel>
-    private businessUsersListFiltered:List<BusinessUser>;
-    private businessesUsers:List<BusinessUser>
-    private priveleges:List<PrivelegesModel>
-    private showUserInfo:Object = null;
-    private unsub:Function;
-    private unsub2:Function;
-    private unsub3:Function;
-
     constructor(private appStore:AppStore) {
         var i_businesses = this.appStore.getState().business;
         var i_reseller = this.appStore.getState().reseller;
@@ -100,7 +114,41 @@ simpleList:SimpleList;
         }, 'reseller.privileges');
     }
 
-    private onShowUserInfo(selectedBusiness:ISimpleListItem){
+    @ViewChild(SimpleList)
+    simpleList:SimpleList;
+
+    private businessesList:List<BusinessModel> = List<BusinessModel>();
+    private businessesListFiltered:List<BusinessModel>
+    private businessUsersListFiltered:List<BusinessUser>;
+    private businessesUsers:List<BusinessUser>
+    private priveleges:List<PrivelegesModel>
+    private showUserInfo:Object = null;
+    private unsub:Function;
+    private unsub2:Function;
+    private unsub3:Function;
+
+    private onAddUser(choice) {
+        switch (choice) {
+            case 'Add account from sample':
+            {
+                break;
+            }
+            case 'Add a clean account':
+            {
+                break;
+            }
+            case 'Add an existing account':
+            {
+                break;
+            }
+        }
+    }
+
+    private onRemoveUser(event) {
+
+    }
+
+    private onShowUserInfo(selectedBusiness:ISimpleListItem) {
         this.showUserInfo = selectedBusiness;
     }
 
