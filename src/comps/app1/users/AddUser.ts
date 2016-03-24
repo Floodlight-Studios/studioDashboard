@@ -50,7 +50,7 @@ export class AddUser {
     private accessKeys:Array<boolean> = [false, false, false, false, false, false, false, false];
 
     @Input()
-    businessUser:BusinessUser;
+    businessId:number;
 
     @Input()
     priveleges:Array<PrivelegesModel> = [];
@@ -124,7 +124,7 @@ export class AddUser {
             privilegeId: privilegeId,
             password: event.matchingPassword.password,
             name: event.userName,
-            businessId: this.businessUser.getBusinessId(),
+            businessId: this.businessId,
         });
         this.appStore.dispatch(this.businessActions.addNewBusinessUser(businessUser));
         this.modal.close();

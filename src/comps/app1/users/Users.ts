@@ -15,6 +15,7 @@ import {BusinessAction} from "../../../business/BusinessAction";
 
 @Component({
     selector: 'Users',
+    providers: [SimpleList],
     directives: [SimpleList, UsersDetails, Loading, DROPDOWN_DIRECTIVES],
     styles: [`
       .userView {
@@ -146,14 +147,16 @@ export class Users {
     }
 
     private onRemoveUser() {
+        console.log();
         if (!this.businessesListFiltered || this.businessesListFiltered.size != 1)
             return
         var businessModel:BusinessModel = this.businessesListFiltered.first();
         this.appStore.dispatch(this.businessAction.removeBusiness(businessModel.getBusinessId()));
-        this.businessesListFiltered = null;
+        this.businessUsersListFiltered = null;
     }
 
     private onShowUserInfo(selectedBusiness:ISimpleListItem) {
+        this.onFilteredSelection();
         this.showUserInfo = selectedBusiness;
     }
 
@@ -179,7 +182,6 @@ export class Users {
             })
         })
         this.businessUsersListFiltered = List<BusinessUser>(arr);
-        console.log();
     }
 
     private getBusinesses() {
