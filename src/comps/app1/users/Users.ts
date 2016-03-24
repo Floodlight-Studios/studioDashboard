@@ -11,6 +11,7 @@ import {Loading} from "../../loading/Loading";
 import {List} from 'immutable';
 import {PrivelegesModel} from "../../../reseller/PrivelegesModel";
 import {DROPDOWN_DIRECTIVES} from "ng2-bootstrap/ng2-bootstrap";
+import {BusinessAction} from "../../../business/BusinessAction";
 
 @Component({
     selector: 'Users',
@@ -93,7 +94,7 @@ import {DROPDOWN_DIRECTIVES} from "ng2-bootstrap/ng2-bootstrap";
 })
 export class Users {
 
-    constructor(private appStore:AppStore) {
+    constructor(private appStore:AppStore, private businessAction:BusinessAction) {
         var i_businesses = this.appStore.getState().business;
         var i_reseller = this.appStore.getState().reseller;
 
@@ -144,8 +145,12 @@ export class Users {
         }
     }
 
-    private onRemoveUser(event) {
-
+    private onRemoveUser() {
+        if (!this.businessesListFiltered || this.businessesListFiltered.size != 1)
+            return
+        var businessModel:BusinessModel = this.businessesListFiltered.first();
+        this.appStore.dispatch(this.businessAction.removeBusiness(businessModel.getBusinessId()));
+        this.businessesListFiltered = null;
     }
 
     private onShowUserInfo(selectedBusiness:ISimpleListItem) {
@@ -174,6 +179,7 @@ export class Users {
             })
         })
         this.businessUsersListFiltered = List<BusinessUser>(arr);
+        console.log();
     }
 
     private getBusinesses() {

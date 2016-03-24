@@ -62,6 +62,13 @@ export function business(state:Map<string,any> = Map<string,any>(), action:any):
             return state.setIn(['businessUsers'], businessUsers);
         }
 
+        case BusinessAction.REMOVE_BUSINESS:
+        {
+            var businesses:List<BusinessModel> = state.getIn(['businesses'])
+            var updatedBusinesses:List<BusinessModel> = businesses.filter((businessModel: BusinessModel) => businessModel.getBusinessId() !== action.businessId) as List<BusinessModel>;
+            return state.setIn(['businesses'], updatedBusinesses);
+        }
+
         case BusinessAction.REMOVE_BUSINESS_USER:
         {
             var businessUsers:List<BusinessUser> = state.getIn(['businessUsers'])

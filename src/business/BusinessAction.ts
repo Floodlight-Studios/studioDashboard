@@ -16,6 +16,7 @@ export const SET_BUSINESS_DATA = 'SET_BUSINESS_DATA';
 export const CHANGE_BUSINESS_USER_NAME = 'CHANGE_BUSINESS_USER_NAME';
 export const SET_BUSINESS_USER_ACCESS = 'SET_BUSINESS_USER_ACCESS';
 export const ADD_BUSINESS_USER = 'ADD_BUSINESS_USER';
+export const REMOVE_BUSINESS = 'REMOVE_BUSINESS';
 export const REMOVE_BUSINESS_USER = 'REMOVE_BUSINESS_USER';
 
 @Injectable()
@@ -261,6 +262,28 @@ export class BusinessAction extends Actions {
                     //     name: name
                     // }))
                 }).subscribe();
+        }
+    }
+
+    public removeBusiness(businessId:number) {
+        return (dispatch)=> {
+            // var appdb:Map<string,any> = this.appStore.getState().appdb;
+            // var url = appdb.get('appBaseUrlUser') + `&command=RemoveBusinessUser&customerUserName=${businessUser.getName()}`
+            // this._http.get(url)
+            //     .map(result => {
+            //         var jData:string = result.text()
+            //         jData = jData.replace(/}\)/, '').replace(/\(\{"result":"/, '');
+            //         if (jData.indexOf('true') > -1) {
+            //             dispatch({type: REMOVE_BUSINESS_USER, BusinessUser: businessUser})
+            //         } else {
+            //             bootbox.alert('Problem removing user');
+            //         }
+            //     }).subscribe();
+            //todo: remove from server
+            setTimeout(()=>{
+                dispatch({type: REMOVE_BUSINESS, businessId})
+            },400)
+
         }
     }
 
