@@ -40,52 +40,55 @@ export class Lib {
         var xmlData = `
           <Privilege>
               <Groups>
-                <Group name="Global" visible="-1">
-                  <Tables global_settings="-1"/>
+                <Group name="Global" visible="7">
+                  <Tables global_settings="7"/>
                 </Group>
-                <Group name="Screens" visible="-1">
-                  <Tables boards="-1" board_templates="-1" board_template_viewers="-1"/>
+                <Group name="Screens" visible="7">
+                  <Tables boards="7" board_templates="7" board_template_viewers="7"/>
                 </Group>
-                <Group name="Resources" visible="-1" resourceMode="-1">
-                  <Tables resources="-1"/>
+                <Group name="Resources" visible="7" resourceMode="7">
+                  <Tables resources="7"/>
                 </Group>
-                <Group name="Editors" visible="-1">
-                  <Tables player_data="-1"/>
+                <Group name="Foo" visible="7" resourceMode="7">
+                  <Tables Bar="7"/>
                 </Group>
-                <Group name="Catalog" visible="-1">
-                  <Tables catalog_items="-1" catalog_item_infos="-1" catalog_item_resources="-1" catalog_item_categories="-1" category_values="-1"/>
+                <Group name="Editors" visible="7">
+                  <Tables player_data="7"/>
                 </Group>
-                <Group name="Campaigns" visible="-1">
-                  <Tables campaigns="-1" campaign_events="-1" campaign_timelines="-1" campaign_timeline_sequences="-1" campaign_timeline_schedules="-1" campaign_sequences="-1" campaign_sequence_timelines="-1" campaign_sequence_schedules="-1" campaign_timeline_channels="-1" campaign_timeline_chanels="-1" campaign_timeline_chanel_players="-1" campaign_timeline_board_viewer_channels="-1" campaign_timeline_board_viewer_chanels="-1" campaign_timeline_board_templates="-1" campaign_channels="-1" campaign_channel_players="-1" campaign_boards="-1"/>
+                <Group name="Catalog" visible="7">
+                  <Tables catalog_items="7" catalog_item_infos="7" catalog_item_resources="7" catalog_item_categories="7" category_values="7"/>
                 </Group>
-                <Group name="Transitions" visible="-1">
-                  <Tables transition_pools="-1" transition_pool_items="-1"/>
+                <Group name="Campaigns" visible="7">
+                  <Tables campaigns="7" campaign_events="7" campaign_timelines="7" campaign_timeline_sequences="7" campaign_timeline_schedules="7" campaign_sequences="7" campaign_sequence_timelines="7" campaign_sequence_schedules="7" campaign_timeline_channels="7" campaign_timeline_chanels="7" campaign_timeline_chanel_players="7" campaign_timeline_board_viewer_channels="7" campaign_timeline_board_viewer_chanels="7" campaign_timeline_board_templates="7" campaign_channels="7" campaign_channel_players="7" campaign_boards="7"/>
                 </Group>
-                <Group name="Scripts" visible="-1">
-                  <Tables scripts="-1"/>
+                <Group name="Transitions" visible="7">
+                  <Tables transition_pools="7" transition_pool_items="7"/>
                 </Group>
-                <Group name="AdLocal" visible="-1">
-                  <Tables ad_local_packages="-1" ad_local_contents="-1"/>
+                <Group name="Scripts" visible="7">
+                  <Tables scripts="7"/>
                 </Group>
-                <Group name="AdOut" visible="-1" globalSearch="-1">
-                  <Tables ad_out_packages="-1" ad_out_package_stations="-1" ad_out_package_contents="-1"/>
+                <Group name="AdLocal" visible="7">
+                  <Tables ad_local_packages="7" ad_local_contents="7"/>
                 </Group>
-                <Group name="AdIn" visible="-1">
-                  <Tables ad_in_domains="-1" ad_in_domain_businesses="-1" ad_in_domain_business_packages="-1" ad_in_domain_business_package_stations="-1" ad_rates="-1"/>
+                <Group name="AdOut" visible="7" globalSearch="7">
+                  <Tables ad_out_packages="7" ad_out_package_stations="7" ad_out_package_contents="7"/>
                 </Group>
-                <Group name="AdRate" visible="-1">
-                  <Tables ad_rates="-1"/>
+                <Group name="AdIn" visible="7">
+                  <Tables ad_in_domains="7" ad_in_domain_businesses="7" ad_in_domain_business_packages="7" ad_in_domain_business_package_stations="7" ad_rates="7"/>
                 </Group>
-                <Group name="AdAnalytic" visible="-1">
+                <Group name="AdRate" visible="7">
+                  <Tables ad_rates="7"/>
+                </Group>
+                <Group name="AdAnalytic" visible="7">
                   <Tables/>
                 </Group>
-                <Group name="Music" visible="-1">
-                  <Tables music_channels="-1" music_channel_songs="-1"/>
+                <Group name="Music" visible="7">
+                  <Tables music_channels="7" music_channel_songs="7"/>
                 </Group>
-                <Group name="Stations" visible="-1" stationsNetwork="-1" updateOnSave="-1" lanServer="-1" zwave="-1">
-                  <Tables branch_stations="-1" station_ads="-1"/>
+                <Group name="Stations" visible="7" stationsNetwork="7" updateOnSave="7" lanServer="7" zwave="7">
+                  <Tables branch_stations="7" station_ads="7"/>
                 </Group>
-                <Group name="Changelist" visible="-1">
+                <Group name="Changelist" visible="7">
                   <Tables/>
                 </Group>
               </Groups>
