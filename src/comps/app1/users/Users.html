@@ -1,0 +1,37 @@
+<div class="row">
+  <div class="col-xs-3">
+    <div class="users">
+      <div (click)="$event.preventDefault()">
+                      <span dropdown (on-toggle)="toggled($event)">
+                      <a class="btns addUser" dropdownToggle href="#"><span class="fa fa-plus"></span></a>
+                        <ul class="dropdown-menu" aria-labelledby="simple-dropdown">
+                          <li *ngFor="#choice of ['Add account from sample','Add a clean account','Add an existing account']">
+                            <a (click)="onAddUser(choice)" class="dropdown-item" href="#">{{choice}}</a>
+                          </li>
+                        </ul>
+                      </span>
+        <a (click)="onRemoveUser($event)" [ngClass]="{disabled: !businessUsersListFiltered || businessUsersListFiltered.size < 1}" href="#"><span class="remove fa fa-remove"></span></a>
+      </div>
+    </div>
+    <SimpleList *ngIf="businessesUsers && priveleges" #simpleList [list]="businessesList" (selected)="onFilteredSelection()" (iconClicked)="onShowUserInfo($event)" [contentId]="getBusinessesId()" [multi]="false" [icon]="'fa-user'" [content]="getBusinesses()"></SimpleList>
+    <Loading *ngIf="!businessesUsers || !priveleges" [src]="'assets/preload6.gif'" [style]="{'margin-top': '150px'}"></Loading>
+  </div>
+  <div class="col-xs-9 userView">
+    <UsersDetails #usersDetails *ngIf="businessesUsers && priveleges" [showUserInfo]="showUserInfo" [priveleges]="priveleges" [businesses]="businessUsersListFiltered"></UsersDetails>
+    <Loading *ngIf="!businessesUsers || !priveleges" [src]="'assets/preload6.gif'" [style]="{'margin-top': '150px'}"></Loading>
+  </div>
+
+  <modal #modalAddUser [animation]="true" (onClose)="onModalClose($event)">
+    <modal-header [show-close]="true">
+      <h4 class="modal-title">
+        <span class="fa fa-user"></span>
+        Add new user
+      </h4>
+    </modal-header>
+    <modal-body>
+      <!--  [priveleges]="m_priveleges"  -->
+      <addUser [businessId]="getBusinessIdSelected()"></addUser>
+    </modal-body>
+    <modal-footer [show-default-buttons]="false"></modal-footer>
+  </modal>
+</div>

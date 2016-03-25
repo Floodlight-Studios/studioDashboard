@@ -59,7 +59,6 @@ export class UsersDetails {
     private m_businesses:List<BusinessModel>;
     private m_priveleges:Array<PrivelegesModel>;
     private totalBusinessSelected:number = 0;
-    private animationsEnabled:boolean = true;
 
     private launchStudio() {
         let businessUser:BusinessUser = this.selectedBusinessUser();

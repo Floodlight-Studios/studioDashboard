@@ -12,45 +12,17 @@ import {List} from 'immutable';
 import {PrivelegesModel} from "../../../reseller/PrivelegesModel";
 import {DROPDOWN_DIRECTIVES} from "ng2-bootstrap/ng2-bootstrap";
 import {BusinessAction} from "../../../business/BusinessAction";
+import {AddUser} from "./AddUser";
+import {MODAL_DIRECTIVES} from "../../ng2-bs3-modal/ng2-bs3-modal";
+import {ModalComponent} from "../../ng2-bs3-modal/components/modal";
 const bootbox = require('bootbox');
 
 @Component({
     selector: 'Users',
     providers: [SimpleList],
-    directives: [SimpleList, UsersDetails, Loading, DROPDOWN_DIRECTIVES],
+    directives: [SimpleList, UsersDetails, Loading, DROPDOWN_DIRECTIVES, AddUser, MODAL_DIRECTIVES],
     styleUrls: ['../comps/app1/users/Users.css'],
-    template: `
-        <div class="row">
-             <div class="col-xs-3">
-                <div class="users">
-                    <div (click)="$event.preventDefault()">
-                      <span dropdown (on-toggle)="toggled($event)">
-                      <a class="btns addUser" dropdownToggle href="#"><span class="fa fa-plus"></span></a>
-                        <ul class="dropdown-menu" aria-labelledby="simple-dropdown">
-                          <li *ngFor="#choice of ['Add account from sample','Add a clean account','Add an existing account']">
-                            <a (click)="onAddUser(choice)" class="dropdown-item" href="#">{{choice}}</a>
-                          </li>
-                        </ul>
-                      </span>
-                      <a (click)="onRemoveUser($event)" [ngClass]="{disabled: !businessUsersListFiltered || businessUsersListFiltered.size < 1}" href="#"><span class="remove fa fa-remove"></span></a>
-                      </div>
-                </div>
-                <SimpleList *ngIf="businessesUsers && priveleges" #simpleList [list]="businessesList" 
-                    (selected)="onFilteredSelection()"
-                    (iconClicked)="onShowUserInfo($event)"
-                    [contentId]="getBusinessesId()"
-                    [multi]="false"
-                    [icon]="'fa-user'"
-                    [content]="getBusinesses()">
-                </SimpleList>
-                <Loading *ngIf="!businessesUsers || !priveleges" [src]="'assets/preload6.gif'" [style]="{'margin-top': '150px'}"></Loading>
-             </div>
-             <div class="col-xs-9 userView">                
-               <UsersDetails *ngIf="businessesUsers && priveleges" [showUserInfo]="showUserInfo" [priveleges]="priveleges" [businesses]="businessUsersListFiltered"></UsersDetails>
-               <Loading *ngIf="!businessesUsers || !priveleges" [src]="'assets/preload6.gif'" [style]="{'margin-top': '150px'}"></Loading>
-             </div>
-        </div>
-    `
+    templateUrl: '/src/comps/app1/users/Users.html'
 })
 
 @CanActivate((to:ComponentInstruction, from:ComponentInstruction) => {
@@ -83,6 +55,12 @@ export class Users {
     @ViewChild(SimpleList)
     simpleList:SimpleList;
 
+    @ViewChild(ModalComponent)
+    modalAddUser:ModalComponent;
+
+    @ViewChild(UsersDetails)
+    usersDetails:UsersDetails;
+
     private businessesList:List<BusinessModel> = List<BusinessModel>();
     private businessesListFiltered:List<BusinessModel>
     private businessUsersListFiltered:List<BusinessUser>;
@@ -101,6 +79,7 @@ export class Users {
             }
             case 'Add a clean account':
             {
+                this.modalAddUser.open('lg');
                 break;
             }
             case 'Add an existing account':
@@ -108,6 +87,11 @@ export class Users {
                 break;
             }
         }
+    }
+
+    private getBusinessIdSelected():number {
+        if (this.businessUsersListFiltered && this.businessUsersListFiltered.size > 0)
+            return this.businessUsersListFiltered.first().getBusinessId();
     }
 
     private onRemoveUser() {
@@ -122,6 +106,9 @@ export class Users {
                 this.showUserInfo = null;
             }
         });
+    }
+
+    private onModalClose($event) {
     }
 
     private onShowUserInfo(selectedBusiness:ISimpleListItem) {

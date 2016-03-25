@@ -5,7 +5,7 @@
   <a class="btns" href="#" (click)="!simpleGridTable || simpleGridTable.getSelected() == null ? '' : modalChangePassword.open()" [ngClass]="{disabled: !simpleGridTable || simpleGridTable.getSelected() == null}" href="#"><span class="fa fa-key"></span></a>
 </div>
 <hr/>
-<modal #modalAddUser [animation]="animationsEnabled" (onClose)="onModalClose($event)">
+<modal #modalAddUser [animation]="true" (onClose)="onModalClose($event)">
   <modal-header [show-close]="true">
     <h4 class="modal-title">
       <span class="fa fa-user"></span>
@@ -18,7 +18,7 @@
   <modal-footer [show-default-buttons]="false"></modal-footer>
 </modal>
 
-<modal #modalChangePassword [animation]="animationsEnabled" (onClose)="onModalClose($event)">
+<modal #modalChangePassword [animation]="true" (onClose)="onModalClose($event)">
   <modal-header [show-close]="true">
     <h4 class="modal-title">
       <span class="fa fa-key"></span>
