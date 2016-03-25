@@ -10,7 +10,7 @@ import {
                 <input #editInput *ngIf="m_editing && editable" [(ngModel)]="m_value" class="li-content pull-left"  value="{{getContent(item)}}" />
                 <span *ngIf="editable" (click)="onEdit(true)" class="editable fa {{m_icon}} pull-right"></span>
     `,
-    styleUrls: ['../comps/simplelist/SimpleList.css'],
+    styleUrls: ['../comps/simplelist/Simplelist.css'],
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class SimplelistEditable {
