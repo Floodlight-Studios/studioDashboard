@@ -55,8 +55,14 @@ export class Users {
     @ViewChild(SimpleList)
     simpleList:SimpleList;
 
-    @ViewChild(ModalComponent)
-    modalAddUser:ModalComponent;
+    @ViewChild('modalAddUserSample')
+    modalAddUserSample:ModalComponent;
+
+    @ViewChild('modalAddUserClean')
+    modalAddUserClean:ModalComponent;
+
+    @ViewChild('modalAddUserExisting')
+    modalAddUserExisting:ModalComponent;
 
     @ViewChild(UsersDetails)
     usersDetails:UsersDetails;
@@ -70,20 +76,24 @@ export class Users {
     private unsub:Function;
     private unsub2:Function;
     private unsub3:Function;
+    private accounts = ['Add new account from template','Add new clean account','Import existing account'];
+
 
     private onAddUser(choice) {
         switch (choice) {
-            case 'Add account from sample':
+            case this.accounts[0]:
             {
+                this.modalAddUserSample.open('lg');
                 break;
             }
-            case 'Add a clean account':
+            case this.accounts[1]:
             {
-                this.modalAddUser.open('lg');
+                this.modalAddUserClean.open('lg');
                 break;
             }
-            case 'Add an existing account':
+            case this.accounts[2]:
             {
+                this.modalAddUserExisting.open('lg');
                 break;
             }
         }
