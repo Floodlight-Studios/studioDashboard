@@ -2,6 +2,11 @@ import {Component, ViewChild, QueryList} from 'angular2/core'
 import {CanActivate, ComponentInstruction} from "angular2/router";
 import {SimpleList, ISimpleListItem} from "../../simplelist/SimpleList";
 import {AppStore} from "angular2-redux-util/dist/index";
+import {DROPDOWN_DIRECTIVES} from "ng2-bootstrap/ng2-bootstrap";
+import {BusinessAction} from "../../../business/BusinessAction";
+import {AddUser} from "./AddUser";
+import {MODAL_DIRECTIVES} from "../../ng2-bs3-modal/ng2-bs3-modal";
+import {ModalComponent} from "../../ng2-bs3-modal/components/modal";
 import {BusinessModel} from "../../../business/BusinessModel";
 import {UsersDetails} from "./UsersDetails";
 import {AuthService} from "../../../services/AuthService";
@@ -10,11 +15,6 @@ import {BusinessUser} from "../../../business/BusinessUser";
 import {Loading} from "../../loading/Loading";
 import {List} from 'immutable';
 import {PrivelegesModel} from "../../../reseller/PrivelegesModel";
-import {DROPDOWN_DIRECTIVES} from "ng2-bootstrap/ng2-bootstrap";
-import {BusinessAction} from "../../../business/BusinessAction";
-import {AddUser} from "./AddUser";
-import {MODAL_DIRECTIVES} from "../../ng2-bs3-modal/ng2-bs3-modal";
-import {ModalComponent} from "../../ng2-bs3-modal/components/modal";
 const bootbox = require('bootbox');
 
 @Component({
@@ -87,11 +87,6 @@ export class Users {
                 break;
             }
         }
-    }
-
-    private getBusinessIdSelected():number {
-        if (this.businessUsersListFiltered && this.businessUsersListFiltered.size > 0)
-            return this.businessUsersListFiltered.first().getBusinessId();
     }
 
     private onRemoveUser() {

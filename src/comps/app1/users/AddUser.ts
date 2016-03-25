@@ -9,7 +9,7 @@ import {AppStore} from "angular2-redux-util/dist/index";
 import {BusinessAction} from "../../../business/BusinessAction";
 import {PrivelegesModel} from "../../../reseller/PrivelegesModel";
 import {ModalComponent} from "../../ng2-bs3-modal/components/modal";
-
+const _ = require('underscore');
 
 @Component({
     selector: 'addUser',
@@ -47,7 +47,8 @@ export class AddUser {
         // this.observeFormChange();
     }
 
-    private accessKeys:Array<boolean> = [false, false, false, false, false, false, false, false];
+    private accessKeysArr = _.times(8, _.uniqueId);
+    private accessKeys:Array<boolean> = _.times(8, ()=>false);
 
     @Input()
     businessId:number;
@@ -60,6 +61,10 @@ export class AddUser {
     private userName:AbstractControl;
     private passwordGroup;
     private sub:EventEmitter<any>;
+
+    private onKeyChange(event, index) {
+        console.log(event.target.checked + ' ' + index);
+    }
 
     private areEqual(group:ControlGroup) {
         let valid = true, val;

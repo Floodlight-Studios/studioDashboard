@@ -4,8 +4,16 @@
       <div class="col-xs-6">
         <div class="inner userGeneral tallPanel">
           <div class="panel panel-default">
-            <div class="panel-heading">Under business id: {{businessId}}
-              <i class="fa fa-user-plus pull-right"></i>
+            <div class="panel-heading">
+              <div *ngIf="businessId == 1">
+                new user under Enterprise account
+                <i class="fa fa-users pull-right"></i>
+              </div>
+              <div *ngIf="businessId > 1">
+                Under business id: {{businessId}}
+                <i class="fa fa-user-plus pull-right"></i>
+              </div>
+
             </div>
             <ul class="list-group">
               <li class="list-group-item">
@@ -17,7 +25,7 @@
                     needs matching password 4+ characters
                   </div>
                   <input required id="password" class="longInput form-control" placeholder="password (4+ characters)" type="password" ngControl="password">
-                  <input required id="confirmPassword" class="longInput form-control" placeholder="password again"  type="password" ngControl="confirmPassword">
+                  <input required id="confirmPassword" class="longInput form-control" placeholder="password again" type="password" ngControl="confirmPassword">
                 </div>
                 <!--<p>Valid?: {{notesForm.valid}}</p>-->
                 <!--<pre>{{notesForm.value | json}}</pre>-->
@@ -39,60 +47,11 @@
               <i class="fa fa-key pull-right"></i>
             </div>
             <ul class="list-group">
-              <li class="list-group-item">
-                Key 0
+              <li class="list-group-item" *ngFor="#item of accessKeysArr; #index=index">
+                Key {{index}}
                 <div class="material-switch pull-right">
-                  <input id="someSwitchOptionDefault0" [checked]="accessKeys[0]" [(ngModel)]="accessKeys[0]" name="someSwitchOption000" type="checkbox"/>
-                  <label for="someSwitchOptionDefault0" class="label-default"></label>
-                </div>
-              </li>
-              <li class="list-group-item">
-                Key 1
-                <div class="material-switch pull-right">
-                  <input id="someSwitchOptionDefault1" [checked]="accessKeys[1]" [(ngModel)]="accessKeys[1]" name="someSwitchOption001" type="checkbox"/>
-                  <label for="someSwitchOptionDefault1" class="label-default"></label>
-                </div>
-              </li>
-              <li class="list-group-item">
-                Key 2
-                <div class="material-switch pull-right">
-                  <input id="someSwitchOptionDefault2" [checked]="accessKeys[2]" [(ngModel)]="accessKeys[2]" name="someSwitchOption002" type="checkbox"/>
-                  <label for="someSwitchOptionDefault2" class="label-default"></label>
-                </div>
-              </li>
-              <li class="list-group-item">
-                Key 3
-                <div class="material-switch pull-right">
-                  <input id="someSwitchOptionDefault3" [checked]="accessKeys[3]" [(ngModel)]="accessKeys[3]" name="someSwitchOption003" type="checkbox"/>
-                  <label for="someSwitchOptionDefault3" class="label-default"></label>
-                </div>
-              </li>
-              <li class="list-group-item">
-                Key 4
-                <div class="material-switch pull-right">
-                  <input id="someSwitchOptionDefault4" [checked]="accessKeys[4]" [(ngModel)]="accessKeys[4]" name="someSwitchOption004" type="checkbox"/>
-                  <label for="someSwitchOptionDefault4" class="label-default"></label>
-                </div>
-              </li>
-              <li class="list-group-item">
-                Key 5
-                <div class="material-switch pull-right">
-                  <input id="someSwitchOptionDefault5" [checked]="accessKeys[5]" [(ngModel)]="accessKeys[5]" name="someSwitchOption005" type="checkbox"/>
-                  <label for="someSwitchOptionDefault5" class="label-default"></label>
-                </div>
-              </li>
-              <li class="list-group-item">
-                Key 6
-                <div class="material-switch pull-right">
-                  <input id="someSwitchOptionDefault6" [checked]="accessKeys[6]" [(ngModel)]="accessKeys[6]" name="someSwitchOption006" type="checkbox"/>
-                  <label for="someSwitchOptionDefault6" class="label-default"></label>
-                </div>
-              </li>
-              <li class="list-group-item">
-                Key 7
-                <div class="material-switch pull-right">
-                  <input id="someSwitchOptionDefault7" [checked]="accessKeys[7]" [(ngModel)]="accessKeys[7]" name="someSwitchOption007" type="checkbox"/>
-                  <label for="someSwitchOptionDefault7" class="label-default"></label>
+                  <input (click)="onKeyChange($event,index)" [(ngModel)]="accessKeys[index]" id="{{item}}" name="{{item}}" type="checkbox"/>
+                  <label [attr.for]="item" class="label-default"></label>
                 </div>
               </li>
             </ul>
@@ -101,20 +60,5 @@
       </div>
     </div>
     <button type="submit" class="btn btn-default" [disabled]="!notesForm.valid">Submit</button>
-
   </form>
-
 </div>
-
-<!--<div [hidden]="submitted">--><!--<div [class.panelColorError]="!notesForm.valid">--><!--&lt;!&ndash; here we are mapping the ControlGroup via the directive ngFormModel to the instance of notesForm &ndash;&gt;--><!--<form [ngFormModel]="notesForm" (ngSubmit)="onSubmit(notesForm.value)">--><!--<div class="form-group">--><!--&lt;!&ndash; here we are mapping the Control via the directive ngFormControl to the instance of notesForm.controls['userName'] &ndash;&gt;-->
-
-<!--&lt;!&ndash; user name &ndash;&gt;--><!--<input type="text" class="form-control" placeholder="user name" required [ngFormControl]="notesForm.controls['userName']">--><!--<div *ngIf="!userName.valid" class="alert alert-warning alert-dismissible" role="alert">--><!--<strong>Warning!</strong> are you a robot?--><!--</div>-->
-
-<!--&lt;!&ndash; reference use a custom component to display required error message &ndash;&gt;--><!--<input type="text" class="form-control" placeholder="reference" required [ngFormControl]="notesForm.controls['reference']">--><!--<display-error control="reference" error="required">how did you learn about us?</display-error>-->
-
-
-<!--&lt;!&ndash; login name &ndash;&gt;--><!--<input type="text" class="longInput form-control" placeholder="check server for free name (try: Sean)" required [ngFormControl]="notesForm.controls['login']">--><!--<p *ngIf="login.pending">Fetching data from the server...</p>--><!--<div *ngIf="login.hasError('taken')" class="alert alert-warning alert-dismissible" role="alert">--><!--<strong>Warning!</strong> Login is taken--><!--</div>--><!--<div *ngIf="login.hasError('notCapped') && login.touched" class="alert alert-warning alert-dismissible" role="alert">--><!--<strong>Warning!</strong> Must start with first capital letter--><!--</div>-->
-
-<!--&lt;!&ndash; phone &ndash;&gt;--><!--<input type="text" class="longInput form-control" placeholder="phone" required [ngFormControl]="notesForm.controls['phone']">--><!--<div *ngIf="!phone.valid" class="alert alert-warning alert-dismissible" role="alert">--><!--<strong>Warning!</strong> please use valid phone--><!--</div>--><!--<label for="name">Enter your notes</label>-->
-
-<!--&lt;!&ndash; bind the textarea control to our manually created notesTextArea control &ndash;&gt;--><!--<textarea type="text" placeholder="enter some notes" class="myNotes form-control" [ngFormControl]="notesForm.controls['notesTextArea']" required [(ngModel)]="model.name" (change)="onChange($event)"></textarea>--><!--<div *ngIf="notesTextArea.hasError('notCapped') && notesTextArea.touched" class="alert alert-warning alert-dismissible" role="alert">--><!--<strong>Warning!</strong> Must start with first capital letter (Validators are working :)--><!--</div>--><!--<div *ngIf="!notesForm.valid && notesTextArea.touched" class="alert alert-warning alert-dismissible" role="alert">--><!--<strong>Warning!</strong> something is not right with the form--><!--</div>--><!--<span>Total characters via Pipes: {{model.name | CharCount}}</span>--><!--<br/>--><!--</div>--><!--<br/>--><!--<button type="submit" class="btn btn-default" [disabled]="!notesForm.valid">Submit</button>--><!--</form>--><!--</div>-->
