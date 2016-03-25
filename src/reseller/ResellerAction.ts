@@ -67,13 +67,10 @@ export class ResellerAction extends Actions {
                     var xmlData:string = result.text()
                     xmlData = xmlData.replace(/}\)/, '').replace(/\(\{"result":"/, '');
                     this.m_parseString(xmlData, {attrkey: '_attr'}, function (err, result) {
-
-                        console.log(result);
                         if (err) {
                             bootbox.alert('problem loading user info')
                             return;
                         }
-
                         Lib.PrivilegesXmlTemplate((err, privilegesXmlTemplate)=> {
                             /**
                              * redux inject privileges XML template system
@@ -107,7 +104,6 @@ export class ResellerAction extends Actions {
     }
 
     public createPrivilege() {
-        var self = this;
         return (dispatch)=> {
             // var appdb:Map<string,any> = this.appStore.getState().appdb;
             // var url = appdb.get('appBaseUrlUser') + `&command=GetBusinessUserInfo`;
@@ -121,7 +117,7 @@ export class ResellerAction extends Actions {
             //todo: contact server for creation of privilege id, emulating server for now
             var privilegesModel:PrivelegesModel = this.privilegesModelFactory(_.random(1000, 9999), 'privilege set')
             setTimeout(()=> {
-                dispatch(self.addPrivilege(privilegesModel));
+                dispatch(this.addPrivilege(privilegesModel));
             }, 100)
         }
     }
