@@ -78,7 +78,6 @@ export class Users {
     private unsub3:Function;
     private accounts = ['Add new account from template','Add new clean account','Import existing account'];
 
-
     private onAddUser(choice) {
         switch (choice) {
             case this.accounts[0]:
