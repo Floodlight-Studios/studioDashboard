@@ -54,6 +54,15 @@
       </h4>
     </modal-header>
     <modal-body>
+      <div class="form-group">
+        <label for="email" class="sr-only">Email</label>
+        <input type="email" name="email" id="email" class="form-control" placeholder="somebody@example.com">
+      </div>
+      <div class="form-group">
+        <label for="key" class="sr-only">Password</label>
+        <input type="password" name="key" id="key" class="form-control" placeholder="Password">
+      </div>
+      <input type="submit" id="btn-login" class="btn" value="import">
     </modal-body>
     <modal-footer [show-default-buttons]="false"></modal-footer>
   </modal>
