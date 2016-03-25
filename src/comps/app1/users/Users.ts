@@ -12,49 +12,13 @@ import {List} from 'immutable';
 import {PrivelegesModel} from "../../../reseller/PrivelegesModel";
 import {DROPDOWN_DIRECTIVES} from "ng2-bootstrap/ng2-bootstrap";
 import {BusinessAction} from "../../../business/BusinessAction";
+const bootbox = require('bootbox');
 
 @Component({
     selector: 'Users',
     providers: [SimpleList],
     directives: [SimpleList, UsersDetails, Loading, DROPDOWN_DIRECTIVES],
-    styles: [`
-      .userView {
-        /*background-color: red; */
-      }      
-      .btns {
-          padding: 0 20px 20px 0px;
-          font-size: 1.4em;
-          color: #313131;
-      }
-      .btns:hover {
-        color: red;
-      }
-      .enabled {
-        opacity: 1
-      }
-       .disabled {
-        opacity: 0.2;
-        cursor: default;
-      }
-      
-      .dropdown {
-         padding-top: 10px;
-         position: relative;
-         left: -14px;
-      }
-      .users {
-        margin-top: 10px;
-        padding-top: 10px
-        font-size: 14px;
-      }
-      
-      .remove {
-        font-size: 23px;
-        position: relative; 
-        left: -20px;
-      }
-
-    `],
+    styleUrls: ['../comps/app1/users/Users.css'],
     template: `
         <div class="row">
              <div class="col-xs-3">
@@ -68,7 +32,7 @@ import {BusinessAction} from "../../../business/BusinessAction";
                           </li>
                         </ul>
                       </span>
-                      <a (click)="onRemoveUser($event)" [ngClass]="{disabled: !businessesListFiltered || businessesListFiltered && businessesListFiltered.size != 1}" href="#"><span class="remove fa fa-remove"></span></a>
+                      <a (click)="onRemoveUser($event)" [ngClass]="{disabled: !businessUsersListFiltered || businessUsersListFiltered.size < 1}" href="#"><span class="remove fa fa-remove"></span></a>
                       </div>
                 </div>
                 <SimpleList *ngIf="businessesUsers && priveleges" #simpleList [list]="businessesList" 
@@ -147,12 +111,17 @@ export class Users {
     }
 
     private onRemoveUser() {
-        console.log();
         if (!this.businessesListFiltered || this.businessesListFiltered.size != 1)
             return
         var businessModel:BusinessModel = this.businessesListFiltered.first();
-        this.appStore.dispatch(this.businessAction.removeBusiness(businessModel.getBusinessId()));
-        this.businessUsersListFiltered = null;
+        let businessId = businessModel.getBusinessId();
+        bootbox.confirm(`Are you sure you want to remove business id ${businessId}? This cannot be undone and all configuration and user data will be permanently erased!!!`, (result) => {
+            if (result) {
+                this.appStore.dispatch(this.businessAction.removeBusiness(businessId));
+                this.businessUsersListFiltered = null;
+                this.showUserInfo = null;
+            }
+        });
     }
 
     private onShowUserInfo(selectedBusiness:ISimpleListItem) {

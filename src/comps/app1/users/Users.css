@@ -1,0 +1,39 @@
+.userView {
+    /*background-color: red; */
+}
+
+.btns {
+    padding: 0 20px 20px 0px;
+    font-size: 1.4em;
+    color: #313131;
+}
+
+.btns:hover {
+    color: red;
+}
+
+.enabled {
+    opacity: 1
+}
+
+.disabled {
+    opacity: 0.2;
+    cursor: default;
+}
+
+.dropdown {
+    padding-top: 10px;
+    position: relative;
+    left: -14px;
+}
+
+.users {
+    padding-top: 10px;
+    font-size: 14px;
+}
+
+.remove {
+    font-size: 23px;
+    position: relative;
+    left: -20px;
+}
