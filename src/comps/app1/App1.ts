@@ -19,7 +19,7 @@ import {Dashboard} from "./dashboard/Dashboard";
 import {Stations} from "./stations/Stations";
 import {Privileges} from "./privileges/Privileges";
 import {Whitelabel} from "./whitelabel/Whitelabel";
-import {Components} from "./components/Components";
+import {Apps} from "./apps/Apps";
 import {Account} from "./account/Account";
 
 @RouteConfig([
@@ -28,7 +28,7 @@ import {Account} from "./account/Account";
     {path: '/Stations', component: Stations, as: 'Stations'},
     {path: '/Privileges', component: Privileges, as: 'Privileges'},
     {path: '/White label', component: Whitelabel, as: 'White label'},
-    {path: '/Components', component: Components, as: 'Components'},
+    {path: '/Apps', component: Apps, as: 'Apps'},
     {path: '/Account', component: Account, as: 'Account'},
     {path: '/Logout', component: Logout, as: 'Logout'}
 ])
@@ -44,7 +44,7 @@ import {Account} from "./account/Account";
 @Component({
     providers: [HTTP_PROVIDERS],
     templateUrl: '/src/comps/app1/App1.html',
-    directives: [ROUTER_DIRECTIVES, RouterLink, Menu, MenuItem, Sliderpanel, Account, Whitelabel, Components, Privileges, Dashboard, Stations,
+    directives: [ROUTER_DIRECTIVES, RouterLink, Menu, MenuItem, Sliderpanel, Account, Whitelabel, Apps, Privileges, Dashboard, Stations,
         Logout, Tabs, Tab]
 })
 export class App1 implements OnActivate, CanReuse, OnReuse, OnDeactivate {

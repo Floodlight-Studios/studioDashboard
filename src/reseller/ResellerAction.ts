@@ -109,7 +109,7 @@ export class ResellerAction extends Actions {
                                     userApps = userApps.push(app);
                                 }
                             })
-                            dispatch(self.apps(userApps));
+                            dispatch(self.receiveApps(userApps));
                         });
 
                         Lib.PrivilegesXmlTemplate((err, xmlTemplate)=> {
@@ -202,18 +202,17 @@ export class ResellerAction extends Actions {
         }
     }
 
+    public receiveApps(apps:List<AppModel>) {
+        return {
+            type: RECEIVE_APPS,
+            apps
+        }
+    }
 
     public receivePrivilegesSystem(privelegesSystemModels:Array<PrivelegesTemplateModel>) {
         return {
             type: RECEIVE_PRIVILEGES_SYSTEM,
             privelegesSystemModels
-        }
-    }
-
-    public apps(apps:Array<AppModel>) {
-        return {
-            type: RECEIVE_APPS,
-            apps
         }
     }
 
