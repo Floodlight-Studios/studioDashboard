@@ -1,0 +1,27 @@
+<div class="row">
+  <div class="col-xs-12 col-sm-offset-3 col-sm-6">
+    <div class="panel panel-default">
+      <div class="panel-heading c-list">
+        <span class="title">Contacts</span>
+      </div>
+      <ul class="list-group" id="contact-list">
+        <li class="list-group-item" *ngFor="#item of [1,2,3,4,5,6,7,8,9]">
+          <div class="col-xs-12 col-sm-3">
+            <span class="sampleIcon fa fa-edit"></span>
+          </div>
+          <div class="col-xs-12 col-sm-9">
+            <span class="name">this is sample {{item}}</span><br/>
+            <span class="glyphicon glyphicon-map-marker text-muted c-info" data-toggle="tooltip" title="5842 Hillcrest Rd"></span>
+            <span class="visible-xs"> <span class="text-muted">5842 Hillcrest Rd</span><br/></span>
+            <span class="glyphicon glyphicon-earphone text-muted c-info" data-toggle="tooltip" title="(870) 288-4149"></span>
+            <span class="visible-xs"> <span class="text-muted">(870) 288-4149</span><br/></span>
+            <span class="fa fa-comments text-muted c-info" data-toggle="tooltip" title="scott.stevens@example.com"></span>
+            <span class="visible-xs"> <span class="text-muted">scott.stevens@example.com</span><br/></span>
+          </div>
+          <div class="clearfix"></div>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
+

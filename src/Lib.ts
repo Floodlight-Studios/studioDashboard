@@ -99,6 +99,418 @@ export class Lib {
             callBack(err, result);
         });
     }
+    static AppsXmlTemplate(callBack:(err, result)=>any) {
+        const parseString = require('xml2js').parseString;
+        var xmlData = `
+                <Apps>
+                  <App id="10145" appName="Webkit" helpName="" uninstallable="1" hidden="0" price="0">
+                    <Description>Webkit</Description>
+                    <Components>
+                      <Component moduleId="3415" componentName="Webkit" version="1911" moduleWeb="Players/Standard/BlockWebkitPlayerWeb.swf" moduleAir="Players/Standard/BlockWebkitPlayerDesktop.swf" moduleMobile="Players/Standard/BlockWebkitPlayerMobile.swf" showInTimeline="1" showInScene="1"/>
+                    </Components>
+                  </App>
+                  <App id="10500" appName="Label Queue" helpName="" uninstallable="1" hidden="0" price="0">
+                    <Description>Label Queue</Description>
+                    <Components>
+                      <Component moduleId="3242" componentName="LabelQueue" version="1911" moduleWeb="Players/Standard/BlockLabelQueuePlayer.swf" moduleAir="" moduleMobile="" showInTimeline="1" showInScene="1"/>
+                    </Components>
+                  </App>
+                  <App id="12100" appName="FasterQ" helpName="" uninstallable="1" hidden="0" price="0">
+                    <Description>FasterQ</Description>
+                    <Components>
+                      <Component moduleId="6100" componentName="FasterQ" version="1911" moduleWeb="Players/Standard/BlockWebkitPlayerWeb.swf" moduleAir="Players/Standard/BlockWebkitPlayerDesktop.swf" moduleMobile="Players/Standard/BlockWebkitPlayerMobile.swf" showInTimeline="1" showInScene="1" componentParams="{&quot;url&quot;:&quot;http://galaxy.signage.me/code/html/fasterq.json&quot;}"/>
+                    </Components>
+                  </App>
+                  <App id="12010" appName="World weather" helpName="" uninstallable="1" hidden="0" price="0">
+                    <Description>Weather</Description>
+                    <Components>
+                      <Component moduleId="6010" componentName="World weather" version="1911" moduleWeb="Players/Standard/BlockJsonPlayer.swf" moduleAir="" moduleMobile="" showInTimeline="1" showInScene="1" componentParams="{&quot;url&quot;:&quot;https://secure.digitalsignage.com/Weather&quot;}">
+                        <MimeTypes>
+                          <MimeType name="Json" providerType="weather" label="World weather"/>
+                        </MimeTypes>
+                      </Component>
+                    </Components>
+                  </App>
+                  <App id="10140" appName="Ext Application" helpName="" uninstallable="1" hidden="0" price="0">
+                    <Description>Ext Application</Description>
+                    <Components>
+                      <Component moduleId="3410" componentName="Ext Application" version="1911" moduleWeb="Players/Standard/BlockExtAppPlayerWeb.swf" moduleAir="Players/Standard/BlockExtAppPlayerAir.swf" moduleMobile="" showInTimeline="1" showInScene="0"/>
+                    </Components>
+                  </App>
+                  <App id="10050" appName="Rss Text" helpName="" uninstallable="0" hidden="0" price="0">
+                    <Description>Rss Text</Description>
+                    <Components>
+                      <Component moduleId="3345" componentName="Rss Text" version="1911" moduleWeb="Players/Standard/BlockRssTextPlayer.swf" moduleAir="" moduleMobile="" showInTimeline="1" showInScene="1"/>
+                    </Components>
+                  </App>
+                  <App id="10400" appName="Message" helpName="" uninstallable="1" hidden="0" price="0">
+                    <Description>Message</Description>
+                    <Components>
+                      <Component moduleId="3245" componentName="Message" version="1911" moduleWeb="Players/Standard/BlockMessagePlayer.swf" moduleAir="" moduleMobile="" showInTimeline="1" showInScene="1"/>
+                    </Components>
+                  </App>
+                  <App id="12090" appName="Pinterest" helpName="" uninstallable="1" hidden="0" price="0">
+                    <Description>Pinterest</Description>
+                    <Components>
+                      <Component moduleId="6080" componentName="Pinterest" version="1911" moduleWeb="Players/Standard/BlockJsonPlayer.swf" moduleAir="" moduleMobile="" showInTimeline="1" showInScene="1" componentParams="{&quot;url&quot;:&quot;https://secure.digitalsignage.com/PinterestUserPins&quot;}">
+                        <MimeTypes>
+                          <MimeType name="Json" providerType="pinterest.board" label="Pinterest board"/>
+                          <MimeType name="Json" providerType="pinterest.user" label="Pinterest user"/>
+                        </MimeTypes>
+                      </Component>
+                    </Components>
+                  </App>
+                  <App id="12000" appName="Digg" helpName="" uninstallable="1" hidden="0" price="0">
+                    <Description>Digg</Description>
+                    <Components>
+                      <Component moduleId="6000" componentName="Digg" version="1911" moduleWeb="Players/Standard/BlockJsonPlayer.swf" moduleAir="" moduleMobile="" showInTimeline="1" showInScene="1" componentParams="{&quot;url&quot;:&quot;https://secure.digitalsignage.com/Digg&quot;}">
+                        <MimeTypes>
+                          <MimeType name="Json" providerType="digg" label="Digg"/>
+                        </MimeTypes>
+                      </Component>
+                    </Components>
+                  </App>
+                  <App id="10130" appName="Grid/Chart" helpName="" uninstallable="1" hidden="0" price="0">
+                    <Description>Grid/Chart</Description>
+                    <Components>
+                      <Component moduleId="3400" componentName="Grid/Chart" version="1911" moduleWeb="Players/Standard/BlockChartPlayer.swf" moduleAir="" moduleMobile="" showInTimeline="1" showInScene="1"/>
+                    </Components>
+                  </App>
+                  <App id="10040" appName="Html" helpName="" uninstallable="0" hidden="0" price="0">
+                    <Description>Html</Description>
+                    <Components>
+                      <Component moduleId="3235" componentName="Html" version="1911" moduleWeb="Players/Standard/BlockHtmlPlayerWeb.swf" moduleAir="Players/Standard/BlockHtmlPlayerAir.swf" moduleMobile="Players/Standard/BlockHtmlPlayerMobile.swf" showInTimeline="1" showInScene="1"/>
+                    </Components>
+                  </App>
+                  <App id="12260" appName="Mashape" helpName="" uninstallable="1" hidden="0" price="0">
+                    <Description>Mashape</Description>
+                    <Components>
+                      <Component moduleId="6260" componentName="Mashape" version="1911" moduleWeb="Players/Standard/BlockJsonPlayer.swf" moduleAir="" moduleMobile="" showInTimeline="1" showInScene="1" componentParams="{&quot;url&quot;:&quot;https://secure.digitalsignage.com&quot;}">
+                        <MimeTypes>
+                          <MimeType name="Json" providerType="mashape.randomQuote" label="Mashape movie quotes"/>
+                          <MimeType name="Json" providerType="mashape.currency" label="Mashape currency exchange"/>
+                          <MimeType name="Json" providerType="mashape.btc" label="Mashape bitcoin rate"/>
+                        </MimeTypes>
+                      </Component>
+                    </Components>
+                  </App>
+                  <App id="12080" appName="500px" helpName="" uninstallable="1" hidden="0" price="0">
+                    <Description>500px</Description>
+                    <Components>
+                      <Component moduleId="6070" componentName="500px" version="1911" moduleWeb="Players/Standard/BlockJsonPlayer.swf" moduleAir="" moduleMobile="" showInTimeline="1" showInScene="1" componentParams="{&quot;url&quot;:&quot;https://secure.digitalsignage.com/500pxPhotos&quot;}">
+                        <MimeTypes>
+                          <MimeType name="Json" providerType="500px.collection" label="500px collection"/>
+                          <MimeType name="Json" providerType="500px.user" label="500px user"/>
+                        </MimeTypes>
+                      </Component>
+                    </Components>
+                  </App>
+                  <App id="10210" appName="Twitter" helpName="" uninstallable="1" hidden="0" price="0">
+                    <Description>Twitter</Description>
+                    <Components>
+                      <Component moduleId="4505" componentName="Twitter Item" version="1911" moduleWeb="Players/Standard/BlockTwitterItemPlayer.swf" moduleAir="" moduleMobile="" showInTimeline="0" showInScene="1"/>
+                      <Component moduleId="4500" componentName="Twitter Player" version="1911" moduleWeb="Players/Standard/BlockTwitterPlayer.swf" moduleAir="" moduleMobile="" showInTimeline="1" showInScene="1"/>
+                    </Components>
+                  </App>
+                  <App id="10120" appName="Clock" helpName="" uninstallable="1" hidden="0" price="0">
+                    <Description>Clock</Description>
+                    <Components>
+                      <Component moduleId="3320" componentName="Clock" version="1911" moduleWeb="Players/Standard/BlockClockPlayer.swf" moduleAir="" moduleMobile="" showInTimeline="1" showInScene="1"/>
+                    </Components>
+                  </App>
+                  <App id="10030" appName="Label" helpName="" uninstallable="0" hidden="0" price="0">
+                    <Description>Label</Description>
+                    <Components>
+                      <Component moduleId="3241" componentName="Label" version="1911" moduleWeb="Players/Standard/BlockLabelPlayer.swf" moduleAir="" moduleMobile="" showInTimeline="1" showInScene="1"/>
+                      <Component moduleId="3240" componentName="RichText" version="1911" moduleWeb="Players/Standard/BlockRichTextPlayer.swf" moduleAir="" moduleMobile="" showInTimeline="1" showInScene="1"/>
+                    </Components>
+                  </App>
+                  <App id="12250" appName="Etsy" helpName="" uninstallable="1" hidden="0" price="0">
+                    <Description>Etsy</Description>
+                    <Components>
+                      <Component moduleId="6250" componentName="Etsy" version="1911" moduleWeb="Players/Standard/BlockJsonPlayer.swf" moduleAir="" moduleMobile="" showInTimeline="1" showInScene="1" componentParams="{&quot;url&quot;:&quot;https://secure.digitalsignage.com&quot;}">
+                        <MimeTypes>
+                          <MimeType name="Json" providerType="etsy.userProfile" label="Etsy user profile"/>
+                          <MimeType name="Json" providerType="etsy.shopAbout" label="Etsy shop about"/>
+                          <MimeType name="Json" providerType="etsy.shopListings" label="Etsy shop listings"/>
+                        </MimeTypes>
+                      </Component>
+                    </Components>
+                  </App>
+                  <App id="12070" appName="Google drive" helpName="" uninstallable="1" hidden="0" price="0">
+                    <Description>Google drive</Description>
+                    <Components>
+                      <Component moduleId="6060" componentName="Google drive" version="1911" moduleWeb="Players/Standard/BlockJsonPlayer.swf" moduleAir="" moduleMobile="" showInTimeline="1" showInScene="1" componentParams="{&quot;url&quot;:&quot;https://secure.digitalsignage.com/GoogleAjaxFileLink/&quot;}">
+                        <MimeTypes>
+                          <MimeType name="Json" providerType="drive" label="Google drive"/>
+                        </MimeTypes>
+                      </Component>
+                    </Components>
+                  </App>
+                  <App id="10220" appName="YouTube" helpName="" uninstallable="1" hidden="0" price="0">
+                    <Description>YouTube</Description>
+                    <Components>
+                      <Component moduleId="4600" componentName="YouTube" version="1911" moduleWeb="Players/Standard/BlockYouTubePlayerWeb.swf" moduleAir="" moduleMobile="" showInTimeline="1" showInScene="1"/>
+                    </Components>
+                  </App>
+                  <App id="11000" appName="Browser" helpName="" uninstallable="1" hidden="0" price="0">
+                    <Description>Browser</Description>
+                    <Components>
+                      <Component moduleId="5500" componentName="Browser" version="1911" moduleWeb="Players/Standard/BlockWebkitPlayerWeb.swf" moduleAir="Players/Standard/BlockWebkitPlayerDesktop.swf" moduleMobile="Players/Standard/BlockWebkitPlayerMobile.swf" showInTimeline="1" showInScene="1" componentParams="{&quot;url&quot;:&quot;http://galaxy.signage.me/code/html/browser.json&quot;}"/>
+                    </Components>
+                  </App>
+                  <App id="10020" appName="External Resource" helpName="" uninstallable="0" hidden="0" price="0">
+                    <Description>External Resource</Description>
+                    <Components>
+                      <Component moduleId="3160" componentName="External swf/image" version="1911" moduleWeb="Players/Standard/BlockLinkedSwfPlayer.swf" moduleAir="" moduleMobile="" showInTimeline="1" showInScene="1"/>
+                      <Component moduleId="3150" componentName="External video" version="1911" moduleWeb="Players/Standard/BlockLinkedVideoPlayer.swf" moduleAir="" moduleMobile="" showInTimeline="1" showInScene="1"/>
+                    </Components>
+                  </App>
+                  <App id="10195" appName="JSON Player" helpName="" uninstallable="1" hidden="0" price="0">
+                    <Description>JSON Player</Description>
+                    <Components>
+                      <Component moduleId="4310" componentName="JsonItem" version="1911" moduleWeb="Players/Standard/BlockJsonItemPlayer.swf" moduleAir="" moduleMobile="" showInTimeline="0" showInScene="1"/>
+                      <Component moduleId="4300" componentName="JsonPlayer" version="1911" moduleWeb="Players/Standard/BlockJsonPlayer.swf" moduleAir="" moduleMobile="" showInTimeline="1" showInScene="1"/>
+                    </Components>
+                  </App>
+                  <App id="12230" appName="Twitter" helpName="" uninstallable="1" hidden="0" price="0">
+                    <Description>Twitter</Description>
+                    <Components>
+                      <Component moduleId="6230" componentName="Twitter" version="1911" moduleWeb="Players/Standard/BlockJsonPlayer.swf" moduleAir="" moduleMobile="" showInTimeline="1" showInScene="1" componentParams="{&quot;url&quot;:&quot;https://secure.digitalsignage.com&quot;}">
+                        <MimeTypes>
+                          <MimeType name="Json" providerType="twitter" label="Twitter"/>
+                        </MimeTypes>
+                      </Component>
+                    </Components>
+                  </App>
+                  <App id="12240" appName="Yelp" helpName="" uninstallable="1" hidden="0" price="0">
+                    <Description>Yelp</Description>
+                    <Components>
+                      <Component moduleId="6240" componentName="Yelp" version="1911" moduleWeb="Players/Standard/BlockJsonPlayer.swf" moduleAir="" moduleMobile="" showInTimeline="1" showInScene="1" componentParams="{&quot;url&quot;:&quot;https://secure.digitalsignage.com&quot;}">
+                        <MimeTypes>
+                          <MimeType name="Json" providerType="yelp.reviews" label="Yelp reviews"/>
+                          <MimeType name="Json" providerType="yelp.info" label="Yelp info"/>
+                        </MimeTypes>
+                      </Component>
+                    </Components>
+                  </App>
+                  <App id="12060" appName="Instagram" helpName="" uninstallable="1" hidden="0" price="0">
+                    <Description>Instagram</Description>
+                    <Components>
+                      <Component moduleId="6050" componentName="Instagram" version="1911" moduleWeb="Players/Standard/BlockJsonPlayer.swf" moduleAir="" moduleMobile="" showInTimeline="1" showInScene="1" componentParams="{&quot;url&quot;:&quot;https://secure.digitalsignage.com/InstagramFeed&quot;}">
+                        <MimeTypes>
+                          <MimeType name="Json" providerType="instagram.feed" label="Instagram feed"/>
+                          <MimeType name="Json" providerType="instagram.media" label="Instagram media"/>
+                        </MimeTypes>
+                      </Component>
+                    </Components>
+                  </App>
+                  <App id="10190" appName="XML Player" helpName="" uninstallable="1" hidden="0" price="0">
+                    <Description>XML Player</Description>
+                    <Components>
+                      <Component moduleId="4210" componentName="XmlItem" version="1911" moduleWeb="Players/Standard/BlockXmlItemPlayer.swf" moduleAir="" moduleMobile="" showInTimeline="0" showInScene="1"/>
+                      <Component moduleId="4200" componentName="XmlPlayer" version="1911" moduleWeb="Players/Standard/BlockXmlPlayer.swf" moduleAir="" moduleMobile="" showInTimeline="1" showInScene="1"/>
+                    </Components>
+                  </App>
+                  <App id="10100" appName="Catalog" helpName="" uninstallable="0" hidden="0" price="0">
+                    <Description>Catalog</Description>
+                    <Components>
+                      <Component moduleId="3270" componentName="Catalog item" version="1911" moduleWeb="Players/Standard/BlockItemPlayer.swf" moduleAir="" moduleMobile="" showInTimeline="0" showInScene="1"/>
+                      <Component moduleId="3280" componentName="Catalog player" version="1911" moduleWeb="Players/Standard/BlockCatalogPlayer.swf" moduleAir="" moduleMobile="" showInTimeline="1" showInScene="0">
+                        <MimeTypes>
+                          <MimeType name="Catalog" label="Catalog"/>
+                        </MimeTypes>
+                      </Component>
+                    </Components>
+                  </App>
+                  <App id="10010" appName="Scene" helpName="" uninstallable="0" hidden="1" price="0">
+                    <Description>Scene</Description>
+                    <Components>
+                      <Component moduleId="3511" componentName="DesignerEditor" version="1911" moduleWeb="Players/Standard/DesignerEditor.swf" moduleAir="" moduleMobile="" showInTimeline="0" showInScene="0"/>
+                      <Component moduleId="3510" componentName="DesignerPlayer" version="1911" moduleWeb="Players/Standard/DesignerPlayer.swf" moduleAir="" moduleMobile="" showInTimeline="0" showInScene="0"/>
+                    </Components>
+                  </App>
+                  <App id="12210" appName="Dropbox" helpName="" uninstallable="1" hidden="0" price="0">
+                    <Description>Dropbox</Description>
+                    <Components>
+                      <Component moduleId="6210" componentName="Dropbox" version="1911" moduleWeb="Players/Standard/BlockJsonPlayer.swf" moduleAir="" moduleMobile="" showInTimeline="1" showInScene="1" componentParams="{&quot;url&quot;:&quot;https://secure.digitalsignage.com&quot;}">
+                        <MimeTypes>
+                          <MimeType name="Json" providerType="dropbox" label="Dropbox"/>
+                        </MimeTypes>
+                      </Component>
+                    </Components>
+                  </App>
+                  <App id="10185" appName="Location based" helpName="" uninstallable="1" hidden="0" price="0">
+                    <Description>Location based</Description>
+                    <Components>
+                      <Component moduleId="4105" componentName="LocationBasedPlayer" version="1911" moduleWeb="Players/Standard/BlockLocationBasedPlayer.swf" moduleAir="" moduleMobile="" showInTimeline="1" showInScene="1"/>
+                    </Components>
+                  </App>
+                  <App id="10005" appName="Embeded Resource" helpName="" uninstallable="0" hidden="1" price="0">
+                    <Description>Embeded Resource</Description>
+                    <Components>
+                      <Component moduleId="3130" componentName="Swf" version="1911" moduleWeb="Players/Standard/BlockSwfPlayer.swf" moduleAir="Players/Standard/BlockSwfPlayerDesktop.swf" moduleMobile="Players/Standard/BlockSwfPlayerMobile.swf" showInTimeline="0" showInScene="0"/>
+                      <Component moduleId="3140" componentName="Svg" version="1911" moduleWeb="Players/Standard/BlockSvgPlayer.swf" moduleAir="Players/Standard/BlockSvgPlayer.swf" moduleMobile="Players/Standard/BlockSvgPlayer.swf" showInTimeline="0" showInScene="0"/>
+                      <Component moduleId="3100" componentName="Video" version="1911" moduleWeb="Players/Standard/VideoPlayer.swf" moduleAir="" moduleMobile="Players/Standard/BlockVideoPlayerMobile.swf" showInTimeline="0" showInScene="0"/>
+                    </Components>
+                  </App>
+                  <App id="12050" appName="Picasa" helpName="" uninstallable="1" hidden="0" price="0">
+                    <Description>Picasa</Description>
+                    <Components>
+                      <Component moduleId="6040" componentName="Picasa" version="1911" moduleWeb="Players/Standard/BlockJsonPlayer.swf" moduleAir="" moduleMobile="" showInTimeline="1" showInScene="1" componentParams="{&quot;url&quot;:&quot;https://secure.digitalsignage.com/GooglePicasa&quot;}">
+                        <MimeTypes>
+                          <MimeType name="Json" providerType="picasa" label="Picasa"/>
+                        </MimeTypes>
+                      </Component>
+                    </Components>
+                  </App>
+                  <App id="10180" appName="CollectionViewer" helpName="" uninstallable="1" hidden="0" price="0">
+                    <Description>CollectionViewer</Description>
+                    <Components>
+                      <Component moduleId="4100" componentName="CollectionPlayer" version="1911" moduleWeb="Players/Standard/BlockCollectionPlayer.swf" moduleAir="" moduleMobile="" showInTimeline="1" showInScene="1"/>
+                    </Components>
+                  </App>
+                  <App id="10090" appName="Stock" helpName="" uninstallable="0" hidden="0" price="0">
+                    <Description>Stock</Description>
+                    <Components>
+                      <Component moduleId="3338" componentName="Stock player" version="1911" moduleWeb="Players/Standard/BlockStockTickerPlayer.swf" moduleAir="" moduleMobile="" showInTimeline="1" showInScene="0">
+                        <MimeTypes>
+                          <MimeType name="Stocks" label="Stocks"/>
+                        </MimeTypes>
+                      </Component>
+                      <Component moduleId="3335" componentName="Stock item" version="1911" moduleWeb="Players/Standard/BlockStockItemPlayer.swf" moduleAir="" moduleMobile="" showInTimeline="0" showInScene="1"/>
+                    </Components>
+                  </App>
+                  <App id="10122" appName="Countdown" helpName="" uninstallable="1" hidden="0" price="0">
+                    <Description>Countdown</Description>
+                    <Components>
+                      <Component moduleId="3322" componentName="Countdown" version="1911" moduleWeb="Players/Standard/BlockCountdownPlayer.swf" moduleAir="" moduleMobile="" showInTimeline="1" showInScene="1"/>
+                    </Components>
+                  </App>
+                  <App id="10300" appName="Form" helpName="" uninstallable="1" hidden="0" price="0">
+                    <Description>Form</Description>
+                    <Components>
+                      <Component moduleId="3600" componentName="Form" version="1911" moduleWeb="Players/Standard/BlockFormPlayer.swf" moduleAir="" moduleMobile="" showInTimeline="0" showInScene="1"/>
+                    </Components>
+                  </App>
+                  <App id="12220" appName="Flickr" helpName="" uninstallable="1" hidden="0" price="0">
+                    <Description>Flickr</Description>
+                    <Components>
+                      <Component moduleId="6220" componentName="Flickr" version="1911" moduleWeb="Players/Standard/BlockJsonPlayer.swf" moduleAir="" moduleMobile="" showInTimeline="1" showInScene="1" componentParams="{&quot;url&quot;:&quot;https://secure.digitalsignage.com&quot;}">
+                        <MimeTypes>
+                          <MimeType name="Json" providerType="flickr" label="Flickr"/>
+                        </MimeTypes>
+                      </Component>
+                    </Components>
+                  </App>
+                  <App id="12040" appName="Google plus" helpName="" uninstallable="1" hidden="0" price="0">
+                    <Description>Google plus</Description>
+                    <Components>
+                      <Component moduleId="6030" componentName="Google plus" version="1911" moduleWeb="Players/Standard/BlockJsonPlayer.swf" moduleAir="" moduleMobile="" showInTimeline="1" showInScene="1" componentParams="{&quot;url&quot;:&quot;https://secure.digitalsignage.com/GooglePlusActivities&quot;}">
+                        <MimeTypes>
+                          <MimeType name="Json" providerType="plus" label="Google plus"/>
+                        </MimeTypes>
+                      </Component>
+                    </Components>
+                  </App>
+                  <App id="10080" appName="Weather" helpName="" uninstallable="0" hidden="0" price="0">
+                    <Description>Weather</Description>
+                    <Components>
+                      <Component moduleId="3315" componentName="Weather item" version="1911" moduleWeb="Players/Standard/BlockItemWeatherPlayer.swf" moduleAir="" moduleMobile="" showInTimeline="0" showInScene="1"/>
+                      <Component moduleId="3310" componentName="Weather player" version="1911" moduleWeb="Players/Standard/BlockRssWeatherPlayer.swf" moduleAir="" moduleMobile="" showInTimeline="1" showInScene="0">
+                        <MimeTypes>
+                          <MimeType name="Weather" label="Weather"/>
+                        </MimeTypes>
+                      </Component>
+                    </Components>
+                  </App>
+                  <App id="12032" appName="Google Sheets" helpName="" uninstallable="1" hidden="0" price="0">
+                    <Description>Google Sheets</Description>
+                    <Components>
+                      <Component moduleId="6022" componentName="Google Sheets" version="1911" moduleWeb="Players/Standard/BlockJsonPlayer.swf" moduleAir="" moduleMobile="" showInTimeline="1" showInScene="1" componentParams="{&quot;url&quot;:&quot;https://secure.digitalsignage.com/GoogleSheetsValues&quot;}">
+                        <MimeTypes>
+                          <MimeType name="Json" providerType="spreadsheet" label="Google Spreadsheet"/>
+                        </MimeTypes>
+                      </Component>
+                    </Components>
+                  </App>
+                  <App id="12030" appName="Google calendar" helpName="" uninstallable="1" hidden="0" price="0">
+                    <Description>Google calendar</Description>
+                    <Components>
+                      <Component moduleId="6020" componentName="Google calendar" version="1911" moduleWeb="Players/Standard/BlockJsonPlayer.swf" moduleAir="" moduleMobile="" showInTimeline="1" showInScene="1" componentParams="{&quot;url&quot;:&quot;https://secure.digitalsignage.com/GoogleCalendarEvents&quot;}">
+                        <MimeTypes>
+                          <MimeType name="Json" providerType="calendar" label="Google calendar"/>
+                        </MimeTypes>
+                      </Component>
+                    </Components>
+                  </App>
+                  <App id="10160" appName="QR Code" helpName="" uninstallable="1" hidden="0" price="0">
+                    <Description>QR Code</Description>
+                    <Components>
+                      <Component moduleId="3430" componentName="QR Code" version="1911" moduleWeb="Players/Standard/BlockQRCodePlayer.swf" moduleAir="" moduleMobile="" showInTimeline="1" showInScene="1"/>
+                    </Components>
+                  </App>
+                  <App id="10070" appName="Media Rss/Podcast" helpName="" uninstallable="0" hidden="0" price="0">
+                    <Description>Media Rss/Podcast</Description>
+                    <Components>
+                      <Component moduleId="3340" componentName="Media Rss/Podcast" version="1911" moduleWeb="Players/Standard/BlockRssVideoPlayerWeb.swf" moduleAir="Players/Standard/BlockRssVideoPlayerAir.swf" moduleMobile="" showInTimeline="1" showInScene="1"/>
+                    </Components>
+                  </App>
+                  <App id="10110" appName="Capture/Camera" helpName="" uninstallable="1" hidden="0" price="0">
+                    <Description>Capture/Camera</Description>
+                    <Components>
+                      <Component moduleId="3350" componentName="Capture/Camera" version="1911" moduleWeb="Players/Standard/BlockCameraPlayer.swf" moduleAir="" moduleMobile="" showInTimeline="1" showInScene="1"/>
+                    </Components>
+                  </App>
+                  <App id="12200" appName="Tumblr" helpName="" uninstallable="1" hidden="0" price="0">
+                    <Description>Tumblr</Description>
+                    <Components>
+                      <Component moduleId="6090" componentName="Tumblr" version="1911" moduleWeb="Players/Standard/BlockJsonPlayer.swf" moduleAir="" moduleMobile="" showInTimeline="1" showInScene="1" componentParams="{&quot;url&quot;:&quot;https://secure.digitalsignage.com/TumblrUserInfo&quot;}">
+                        <MimeTypes>
+                          <MimeType name="Json" providerType="tumblr.texts" label="Tumblr texts"/>
+                          <MimeType name="Json" providerType="tumblr.photos" label="Tumblr photos"/>
+                          <MimeType name="Json" providerType="tumblr.videos" label="Tumblr videos"/>
+                          <MimeType name="Json" providerType="tumblr.posts" label="Tumblr posts"/>
+                        </MimeTypes>
+                      </Component>
+                    </Components>
+                  </App>
+                  <App id="12020" appName="Facebook" helpName="" uninstallable="1" hidden="0" price="0">
+                    <Description>Facebook</Description>
+                    <Components>
+                      <Component moduleId="4400" componentName="Facebook" version="1911" moduleWeb="Players/Standard/BlockJsonPlayer.swf" moduleAir="" moduleMobile="" showInTimeline="1" showInScene="1" componentParams="{&quot;url&quot;:&quot;https://secure.digitalsignage.com/facebook&quot;}">
+                        <MimeTypes>
+                          <MimeType name="Json" providerType="facebook.videos" label="Facebook videos"/>
+                          <MimeType name="Json" providerType="facebook.wall" label="Facebook wall"/>
+                          <MimeType name="Json" providerType="facebook.album" label="Facebook album"/>
+                        </MimeTypes>
+                      </Component>
+                    </Components>
+                  </App>
+                  <App id="10150" appName="AdNet" helpName="" uninstallable="1" hidden="0" price="0">
+                    <Description>AdNet</Description>
+                    <Components>
+                      <Component moduleId="3420" componentName="AdNet" version="1911" moduleWeb="Players/Standard/BlockAdNetPlayer.swf" moduleAir="" moduleMobile="" showInTimeline="1" showInScene="0"/>
+                    </Components>
+                  </App>
+                  <App id="10060" appName="Custom Rss" helpName="" uninstallable="0" hidden="0" price="0">
+                    <Description>Custom Rss</Description>
+                    <Components>
+                      <Component moduleId="3348" componentName="Custom Rss item" version="1911" moduleWeb="Players/Standard/BlockCustomRssItemPlayer.swf" moduleAir="" moduleMobile="" showInTimeline="0" showInScene="1"/>
+                      <Component moduleId="3346" componentName="Custom Rss player" version="1911" moduleWeb="Players/Standard/BlockCustomRssPlayer.swf" moduleAir="" moduleMobile="" showInTimeline="1" showInScene="0">
+                        <MimeTypes>
+                          <MimeType name="CustomRss" label="CustomRss"/>
+                        </MimeTypes>
+                      </Component>
+                    </Components>
+                  </App>
+                </Apps>
+        `
+
+        parseString(xmlData, {attrkey: '_attr'}, function (err, result) {
+            callBack(err, result);
+        });
+    }
 
     static LoadComponentAsync(name:string, path:string) {
 

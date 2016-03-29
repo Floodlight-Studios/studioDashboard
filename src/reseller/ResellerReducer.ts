@@ -8,6 +8,10 @@ const _ = require('underscore');
 export function reseller(state:Map<string,any> = Map<string,any>(), action:any):Map<string,any> {
 
     switch (action.type) {
+        case ResellerAction.RECEIVE_APPS:
+        {
+            return state.setIn(['apps'], action.apps);
+        }
         case ResellerAction.UPDATE_DEFAULT_PRIVILEGE:
         {
             return state.setIn(['privilegeDefault'], action.privilegeId);

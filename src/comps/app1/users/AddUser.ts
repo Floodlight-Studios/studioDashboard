@@ -14,8 +14,8 @@ const _ = require('underscore');
 @Component({
     selector: 'addUser',
     directives: [ModalDialog, FORM_DIRECTIVES],
-    templateUrl: '/src/comps/app1/users/AddUser.html',
     changeDetection: ChangeDetectionStrategy.OnPush,
+    templateUrl: '/src/comps/app1/users/AddUser.html',
     styleUrls: ['../comps/app1/users/AddUser.css']
 })
 

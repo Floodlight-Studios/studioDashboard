@@ -15,12 +15,13 @@ import {BusinessUser} from "../../../business/BusinessUser";
 import {Loading} from "../../loading/Loading";
 import {List} from 'immutable';
 import {PrivelegesModel} from "../../../reseller/PrivelegesModel";
+import {Samplelist} from "./Samplelist";
 const bootbox = require('bootbox');
 
 @Component({
     selector: 'Users',
     providers: [SimpleList],
-    directives: [SimpleList, UsersDetails, Loading, DROPDOWN_DIRECTIVES, AddUser, MODAL_DIRECTIVES],
+    directives: [SimpleList, UsersDetails, Loading, Samplelist, DROPDOWN_DIRECTIVES, AddUser, MODAL_DIRECTIVES],
     styleUrls: ['../comps/app1/users/Users.css'],
     templateUrl: '/src/comps/app1/users/Users.html'
 })
