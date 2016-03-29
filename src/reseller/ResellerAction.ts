@@ -83,7 +83,7 @@ export class ResellerAction extends Actions {
                                 apps[i_app._attr.id] = {
                                     desc: i_app.Description["0"],
                                     appName: i_app._attr.appName,
-                                    id: i_app._attr.id,
+                                    appId: i_app._attr.id,
                                     moduleId: i_app.Components["0"].Component["0"]._attr.moduleId,
                                     uninstallable: i_app._attr.uninstallable,
                                     showInScene: i_app.Components["0"].Component["0"]._attr.showInScene,
