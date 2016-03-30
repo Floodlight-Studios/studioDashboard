@@ -19,21 +19,15 @@ import {OrderBy} from "../../../pipes/OrderBy";
             <thead>
             <tr>
               <th>icon</th>
-              <th sortableHeader="name" [sort]="sort">name</th>
-              <th>status</th>
+              <th sortableHeader="appName" [sort]="sort">app name</th>
+              <th>available (off | on)</th>
             </tr>
             </thead>
             <tbody>
             <tr class="simpleGridRecord" [table]="userSimpleGridTable" simpleGridRecord *ngFor="#item of apps | OrderBy:sort.field:sort.desc; #index=index" [item]="item" [index]="index">
-              <td simpleGridDataImage color="dodgerblue" [field]="item.getIcon(item)" [item]="item"></td> 
+              <td style="width: 10%" simpleGridDataImage color="dodgerblue" [field]="item.getIcon(item)" [item]="item"></td> 
               <td style="width: 70%" simpleGridData field="appName" [item]="item"></td>
-              <td style="width: 20%" simpleGridData field="name" [item]="item"></td>
-              <!--<td style="width: 20%" simpleGridData (labelEdited)="onLabelEdited($event,'name')" editable="true" field="name" [item]="item"></td>-->
-              <!--<td style="width: 8%" simpleGridData field="businessId" [item]="item"></td>-->
-              <!--<td style="width: 20%" simpleGridDataChecks (changed)="setAccessMask($event)" [item]="item" [checkboxes]="getAccessMask(item)"></td>-->
-              <!--<td style="width: 12%" simpleGridData field="privilegeId" [item]="item"></td>-->
-              <!--<td style="width: 40%" simpleGridDataDropdown [testSelection]="selectedPriveleges()" (changed)="setPriveleges($event)" field="name" [item]="item" [dropdown]="m_priveleges"></td>-->
-              <!-- <td simpleGridDataImage color="dodgerblue" [field]="item.getKey('studioLite') == '0' ? 'fa-circle' : 'fa-circle-o'" [item]="item"></td> -->
+              <td style="width: 20%" simpleGridDataChecks slideMode="true" [item]="item" [checkboxes]="getInstalledStatus(item)" (changed)="onAppInstalledChange($event,index)"></td>
             </tr>
             </tbody>
           </simpleGridTable>
@@ -61,16 +55,12 @@ export class Apps {
     private apps:List<AppModel>;
     private unsub;
 
-    private getApp() {
-        return (appModel:AppModel)=> {
-            return appModel.getName();
-        }
+    private getInstalledStatus(item:AppModel){
+        return [Number(item.getInstalled())];
     }
 
-    private getPrivilegeId() {
-        return (appModel:AppModel)=> {
-            return appModel.getAppId();
-        }
+    private onAppInstalledChange(event,index){
+        console.log(event + index);
     }
 
     private ngOnDestroy() {

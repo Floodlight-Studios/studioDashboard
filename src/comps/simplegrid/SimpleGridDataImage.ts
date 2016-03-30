@@ -32,7 +32,7 @@ export class SimpleGridDataImage {
     color;
 
     onClick(event){
-        alert(event)
+        // alert(event)
     }
 
 }

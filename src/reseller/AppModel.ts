@@ -119,5 +119,8 @@ export class AppModel extends StoreModel {
         return this.getKey('appName');
     }
 
+    public getInstalled() {
+        return this.getKey('installed');
+    }
 
 }
