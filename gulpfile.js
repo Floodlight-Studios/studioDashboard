@@ -23,6 +23,12 @@ var util = require('gulp-util');
 //var commentSwap = require('gulp-comment-swap');
 //var tsc = require('gulp-typescript');
 
+// current version jspm@0.16.32
+// jspm bundle src/App.js ./dist/index.js --skip-source-maps
+// jspm bundle App.ts dev-bundle.js --watch
+// https://github.com/jspm/jspm.io/pull/43/files?short_path=4cea63c#diff-4cea63c9d39d3e90a68b25b0030e90aa
+
+
 /** Typescript configuration **/
 var paths = {
     dist: "./dist",
@@ -38,6 +44,7 @@ var paths = {
 /**********************
  * public commands
  *********************/
+
 
 gulp.task("production", function (callback) {
     runSequence(

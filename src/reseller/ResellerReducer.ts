@@ -22,6 +22,10 @@ export function reseller(state:Map<string,any> = Map<string,any>(), action:any):
             });
             return state.setIn(['apps'], appModels);
         }
+        case ResellerAction.RECEIVE_WHITELABEL:
+        {
+            return state.setIn(['whitelabel'], action.whitelabelModel);
+        }
         case ResellerAction.UPDATE_DEFAULT_PRIVILEGE:
         {
             return state.setIn(['privilegeDefault'], action.privilegeId);
