@@ -10,7 +10,6 @@ import {Component} from 'angular2/core';
       </li>
     </ul>
     <ng-content></ng-content>
-    <small>I am Tabs component</small>
   `
 })
 export class Tabs {

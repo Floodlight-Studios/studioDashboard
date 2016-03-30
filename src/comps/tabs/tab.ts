@@ -10,6 +10,10 @@ import {Tabs} from '../tabs/tabs';
     styles: [`
     .pane{
       padding: 1em;
+      background-color: white;
+      border-left: 1px solid #dddddd ;
+      border-right: 1px solid #dddddd ;
+      border-bottom: 1px solid #dddddd ;
     }
   `],
     template: `

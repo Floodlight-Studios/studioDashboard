@@ -2,10 +2,13 @@ import {Component, Input, Output, EventEmitter, ChangeDetectionStrategy} from 'a
 import {CanActivate, ComponentInstruction} from "angular2/router";
 import {AuthService} from "../../../services/AuthService";
 import {appInjService} from "../../../services/AppInjService";
+import {Tab} from "../../tabs/tab";
+import {Tabs} from "../../tabs/tabs";
 
 @Component({
     selector: 'whitelabel',
-    template: `<h3>Whitelabel coming soon...</h3>`,
+    directives: [Tab, Tabs],
+    templateUrl: '/src/comps/app1/whitelabel/Whitelabel.html',
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 @CanActivate((to:ComponentInstruction, from:ComponentInstruction) => {
@@ -13,12 +16,9 @@ import {appInjService} from "../../../services/AppInjService";
     return authService.checkAccess(to, from, ['/Login/Login']);
 })
 export class Whitelabel {
-    @Input()
-    parts = [];
-    @Input()
-    partsInCart:string;
 
-    @Output()
-    addToCart:EventEmitter<any> = new EventEmitter();
+    constructor() {
+
+    }
 }
 
