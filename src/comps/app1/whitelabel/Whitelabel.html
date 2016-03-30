@@ -1,96 +1,98 @@
 <br/>
-<label>
-  <input type="checkbox" checked> enable branding
-</label>
-<tabs>
-  <tab [tabtitle]="'Logo'" style="background-color: red">
-    <div class="tabStyle">
-      <div class="form-area">
-        <form role="form">
-          <br style="clear:both">
-          <h3 style="margin-bottom: 25px; text-align: center">custom application branding</h3>
-          <div class="form-group">
-            <input type="text" class="form-control" name="name" placeholder="Name" required>
-          </div>
-          <div class="form-group">
-            <input type="text" class="form-control" placeholder="tooltip" required>
-          </div>
-          <div class="form-group">
-            <input type="text" class="form-control" placeholder="logo link" required>
-          </div>
-          <label>
-            <input type="checkbox" checked> display create account option</label>
-          <div class="clearfix"></div>
-          <div class="form-group">
-            <span class="help-block"><p class="help-block ">Upload logo</p></span>
-          </div>
-        </form>
+<form [ngFormModel]="whitelabelForm">
+  <label>
+    <input type="checkbox" checked> enable branding
+  </label>
+  <tabs>
+    <tab [tabtitle]="'Logo'" style="background-color: red">
+      <div class="tabStyle">
+        <div class="form-area">
+          <form role="form">
+            <br style="clear:both">
+            <h3 style="margin-bottom: 25px; text-align: center">custom application branding</h3>
+            <div class="form-group">
+              <input [ngFormControl]="whitelabelForm.controls['companyName']" type="text" class="form-control" placeholder="Company name" required>
+            </div>
+            <div class="form-group">
+              <input [ngFormControl]="whitelabelForm.controls['logoTooltip']" type="text" class="form-control" placeholder="logo tooltip" required>
+            </div>
+            <div class="form-group">
+              <input [ngFormControl]="whitelabelForm.controls['logoLink']" type="text" class="form-control" placeholder="logo link" required>
+            </div>
+            <label>
+              <input [ngFormControl]="whitelabelForm.controls['createAccountOption']" type="checkbox" checked> display create account option</label>
+            <div class="clearfix"></div>
+            <div class="form-group">
+              <span class="help-block"><p class="help-block ">Upload logo</p></span>
+            </div>
+          </form>
+        </div>
       </div>
-    </div>
-  </tab>
-  <tab [tabtitle]="'Links'">
-    <div class="tabStyle">
-      <div class="form-area">
-        <form role="form">
-          <br style="clear:both">
-          <h3 style="margin-bottom: 25px; text-align: center;">StudioPro links</h3>
-          <div class="form-group">
-            <input type="text" class="form-control" name="name" placeholder="home page" required>
-          </div>
-          <div class="form-group">
-            <input type="text" class="form-control" placeholder="download page" required>
-          </div>
-          <div class="form-group">
-            <input type="text" class="form-control" placeholder="contact us" required>
-          </div>
-          <hr/>
-          <label>
-            <input type="checkbox" checked> show twitter button
-          </label>
-          <div class="clearfix"></div>
-          <div class="form-group">
-            <input type="text" class="form-control" placeholder="twitter link" required>
-          </div>
-          <hr/>
-          <label>
-            <input type="checkbox" checked> show live chat button
-          </label>
-          <div class="clearfix"></div>
-          <div class="form-group">
-            <input type="text" class="form-control" placeholder="live chat link" required>
-          </div>
-          <hr/>
-          <label>
-            <input type="checkbox" checked> show banner back links
-          </label>
-          <div class="clearfix"></div>
-        </form>
+    </tab>
+    <tab [tabtitle]="'Links'">
+      <div class="tabStyle">
+        <div class="form-area">
+          <form role="form">
+            <br style="clear:both">
+            <h3 style="margin-bottom: 25px; text-align: center;">StudioPro links</h3>
+            <div class="form-group">
+              <input type="text" class="form-control" name="name" placeholder="home page" required>
+            </div>
+            <div class="form-group">
+              <input type="text" class="form-control" placeholder="download page" required>
+            </div>
+            <div class="form-group">
+              <input type="text" class="form-control" placeholder="contact us" required>
+            </div>
+            <hr/>
+            <label>
+              <input type="checkbox" checked> show twitter button
+            </label>
+            <div class="clearfix"></div>
+            <div class="form-group">
+              <input type="text" class="form-control" placeholder="twitter link" required>
+            </div>
+            <hr/>
+            <label>
+              <input type="checkbox" checked> show live chat button
+            </label>
+            <div class="clearfix"></div>
+            <div class="form-group">
+              <input type="text" class="form-control" placeholder="live chat link" required>
+            </div>
+            <hr/>
+            <label>
+              <input type="checkbox" checked> show banner back links
+            </label>
+            <div class="clearfix"></div>
+          </form>
+        </div>
       </div>
-    </div>
-  </tab>
-  <tab [tabtitle]="'Menu'">
-    <div class="tabStyle">
-      <div class="form-area">
-        <form role="form">
-          <br style="clear:both">
-          <h3 style="margin-bottom: 25px; text-align: center;">StudioPro custom menus</h3>
-          <div class="form-group">
-            <input type="text" class="form-control" placeholder="visit web site" required>
-          </div>
-          <div class="form-group">
-            <input type="text" class="form-control" placeholder="video tutorials" required>
-          </div>
-          <div class="form-group">
-            <input type="text" class="form-control" placeholder="support" required>
-          </div>
-          <div class="form-group">
-            <input type="text" class="form-control" placeholder="report a bug" required>
-          </div>
-          <div class="form-group">
-            <input type="text" class="form-control" placeholder="about" required>
-          </div>
-        </form>
+    </tab>
+    <tab [tabtitle]="'Menu'">
+      <div class="tabStyle">
+        <div class="form-area">
+          <form role="form">
+            <br style="clear:both">
+            <h3 style="margin-bottom: 25px; text-align: center;">StudioPro custom menus</h3>
+            <div class="form-group">
+              <input type="text" class="form-control" placeholder="visit web site" required>
+            </div>
+            <div class="form-group">
+              <input type="text" class="form-control" placeholder="video tutorials" required>
+            </div>
+            <div class="form-group">
+              <input type="text" class="form-control" placeholder="support" required>
+            </div>
+            <div class="form-group">
+              <input type="text" class="form-control" placeholder="report a bug" required>
+            </div>
+            <div class="form-group">
+              <input type="text" class="form-control" placeholder="about" required>
+            </div>
+          </form>
+        </div>
       </div>
-    </div>
-  </tab>
-</tabs>
+    </tab>
+  </tabs>
+</form>
