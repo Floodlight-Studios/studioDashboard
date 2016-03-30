@@ -3,6 +3,7 @@ import {Map} from 'immutable';
 import * as ResellerAction from './ResellerAction';
 import {PrivelegesModel} from "./PrivelegesModel";
 import {Lib} from "../Lib";
+import {AppModel} from "./AppModel";
 const _ = require('underscore');
 
 export function reseller(state:Map<string,any> = Map<string,any>(), action:any):Map<string,any> {
@@ -11,6 +12,15 @@ export function reseller(state:Map<string,any> = Map<string,any>(), action:any):
         case ResellerAction.RECEIVE_APPS:
         {
             return state.setIn(['apps'], action.apps);
+        }
+        case ResellerAction.UPDATE_APP:
+        {
+            var appModels:List<AppModel> = state.getIn(['apps']);
+            var index = appModels.findIndex((i:AppModel) => i.getAppId() === action.app.getAppId());
+            appModels = appModels.update(index, (appModel:AppModel) => {
+                return appModel.setKey<AppModel>(AppModel, 'installed', action.mode)
+            });
+            return state.setIn(['apps'], appModels);
         }
         case ResellerAction.UPDATE_DEFAULT_PRIVILEGE:
         {

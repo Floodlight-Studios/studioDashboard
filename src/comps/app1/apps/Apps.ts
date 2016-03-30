@@ -1,4 +1,4 @@
-import {Component, Input, Output, EventEmitter, ChangeDetectionStrategy} from 'angular2/core'
+import {Component, Input, Output, EventEmitter, ChangeDetectionStrategy, ChangeDetectorRef} from 'angular2/core'
 import {CanActivate, ComponentInstruction} from "angular2/router";
 import {AuthService} from "../../../services/AuthService";
 import {appInjService} from "../../../services/AppInjService";
@@ -41,26 +41,28 @@ import {OrderBy} from "../../../pipes/OrderBy";
 })
 export class Apps {
 
-    constructor(private appStore:AppStore, private resellerAction:ResellerAction) {
+    constructor(private appStore:AppStore, private resellerAction:ResellerAction, private ref:ChangeDetectorRef) {
         var i_reseller = this.appStore.getState().reseller;
-
         this.apps = i_reseller.getIn(['apps']);
         this.unsub = this.appStore.sub((apps) => {
             this.apps = apps;
+            this.ref.markForCheck();
         }, 'reseller.apps');
-
     }
 
     private sort:{field:string, desc:boolean} = {field: null, desc: false};
     private apps:List<AppModel>;
     private unsub;
 
-    private getInstalledStatus(item:AppModel){
+    private getInstalledStatus(item:AppModel) {
         return [Number(item.getInstalled())];
     }
 
-    private onAppInstalledChange(event,index){
-        console.log(event + index);
+    private onAppInstalledChange(event, index) {
+        // let animation of slide complete
+        setTimeout(()=> {
+            this.appStore.dispatch(this.resellerAction.updatedApp(event.item, event.value["0"]));
+        }, 1000)
     }
 
     private ngOnDestroy() {

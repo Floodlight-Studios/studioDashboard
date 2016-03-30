@@ -15,6 +15,7 @@ export const UPDATE_PRIVILEGES = 'UPDATE_PRIVILEGES';
 export const UPDATE_PRIVILEGE_NAME = 'UPDATE_PRIVILEGE_NAME';
 export const RECEIVE_DEFAULT_PRIVILEGE = 'RECEIVE_DEFAULT_PRIVILEGE';
 export const RECEIVE_APPS = 'RECEIVE_APPS';
+export const UPDATE_APP = 'UPDATE_APP';
 export const UPDATE_DEFAULT_PRIVILEGE = 'UPDATE_DEFAULT_PRIVILEGE';
 export const ADD_PRIVILEGE = 'ADD_PRIVILEGE';
 export const REMOVE_PRIVILEGE = 'REMOVE_PRIVILEGE';
@@ -95,7 +96,7 @@ export class ResellerAction extends Actions {
                             var userApps:List<AppModel> = List<AppModel>();
                             result.User.BusinessInfo["0"].InstalledApps["0"].App.forEach((i_app)=> {
                                 var appId = i_app._attr.id;
-                                if (!_.isUndefined(apps[appId])){
+                                if (!_.isUndefined(apps[appId])) {
                                     var app:AppModel = new AppModel({
                                         appId: appId,
                                         installed: i_app._attr.installed,
@@ -113,7 +114,6 @@ export class ResellerAction extends Actions {
                         });
 
                         Lib.PrivilegesXmlTemplate((err, xmlTemplate)=> {
-
 
                             /**
                              * redux inject privileges XML template system
@@ -206,6 +206,14 @@ export class ResellerAction extends Actions {
         return {
             type: RECEIVE_APPS,
             apps
+        }
+    }
+
+    public updatedApp(app:AppModel, mode:boolean) {
+        return {
+            type: UPDATE_APP,
+            app,
+            mode
         }
     }
 
