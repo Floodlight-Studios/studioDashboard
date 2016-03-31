@@ -1,98 +1,102 @@
 <br/>
 <form [ngFormModel]="whitelabelForm">
+
   <label>
-    <input type="checkbox" checked> enable branding
+    <input (change)="onChange($event)" [ngFormControl]="whitelabelForm.controls['whitelabelEnabled']" type="checkbox" checked> enable branding
   </label>
-  <tabs>
-    <tab [tabtitle]="'Logo'" style="background-color: red">
-      <div class="tabStyle">
-        <div class="form-area">
-          <form role="form">
-            <br style="clear:both">
-            <h3 style="margin-bottom: 25px; text-align: center">custom application branding</h3>
-            <div class="form-group">
-              <input (change)="onChange($event)" [ngFormControl]="whitelabelForm.controls['companyName']" type="text" class="form-control" placeholder="Company name" required>
-            </div>
-            <div class="form-group">
-              <input (change)="onChange($event)" [ngFormControl]="whitelabelForm.controls['logoTooltip']" type="text" class="form-control" placeholder="logo tooltip" required>
-            </div>
-            <div class="form-group">
-              <input (change)="onChange($event)" [ngFormControl]="whitelabelForm.controls['logoLink']" type="text" class="form-control" placeholder="logo link" required>
-            </div>
-            <label>
-              <input (change)="onChange($event)" [ngFormControl]="whitelabelForm.controls['createAccountOption']" type="checkbox" checked> display create account option</label>
-            <div class="clearfix"></div>
-            <div class="form-group">
-              <span class="help-block"><p class="help-block ">Upload logo</p></span>
-            </div>
-          </form>
+  <div>
+    <tabs *ngIf="isWhitelabelEnabled">
+      <tab [tabtitle]="'Logo'" style="background-color: red">
+        <div class="tabStyle">
+          <div class="form-area">
+            <form role="form">
+              <br style="clear:both">
+              <h3 style="margin-bottom: 25px; text-align: center">custom application branding</h3>
+              <div class="form-group">
+                <input (change)="onChange($event)" [ngFormControl]="whitelabelForm.controls['companyName']" type="text" class="form-control" placeholder="Company name" required>
+              </div>
+              <div class="form-group">
+                <input (change)="onChange($event)" [ngFormControl]="whitelabelForm.controls['logoTooltip']" type="text" class="form-control" placeholder="logo tooltip" required>
+              </div>
+              <div class="form-group">
+                <input (change)="onChange($event)" [ngFormControl]="whitelabelForm.controls['logoLink']" type="text" class="form-control" placeholder="logo link" required>
+              </div>
+              <label>
+                <input (change)="onChange($event)" [ngFormControl]="whitelabelForm.controls['createAccountOption']" type="checkbox" checked> display create account option
+              </label>
+              <div class="clearfix"></div>
+              <div class="form-group">
+                <span class="help-block"><p class="help-block ">Upload logo</p></span>
+              </div>
+            </form>
+          </div>
         </div>
-      </div>
-    </tab>
-    <tab [tabtitle]="'Links'">
-      <div class="tabStyle">
-        <div class="form-area">
-          <form role="form">
-            <br style="clear:both">
-            <h3 style="margin-bottom: 25px; text-align: center;">StudioPro links</h3>
-            <div class="form-group">
-              <input type="text" class="form-control" name="name" placeholder="home page" required>
-            </div>
-            <div class="form-group">
-              <input type="text" class="form-control" placeholder="download page" required>
-            </div>
-            <div class="form-group">
-              <input type="text" class="form-control" placeholder="contact us" required>
-            </div>
-            <hr/>
-            <label>
-              <input type="checkbox" checked> show twitter button
-            </label>
-            <div class="clearfix"></div>
-            <div class="form-group">
-              <input type="text" class="form-control" placeholder="twitter link" required>
-            </div>
-            <hr/>
-            <label>
-              <input type="checkbox" checked> show live chat button
-            </label>
-            <div class="clearfix"></div>
-            <div class="form-group">
-              <input type="text" class="form-control" placeholder="live chat link" required>
-            </div>
-            <hr/>
-            <label>
-              <input type="checkbox" checked> show banner back links
-            </label>
-            <div class="clearfix"></div>
-          </form>
+      </tab>
+      <tab [tabtitle]="'Links'">
+        <div class="tabStyle">
+          <div class="form-area">
+            <form role="form">
+              <br style="clear:both">
+              <h3 style="margin-bottom: 25px; text-align: center;">StudioPro links</h3>
+              <div class="form-group">
+                <input (change)="onChange($event)" [ngFormControl]="whitelabelForm.controls['linksHome']" type="text" class="form-control" placeholder="home page" required>
+              </div>
+              <div class="form-group">
+                <input (change)="onChange($event)" [ngFormControl]="whitelabelForm.controls['linksDownload']" type="text" class="form-control" placeholder="download page" required>
+              </div>
+              <div class="form-group">
+                <input (change)="onChange($event)" [ngFormControl]="whitelabelForm.controls['linksContact']" type="text" class="form-control" placeholder="contact us" required>
+              </div>
+              <hr/>
+              <label>
+                <input (change)="onChange($event)" [ngFormControl]="whitelabelForm.controls['twitterShow']" type="checkbox" checked> show twitter button
+              </label>
+              <div class="clearfix"></div>
+              <div class="form-group">
+                <input (change)="onChange($event)" [ngFormControl]="whitelabelForm.controls['twitterLink']" type="text" class="form-control" placeholder="twitter link" required>
+              </div>
+              <hr/>
+              <label>
+                <input (change)="onChange($event)" [ngFormControl]="whitelabelForm.controls['chatShow']" type="checkbox" checked> show live chat button
+              </label>
+              <div class="clearfix"></div>
+              <div class="form-group">
+                <input (change)="onChange($event)" [ngFormControl]="whitelabelForm.controls['chatLink']" type="text" class="form-control" placeholder="live chat link" required>
+              </div>
+              <hr/>
+              <label>
+                <input (change)="onChange($event)" [ngFormControl]="whitelabelForm.controls['bannerEmbedReference']" type="checkbox" checked> show banner back links
+              </label>
+              <div class="clearfix"></div>
+            </form>
+          </div>
         </div>
-      </div>
-    </tab>
-    <tab [tabtitle]="'Menu'">
-      <div class="tabStyle">
-        <div class="form-area">
-          <form role="form">
-            <br style="clear:both">
-            <h3 style="margin-bottom: 25px; text-align: center;">StudioPro custom menus</h3>
-            <div class="form-group">
-              <input type="text" class="form-control" placeholder="visit web site" required>
-            </div>
-            <div class="form-group">
-              <input type="text" class="form-control" placeholder="video tutorials" required>
-            </div>
-            <div class="form-group">
-              <input type="text" class="form-control" placeholder="support" required>
-            </div>
-            <div class="form-group">
-              <input type="text" class="form-control" placeholder="report a bug" required>
-            </div>
-            <div class="form-group">
-              <input type="text" class="form-control" placeholder="about" required>
-            </div>
-          </form>
+      </tab>
+      <tab [tabtitle]="'Menu'">
+        <div class="tabStyle">
+          <div class="form-area">
+            <form role="form">
+              <br style="clear:both">
+              <h3 style="margin-bottom: 25px; text-align: center;">StudioPro custom menus</h3>
+              <div class="form-group">
+                <input (change)="onChange($event)" [ngFormControl]="whitelabelForm.controls['mainMenuLink0']" type="text" class="form-control" placeholder="visit site" required>
+              </div>
+              <div class="form-group">
+                <input (change)="onChange($event)" [ngFormControl]="whitelabelForm.controls['mainMenuLink1']" type="text" class="form-control" placeholder="video tutorials" required>
+              </div>
+              <div class="form-group">
+                <input (change)="onChange($event)" [ngFormControl]="whitelabelForm.controls['mainMenuLink2']" type="text" class="form-control" placeholder="support" required>
+              </div>
+              <div class="form-group">
+                <input (change)="onChange($event)" [ngFormControl]="whitelabelForm.controls['mainMenuLink3']" type="text" class="form-control" placeholder="report bugs" required>
+              </div>
+              <div class="form-group">
+                <input (change)="onChange($event)" [ngFormControl]="whitelabelForm.controls['mainMenuLabel4']" type="text" class="form-control" placeholder="about" required>
+              </div>
+            </form>
+          </div>
         </div>
-      </div>
-    </tab>
-  </tabs>
+      </tab>
+    </tabs>
+  </div>
 </form>
