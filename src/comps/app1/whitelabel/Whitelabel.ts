@@ -7,9 +7,8 @@ import {Tabs} from "../../tabs/tabs";
 import {WhitelabelModel} from "../../../reseller/WhitelabelModel";
 import {ResellerAction} from "../../../reseller/ResellerAction";
 import {AppStore} from "angular2-redux-util/dist/index";
-import {FORM_DIRECTIVES, ControlGroup, FormBuilder, AbstractControl, Validators, Control} from "angular2/common";
+import {FORM_DIRECTIVES, ControlGroup, FormBuilder, Control} from "angular2/common";
 const _ = require('underscore');
-
 
 @Component({
     selector: 'whitelabel',
@@ -121,10 +120,11 @@ export class Whitelabel {
     private mainMenuLink2:Control;
     private mainMenuLink3:Control;
     private mainMenuLabel4:Control;
-
     private bannerEmbedReference:Control;
 
-    private get isWhitelabelEnabled() {
+    private get isWhitelabelEnabled():boolean {
+        if (!this.whitelabelModel)
+            return false;
         return this.whitelabelModel.getKey('whitelabelEnabled')
     }
 
