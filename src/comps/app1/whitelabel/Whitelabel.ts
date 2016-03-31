@@ -139,7 +139,6 @@ export class Whitelabel {
 //         console.log(control);
 //     }
 // })
-
 // if (!this.whitelabelForm.pristine){
 //     this.whitelabelForm._pristine = true;
 //     this.appStore.dispatch(this.resellerAction.updateResellerInfo(changes))
