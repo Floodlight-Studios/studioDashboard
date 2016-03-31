@@ -11,16 +11,16 @@
             <br style="clear:both">
             <h3 style="margin-bottom: 25px; text-align: center">custom application branding</h3>
             <div class="form-group">
-              <input [ngFormControl]="whitelabelForm.controls['companyName']" type="text" class="form-control" placeholder="Company name" required>
+              <input (change)="onChange($event)" [ngFormControl]="whitelabelForm.controls['companyName']" type="text" class="form-control" placeholder="Company name" required>
             </div>
             <div class="form-group">
-              <input [ngFormControl]="whitelabelForm.controls['logoTooltip']" type="text" class="form-control" placeholder="logo tooltip" required>
+              <input (change)="onChange($event)" [ngFormControl]="whitelabelForm.controls['logoTooltip']" type="text" class="form-control" placeholder="logo tooltip" required>
             </div>
             <div class="form-group">
-              <input [ngFormControl]="whitelabelForm.controls['logoLink']" type="text" class="form-control" placeholder="logo link" required>
+              <input (change)="onChange($event)" [ngFormControl]="whitelabelForm.controls['logoLink']" type="text" class="form-control" placeholder="logo link" required>
             </div>
             <label>
-              <input [ngFormControl]="whitelabelForm.controls['createAccountOption']" type="checkbox" checked> display create account option</label>
+              <input (change)="onChange($event)" [ngFormControl]="whitelabelForm.controls['createAccountOption']" type="checkbox" checked> display create account option</label>
             <div class="clearfix"></div>
             <div class="form-group">
               <span class="help-block"><p class="help-block ">Upload logo</p></span>

@@ -49,7 +49,6 @@ import stations from "./appdb/StationsReducer"
 import {business} from "./business/BusinessReducer"
 import {reseller} from "./reseller/ResellerReducer"
 import {AppdbAction} from "./appdb/AppdbAction";
-import {Welcome} from "./comps/welcome/Welcome";
 // import {enableProdMode} from 'angular2/core';
 
 /**
@@ -66,7 +65,6 @@ import {Welcome} from "./comps/welcome/Welcome";
 @RouteConfig([
     {path: "/", name: "root", redirectTo: ["/EntryPanelNoId/Login"], useAsDefault: true},
     {path: '/AppManager', component: AppManager, as: 'AppManager'},
-    {path: '/Welcome', component: Welcome, as: 'Welcome'},
     {path: '/EntryPanelNoId/...', component: EntryPanel, as: 'EntryPanelNoId'},
     {path: '/EntryPanel/:id/...', component: EntryPanel, as: 'EntryPanel'},
     {path: '/Login/...', component: EntryPanel, as: 'Login'},

@@ -4,6 +4,7 @@ import * as ResellerAction from './ResellerAction';
 import {PrivelegesModel} from "./PrivelegesModel";
 import {Lib} from "../Lib";
 import {AppModel} from "./AppModel";
+import {WhitelabelModel} from "./WhitelabelModel";
 const _ = require('underscore');
 
 export function reseller(state:Map<string,any> = Map<string,any>(), action:any):Map<string,any> {
@@ -62,7 +63,7 @@ export function reseller(state:Map<string,any> = Map<string,any>(), action:any):
         case ResellerAction.REMOVE_PRIVILEGE:
         {
             var privileges = state.get('privileges');
-            var updatedPrivelegesModels:List<PrivelegesModel> = privileges.filter((privelegesModel: PrivelegesModel) => privelegesModel.getPrivelegesId() !== action.privilegeId) as List<PrivelegesModel>;
+            var updatedPrivelegesModels:List<PrivelegesModel> = privileges.filter((privelegesModel:PrivelegesModel) => privelegesModel.getPrivelegesId() !== action.privilegeId) as List<PrivelegesModel>;
             return state.setIn(['privileges'], updatedPrivelegesModels);
         }
         case ResellerAction.UPDATE_PRIVILEGES:
@@ -82,6 +83,18 @@ export function reseller(state:Map<string,any> = Map<string,any>(), action:any):
                 }
             })
             return state.setIn(['privileges'], privileges);
+        }
+        case ResellerAction.UPDATE_WHITELABEL:
+        {
+            var whitelabel:WhitelabelModel = state.get('whitelabel');
+            _.forEach(action.payload, (value, key)=> {
+                if (value === false)
+                    value = 0;
+                if (value === true)
+                    value = 1;
+                whitelabel = whitelabel.setKey<WhitelabelModel>(WhitelabelModel, key, value);
+            })
+            return state.setIn(['whitelabel'], whitelabel);
         }
         default:
             return state;

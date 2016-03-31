@@ -6,7 +6,7 @@ export class WhitelabelModel extends StoreModel {
         super(data);
     }
 
-    public getName() {
-        return this.getKey('name');
-    }
+    public getEnabled() {
+        return this.getKey('whitelabelEnabled');
+    } 
 }

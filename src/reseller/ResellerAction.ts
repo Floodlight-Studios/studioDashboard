@@ -19,6 +19,7 @@ export const RECEIVE_APPS = 'RECEIVE_APPS';
 export const RECEIVE_WHITELABEL = 'RECEIVE_WHITELABEL';
 export const UPDATE_APP = 'UPDATE_APP';
 export const UPDATE_DEFAULT_PRIVILEGE = 'UPDATE_DEFAULT_PRIVILEGE';
+export const UPDATE_WHITELABEL = 'UPDATE_WHITELABEL';
 export const ADD_PRIVILEGE = 'ADD_PRIVILEGE';
 export const REMOVE_PRIVILEGE = 'REMOVE_PRIVILEGE';
 
@@ -81,11 +82,20 @@ export class ResellerAction extends Actions {
                          * redux inject Apps
                          **/
                         var whitelabel = {
-                            createAccount: result.User.BusinessInfo["0"].WhiteLabel["0"].Studio["0"].Application["0"].CreateAccount["0"]._attr.show,
+                            whitelabelEnabled: result.User.BusinessInfo["0"].WhiteLabel["0"]._attr.enabled,
+                            accountStatus: result.User.BusinessInfo["0"]._attr.accountStatus,
+                            applicationId: result.User.BusinessInfo["0"]._attr.applicationId,
+                            archiveState: result.User.BusinessInfo["0"]._attr.archiveState,
+                            businessDescription: result.User.BusinessInfo["0"]._attr.businessDescription,
+                            businessId: result.User.BusinessInfo["0"]._attr.businessId,
+                            companyName: result.User.BusinessInfo["0"]._attr.name,
+                            providerId: result.User.BusinessInfo["0"]._attr.providerId,
+                            resellerId: result.User.BusinessInfo["0"]._attr.resellerId,
+                            createAccountOption: result.User.BusinessInfo["0"].WhiteLabel["0"].Studio["0"].Application["0"].CreateAccount["0"]._attr.show,
                             linksContact: result.User.BusinessInfo["0"].WhiteLabel["0"].Studio["0"].Application["0"].Links["0"]._attr.contact,
                             linksDownload: result.User.BusinessInfo["0"].WhiteLabel["0"].Studio["0"].Application["0"].Links["0"]._attr.download,
                             linksHome: result.User.BusinessInfo["0"].WhiteLabel["0"].Studio["0"].Application["0"].Links["0"]._attr.home,
-                            logo: result.User.BusinessInfo["0"].WhiteLabel["0"].Studio["0"].Application["0"].Logo["0"]._attr.link,
+                            logoLink: result.User.BusinessInfo["0"].WhiteLabel["0"].Studio["0"].Application["0"].Logo["0"]._attr.link,
                             logoTooltip: result.User.BusinessInfo["0"].WhiteLabel["0"].Studio["0"].Application["0"].Logo["0"]._attr.tooltip,
                             bannerEmbedReference: result.User.BusinessInfo["0"].WhiteLabel["0"].Studio["0"].Banner["0"]._attr.embeddedReference,
                             chatLink: result.User.BusinessInfo["0"].WhiteLabel["0"].Studio["0"].Chat["0"]._attr.link,
@@ -110,7 +120,7 @@ export class ResellerAction extends Actions {
                             iconLabel: result.User.BusinessInfo["0"].WhiteLabel["0"].Studio["0"].MainMenu["0"].CommandGroup["0"]._attr.label,
                             twitterLink: result.User.BusinessInfo["0"].WhiteLabel["0"].Studio["0"].Twitter["0"]._attr.link,
                             twitterShow: result.User.BusinessInfo["0"].WhiteLabel["0"].Studio["0"].Twitter["0"]._attr.show
-                        };
+                        }
                         var whitelabelModel:WhitelabelModel = new WhitelabelModel(whitelabel);
                         dispatch(self.receiveWhitelabel(whitelabelModel));
 
@@ -245,6 +255,13 @@ export class ResellerAction extends Actions {
             type: UPDATE_PRIVILEGE_NAME,
             privilegeId,
             privilegeName
+        }
+    }
+
+    public updateResellerInfo(payload:any) {
+        return {
+            type: UPDATE_WHITELABEL,
+            payload
         }
     }
 
