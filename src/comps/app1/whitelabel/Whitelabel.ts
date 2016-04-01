@@ -28,7 +28,7 @@ export class Whitelabel {
         this.whitelabelModel = i_reseller.getIn(['whitelabel']);
         this.unsub = this.appStore.sub((whitelabelModel:WhitelabelModel) => {
             this.whitelabelModel = whitelabelModel;
-            this.updateForm();
+            this.renderFormInputs();
         }, 'reseller.whitelabel');
 
         this.contGroup = fb.group({
@@ -54,14 +54,14 @@ export class Whitelabel {
         _.forEach(this.contGroup.controls,(value,key:string)=>{
             this.formInputs[key] = this.contGroup.controls[key] as Control;
         })
-        this.updateForm();
+        this.renderFormInputs();
     }
 
     private onChange(event) {
         setTimeout(()=>this.appStore.dispatch(this.resellerAction.updateResellerInfo(this.contGroup.value)), 1);
     }
 
-    private updateForm() {
+    private renderFormInputs() {
         _.forEach(this.formInputs,(value,key:string)=>{
             var value = this.whitelabelModel.getKey(key);
             this.formInputs[key].updateValue(value);
