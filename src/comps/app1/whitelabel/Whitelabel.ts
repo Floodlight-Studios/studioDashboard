@@ -60,7 +60,13 @@ export class Whitelabel {
         this.renderFormInputs();
     }
 
+    private formInputs = {};
+    private contGroup:ControlGroup;
+    private whitelabelModel:WhitelabelModel;
+    private unsub;
+
     private onInputBlur(event) {
+        // console.log(event.target);
         setTimeout(()=>this.appStore.dispatch(this.resellerAction.updateResellerInfo(this.contGroup.value)), 1);
     }
 
@@ -70,11 +76,6 @@ export class Whitelabel {
             this.formInputs[key].updateValue(value);
         })
     };
-
-    private formInputs = {};
-    private contGroup:ControlGroup;
-    private whitelabelModel:WhitelabelModel;
-    private unsub;
 
     private get isWhitelabelEnabled():boolean {
         if (!this.whitelabelModel)

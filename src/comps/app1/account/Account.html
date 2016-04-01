@@ -6,10 +6,16 @@
     <hr/>
     <div class="pull-left">
       <h3>Enterprise edition status</h3>
-      <label>your enterprise edition is active and up to date</label>
+      <label *ngIf="getAccountStatus()">all is good, enterprise account is active & working</label>
+      <label style="color: red" *ngIf="!getAccountStatus()">account inactive avoid interruption & update billing info</label>
     </div>
 
-    <span style="font-size: 4em; padding-right: 60px; padding-top: 20px; color: green" class="fa fa-check-circle pull-right"></span>
+    <div *ngIf="getAccountStatus()">
+        <span style="font-size: 4em; padding-right: 60px; padding-top: 20px; color: green" class="fa fa-check-circle pull-right"></span>
+    </div>
+    <div *ngIf="!getAccountStatus()">
+      <span style="font-size: 4em; padding-right: 60px; padding-top: 20px; color: red" class="fa fa-minus-circle pull-right"></span>
+    </div>
     <div class="clearfix"></div>
     <br/>
     <hr/>
