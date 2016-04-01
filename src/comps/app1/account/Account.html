@@ -1,0 +1,100 @@
+<br/>
+<div class="row">
+  <div class="col-xs-6">
+    <h2>Enterprise edition: $99 a month</h2>
+    <h6>unlimited accounts, unlimited screens, unlimited components, unlimited bandwidth, unlimited storage, unlimited advertisers, unlimited SignagePlayers, unlimited campaigns, unlimited users, unlimited business, unlimited branding, unlimited... everything!</h6>
+    <hr/>
+    <div class="pull-left">
+      <h3>Enterprise edition status</h3>
+      <label>your enterprise edition is active and up to date</label>
+    </div>
+
+    <span style="font-size: 4em; padding-right: 60px; padding-top: 20px; color: green" class="fa fa-check-circle pull-right"></span>
+    <div class="clearfix"></div>
+    <br/>
+    <hr/>
+    <h3 class="pull-left">Payment method</h3>
+    <select class="form-control pull-right" style="width: 150px; margin-top: 20px">
+      <option>Credit card</option>
+      <option>Paypal</option>
+    </select>
+    <br/>
+    <br/>
+    <div class="clearfix"></div>
+    <hr style="color: red"/>
+    <ul>
+      <li>Enterprise edition benefits</li>
+      <li>Enterprise license agreement</li>
+      <li>Video tutorials</li>
+    </ul>
+    <div class="clearfix"></div>
+  </div>
+  <div class="col-xs-6">
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h3 class="panel-title">
+          <center>
+            <img src="http://i76.imgup.net/accepted_c22e0.png">
+          </center>
+        </h3>
+      </div>
+      <div class="panel-body">
+        <form role="form" id="payment-form">
+          <div class="row">
+            <div class="col-xs-12">
+              <div class="form-group">
+                <label for="newName">Pick a new enterprise user name</label>
+                <input id="upgUserName" type="text" class="form-control" name="newName"/>
+              </div>
+              <div class="form-group">
+                <label for="newPass">Pick an enterprise password</label>
+                <input id="upgPass" type="password" class="form-control" name="newPass"/>
+              </div>
+              <div class="form-group">
+                <label for="newPass2">Repeat your new password</label>
+                <input id="upgPass2" type="password" class="form-control" name="newPass2"/>
+              </div>
+            </div>
+            <div class="col-xs-12">
+              <div class="form-group">
+                <label for="cardNumber">CARD NUMBER</label>
+                <div class="input-group">
+                  <input id="upgCredit" type="text" class="form-control" name="cardNumber" placeholder="Valid Card Number" required autofocus data-stripe="number"/>
+                  <span class="input-group-addon"><i class="fa fa-credit-card"></i></span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-xs-7 col-md-7">
+              <div class="form-group">
+
+                <div class="col-xs-6 col-lg-6 pl-ziro">
+                  <input id="upgMonth" type="text" class="form-control" name="expMonth" placeholder="MM" required data-stripe="exp_month"/>
+                </div>
+                <div class="col-xs-6 col-lg-6 pl-ziro">
+                  <input id="upgYear" type="text" class="form-control" name="expYear" placeholder="YYYY" required data-stripe="exp_year"/>
+                </div>
+              </div>
+            </div>
+            <div class="col-xs-5 col-md-5 pull-right">
+              <div class="form-group">
+                <input id="upgCV" class="form-control" name="cvCode" placeholder="CV" required data-stripe="cvc"/>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-xs-12">
+              <button class="startUpgrade btn btn-success btn-lg btn-block" type="submit">Start Subscription</button>
+            </div>
+          </div>
+          <div class="row" style="display:none;">
+            <div class="col-xs-12">
+              <p class="payment-errors"></p>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

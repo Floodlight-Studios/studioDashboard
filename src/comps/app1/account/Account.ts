@@ -5,7 +5,17 @@ import {appInjService} from "../../../services/AppInjService";
 
 @Component({
     selector: 'accounts',
-    template: `<h3>Accounts coming soon...</h3>`,
+    styles: [`
+    hr {
+        display: block;
+        height: 1px;
+        border: 0;
+        border-top: 1px solid #ccc;
+        margin: 2em 0em;
+        padding: 0; 
+    }
+    `],
+    templateUrl: `/src/comps/app1/account/Account.html`,
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 @CanActivate((to:ComponentInstruction, from:ComponentInstruction) => {
