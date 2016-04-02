@@ -87,9 +87,10 @@ export class ResellerAction extends Actions {
                         _.forEach(result.User.BusinessInfo["0"].Sources["0"].SourceInfo, (value)=> {
                             var source = {
                                 id: value._attr.id,
-                                serverName: value._attr.serverName,
+                                serverType: value._attr.serverName,
                                 socketDomain: value._attr.socketDomain,
                                 businessDomain: value._attr.businessDomain,
+                                source: value._attr.businessDomain.split('.')[0],
                                 businessDbName: value._attr.businessDbName
                             }
                             serverSources = serverSources.push(new SourcesModel(source));

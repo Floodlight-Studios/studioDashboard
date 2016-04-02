@@ -12,6 +12,7 @@ import {AuthService} from "./services/AuthService";
 import {StoreService} from "./services/StoreService";
 import {BusinessAction} from "./business/BusinessAction";
 import {ResellerAction} from "./reseller/ResellerAction";
+import {StationsAction} from "./stations/StationsAction";
 import {CharCount} from "./pipes/CharCount";
 import {bootstrap} from 'angular2/platform/browser';
 import {HTTP_PROVIDERS, JSONP_PROVIDERS} from "angular2/http";
@@ -45,9 +46,9 @@ import 'rxjs/add/operator/do';
 import 'rxjs/add/operator/distinctUntilChanged';
 import notify from "./appdb/NotifyReducer"
 import appdb from "./appdb/AppdbReducer"
-import stations from "./appdb/StationsReducer"
 import {business} from "./business/BusinessReducer"
 import {reseller} from "./reseller/ResellerReducer"
+import {stations} from "./stations/StationsReducer"
 import {AppdbAction} from "./appdb/AppdbAction";
 // import {enableProdMode} from 'angular2/core';
 
@@ -115,6 +116,7 @@ bootstrap(App, [ROUTER_PROVIDERS, HTTP_PROVIDERS, JSONP_PROVIDERS,
     provide(StoreService, {useClass: StoreService}),
     provide(BusinessAction, {useClass: BusinessAction}),
     provide(ResellerAction, {useClass: ResellerAction}),
+    provide(StationsAction, {useClass: StationsAction}),
     provide(AppdbAction, {useClass: AppdbAction}),
     provide(AuthService, {useClass: AuthService}),
     provide(LocalStorage, {useClass: LocalStorage}),

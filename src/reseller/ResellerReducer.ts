@@ -43,6 +43,10 @@ export function reseller(state:Map<string,any> = Map<string,any>(), action:any):
         {
             return state.setIn(['privilegesSystem'], action.privelegesSystemModels);
         }
+        case ResellerAction.RECEIVE_SERVER_SOURCES:
+        {
+            return state.setIn(['serverSources'], action.sourceModels);
+        }
         case ResellerAction.UPDATE_PRIVILEGE_NAME:
         {
             var privileges = state.get('privileges');
