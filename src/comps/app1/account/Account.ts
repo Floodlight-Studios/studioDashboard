@@ -44,18 +44,20 @@ export class Account {
 
     private onChangeAccountStatus(status:boolean) {
         if (!status) {
-            bootbox.confirm('are you sure you want to cancel your subscription?', (result) => {
-                if (result) {
+            bootbox.prompt(`are you sure you want to cancel your current subscription? 
+            Dangerous: type [DELETE_NOW] to cancel association of all your screens`, (result) => {
+                if (result=='DELETE_NOW') {
                     this.appStore.dispatch(this.resellerAction.updateResellerInfo({accountStatus: 0}));
                 }
             });
         } else {
+            //todo: check if CC info available before re-enabling customer
             this.appStore.dispatch(this.resellerAction.updateResellerInfo({accountStatus: this.PAY_SUBSCRIBER}));
         }
     }
 
     private getAccountStatus():boolean {
-        if (this.whitelabelModel.getAccountStatus() == this.PAY_SUBSCRIBER) {
+        if (this.whitelabelModel && this.whitelabelModel.getAccountStatus() == this.PAY_SUBSCRIBER) {
             return true;
         } else {
             return false;

@@ -13,12 +13,6 @@ import {appInjService} from "../../../services/AppInjService";
     return authService.checkAccess(to, from, ['/Login/Login']);
 })
 export class Stations {
-    @Input()
-    parts = [];
-    @Input()
-    partsInCart:string;
-
-    @Output()
-    addToCart:EventEmitter<any> = new EventEmitter();
+    // http://eris.signage.me/WebService/StationService.asmx/getSocketStatusList?i_businessList=315757
 }
 
