@@ -1,5 +1,3 @@
-///<reference path="../../../typings/app.d.ts" />
-
 import {Component, Injectable} from 'angular2/core';
 import {ROUTER_DIRECTIVES} from 'angular2/router';
 import {RouterLink} from 'angular2/router';

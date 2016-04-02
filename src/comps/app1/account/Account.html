@@ -11,10 +11,10 @@
     </div>
 
     <div *ngIf="getAccountStatus()">
-        <span style="font-size: 4em; padding-right: 60px; padding-top: 20px; color: green" class="fa fa-check-circle pull-right"></span>
+        <span (click)="onChangeAccountStatus(false)" style="cursor: hand; font-size: 4em; padding-right: 60px; padding-top: 20px; color: green" class="fa fa-check-circle pull-right"></span>
     </div>
     <div *ngIf="!getAccountStatus()">
-      <span style="font-size: 4em; padding-right: 60px; padding-top: 20px; color: red" class="fa fa-minus-circle pull-right"></span>
+      <span (click)="onChangeAccountStatus(true)" style="cursor: hand; font-size: 4em; padding-right: 60px; padding-top: 20px; color: red" class="fa fa-minus-circle pull-right"></span>
     </div>
     <div class="clearfix"></div>
     <br/>
