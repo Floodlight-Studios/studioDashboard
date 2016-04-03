@@ -16,7 +16,6 @@ import {Tab} from "../tabs/tab";
 import {Logout} from "../logout/Logout";
 import {Users} from "./users/Users";
 import {Dashboard} from "./dashboard/Dashboard";
-import {Stations} from "./stations/Stations";
 import {Privileges} from "./privileges/Privileges";
 import {Whitelabel} from "./whitelabel/Whitelabel";
 import {Apps} from "./apps/Apps";
@@ -24,8 +23,7 @@ import {Account} from "./account/Account";
 
 @RouteConfig([
     {path: '/Dashboard', component: Dashboard, as: 'Dashboard', useAsDefault: true},
-    {path: '/Users', component: Users, as: 'Users' },
-    {path: '/Stations', component: Stations, as: 'Stations'},
+    {path: '/Users', component: Users, as: 'Users'},
     {path: '/Privileges', component: Privileges, as: 'Privileges'},
     {path: '/White label', component: Whitelabel, as: 'White label'},
     {path: '/Apps', component: Apps, as: 'Apps'},
@@ -44,8 +42,7 @@ import {Account} from "./account/Account";
 @Component({
     providers: [HTTP_PROVIDERS],
     templateUrl: '/src/comps/app1/App1.html',
-    directives: [ROUTER_DIRECTIVES, RouterLink, Menu, MenuItem, Sliderpanel, Account, Whitelabel, Apps, Privileges, Dashboard, Stations,
-        Logout, Tabs, Tab]
+    directives: [ROUTER_DIRECTIVES, RouterLink, Menu, MenuItem, Sliderpanel, Account, Whitelabel, Apps, Privileges, Dashboard, Logout, Tabs, Tab]
 })
 export class App1 implements OnActivate, CanReuse, OnReuse, OnDeactivate {
     private routerActive:boolean;

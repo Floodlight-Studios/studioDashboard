@@ -18,7 +18,7 @@ export class StationsAction extends Actions {
 
     private m_parseString;
 
-    public getStationsInfo(business_ids) {
+    public getStationsInfo() {
         var self = this;
         return (dispatch)=> {
             var appdb:Map<string,any> = this.appStore.getState().appdb;

@@ -10,6 +10,9 @@ import {StationsMap} from "./StationsMap";
 import {CanActivate, OnActivate, ComponentInstruction, Router} from "angular2/router";
 import {appInjService} from "../../../services/AppInjService";
 import {AuthService} from "../../../services/AuthService";
+import {StationsAction} from "../../../stations/StationsAction";
+import {BusinessModel} from "../../../business/BusinessModel";
+const _ = require('underscore');
 
 @Component({
     directives: [Infobox, ServerStats, ServerAvg, StationsMap],
@@ -85,7 +88,7 @@ export class Dashboard implements OnActivate {
     serverAvgResponse;
     serverStatsCategories;
 
-    constructor(private appStore:AppStore, private appDbActions:AppdbAction) {
+    constructor(private appStore:AppStore, private appDbActions:AppdbAction, private stationsAction:StationsAction) {
         var self = this;
         this.loadData();
         this.serverStats = [];
@@ -112,11 +115,28 @@ export class Dashboard implements OnActivate {
     routerOnActivate(to:ComponentInstruction, from:ComponentInstruction) {
     }
 
+    private loadStations(){
+        var businesses:List<BusinessModel> = this.appStore.getState().business.getIn(['businesses']);
+        var businessIds = [];
+        businesses.forEach((businessModel:BusinessModel)=>{
+            businessIds.push(businessModel.getBusinessId());
+        });
+        //todo: categorize business ids by source server id and save in redux store
+        if (businessIds.length>0)
+            this.appStore.dispatch(this.stationsAction.getStationsInfo());
+
+    }
+
     private loadData() {
+        this.businessStats = this.appStore.getState().business.getIn(['businessStats']) || {};
+        if (_.size(this.businessStats)>0)
+            this.loadStations();
+
         this.unsub1 = this.appStore.sub((i_businesses:Map<string,any>) => {
             this.businessStats = i_businesses;
+            this.loadStations();
         }, 'business.businessStats');
-        this.businessStats = this.appStore.getState().business.getIn(['businessStats']) || {};
+
     }
 
     private ngOnDestroy() {
