@@ -2,9 +2,11 @@ import {Http, Jsonp} from "angular2/http";
 import {Injectable} from "angular2/core";
 import {Actions, AppStore} from "angular2-redux-util";
 import {BusinessModel} from "./BusinessModel";
-import {List} from 'immutable';
+import {Map, List} from 'immutable';
 import {BusinessUser} from "./BusinessUser";
 import {Subject} from "rxjs/Subject";
+import {BusinessSourcesModel} from "./BusinessSourcesModel";
+import {StoreModel} from "../models/StoreModel";
 const bootbox = require('bootbox');
 
 export const REQUEST_BUSINESS_USER = 'REQUEST_BUSINESS_USER';
@@ -95,6 +97,7 @@ export class BusinessAction extends Actions {
         var self = this;
         return (dispatch) => {
             dispatch(this.requestBusinesses());
+
             const accountStats = {
                 lites: 0,
                 pros: 0,
@@ -103,6 +106,8 @@ export class BusinessAction extends Actions {
                 lastLogin: 0,
                 totalBusinesses: 0
             }
+            var businessServerSources:BusinessSourcesModel = new BusinessSourcesModel({});
+
             var appdb:Map<string,any> = this.appStore.getState().appdb;
             var url = appdb.get('appBaseUrlUser') + '&command=GetCustomers';
             this._http.get(url)
@@ -112,8 +117,13 @@ export class BusinessAction extends Actions {
                     this.parseString(xmlData, {attrkey: '_attr'}, function (err, result) {
                         var businesses = [], businessIds = [];
                         result.Businesses.BusinessInfo.forEach((business)=> {
+
+                            var source = business._attr.domain;
+                            var businessId = business._attr.businessId;
+
                             var bus:BusinessModel = new BusinessModel({
-                                businessId: business._attr.businessId,
+                                businessId: businessId,
+                                source: source,
                                 name: business._attr.name,
                                 accountStatus: business._attr.accountStatus,
                                 applicationId: business._attr.applicationId,
@@ -128,6 +138,10 @@ export class BusinessAction extends Actions {
                                 businessDescription: business._attr.businessDescription
                             });
 
+                            // collect server sources
+                            businessServerSources = businessServerSources.listPush<BusinessSourcesModel>(BusinessSourcesModel, source, businessId);
+
+
                             // collect stats
                             business._attr.accountStatus == 2 ? accountStats.activeAccounts++ : accountStats.inactiveAccounts++;
                             business._attr.studioLite == 0 ? accountStats.pros++ : accountStats.lites++;
@@ -139,6 +153,7 @@ export class BusinessAction extends Actions {
                             businessIds.push(business._attr.businessId)
                             businesses.push(bus);
                         });
+                        console.log(businessServerSources);
                         accountStats.totalBusinesses = businesses.length;
 
                         dispatch(self.receiveBusinesses(businesses));
@@ -280,9 +295,9 @@ export class BusinessAction extends Actions {
             //         }
             //     }).subscribe();
             //todo: remove from server
-            setTimeout(()=>{
+            setTimeout(()=> {
                 dispatch({type: REMOVE_BUSINESS, businessId})
-            },400)
+            }, 400)
 
         }
     }

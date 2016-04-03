@@ -90,7 +90,6 @@ export class ResellerAction extends Actions {
                                 serverType: value._attr.serverName,
                                 socketDomain: value._attr.socketDomain,
                                 businessDomain: value._attr.businessDomain,
-                                source: value._attr.businessDomain.split('.')[0],
                                 businessDbName: value._attr.businessDbName
                             }
                             serverSources = serverSources.push(new SourcesModel(source));
@@ -145,6 +144,7 @@ export class ResellerAction extends Actions {
                         dispatch(self.receiveWhitelabel(whitelabelModel));
 
                         Lib.AppsXmlTemplate((err, xmlTemplate)=> {
+
                             /**
                              * redux inject Apps
                              **/
@@ -161,7 +161,6 @@ export class ResellerAction extends Actions {
                                     version: i_app.Components["0"].Component["0"]._attr.version
                                 }
                             })
-
                             var userApps:List<AppModel> = List<AppModel>();
                             result.User.BusinessInfo["0"].InstalledApps["0"].App.forEach((i_app)=> {
                                 var appId = i_app._attr.id;
@@ -183,7 +182,6 @@ export class ResellerAction extends Actions {
                         });
 
                         Lib.PrivilegesXmlTemplate((err, xmlTemplate)=> {
-
                             /**
                              * redux inject privileges XML template system
                              **/
@@ -197,7 +195,6 @@ export class ResellerAction extends Actions {
                                     self.m_privilegesSystemModels.push(privelegesSystemModel)
                             })
                             dispatch(self.receivePrivilegesSystem(self.m_privilegesSystemModels));
-
                             /**
                              * redux inject privileges user
                              **/

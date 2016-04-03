@@ -35,7 +35,6 @@ export class StationsAction extends Actions {
                             return;
                         }
                         _.forEach(result.string.SocketStatus["0"].Business["0"].Stations["0"].Station, (value)=> {
-                            console.log(value);
                         })
                         /**
                          * redux inject server sources

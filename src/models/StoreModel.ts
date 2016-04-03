@@ -1,4 +1,4 @@
-import {Map} from 'immutable';
+import {Map, List} from 'immutable';
 import { UUID } from 'angular2-uuid';
 
 
@@ -43,4 +43,20 @@ export class StoreModel {
         return this._data;
     }
 
+    /**
+     * Create a List or update a list if one exists, with the Map key provided and the value to push to the new/updated list
+     * @param ClassName
+     * @param i_key
+     * @param i_value
+     * @returns {T}
+     */
+    public listPush<T>(ClassName, i_key:string, i_value:string):any {
+        var value = this.getKey(i_key);
+        var model:StoreModel = this;
+        if (!value)
+            model = this.setKey<T>(ClassName, i_key, List<any>()) as any;
+        var list:List<any> = model.getKey(i_key);
+        list = list.push(i_value);
+        return model.setKey<T>(ClassName, i_key, list) as T;
+    }
 }
