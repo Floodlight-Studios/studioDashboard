@@ -10,6 +10,7 @@ import {StoreModel} from "../models/StoreModel";
 const bootbox = require('bootbox');
 
 export const REQUEST_BUSINESS_USER = 'REQUEST_BUSINESS_USER';
+export const RECEIVE_BUSINESSES_SOURCES = 'RECEIVE_BUSINESSES_SOURCES';
 export const RECEIVE_BUSINESS_USER = 'RECEIVE_BUSINESS_USER';
 export const REQUEST_BUSINESSES = 'REQUEST_BUSINESSES';
 export const RECEIVE_BUSINESSES = 'RECEIVE_BUSINESSES';
@@ -153,9 +154,9 @@ export class BusinessAction extends Actions {
                             businessIds.push(business._attr.businessId)
                             businesses.push(bus);
                         });
-                        console.log(businessServerSources);
                         accountStats.totalBusinesses = businesses.length;
 
+                        dispatch(self.receiveBusinessesSources(businessServerSources));
                         dispatch(self.receiveBusinesses(businesses));
                         dispatch(self.receiveBusinessesStats(accountStats));
                         dispatch(self.fetchBusinessUser(businessIds));
@@ -338,6 +339,13 @@ export class BusinessAction extends Actions {
         return {
             type: RECEIVE_BUSINESSES,
             businesses
+        }
+    }
+
+    public receiveBusinessesSources(businessSources) {
+        return {
+            type: RECEIVE_BUSINESSES_SOURCES,
+            businessSources
         }
     }
 

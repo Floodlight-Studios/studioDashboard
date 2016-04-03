@@ -25,6 +25,9 @@ export function business(state:Map<string,any> = Map<string,any>(), action:any):
         case BusinessAction.RECEIVE_BUSINESS_USER:
             return state.setIn(['businessUsers'], action.businessUsers);
 
+        case BusinessAction.RECEIVE_BUSINESSES_SOURCES:
+            return state.setIn(['businessSources'], action.businessSources);
+        
         case BusinessAction.RECEIVE_BUSINESSES_STATS:
             return state.setIn(['businessStats'], action.stats);
 
