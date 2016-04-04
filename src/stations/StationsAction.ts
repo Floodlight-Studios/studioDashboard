@@ -22,15 +22,15 @@ export class StationsAction extends Actions {
     public getStationsInfo(i_source:string, i_businesses:Array<any>) {
         var self = this;
         return (dispatch)=> {
-            // var appdb:Map<string,any> = this.appStore.getState().appdb;
             //todo: need to add user auth for getSocketStatusList
-            // var url = appdb.get('appBaseUrlUser') + `&command=GetBusinessUserInfo`;
             var businesses = i_businesses.join(',');
             var url:string = `http://${i_source}/WebService/StationService.asmx/getSocketStatusList?i_businessList=${businesses}`;
             //todo: ignore mars until bug fixed
             if (i_source == 'mars.signage.me')
                 return;
-            console.log(url);
+            // old accounts may have left overs
+            if (i_source == 'mercury.signage.me')
+                return;
             this._http.get(url)
                 .map(result => {
                     var xmlData:string = result.text()
