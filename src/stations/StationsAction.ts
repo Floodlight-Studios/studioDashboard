@@ -19,6 +19,7 @@ export class StationsAction extends Actions {
 
     private m_parseString;
 
+
     public getStationsInfo(sourcesModel:List<SourcesModel>) {
         var self = this;
         return (dispatch)=> {
