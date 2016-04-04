@@ -3,6 +3,7 @@ import {Actions, AppStore} from "angular2-redux-util";
 import {Http, Jsonp} from "angular2/http";
 import {Lib} from "../Lib";
 import {List, Map} from 'immutable';
+import {SourcesModel} from "../reseller/SourcesModel";
 const Immutable = require('immutable');
 const _ = require('underscore');
 
@@ -18,7 +19,7 @@ export class StationsAction extends Actions {
 
     private m_parseString;
 
-    public getStationsInfo() {
+    public getStationsInfo(sourcesModel:List<SourcesModel>) {
         var self = this;
         return (dispatch)=> {
             var appdb:Map<string,any> = this.appStore.getState().appdb;

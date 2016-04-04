@@ -12,6 +12,7 @@ import {appInjService} from "../../../services/AppInjService";
 import {AuthService} from "../../../services/AuthService";
 import {StationsAction} from "../../../stations/StationsAction";
 import {BusinessModel} from "../../../business/BusinessModel";
+import {SourcesModel} from "../../../reseller/SourcesModel";
 const _ = require('underscore');
 
 @Component({
@@ -116,14 +117,16 @@ export class Dashboard implements OnActivate {
     }
 
     private loadStations(){
-        var businesses:List<BusinessModel> = this.appStore.getState().business.getIn(['businesses']);
-        var businessIds = [];
-        businesses.forEach((businessModel:BusinessModel)=>{
-            businessIds.push(businessModel.getBusinessId());
-        });
-        //todo: categorize business ids by source server id and save in redux store
-        if (businessIds.length>0)
-            this.appStore.dispatch(this.stationsAction.getStationsInfo());
+        // var businesses:List<BusinessModel> = this.appStore.getState().business.getIn(['businesses']);
+        // var businessIds = [];
+        // businesses.forEach((businessModel:BusinessModel)=>{
+        //     businessIds.push(businessModel.getBusinessId());
+        // });
+        // //todo: categorize business ids by source server id and save in redux store
+        // if (businessIds.length>0)
+        var sourceMoals:List<SourcesModel> = this.appStore.getState().reseller.getIn(['serverSources']);
+        this.appStore.dispatch(this.stationsAction.getStationsInfo(sourceMoals));
+
 
     }
 
