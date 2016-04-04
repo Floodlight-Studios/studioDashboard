@@ -3,11 +3,11 @@ import {Actions, AppStore} from "angular2-redux-util";
 import {Http, Jsonp} from "angular2/http";
 import {Lib} from "../Lib";
 import {List, Map} from 'immutable';
-import {SourcesModel} from "../reseller/SourcesModel";
+import {StationModel} from "./StationModel";
 const Immutable = require('immutable');
 const _ = require('underscore');
 
-// export const RECEIVE_PRIVILEGES = 'RECEIVE_PRIVILEGES';
+export const RECEIVE_STATIONS = 'RECEIVE_STATIONS';
 
 @Injectable()
 export class StationsAction extends Actions {
@@ -18,15 +18,19 @@ export class StationsAction extends Actions {
     }
 
     private m_parseString;
-
-
-    public getStationsInfo(sourcesModel:List<SourcesModel>) {
+    
+    public getStationsInfo(i_source:string, i_businesses:Array<any>) {
         var self = this;
         return (dispatch)=> {
-            var appdb:Map<string,any> = this.appStore.getState().appdb;
+            // var appdb:Map<string,any> = this.appStore.getState().appdb;
             //todo: need to add user auth for getSocketStatusList
             // var url = appdb.get('appBaseUrlUser') + `&command=GetBusinessUserInfo`;
-            var url:string = 'http://eris.signage.me/WebService/StationService.asmx/getSocketStatusList?i_businessList=315757';
+            var businesses = i_businesses.join(',');
+            var url:string = `http://${i_source}/WebService/StationService.asmx/getSocketStatusList?i_businessList=${businesses}`;
+            //todo: ignore mars until bug fixed
+            if (i_source == 'mars.signage.me')
+                return;
+            console.log(url);
             this._http.get(url)
                 .map(result => {
                     var xmlData:string = result.text()
@@ -36,27 +40,49 @@ export class StationsAction extends Actions {
                             bootbox.alert('problem loading user info')
                             return;
                         }
-                        _.forEach(result.string.SocketStatus["0"].Business["0"].Stations["0"].Station, (value)=> {
-                        })
                         /**
-                         * redux inject server sources
+                         * redux inject stations sources
                          **/
-                        // var serverSources:List<SourcesModel> = List<SourcesModel>();
-                        // _.forEach(result.User.BusinessInfo["0"].Sources["0"].SourceInfo, (value)=> {
-                        //     var source = {
-                        //         id: value._attr.id,
-                        //         serverType: value._attr.serverName,
-                        //         socketDomain: value._attr.socketDomain,
-                        //         businessDomain: value._attr.businessDomain,
-                        //         source: value._attr.businessDomain.split('.')[0],
-                        //         businessDbName: value._attr.businessDbName
-                        //     }
-                        //     serverSources = serverSources.push(new SourcesModel(source));
-                        // })
-                        // dispatch(self.receiveServerSources(serverSources));
-
+                        var stations:List<StationModel> = List<StationModel>();
+                        result.string.SocketStatus["0"].Business.forEach((business)=> {
+                            var businessId = business._attr.businessId;
+                            business.Stations["0"].Station.forEach((station)=> {
+                                var stationData = {
+                                    businessId: businessId,
+                                    source: i_source,
+                                    airVersion: station._attr.airVersion,
+                                    appVersion: station._attr.appVersion,
+                                    caching: station._attr.caching,
+                                    cameraStatus: station._attr.cameraStatus,
+                                    connection: station._attr.connection,
+                                    id: station._attr.id,
+                                    lastCameraTest: station._attr.lastCameraTest,
+                                    lastUpdate: station._attr.lastUpdate,
+                                    name: station._attr.name,
+                                    os: station._attr.os,
+                                    peakMemory: station._attr.peakMemory,
+                                    runningTime: station._attr.runningTime,
+                                    socket: station._attr.socket,
+                                    startTime: station._attr.startTime,
+                                    status: station._attr.status,
+                                    totalMemory: station._attr.totalMemory,
+                                    watchDogConnection: station._attr.watchDogConnection
+                                };
+                                var stationModel:StationModel = new StationModel(stationData)
+                                stations = stations.push(stationModel);
+                            })
+                        })
+                        dispatch(self.receiveStations(stations, i_source));
                     });
                 }).subscribe();
+        }
+    }
+
+    public receiveStations(stations:List<StationModel>, source) {
+        return {
+            type: RECEIVE_STATIONS,
+            stations,
+            source
         }
     }
 

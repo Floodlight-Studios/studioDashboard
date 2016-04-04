@@ -7,7 +7,6 @@ import {Lib} from "../Lib";
 import {List, Map} from 'immutable';
 import {AppModel} from "./AppModel";
 import {WhitelabelModel} from "./WhitelabelModel";
-import {SourcesModel} from "./SourcesModel";
 const Immutable = require('immutable');
 const _ = require('underscore');
 
@@ -17,7 +16,6 @@ export const UPDATE_PRIVILEGES = 'UPDATE_PRIVILEGES';
 export const UPDATE_PRIVILEGE_NAME = 'UPDATE_PRIVILEGE_NAME';
 export const RECEIVE_DEFAULT_PRIVILEGE = 'RECEIVE_DEFAULT_PRIVILEGE';
 export const RECEIVE_APPS = 'RECEIVE_APPS';
-export const RECEIVE_SERVER_SOURCES = 'RECEIVE_SERVER_SOURCES';
 export const RECEIVE_WHITELABEL = 'RECEIVE_WHITELABEL';
 export const UPDATE_APP = 'UPDATE_APP';
 export const UPDATE_DEFAULT_PRIVILEGE = 'UPDATE_DEFAULT_PRIVILEGE';
@@ -79,23 +77,6 @@ export class ResellerAction extends Actions {
                             bootbox.alert('problem loading user info')
                             return;
                         }
-
-                        /**
-                         * redux inject server sources
-                         **/
-                        var serverSources:List<SourcesModel> = List<SourcesModel>();
-                        _.forEach(result.User.BusinessInfo["0"].Sources["0"].SourceInfo, (value)=> {
-                            var source = {
-                                id: value._attr.id,
-                                serverType: value._attr.serverName,
-                                socketDomain: value._attr.socketDomain,
-                                businessDomain: value._attr.businessDomain,
-                                businessDbName: value._attr.businessDbName
-                            }
-                            serverSources = serverSources.push(new SourcesModel(source));
-                        })
-                        dispatch(self.receiveServerSources(serverSources));
-
                         /**
                          * redux inject reseller info including white label
                          **/
@@ -253,12 +234,12 @@ export class ResellerAction extends Actions {
         }
     }
 
-    public receiveServerSources(sourceModels:List<SourcesModel>) {
-        return {
-            type: RECEIVE_SERVER_SOURCES,
-            sourceModels
-        }
-    }
+    // public receiveServerSources(sourceModels:List<SourcesModel>) {
+    //     return {
+    //         type: RECEIVE_SERVER_SOURCES,
+    //         sourceModels
+    //     }
+    // }
 
     public receiveDefaultPrivilege(privilegeId:number) {
         return {

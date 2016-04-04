@@ -4,7 +4,7 @@ import {Map, List} from 'immutable';
 /**
  * Thin wrapper of Immutable data around a single business
  * **/
-export class BusinessSourcesModel extends StoreModel {
+export class StationModel extends StoreModel {
 
     constructor(data:any = {}) {
         super(data);

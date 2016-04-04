@@ -11,8 +11,7 @@ import {CanActivate, OnActivate, ComponentInstruction, Router} from "angular2/ro
 import {appInjService} from "../../../services/AppInjService";
 import {AuthService} from "../../../services/AuthService";
 import {StationsAction} from "../../../stations/StationsAction";
-import {BusinessModel} from "../../../business/BusinessModel";
-import {SourcesModel} from "../../../reseller/SourcesModel";
+import {BusinessSourcesModel} from "../../../business/BusinessSourcesModel";
 const _ = require('underscore');
 
 @Component({
@@ -116,7 +115,7 @@ export class Dashboard implements OnActivate {
     routerOnActivate(to:ComponentInstruction, from:ComponentInstruction) {
     }
 
-    private loadStations(){
+    private loadStations() {
         // var businesses:List<BusinessModel> = this.appStore.getState().business.getIn(['businesses']);
         // var businessIds = [];
         // businesses.forEach((businessModel:BusinessModel)=>{
@@ -124,15 +123,22 @@ export class Dashboard implements OnActivate {
         // });
         // //todo: categorize business ids by source server id and save in redux store
         // if (businessIds.length>0)
-        var sourceMoals:List<SourcesModel> = this.appStore.getState().reseller.getIn(['serverSources']);
-        this.appStore.dispatch(this.stationsAction.getStationsInfo(sourceMoals));
+        var sources:Map<string,any> = this.appStore.getState().business.getIn(['businessSources']).getData();
+        sources.forEach((i_businesses:List<string>,source)=> {
+            let businesses = i_businesses.toArray();
+            this.appStore.dispatch(this.stationsAction.getStationsInfo(source,businesses));
+        })
+        // businessSourcesModel.forEach((value)=> {
+        //     console.log(value);
+        // })
+        // this.appStore.dispatch(this.stationsAction.getStationsInfo(sourceModels));
 
 
     }
 
     private loadData() {
         this.businessStats = this.appStore.getState().business.getIn(['businessStats']) || {};
-        if (_.size(this.businessStats)>0)
+        if (_.size(this.businessStats) > 0)
             this.loadStations();
 
         this.unsub1 = this.appStore.sub((i_businesses:Map<string,any>) => {
