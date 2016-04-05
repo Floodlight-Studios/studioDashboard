@@ -15,23 +15,60 @@ var bootbox = require('bootbox');
     directives: [ROUTER_DIRECTIVES, RouterLink],
     providers: [BusinessAction, LocalStorage],
     template: `
-                <div *ngIf="showLoginPanel" id="appLogin">
+                <div *ngIf="showLoginPanel" class="login-page" id="appLogin">
+                <br/>
+                <br/>
                   <form class="form-signin" role="form">
                     <h2 class="form-signin-heading"></h2>
-                    <input #userName id="userName" type="text" [(ngModel)]="m_user" class="form-control" data-localize="username" placeholder="Type anything" required autofocus>
-                    <input #userPass id="userPass" type="password" [(ngModel)]="m_pass" class="form-control" data-localize="password" placeholder="Type anything" required>
-                    <label class="checkbox" style="padding-left: 20px">
+                    <input #userName id="userName" type="text" [(ngModel)]="m_user" class="input-underline input-lg form-control" data-localize="username" placeholder="user name" required autofocus>
+                    <input #userPass id="userPass" type="password" [(ngModel)]="m_pass" class="input-underline input-lg form-control" data-localize="password" placeholder="password" required>
+                    <br/>
+                    <a id="loginButton"  (click)="authUser()" type="submit" class="btn rounded-btn"> enterprise member login </a>&nbsp;
+                    <!--<a type="submit" class="btn rounded-btn"> Register  </a>                   -->
+                     <br/>
+                     <label class="checkbox" style="padding-left: 20px">
                       <input #rememberMe type="checkbox" [checked]="m_rememberMe" (change)="m_rememberMe = rememberMe.checked" />
-                      <span> Remember me </span>
+                      <span style="color: gray"> remember me for next time </span>
                     </label>
-                    <button id="loginButton" (click)="authUser()" class="btn btn-lg btn-primary btn-block" type="submit">
-                      Sign in
-                    </button>
-                    <hr class="hrThin"/>
-                    <a [routerLink]="['/ForgotPass', 'ForgotPass']">Forgot password</a>
+                    <br/>
+                    <br/>
+                    <br/>
+                    <!--<hr class="hrThin"/>-->
+                    <a [routerLink]="['/ForgotPass', 'ForgotPass']"> forgot password </a>
                     <div id="languageSelectionLogin"></div>
                   </form>
                 </div>
+                
+                
+                <!--<div class="login-page">-->
+                    <!--<div class="row">-->
+                        <!--<div class="col-lg-4 col-lg-offset-4">-->
+                            <!--<img src="assets/img/SB-admin.png" width="150px;" class="user-avatar" />-->
+                            <!--<h1>SB Admin BS 4 Angular2</h1>-->
+                            <!--<form role="form">-->
+                                <!--<div class="form-content">-->
+                                    <!--<div class="form-group">-->
+                                        <!--<input type="text" class="form-control input-underline input-lg" id="" placeholder="Full Name">-->
+                                    <!--</div>-->
+                <!---->
+                                    <!--<div class="form-group">-->
+                                        <!--<input type="text" class="form-control input-underline input-lg" id="" placeholder="Email">-->
+                                    <!--</div>-->
+                <!---->
+                                    <!--<div class="form-group">-->
+                                        <!--<input type="password" class="form-control input-underline input-lg" id="" placeholder="Password">-->
+                                    <!--</div>-->
+                                    <!--<div class="form-group">-->
+                                        <!--<input type="password" class="form-control input-underline input-lg" id="" placeholder="Repeat Password">-->
+                                    <!--</div>-->
+                                <!--</div>-->
+                                <!--<a type="submit" class="btn rounded-btn" (click)="gotoDashboard()"> Register </a>&nbsp;-->
+                                <!--<a type="submit" class="btn rounded-btn" (click)="gotoLogin()"> Login Page </a>-->
+                            <!--</form>-->
+                        <!--</div>	-->
+                    <!--</div>-->
+                <!--</div>-->
+                
                `
 })
 export class LoginPanel {
@@ -77,13 +114,15 @@ export class LoginPanel {
     private onAuthFail(i_reason) {
         let msg1:string;
         let msg2:string;
-        switch (i_reason){
-            case FlagsAuth.WrongPass: {
+        switch (i_reason) {
+            case FlagsAuth.WrongPass:
+            {
                 msg1 = 'User or password are incorrect...'
                 msg2 = 'Please try again or click forgot password to reset your credentials'
                 break;
             }
-            case FlagsAuth.NotEnterprise: {
+            case FlagsAuth.NotEnterprise:
+            {
                 msg1 = 'Not an enterprise account'
                 msg2 = 'You must login with an Enterprise account, not an end user account...'
                 break;
