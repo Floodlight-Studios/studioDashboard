@@ -11,13 +11,16 @@ import {CanActivate, OnActivate, ComponentInstruction, Router} from "angular2/ro
 import {appInjService} from "../../../services/AppInjService";
 import {AuthService} from "../../../services/AuthService";
 import {StationsAction} from "../../../stations/StationsAction";
-import {BusinessSourcesModel} from "../../../business/BusinessSourcesModel";
+import {StationModel} from "../../../stations/StationModel";
 const _ = require('underscore');
 
 @Component({
     directives: [Infobox, ServerStats, ServerAvg, StationsMap],
     selector: 'Dashboard',
-    styles: [`        
+    styles: [`      
+      * {
+             border-radius: 0 !important;
+        }
     `],
     providers: [BusinessAction],
     template: `
@@ -69,9 +72,57 @@ const _ = require('underscore');
        </div>       
     </div>
     <div class="row">
-        <div style="height: 400px; overflow: hidden">
-            <StationsMap data="[1,2,3]"></StationsMap>
+      <div class="panel panel-default">
+        <div class="panel-body">
+         <div class="btn-group" role="group">
+          <button style="padding: 9px" type="button" class="btn btn-default"><span class="fa fa-map-pin"></span></button>
+          <button style="padding: 9px" type="button" class="btn btn-default"><span class="fa fa-list"></span></button>
+          <div class="btn-group" role="group">
+            <select class="form-control">
+                  <option>all stations</option>
+                  <option>connected</option>
+                  <option>disconnected</option>
+            </select>
+          </div>
         </div>
+          
+          <div class="pull-right">
+             <div class="btn-group" role="group">
+                <input type="text" class="form-control" placeholder="business"/>
+            </div>
+          </div>
+          <div class="pull-right">
+             <div class="btn-group" role="group">
+                <select class="form-control">
+                      <option>all stations</option>
+                      <option>connected</option>
+                      <option>disconnected</option>
+                </select>
+            </div>
+          </div>
+          <div class="pull-right">
+             <div class="btn-group" role="group">
+                <select class="form-control">
+                      <option>all stations</option>
+                      <option>connected</option>
+                      <option>disconnected</option>
+                </select>
+            </div>
+          </div>
+          <div class="pull-right">
+             <div class="btn-group" role="group">
+                <select class="form-control">
+                      <option>all stations</option>
+                      <option>connected</option>
+                      <option>disconnected</option>
+                </select>
+            </div>
+          </div>
+        </div>
+        <div class="panel-footer">
+          <StationsMap data="[1,2,3]"></StationsMap>
+        </div>
+      </div>
     </div>
     `
 })
@@ -81,23 +132,50 @@ const _ = require('underscore');
     return authService.checkAccess(to, from);
 })
 export class Dashboard implements OnActivate {
-    unsub1:()=>void;
-    unsub2:()=>void;
-    businessStats = {};
-    serverStats;
-    serverAvgResponse;
-    serverStatsCategories;
 
     constructor(private appStore:AppStore, private appDbActions:AppdbAction, private stationsAction:StationsAction) {
-        var self = this;
-        this.loadData();
         this.serverStats = [];
         this.serverStatsCategories = [];
         this.serverAvgResponse = 0;
-
         this.appStore.dispatch(this.appDbActions.serverStatus());
+        this.loadData();
+    }
 
-        this.unsub2 = appStore.sub((serversStatus:Map<string,any>) => {
+    private stations;
+    private unsubs:Array<()=>void> = [];
+    private businessStats = {};
+    private serverStats;
+    private serverAvgResponse;
+    private serverStatsCategories;
+
+    routerOnActivate(to:ComponentInstruction, from:ComponentInstruction) {
+    }
+
+    private loadData() {
+        var self = this, unsub;
+
+        /** business stats **/
+        this.businessStats = this.appStore.getState().business.getIn(['businessStats']) || {};
+        if (_.size(this.businessStats) > 0)
+            this.fetchStations();
+        unsub = this.appStore.sub((i_businesses:Map<string,any>) => {
+            this.businessStats = i_businesses;
+            this.fetchStations();
+        }, 'business.businessStats');
+        this.unsubs.push(unsub);
+
+        /** stations stats **/
+        this.stations = this.appStore.getState().stations;
+        if (_.size(this.stations) > 0)
+            this.filterStations();
+        unsub = this.appStore.sub((stations:Map<string, List<StationModel>>) => {
+            this.stations = stations;
+            this.filterStations();
+        }, 'stations');
+        this.unsubs.push(unsub);
+
+        /** servers response stats **/
+        unsub = this.appStore.sub((serversStatus:Map<string,any>) => {
             let c = 0;
             let t = 0;
             this.serverStats = [];
@@ -110,47 +188,25 @@ export class Dashboard implements OnActivate {
             })
             this.serverAvgResponse = t / c;
         }, 'appdb.serversStatus', false);
+        this.unsubs.push(unsub);
     }
 
-    routerOnActivate(to:ComponentInstruction, from:ComponentInstruction) {
-    }
-
-    private loadStations() {
-        // var businesses:List<BusinessModel> = this.appStore.getState().business.getIn(['businesses']);
-        // var businessIds = [];
-        // businesses.forEach((businessModel:BusinessModel)=>{
-        //     businessIds.push(businessModel.getBusinessId());
-        // });
-        // //todo: categorize business ids by source server id and save in redux store
-        // if (businessIds.length>0)
+    private fetchStations() {
         var sources:Map<string,any> = this.appStore.getState().business.getIn(['businessSources']).getData();
-        sources.forEach((i_businesses:List<string>,source)=> {
+        sources.forEach((i_businesses:List<string>, source)=> {
             let businesses = i_businesses.toArray();
-            this.appStore.dispatch(this.stationsAction.getStationsInfo(source,businesses));
+            this.appStore.dispatch(this.stationsAction.getStationsInfo(source, businesses));
         })
-        // businessSourcesModel.forEach((value)=> {
-        //     console.log(value);
-        // })
-        // this.appStore.dispatch(this.stationsAction.getStationsInfo(sourceModels));
-
-
     }
 
-    private loadData() {
-        this.businessStats = this.appStore.getState().business.getIn(['businessStats']) || {};
-        if (_.size(this.businessStats) > 0)
-            this.loadStations();
-
-        this.unsub1 = this.appStore.sub((i_businesses:Map<string,any>) => {
-            this.businessStats = i_businesses;
-            this.loadStations();
-        }, 'business.businessStats');
-
+    private filterStations() {
+        console.log(this.stations);
     }
 
     private ngOnDestroy() {
-        this.unsub1();
-        this.unsub2();
+        this.unsubs.forEach((unsub:()=>void)=> {
+            unsub();
+        })
     }
 }
 

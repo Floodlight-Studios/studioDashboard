@@ -24,7 +24,7 @@ var bootbox = require('bootbox');
                     <input #userPass id="userPass" type="password" [(ngModel)]="m_pass" class="input-underline input-lg form-control" data-localize="password" placeholder="password" required>
                     <br/>
                     <a id="loginButton"  (click)="authUser()" type="submit" class="btn rounded-btn"> enterprise member login </a>&nbsp;
-                    <!--<a type="submit" class="btn rounded-btn"> Register  </a>                   -->
+                    <!--<a type="submit" class="btn rounded-btn"> Register</a> -->
                      <br/>
                      <label class="checkbox" style="padding-left: 20px">
                       <input #rememberMe type="checkbox" [checked]="m_rememberMe" (change)="m_rememberMe = rememberMe.checked" />
@@ -38,37 +38,6 @@ var bootbox = require('bootbox');
                     <div id="languageSelectionLogin"></div>
                   </form>
                 </div>
-                
-                
-                <!--<div class="login-page">-->
-                    <!--<div class="row">-->
-                        <!--<div class="col-lg-4 col-lg-offset-4">-->
-                            <!--<img src="assets/img/SB-admin.png" width="150px;" class="user-avatar" />-->
-                            <!--<h1>SB Admin BS 4 Angular2</h1>-->
-                            <!--<form role="form">-->
-                                <!--<div class="form-content">-->
-                                    <!--<div class="form-group">-->
-                                        <!--<input type="text" class="form-control input-underline input-lg" id="" placeholder="Full Name">-->
-                                    <!--</div>-->
-                <!---->
-                                    <!--<div class="form-group">-->
-                                        <!--<input type="text" class="form-control input-underline input-lg" id="" placeholder="Email">-->
-                                    <!--</div>-->
-                <!---->
-                                    <!--<div class="form-group">-->
-                                        <!--<input type="password" class="form-control input-underline input-lg" id="" placeholder="Password">-->
-                                    <!--</div>-->
-                                    <!--<div class="form-group">-->
-                                        <!--<input type="password" class="form-control input-underline input-lg" id="" placeholder="Repeat Password">-->
-                                    <!--</div>-->
-                                <!--</div>-->
-                                <!--<a type="submit" class="btn rounded-btn" (click)="gotoDashboard()"> Register </a>&nbsp;-->
-                                <!--<a type="submit" class="btn rounded-btn" (click)="gotoLogin()"> Login Page </a>-->
-                            <!--</form>-->
-                        <!--</div>	-->
-                    <!--</div>-->
-                <!--</div>-->
-                
                `
 })
 export class LoginPanel {
