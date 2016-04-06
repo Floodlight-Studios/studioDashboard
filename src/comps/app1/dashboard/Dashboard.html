@@ -1,0 +1,96 @@
+<div class="row">
+  <br/>
+  <div class="col-sm-4 col-lg-2">
+    <Infobox [value1]="businessStats.lites" [value3]="'lite account'" [icon]="'fa-circle-o'"></Infobox>
+  </div>
+  <div class="col-sm-4 col-lg-2">
+    <Infobox [value1]="businessStats.pros" [value3]="'pro accounts'" [icon]="'fa-circle'"></Infobox>
+  </div>
+  <div class="col-sm-4 col-lg-2">
+    <Infobox [value1]="businessStats.activeAccounts" [value3]="'active accounts'" [icon]="'fa-user-plus'"></Infobox>
+  </div>
+  <div class="col-sm-4 col-lg-2">
+    <Infobox [value1]="businessStats.inactiveAccounts" [value3]="'inactive accounts'" [icon]="'fa-user-times'"></Infobox>
+  </div>
+  <div class="col-sm-4 col-lg-2">
+    <Infobox [value1]="businessStats.lastLogin" [value3]="'last login'" [icon]="'fa-clock-o '"></Infobox>
+  </div>
+  <div class="col-sm-4 col-lg-2">
+    <Infobox [value1]="businessStats.totalBusinesses" [value3]="'total businesses'" [icon]="'fa-users'"></Infobox>
+  </div>
+</div>
+<div class="row">
+  <div class="col-sm-12 col-lg-4">
+    <ServerStats [data]="serverStats" [categories]="serverStatsCategories"></ServerStats>
+  </div>
+  <div class="col-sm-12 col-lg-4" style="min-height: 280px">
+    <ServerAvg [data]="serverAvgResponse"></ServerAvg>
+  </div>
+  <div class="col-sm-12 col-lg-4">
+    <div class="row">
+      <div class="col-xm-12">
+        <Infobox style="color: green" [value1]="'screens online: 25'" [value3]="'updated'" icon="fa-tv"></Infobox>
+      </div>
+      <div class="col-xm-12">
+        <Infobox style="color: red" [value1]="'screens offline: 2115'" [value3]="'updated'" icon="fa-tv"></Infobox>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="row">
+  <div class="panel panel-default">
+    <div class="panel-body">
+      <div class="btn-group" role="group">
+        <button style="padding: 9px" type="button" class="btn btn-default">
+          <span class="fa fa-map-pin"></span>
+        </button>
+        <button style="padding: 9px" type="button" class="btn btn-default">
+          <span class="fa fa-list"></span>
+        </button>
+        <div class="btn-group" role="group">
+          <select class="form-control">
+            <option>all stations</option>
+            <option>connected</option>
+            <option>disconnected</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="pull-right">
+        <div class="btn-group" role="group">
+          <input type="text" class="form-control" placeholder="business"/>
+        </div>
+      </div>
+      <div class="pull-right">
+        <div class="btn-group" role="group">
+          <select class="form-control">
+            <option>all stations</option>
+            <option>connected</option>
+            <option>disconnected</option>
+          </select>
+        </div>
+      </div>
+      <div class="pull-right">
+        <div class="btn-group" role="group">
+          <select class="form-control">
+            <option>all stations</option>
+            <option>connected</option>
+            <option>disconnected</option>
+          </select>
+        </div>
+      </div>
+      <div class="pull-right">
+        <div class="btn-group" role="group">
+          <select class="form-control">
+            <option>all stations</option>
+            <option>connected</option>
+            <option>disconnected</option>
+          </select>
+        </div>
+      </div>
+    </div>
+    <div class="panel-footer">
+      <StationsMap data="[1,2,3]"></StationsMap>
+    </div>
+  </div>
+</div>
