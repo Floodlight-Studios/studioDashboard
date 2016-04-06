@@ -14,10 +14,11 @@ import {StationsAction} from "../../../stations/StationsAction";
 import {StationModel} from "../../../stations/StationModel";
 import {Loading} from "../../loading/Loading";
 import {SortBy} from "../../../pipes/SortBy";
+import {StationsGrid} from "./StationsGrid";
 const _ = require('underscore');
 
 @Component({
-    directives: [Infobox, ServerStats, ServerAvg, StationsMap, Loading],
+    directives: [Infobox, ServerStats, ServerAvg, StationsMap, StationsGrid, Loading],
     selector: 'Dashboard',
     pipes: [SortBy],
     styles: [`      
@@ -131,3 +132,23 @@ export class Dashboard implements OnActivate {
         })
     }
 }
+
+
+// import {createSelector} from 'reselect';
+// const stationSelector = createSelector(function (state) {
+//     return state
+// }, function (stations:Map<any,List<any>>) {
+//     var stationFilters = {
+//         os: [],
+//         airVersion: [],
+//         appVersion: []
+//     };
+//     stations.forEach((stationList:List<StationModel>, source)=> {
+//         stationList.forEach((i_station:StationModel)=> {
+//             stationFilters['os'].push(i_station.getKey('os'));
+//             stationFilters['appVersion'].push(i_station.getKey('appVersion'));
+//             stationFilters['airVersion'].push(i_station.getKey('airVersion'));
+//         })
+//     });
+//     return stations;
+// })

@@ -59,6 +59,7 @@
         <div class="btn-group" role="group">
           <select class="form-control">
             <option>all player versions</option>
+            <option *ngFor="#item of stationFilters['appVersion'] | sortBy">{{item}}</option>
           </select>
         </div>
       </div>
@@ -66,6 +67,7 @@
         <div class="btn-group" role="group">
           <select class="form-control">
             <option>all os versions</option>
+            <option *ngFor="#item of stationFilters['os'] | sortBy">{{item}}</option>
           </select>
         </div>
       </div>
@@ -91,7 +93,5 @@
       <StationsMap data="[1,2,3]"></StationsMap>
     </div>
   </div>
+  <stationsGrid></stationsGrid>
 </div>
-
-
-<!---->
