@@ -29,6 +29,14 @@ export class StoreService {
         this.appStore.dispatch(this.businessActions.fetchBusinesses());
         this.appStore.dispatch(this.appDbActions.serverStatus());
         this.appStore.dispatch(this.resellerAction.getResellerInfo());
+        this.timedServices();
+    }
+
+    private timedServices() {
+        // todo: enable in production and set poll value in settings
+        // setInterval(()=> {
+        //     this.fetchStations()
+        // }, 3000);
     }
 
     private listenServices() {
