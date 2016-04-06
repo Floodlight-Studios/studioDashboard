@@ -13,11 +13,13 @@ import {AuthService} from "../../../services/AuthService";
 import {StationsAction} from "../../../stations/StationsAction";
 import {StationModel} from "../../../stations/StationModel";
 import {Loading} from "../../loading/Loading";
+import {OrderBy} from "../../../pipes/OrderBy";
 const _ = require('underscore');
 
 @Component({
     directives: [Infobox, ServerStats, ServerAvg, StationsMap, Loading],
     selector: 'Dashboard',
+    pipes: [OrderBy],
     styles: [`      
       * {
              border-radius: 0 !important;
@@ -41,17 +43,25 @@ export class Dashboard implements OnActivate {
         this.serverStatsCategories = [];
         this.serverAvgResponse = 0;
         this.appStore.dispatch(this.appDbActions.serverStatus());
-        this.loadData();
+        // setTimeout(()=>{
+            this.loadData()
+        // },2000);
     }
 
+    private sort:{field:string, desc:boolean} = {field: null, desc: false};
     private stations:Map<string, List<StationModel>>;
     private unsubs:Array<()=>void> = [];
     private businessStats = {};
     private serverStats;
     private serverAvgResponse;
     private serverStatsCategories;
-    private totalServerCalls:number = 0;
-    private skipServers:Array<string> = ['mars.signage.me','mercury.signage.me'];
+    private serverPendingCalls:number = 0;
+    private skipServers:Array<string> = ['mars.signage.me', 'mercury.signage.me'];
+    private stationFilters = {
+        os: [],
+        airVersion: [],
+        appVersion: []
+    };
 
     routerOnActivate(to:ComponentInstruction, from:ComponentInstruction) {
     }
@@ -70,8 +80,8 @@ export class Dashboard implements OnActivate {
         this.unsubs.push(unsub);
 
         /** stations stats **/
-        this.stations = this.appStore.getState().stations;
-        this.buildStationsFilter();
+        // this.stations = this.appStore.getState().stations;
+        //this.buildStationsFilter();
         unsub = this.appStore.sub((stations:Map<string, List<StationModel>>) => {
             this.stations = stations;
             this.buildStationsFilter();
@@ -110,18 +120,31 @@ export class Dashboard implements OnActivate {
             let businesses = i_businesses.toArray();
             if (this.skipServers.indexOf(source) > -1)
                 return;
-            this.totalServerCalls++;
+            this.serverPendingCalls++;
             this.appStore.dispatch(this.stationsAction.getStationsInfo(source, businesses));
         })
     }
 
     private buildStationsFilter() {
-        if(this.stations.size == 0)
-            return;
-        this.totalServerCalls--;
-        if (this.totalServerCalls == 0) {
+        // if (this.stations.size == 0)
+        //     return;
+        this.serverPendingCalls--;
+        if (this.serverPendingCalls == 0) {
             this.stations.forEach((stationList:List<StationModel>, source)=> {
-                console.log(source, stationList);
+                stationList.forEach((i_station:StationModel)=> {
+                    this.stationFilters['os'].push(i_station.getKey('os'));
+                    this.stationFilters['appVersion'].push(i_station.getKey('appVersion'));
+                    this.stationFilters['airVersion'].push(i_station.getKey('airVersion'));
+                })
+            });
+            this.stationFilters['os'] = _.uniq(this.stationFilters['os']).filter(function (n) {
+                return n != ''
+            });
+            this.stationFilters['appVersion'] = _.uniq(this.stationFilters['appVersion']).filter(function (n) {
+                return n != ''
+            });
+            this.stationFilters['airVersion'] = _.uniq(this.stationFilters['airVersion']).filter(function (n) {
+                return n != ''
             });
         }
     }
