@@ -20,13 +20,13 @@ import {Component, Input, Output, EventEmitter, ChangeDetectionStrategy, OnChang
     `],
     template: `
               <div class="panel panel-tile text-center br-a br-grey">
-                 <div *ngIf!="value1">
+                 <div *ngIf="value1 == null">
                     <br/>
                     <img src="assets/preload2.gif">
                     <br/>
                     <br/>
                  </div>
-                 <div *ngIf="value1">
+                 <div *ngIf="value1 != null">
                       <div>
                         <h1>{{value1}}</h1>
                         <h6 class="text-system">{{value2}}</h6>
@@ -45,7 +45,7 @@ export class Infobox {
     @Input()
     style:string = 'basic'
     @Input()
-    value1:string = '';
+    value1:string = null;
     @Input()
     value2:string = '';
     @Input()

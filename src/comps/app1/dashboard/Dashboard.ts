@@ -12,10 +12,11 @@ import {appInjService} from "../../../services/AppInjService";
 import {AuthService} from "../../../services/AuthService";
 import {StationsAction} from "../../../stations/StationsAction";
 import {StationModel} from "../../../stations/StationModel";
+import {Loading} from "../../loading/Loading";
 const _ = require('underscore');
 
 @Component({
-    directives: [Infobox, ServerStats, ServerAvg, StationsMap],
+    directives: [Infobox, ServerStats, ServerAvg, StationsMap, Loading],
     selector: 'Dashboard',
     styles: [`      
       * {
@@ -26,7 +27,7 @@ const _ = require('underscore');
         }
     `],
     providers: [BusinessAction],
-    templateUrl: '/src/comps/app1/dashboard/Dashboard.html'    
+    templateUrl: '/src/comps/app1/dashboard/Dashboard.html'
 })
 
 @CanActivate((to:ComponentInstruction, from:ComponentInstruction) => {
@@ -43,18 +44,20 @@ export class Dashboard implements OnActivate {
         this.loadData();
     }
 
-    private stations;
+    private stations:Map<string, List<StationModel>>;
     private unsubs:Array<()=>void> = [];
     private businessStats = {};
     private serverStats;
     private serverAvgResponse;
     private serverStatsCategories;
+    private totalServerCalls:number = 0;
+    private skipServers:Array<string> = ['mars.signage.me','mercury.signage.me'];
 
     routerOnActivate(to:ComponentInstruction, from:ComponentInstruction) {
     }
 
     private loadData() {
-        var self = this, unsub;
+        var unsub;
 
         /** business stats **/
         this.businessStats = this.appStore.getState().business.getIn(['businessStats']) || {};
@@ -68,41 +71,59 @@ export class Dashboard implements OnActivate {
 
         /** stations stats **/
         this.stations = this.appStore.getState().stations;
-        if (_.size(this.stations) > 0)
-            this.filterStations();
+        this.buildStationsFilter();
         unsub = this.appStore.sub((stations:Map<string, List<StationModel>>) => {
             this.stations = stations;
-            this.filterStations();
+            this.buildStationsFilter();
         }, 'stations');
         this.unsubs.push(unsub);
 
         /** servers response stats **/
+        var serversStatus = this.appStore.getState().appdb.getIn(['serversStatus']);
+        this.loadServerStats(serversStatus);
         unsub = this.appStore.sub((serversStatus:Map<string,any>) => {
-            let c = 0;
-            let t = 0;
-            this.serverStats = [];
-            this.serverStatsCategories = [];
-            serversStatus.forEach((value, key)=> {
-                self.serverStatsCategories.push(key);
-                c++;
-                t = t + Number(value);
-                self.serverStats.push(Number(value));
-            })
-            this.serverAvgResponse = t / c;
+            this.loadServerStats(serversStatus);
         }, 'appdb.serversStatus', false);
         this.unsubs.push(unsub);
+    }
+
+    private loadServerStats(serversStatus:Map<string,any>) {
+        if (!serversStatus)
+            return;
+        var self = this;
+        let c = 0;
+        let t = 0;
+        this.serverStats = [];
+        this.serverStatsCategories = [];
+        serversStatus.forEach((value, key)=> {
+            self.serverStatsCategories.push(key);
+            c++;
+            t = t + Number(value);
+            self.serverStats.push(Number(value));
+        })
+        this.serverAvgResponse = t / c;
     }
 
     private fetchStations() {
         var sources:Map<string,any> = this.appStore.getState().business.getIn(['businessSources']).getData();
         sources.forEach((i_businesses:List<string>, source)=> {
             let businesses = i_businesses.toArray();
+            if (this.skipServers.indexOf(source) > -1)
+                return;
+            this.totalServerCalls++;
             this.appStore.dispatch(this.stationsAction.getStationsInfo(source, businesses));
         })
     }
 
-    private filterStations() {
-        console.log(this.stations);
+    private buildStationsFilter() {
+        if(this.stations.size == 0)
+            return;
+        this.totalServerCalls--;
+        if (this.totalServerCalls == 0) {
+            this.stations.forEach((stationList:List<StationModel>, source)=> {
+                console.log(source, stationList);
+            });
+        }
     }
 
     private ngOnDestroy() {

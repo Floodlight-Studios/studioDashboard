@@ -38,7 +38,8 @@
   </div>
 </div>
 <div class="row">
-  <div class="panel panel-default">
+  <Loading *ngIf="!stations || totalServerCalls!=0" [src]="'assets/preload2.gif'" [style]="{'margin-top': '150px'}"></Loading>
+  <div *ngIf="stations && totalServerCalls==0" class="panel panel-default">
     <div class="panel-body">
       <div class="btn-group" role="group">
         <button style="padding: 9px" type="button" class="btn btn-default">
