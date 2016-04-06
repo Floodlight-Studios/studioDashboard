@@ -60,10 +60,7 @@ export class StoreService {
             if (this.skipServers.indexOf(source) > -1)
                 return;
             this.stationPending++;
-            setTimeout(()=> {
-                this.appStore.dispatch(this.stationsAction.getStationsInfo(source, businesses));
-            }, _.random(2000, 5000))
-
+            this.appStore.dispatch(this.stationsAction.getStationsInfo(source, businesses));
         })
     }
 }
