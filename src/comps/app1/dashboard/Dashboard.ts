@@ -43,19 +43,15 @@ export class Dashboard implements OnActivate {
         this.serverStatsCategories = [];
         this.serverAvgResponse = 0;
         this.appStore.dispatch(this.appDbActions.serverStatus());
-        this.loadData()
+        this.listenStore()
     }
 
-    private sort:{field:string, desc:boolean} = {field: null, desc: false};
     private stations:Map<string, List<StationModel>>;
     private unsubs:Array<()=>void> = [];
     private businessStats = {};
     private serverStats;
     private serverAvgResponse;
     private serverStatsCategories;
-    private serverPendingCalls:number = 0;
-    private skipServers:Array<string> = ['mars.signage.me', 'mercury.signage.me'];
-    // private skipServers:Array<string> = [];
     private stationFilters = {
         os: [],
         airVersion: [],
@@ -65,10 +61,12 @@ export class Dashboard implements OnActivate {
     routerOnActivate(to:ComponentInstruction, from:ComponentInstruction) {
     }
 
-    private loadData() {
+    private listenStore() {
         var unsub;
 
         /** stations stats **/
+        this.stations = this.appStore.getState().stations;
+        this.buildStationsFilter();
         unsub = this.appStore.sub((stations:Map<string, List<StationModel>>) => {
             this.stations = stations;
             this.buildStationsFilter();
@@ -77,11 +75,8 @@ export class Dashboard implements OnActivate {
 
         /** business stats **/
         this.businessStats = this.appStore.getState().business.getIn(['businessStats']) || {};
-        if (_.size(this.businessStats) > 0)
-            this.fetchStations();
         unsub = this.appStore.sub((i_businesses:Map<string,any>) => {
             this.businessStats = i_businesses;
-            this.fetchStations();
         }, 'business.businessStats');
         this.unsubs.push(unsub);
 
@@ -111,37 +106,23 @@ export class Dashboard implements OnActivate {
         this.serverAvgResponse = t / c;
     }
 
-    private fetchStations() {
-        var sources:Map<string,any> = this.appStore.getState().business.getIn(['businessSources']).getData();
-        sources.forEach((i_businesses:List<string>, source)=> {
-            let businesses = i_businesses.toArray();
-            if (this.skipServers.indexOf(source) > -1)
-                return;
-            this.serverPendingCalls++;
-            this.appStore.dispatch(this.stationsAction.getStationsInfo(source, businesses));
-        })
-    }
-
     private buildStationsFilter() {
-        this.serverPendingCalls--;
-        if (this.serverPendingCalls == 0) {
-            this.stations.forEach((stationList:List<StationModel>, source)=> {
-                stationList.forEach((i_station:StationModel)=> {
-                    this.stationFilters['os'].push(i_station.getKey('os'));
-                    this.stationFilters['appVersion'].push(i_station.getKey('appVersion'));
-                    this.stationFilters['airVersion'].push(i_station.getKey('airVersion'));
-                })
-            });
-            this.stationFilters['os'] = _.uniq(this.stationFilters['os']).filter(function (n) {
-                return n != ''
-            });
-            this.stationFilters['appVersion'] = _.uniq(this.stationFilters['appVersion']).filter(function (n) {
-                return n != ''
-            });
-            this.stationFilters['airVersion'] = _.uniq(this.stationFilters['airVersion']).filter(function (n) {
-                return n != ''
-            });
-        }
+        this.stations.forEach((stationList:List<StationModel>, source)=> {
+            stationList.forEach((i_station:StationModel)=> {
+                this.stationFilters['os'].push(i_station.getKey('os'));
+                this.stationFilters['appVersion'].push(i_station.getKey('appVersion'));
+                this.stationFilters['airVersion'].push(i_station.getKey('airVersion'));
+            })
+        });
+        this.stationFilters['os'] = _.uniq(this.stationFilters['os']).filter(function (n) {
+            return n != ''
+        });
+        this.stationFilters['appVersion'] = _.uniq(this.stationFilters['appVersion']).filter(function (n) {
+            return n != ''
+        });
+        this.stationFilters['airVersion'] = _.uniq(this.stationFilters['airVersion']).filter(function (n) {
+            return n != ''
+        });
     }
 
     private ngOnDestroy() {

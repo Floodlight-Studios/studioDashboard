@@ -1,12 +1,8 @@
 import {Injectable} from "angular2/core";
 import {Actions, AppStore} from "angular2-redux-util";
 import {Http, Jsonp} from "angular2/http";
-import {Lib} from "../Lib";
-import {Subject} from "rxjs/Subject";
 import {List, Map} from 'immutable';
 import {StationModel} from "./StationModel";
-const Immutable = require('immutable');
-const _ = require('underscore');
 
 export const RECEIVE_STATIONS = 'RECEIVE_STATIONS';
 
@@ -16,42 +12,9 @@ export class StationsAction extends Actions {
     constructor(private appStore:AppStore, private _http:Http, private jsonp:Jsonp) {
         super(appStore);
         this.m_parseString = require('xml2js').parseString;
-        this.listenFetchBusinessUser();
     }
 
     private m_parseString;
-    private businessesRequest$:Subject<any>;
-    private unsub;
-
-    public fetchBusinessUser(servers:Array<string>) {
-        return (dispatch) => {
-            this.businessesRequest$.next({servers: servers, dispatch: dispatch});
-        };
-    }
-
-    private listenFetchBusinessUser() {
-        var self = this;
-        this.businessesRequest$ = new Subject();
-        this.unsub = this.businessesRequest$
-            .map(v=> {
-                return v;
-            })
-            .debounceTime(100)
-            .switchMap((values:{servers:Array<string>, dispatch:(value:any)=>any}):any => {
-                if (values.servers.length == 0)
-                    return 'CANCEL_PENDING_NET_CALLS';
-                var dispatch = values.dispatch;
-
-                values.servers.map(server => {
-                    return this._http.get(server)
-                        .map(result => {
-                            var xmlData:string = result.text()
-                        });
-                })
-
-            }).share()
-            .subscribe();
-    }
 
     public getStationsInfo(i_source:string, i_businesses:Array<any>) {
         var self = this;
