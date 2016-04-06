@@ -21,6 +21,9 @@ const _ = require('underscore');
       * {
              border-radius: 0 !important;
         }
+        input {
+             border-radius: 0 !important;
+        }
     `],
     providers: [BusinessAction],
     templateUrl: '/src/comps/app1/dashboard/Dashboard.html'    
