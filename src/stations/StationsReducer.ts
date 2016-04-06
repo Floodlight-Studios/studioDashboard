@@ -7,6 +7,8 @@ const _ = require('underscore');
 export function stations(state:Map<string,any> = Map<string,any>(), action:any):Map<string, List<StationModel>> {
     switch (action.type) {
         case StationsAction.RECEIVE_STATIONS:
+            // if (_.isNull(action.stations))
+            //     return state;
             return state.update(action.source, (value) => action.stations);
         default:
             return state;

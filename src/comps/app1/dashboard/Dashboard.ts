@@ -13,13 +13,13 @@ import {AuthService} from "../../../services/AuthService";
 import {StationsAction} from "../../../stations/StationsAction";
 import {StationModel} from "../../../stations/StationModel";
 import {Loading} from "../../loading/Loading";
-import {OrderBy} from "../../../pipes/OrderBy";
+import {SortBy} from "../../../pipes/SortBy";
 const _ = require('underscore');
 
 @Component({
     directives: [Infobox, ServerStats, ServerAvg, StationsMap, Loading],
     selector: 'Dashboard',
-    pipes: [OrderBy],
+    pipes: [SortBy],
     styles: [`      
       * {
              border-radius: 0 !important;
@@ -43,9 +43,7 @@ export class Dashboard implements OnActivate {
         this.serverStatsCategories = [];
         this.serverAvgResponse = 0;
         this.appStore.dispatch(this.appDbActions.serverStatus());
-        // setTimeout(()=>{
-            this.loadData()
-        // },2000);
+        this.loadData()
     }
 
     private sort:{field:string, desc:boolean} = {field: null, desc: false};
@@ -57,6 +55,7 @@ export class Dashboard implements OnActivate {
     private serverStatsCategories;
     private serverPendingCalls:number = 0;
     private skipServers:Array<string> = ['mars.signage.me', 'mercury.signage.me'];
+    // private skipServers:Array<string> = [];
     private stationFilters = {
         os: [],
         airVersion: [],
@@ -69,6 +68,13 @@ export class Dashboard implements OnActivate {
     private loadData() {
         var unsub;
 
+        /** stations stats **/
+        unsub = this.appStore.sub((stations:Map<string, List<StationModel>>) => {
+            this.stations = stations;
+            this.buildStationsFilter();
+        }, 'stations');
+        this.unsubs.push(unsub);
+
         /** business stats **/
         this.businessStats = this.appStore.getState().business.getIn(['businessStats']) || {};
         if (_.size(this.businessStats) > 0)
@@ -77,15 +83,6 @@ export class Dashboard implements OnActivate {
             this.businessStats = i_businesses;
             this.fetchStations();
         }, 'business.businessStats');
-        this.unsubs.push(unsub);
-
-        /** stations stats **/
-        // this.stations = this.appStore.getState().stations;
-        //this.buildStationsFilter();
-        unsub = this.appStore.sub((stations:Map<string, List<StationModel>>) => {
-            this.stations = stations;
-            this.buildStationsFilter();
-        }, 'stations');
         this.unsubs.push(unsub);
 
         /** servers response stats **/
@@ -126,8 +123,6 @@ export class Dashboard implements OnActivate {
     }
 
     private buildStationsFilter() {
-        // if (this.stations.size == 0)
-        //     return;
         this.serverPendingCalls--;
         if (this.serverPendingCalls == 0) {
             this.stations.forEach((stationList:List<StationModel>, source)=> {
@@ -155,4 +150,3 @@ export class Dashboard implements OnActivate {
         })
     }
 }
-

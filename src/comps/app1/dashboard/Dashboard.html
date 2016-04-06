@@ -73,7 +73,7 @@
         <div class="btn-group" role="group">
           <select class="form-control">
             <option>all runtime versions</option>
-            <option *ngFor="#item of stationFilters['airVersion']">{{item}}</option>
+            <option *ngFor="#item of stationFilters['airVersion'] | sortBy">{{item}}</option>
           </select>
         </div>
       </div>
@@ -92,3 +92,6 @@
     </div>
   </div>
 </div>
+
+
+<!---->
