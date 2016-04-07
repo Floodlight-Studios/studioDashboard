@@ -84,6 +84,9 @@ export class StationsAction extends Actions {
                     })
                 },
                 (err:Response) => {
+                    err = err.json();
+                    var status = err['currentTarget'].status;
+                    var statusText = err['currentTarget'].statusText;
                     this.commBroker.fire({fromInstance: this, event: Consts.Events().STATIONS_NETWORK_ERROR, context: this, message: ''});
                 },
                 ()=> {
