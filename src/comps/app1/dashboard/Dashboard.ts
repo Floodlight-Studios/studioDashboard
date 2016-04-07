@@ -17,10 +17,11 @@ import {StationsGrid} from "./StationsGrid";
 import {CommBroker, IMessage} from "../../../services/CommBroker";
 import {Consts} from "../../../Conts";
 import {StoreService} from "../../../services/StoreService";
+import {FORM_DIRECTIVES, Control} from "angular2/common";
 const _ = require('underscore');
 
 @Component({
-    directives: [Infobox, ServerStats, ServerAvg, StationsMap, StationsGrid, Loading],
+    directives: [FORM_DIRECTIVES, Infobox, ServerStats, ServerAvg, StationsMap, StationsGrid, Loading],
     selector: 'Dashboard',
     pipes: [SortBy],
     styles: [`      
@@ -46,11 +47,13 @@ export class Dashboard implements OnActivate {
         this.serverStatsCategories = [];
         this.serverAvgResponse = 0;
         this.appStore.dispatch(this.appDbActions.serverStatus());
+        this.listenBusinessNameFilter();
         this.listenStore()
         this.listenStationsErrors()
         this.storeService.fetchStations();
     }
 
+    private businessNameControl:Control = new Control();
     private stations:Map<string, List<StationModel>>;
     private unsubs:Array<()=>void> = [];
     private businessStats = {};
@@ -60,8 +63,8 @@ export class Dashboard implements OnActivate {
     private serverStatsCategories;
     private stationsFiltered:List<StationModel>;
     private stationsFilteredBy = {
-        connected: 'all',
-        business: 'all',
+        connection: 'all',
+        name: 'all',
         os: 'all',
         airVersion: 'all',
         appVersion: 'all'
@@ -75,20 +78,23 @@ export class Dashboard implements OnActivate {
     routerOnActivate(to:ComponentInstruction, from:ComponentInstruction) {
     }
 
-    private listenStationsErrors(){
+    private listenStationsErrors() {
         this.commBroker.onEvent(Consts.Events().STATIONS_NETWORK_ERROR).subscribe((e:IMessage)=> {
             this.errorLoadingStations = true;
         });
     }
+
     private listenStore() {
         var unsub;
 
         /** stations stats **/
         this.stations = this.appStore.getState().stations;
         this.initStationsFilter();
+        this.onStationsFilterSelected('connection', 'all');
         unsub = this.appStore.sub((stations:Map<string, List<StationModel>>) => {
             this.stations = stations;
             this.initStationsFilter();
+            this.onStationsFilterSelected('connection', 'all', 100);
         }, 'stations');
         this.unsubs.push(unsub);
 
@@ -144,22 +150,55 @@ export class Dashboard implements OnActivate {
         });
     }
 
-    private onStationsFilterSelected(filterType, filterValue){
-        this.stationsFiltered = List<StationModel>();;
-        this.stationsFilteredBy[filterType] = filterValue;
-        this.stations.forEach((stationList:List<StationModel>, source)=> {
-            stationList.forEach((i_station:StationModel)=> {
-                var os = i_station.getKey('os');
-                var appVersion = i_station.getKey('appVersion');
-                var airVersion = i_station.getKey('airVersion');
-                var connection = i_station.getKey('connection');
-                var name = i_station.getKey('name');
-                var r = _.random(1,2)
-                if (r==1)
-                    this.stationsFiltered = this.stationsFiltered.push(i_station)
-            })
-        });
+    private onStationsFilterSelected(filterType, filterValue, delay:number = 2500) {
 
+        // improve performance by waiting 1 sec before rendering
+        setTimeout(()=> {
+            this.stationsFiltered = List<StationModel>();
+
+            if (filterType == 'connection') {
+                if (filterValue == 'connected') {
+                    filterValue = '1'
+                } else if (filterValue == 'disconnected') {
+                    filterValue = '0'
+                }
+            }
+
+            if (filterType == 'name') {
+                if (filterValue == '')
+                    filterValue = 'all'
+            }
+
+            this.stationsFilteredBy[filterType] = filterValue.match('all') ? 'all' : filterValue;
+            this.stations.forEach((stationList:List<StationModel>, source)=> {
+                stationList.forEach((i_station:StationModel)=> {
+                    var os = i_station.getKey('os');
+                    var appVersion = i_station.getKey('appVersion');
+                    var airVersion = i_station.getKey('airVersion');
+                    var connection = i_station.getKey('connection');
+                    var name = i_station.getKey('name');
+
+                    if ((this.stationsFilteredBy['os'] == 'all' || this.stationsFilteredBy['os'] == os) &&
+                        (this.stationsFilteredBy['appVersion'] == 'all' || this.stationsFilteredBy['appVersion'] == appVersion) &&
+                        (this.stationsFilteredBy['airVersion'] == 'all' || this.stationsFilteredBy['airVersion'] == airVersion) &&
+                        (this.stationsFilteredBy['name'] == 'all' || name.toLowerCase().match(filterValue.toLowerCase())) &&
+                        (this.stationsFilteredBy['connection'] == 'all' || this.stationsFilteredBy['connection'] == connection)) {
+
+                        this.stationsFiltered = this.stationsFiltered.push(i_station)
+                    }
+                })
+            });
+        }, delay);
+    }
+
+    private listenBusinessNameFilter() {
+        return this.businessNameControl.valueChanges
+            .debounceTime(250)
+            .distinctUntilChanged()
+            .subscribe(value=> {
+                console.log(value)
+                this.onStationsFilterSelected('name', value, 100);
+            });
     }
 
     private ngOnDestroy() {

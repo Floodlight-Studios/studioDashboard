@@ -56,7 +56,7 @@
 
       <div class="pull-right">
         <div class="btn-group" role="group">
-          <input type="text" class="form-control" placeholder="business filter"/>
+          <input [ngFormControl]="businessNameControl" type="text" class="form-control" placeholder="business name filter"/>
         </div>
       </div>
       <div class="pull-right">
@@ -85,7 +85,7 @@
       </div>
       <div class="pull-right">
         <div class="btn-group" role="group">
-          <select (change)="onStationsFilterSelected('connected', $event.target.value)" class="form-control">
+          <select (change)="onStationsFilterSelected('connection', $event.target.value)" class="form-control">
             <option>all players</option>
             <option>connected</option>
             <option>disconnected</option>

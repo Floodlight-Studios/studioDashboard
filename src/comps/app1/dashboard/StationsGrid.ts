@@ -21,7 +21,7 @@ import {MODAL_DIRECTIVES} from "../../ng2-bs3-modal/ng2-bs3-modal";
                   <simpleGridTable #userSimpleGridTable>
                     <thead>
                     <tr>
-                      <th sortableHeader="name" [sort]="sort">controller</th>
+                      <th sortableHeader="name" [sort]="sort">name</th>
                       <th sortableHeader="businessId" [sort]="sort">business</th>
                       <th sortableHeader="businessId" [sort]="sort">os</th>
                       <th sortableHeader="businessId" [sort]="sort">status</th>
@@ -35,9 +35,16 @@ import {MODAL_DIRECTIVES} from "../../ng2-bs3-modal/ng2-bs3-modal";
                     </thead>
                     <tbody>
                     <tr class="simpleGridRecord" [table]="userSimpleGridTable" simpleGridRecord *ngFor="#item of m_stations | OrderBy:sort.field:sort.desc; #index=index" [item]="item" [index]="index">
+                      <td style="width: 30%" simpleGridData editable="false" field="name" [item]="item"></td>
+                      <td style="width: 5%" simpleGridData editable="false" field="businessId" [item]="item"></td>
                       <td style="width: 20%" simpleGridData editable="false" field="os" [item]="item"></td>
-                      <td style="width: 20%" simpleGridData editable="false" field="appVersion" [item]="item"></td>
-                      <td style="width: 20%" simpleGridData editable="false" field="airVersion" [item]="item"></td>
+                      <td style="width: 10%" simpleGridData editable="false" field="status" [item]="item"></td>
+                      <td style="width: 5%" simpleGridData editable="false" field="connection" [item]="item"></td>
+                      <td style="width: 5%" simpleGridData editable="false" field="runningTime" [item]="item"></td>
+                      <td style="width: 5%" simpleGridData editable="false" field="totalMemory" [item]="item"></td>
+                      <td style="width: 5%" simpleGridData editable="false" field="peakMemory" [item]="item"></td>
+                      <td style="width: 10%" simpleGridData editable="false" field="airVersion" [item]="item"></td>
+                      <td style="width: 5%" simpleGridData editable="false" field="appVersion" [item]="item"></td>
                       <!--<td style="width: 8%" simpleGridData field="businessId" [item]="item"></td>-->
                       <!--<td style="width: 20%" simpleGridDataChecks (changed)="setAccessMask($event)" [item]="item" [checkboxes]="getAccessMask(item)"></td>-->
                       <!--<td style="width: 12%" simpleGridData field="privilegeId" [item]="item"></td>-->
