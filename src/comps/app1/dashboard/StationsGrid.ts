@@ -53,7 +53,7 @@ import {MODAL_DIRECTIVES} from "../../ng2-bs3-modal/ng2-bs3-modal";
 export class StationsGrid {
     @Input()
     set stations(i_stations) {
-        console.log(i_stations);
+        // console.log(i_stations);
         this.m_stations = i_stations;
     }
 

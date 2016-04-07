@@ -10,11 +10,13 @@ import {StationsMap} from "./StationsMap";
 import {CanActivate, OnActivate, ComponentInstruction, Router} from "angular2/router";
 import {appInjService} from "../../../services/AppInjService";
 import {AuthService} from "../../../services/AuthService";
-import {StationsAction} from "../../../stations/StationsAction";
 import {StationModel} from "../../../stations/StationModel";
 import {Loading} from "../../loading/Loading";
 import {SortBy} from "../../../pipes/SortBy";
 import {StationsGrid} from "./StationsGrid";
+import {CommBroker, IMessage} from "../../../services/CommBroker";
+import {Consts} from "../../../Conts";
+import {StoreService} from "../../../services/StoreService";
 const _ = require('underscore');
 
 @Component({
@@ -39,18 +41,21 @@ const _ = require('underscore');
 })
 export class Dashboard implements OnActivate {
 
-    constructor(private appStore:AppStore, private appDbActions:AppdbAction, private stationsAction:StationsAction) {
+    constructor(private appStore:AppStore, private appDbActions:AppdbAction, private storeService:StoreService, private commBroker:CommBroker) {
         this.serverStats = [];
         this.serverStatsCategories = [];
         this.serverAvgResponse = 0;
         this.appStore.dispatch(this.appDbActions.serverStatus());
         this.listenStore()
+        this.listenStationsErrors()
+        this.storeService.fetchStations();
     }
 
     private stations:Map<string, List<StationModel>>;
     private unsubs:Array<()=>void> = [];
     private businessStats = {};
     private serverStats;
+    private errorLoadingStations:boolean = false;
     private serverAvgResponse;
     private serverStatsCategories;
     private stationsFiltered:List<StationModel>;
@@ -70,6 +75,11 @@ export class Dashboard implements OnActivate {
     routerOnActivate(to:ComponentInstruction, from:ComponentInstruction) {
     }
 
+    private listenStationsErrors(){
+        this.commBroker.onEvent(Consts.Events().STATIONS_NETWORK_ERROR).subscribe((e:IMessage)=> {
+            this.errorLoadingStations = true;
+        });
+    }
     private listenStore() {
         var unsub;
 

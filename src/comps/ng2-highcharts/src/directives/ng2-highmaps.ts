@@ -25,7 +25,7 @@ export class Ng2Highmaps {
 			}
 			this.chart = this.jqEle.highcharts('Map', opt);
 		} else {
-			console.log('No valid options...');
+			//console.log('No valid options...');
 			console.dir(opt);
 		}
 	}

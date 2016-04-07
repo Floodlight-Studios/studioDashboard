@@ -20,7 +20,8 @@ export class Consts {
     public static Events() {
         return {
             WIN_SIZED: 'winSized',
-            MENU_SELECTION: 'menuSelection'
+            MENU_SELECTION: 'menuSelection',
+            STATIONS_NETWORK_ERROR: 'stationsNetworkError'
         };
     }
 

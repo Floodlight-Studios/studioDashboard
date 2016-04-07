@@ -38,7 +38,11 @@
   </div>
 </div>
 <div class="row">
-  <Loading *ngIf="stations.size == 0" [src]="'assets/preload2.gif'" [style]="{'margin-top': '150px'}"></Loading>
+  <div *ngIf="errorLoadingStations">
+    <h5 align="center">there was a problem loading stations</h5>
+    <h6 align="center">please let the Digital Signage admin know so we can fix this asap...</h6>
+  </div>
+  <Loading *ngIf="stations.size == 0 && errorLoadingStations == false" [src]="'assets/preload2.gif'" [style]="{'margin-top': '150px'}"></Loading>
   <div *ngIf="stations.size > 0" class="panel panel-default">
     <div class="panel-body">
       <div class="btn-group" role="group">
