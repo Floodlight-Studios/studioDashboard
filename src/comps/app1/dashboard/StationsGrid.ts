@@ -5,7 +5,7 @@ import {MODAL_DIRECTIVES} from "../../ng2-bs3-modal/ng2-bs3-modal";
 
 @Component({
     selector: 'stationsGrid',
-    directives: [SIMPLEGRID_DIRECTIVES,  MODAL_DIRECTIVES],
+    directives: [SIMPLEGRID_DIRECTIVES, MODAL_DIRECTIVES],
     pipes: [OrderBy],
     template: `
         <div class="row">
@@ -34,8 +34,10 @@ import {MODAL_DIRECTIVES} from "../../ng2-bs3-modal/ng2-bs3-modal";
                     </tr>
                     </thead>
                     <tbody>
-                    <tr class="simpleGridRecord" [table]="stations" simpleGridRecord *ngFor="#item of m_station | OrderBy:sort.field:sort.desc; #index=index" [item]="item" [index]="index">
-                      <!--<td style="width: 20%" simpleGridData (labelEdited)="onLabelEdited($event,'name')" editable="true" field="name" [item]="item"></td>-->
+                    <tr class="simpleGridRecord" [table]="userSimpleGridTable" simpleGridRecord *ngFor="#item of m_stations | OrderBy:sort.field:sort.desc; #index=index" [item]="item" [index]="index">
+                      <td style="width: 20%" simpleGridData editable="false" field="os" [item]="item"></td>
+                      <td style="width: 20%" simpleGridData editable="false" field="appVersion" [item]="item"></td>
+                      <td style="width: 20%" simpleGridData editable="false" field="airVersion" [item]="item"></td>
                       <!--<td style="width: 8%" simpleGridData field="businessId" [item]="item"></td>-->
                       <!--<td style="width: 20%" simpleGridDataChecks (changed)="setAccessMask($event)" [item]="item" [checkboxes]="getAccessMask(item)"></td>-->
                       <!--<td style="width: 12%" simpleGridData field="privilegeId" [item]="item"></td>-->
@@ -50,10 +52,15 @@ import {MODAL_DIRECTIVES} from "../../ng2-bs3-modal/ng2-bs3-modal";
 })
 export class StationsGrid {
     @Input()
-    parts = [];
+    set stations(i_stations) {
+        console.log(i_stations);
+        this.m_stations = i_stations;
+    }
+
     @Input()
     partsInCart:string;
 
+    private m_stations;
     public sort:{field:string, desc:boolean} = {field: null, desc: false};
 
     @Output()

@@ -53,7 +53,15 @@ export class Dashboard implements OnActivate {
     private serverStats;
     private serverAvgResponse;
     private serverStatsCategories;
-    private stationFilters = {
+    private stationsFiltered:List<StationModel>;
+    private stationsFilteredBy = {
+        connected: 'all',
+        business: 'all',
+        os: 'all',
+        airVersion: 'all',
+        appVersion: 'all'
+    }
+    private stationsFilter = {
         os: [],
         airVersion: [],
         appVersion: []
@@ -67,10 +75,10 @@ export class Dashboard implements OnActivate {
 
         /** stations stats **/
         this.stations = this.appStore.getState().stations;
-        this.buildStationsFilter();
+        this.initStationsFilter();
         unsub = this.appStore.sub((stations:Map<string, List<StationModel>>) => {
             this.stations = stations;
-            this.buildStationsFilter();
+            this.initStationsFilter();
         }, 'stations');
         this.unsubs.push(unsub);
 
@@ -107,23 +115,41 @@ export class Dashboard implements OnActivate {
         this.serverAvgResponse = t / c;
     }
 
-    private buildStationsFilter() {
+    private initStationsFilter() {
         this.stations.forEach((stationList:List<StationModel>, source)=> {
             stationList.forEach((i_station:StationModel)=> {
-                this.stationFilters['os'].push(i_station.getKey('os'));
-                this.stationFilters['appVersion'].push(i_station.getKey('appVersion'));
-                this.stationFilters['airVersion'].push(i_station.getKey('airVersion'));
+                this.stationsFilter['os'].push(i_station.getKey('os'));
+                this.stationsFilter['appVersion'].push(i_station.getKey('appVersion'));
+                this.stationsFilter['airVersion'].push(i_station.getKey('airVersion'));
             })
         });
-        this.stationFilters['os'] = _.uniq(this.stationFilters['os']).filter(function (n) {
+        this.stationsFilter['os'] = _.uniq(this.stationsFilter['os']).filter(function (n) {
             return n != ''
         });
-        this.stationFilters['appVersion'] = _.uniq(this.stationFilters['appVersion']).filter(function (n) {
+        this.stationsFilter['appVersion'] = _.uniq(this.stationsFilter['appVersion']).filter(function (n) {
             return n != ''
         });
-        this.stationFilters['airVersion'] = _.uniq(this.stationFilters['airVersion']).filter(function (n) {
+        this.stationsFilter['airVersion'] = _.uniq(this.stationsFilter['airVersion']).filter(function (n) {
             return n != ''
         });
+    }
+
+    private onStationsFilterSelected(filterType, filterValue){
+        this.stationsFiltered = List<StationModel>();;
+        this.stationsFilteredBy[filterType] = filterValue;
+        this.stations.forEach((stationList:List<StationModel>, source)=> {
+            stationList.forEach((i_station:StationModel)=> {
+                var os = i_station.getKey('os');
+                var appVersion = i_station.getKey('appVersion');
+                var airVersion = i_station.getKey('airVersion');
+                var connection = i_station.getKey('connection');
+                var name = i_station.getKey('name');
+                var r = _.random(1,2)
+                if (r==1)
+                    this.stationsFiltered = this.stationsFiltered.push(i_station)
+            })
+        });
+
     }
 
     private ngOnDestroy() {
@@ -138,16 +164,16 @@ export class Dashboard implements OnActivate {
 // const stationSelector = createSelector(function (state) {
 //     return state
 // }, function (stations:Map<any,List<any>>) {
-//     var stationFilters = {
+//     var stationsFilter = {
 //         os: [],
 //         airVersion: [],
 //         appVersion: []
 //     };
 //     stations.forEach((stationList:List<StationModel>, source)=> {
 //         stationList.forEach((i_station:StationModel)=> {
-//             stationFilters['os'].push(i_station.getKey('os'));
-//             stationFilters['appVersion'].push(i_station.getKey('appVersion'));
-//             stationFilters['airVersion'].push(i_station.getKey('airVersion'));
+//             stationsFilter['os'].push(i_station.getKey('os'));
+//             stationsFilter['appVersion'].push(i_station.getKey('appVersion'));
+//             stationsFilter['airVersion'].push(i_station.getKey('airVersion'));
 //         })
 //     });
 //     return stations;

@@ -35,7 +35,7 @@ import {ISimpleGridEdit} from "./SimpleGrid";
 export class SimpleGridData {
     private value:string = '';
     private storeModel:StoreModel;
-    private _editable:boolean = false;
+    private _editable:boolean|string = false;
     private _editing:boolean = false;
 
     @Input()
@@ -61,8 +61,8 @@ export class SimpleGridData {
     @Output()
     labelEdited:EventEmitter<any> = new EventEmitter();
 
-    onEdit(value:boolean) {
-        if (!this._editable)
+    onEdit(value:any) {
+        if (this._editable == false || this._editable == 'false')
             return;
         this._editing = value;
         if (this._editing)

@@ -57,31 +57,31 @@
       </div>
       <div class="pull-right">
         <div class="btn-group" role="group">
-          <select class="form-control">
-            <option>all player versions</option>
-            <option *ngFor="#item of stationFilters['appVersion'] | sortBy">{{item}}</option>
+          <select (change)="onStationsFilterSelected('appVersion', $event.target.value)" class="form-control">
+            <option >all player versions</option>
+            <option *ngFor="#item of stationsFilter['appVersion'] | sortBy">{{item}}</option>
           </select>
         </div>
       </div>
       <div class="pull-right">
         <div class="btn-group" role="group">
-          <select class="form-control">
+          <select (change)="onStationsFilterSelected('os', $event.target.value)" class="form-control">
             <option>all os versions</option>
-            <option *ngFor="#item of stationFilters['os'] | sortBy">{{item}}</option>
+            <option *ngFor="#item of stationsFilter['os'] | sortBy">{{item}}</option>
           </select>
         </div>
       </div>
       <div class="pull-right">
         <div class="btn-group" role="group">
-          <select class="form-control">
+          <select (change)="onStationsFilterSelected('airVersion', $event.target.value)" class="form-control">
             <option>all runtime versions</option>
-            <option *ngFor="#item of stationFilters['airVersion'] | sortBy">{{item}}</option>
+            <option *ngFor="#item of stationsFilter['airVersion'] | sortBy">{{item}}</option>
           </select>
         </div>
       </div>
       <div class="pull-right">
         <div class="btn-group" role="group">
-          <select class="form-control">
+          <select (change)="onStationsFilterSelected('connected', $event.target.value)" class="form-control">
             <option>all players</option>
             <option>connected</option>
             <option>disconnected</option>
@@ -90,8 +90,9 @@
       </div>
     </div>
     <div class="panel-footer">
-      <StationsMap data="[1,2,3]"></StationsMap>
+      <stationsGrid [stations]="stationsFiltered"></stationsGrid>
+      <stationsMap data="stationsFiltered"></stationsMap>
     </div>
   </div>
-  <stationsGrid></stationsGrid>
+
 </div>

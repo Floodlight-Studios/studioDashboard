@@ -12,7 +12,7 @@ window['Highmaps'] = require('highcharts/modules/map')(Highcharts);
 
 
 @Component({
-    selector: 'StationsMap',
+    selector: 'stationsMap',
     directives: [Ng2Highmaps],
     template: `
        <div id="container" style="height: 300px; min-width: 300px; margin: 0 auto">
