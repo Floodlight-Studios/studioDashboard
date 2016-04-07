@@ -20,7 +20,7 @@ export class StationsAction extends Actions {
 
     private m_parseString;
     // private businessesRequest$;
-    private unsub;
+    // private unsub;
 
 
     // demo
@@ -42,7 +42,6 @@ export class StationsAction extends Actions {
     //             if (values.servers.length == 0)
     //                 return 'CANCEL_PENDING_NET_CALLS';
     //             var dispatch = values.dispatch;
-    //             // Observable.forkJoin
     //             return values.servers.map(i_source => {
     //                 var url:string = 'https://galaxy.signage.me/WebService/ResellerService.ashx?command=GetCustomers&resellerUserName=rs@ms.com&resellerPassword=rrr'
     //                 return this._http.get(url)
