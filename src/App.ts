@@ -52,7 +52,7 @@ import {business} from "./business/BusinessReducer"
 import {reseller} from "./reseller/ResellerReducer"
 import {stations} from "./stations/StationsReducer"
 import {AppdbAction} from "./appdb/AppdbAction";
-// import {enableProdMode} from 'angular2/core';
+import {enableProdMode} from 'angular2/core';
 
 /**
  Main application bootstrap
@@ -112,7 +112,7 @@ export class App {
     }
 }
 
-// enableProdMode();
+enableProdMode();
 bootstrap(App, [ROUTER_PROVIDERS, HTTP_PROVIDERS, JSONP_PROVIDERS,
     provide(AppStore, {useFactory: Lib.StoreFactory({notify, appdb, business, stations, reseller})}),
     provide(StoreService, {useClass: StoreService}),

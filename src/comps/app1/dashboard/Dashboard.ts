@@ -53,6 +53,7 @@ export class Dashboard implements OnActivate {
         this.storeService.fetchStations();
     }
 
+    private totalFilteredPlayers:number = 0;
     private businessNameControl:Control = new Control();
     private stations:Map<string, List<StationModel>>;
     private unsubs:Array<()=>void> = [];
@@ -185,6 +186,7 @@ export class Dashboard implements OnActivate {
                         (this.stationsFilteredBy['connection'] == 'all' || this.stationsFilteredBy['connection'] == connection)) {
 
                         this.stationsFiltered = this.stationsFiltered.push(i_station)
+                        this.totalFilteredPlayers = this.stationsFiltered.size;
                     }
                 })
             });
