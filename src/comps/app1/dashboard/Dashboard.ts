@@ -20,6 +20,8 @@ import {StoreService} from "../../../services/StoreService";
 import {FORM_DIRECTIVES, Control} from "angular2/common";
 const _ = require('underscore');
 
+type stationComponentMode = "map" | "grid";
+
 @Component({
     directives: [FORM_DIRECTIVES, Infobox, ServerStats, ServerAvg, StationsMap, StationsGrid, Loading],
     selector: 'Dashboard',
@@ -52,6 +54,9 @@ export class Dashboard implements OnActivate {
         this.listenStationsErrors()
     }
 
+    private screensOnline:string = 'screens online: 0';
+    private screensOffline:string = 'screens offline: 0';
+    private stationComponentMode:stationComponentMode = 'grid';
     private totalFilteredPlayers:number = 0;
     private businessNameControl:Control = new Control();
     private stations:Map<string, List<StationModel>>;
@@ -131,6 +136,22 @@ export class Dashboard implements OnActivate {
         this.serverAvgResponse = t / c;
     }
 
+    private onStationComponentSelect(stationComponentMode:stationComponentMode) {
+        this.stationComponentMode = stationComponentMode;
+        switch (stationComponentMode) {
+            case 'map':
+            {
+                console.log(1);
+                break;
+            }
+            case 'grid':
+            {
+                console.log(2);
+                break;
+            }
+        }
+    }
+
     private initStationsFilter() {
         this.stations.forEach((stationList:List<StationModel>, source)=> {
             stationList.forEach((i_station:StationModel)=> {
@@ -152,16 +173,18 @@ export class Dashboard implements OnActivate {
 
     private onStationsFilterSelected(filterType, filterValue, delay:number) {
 
-        setTimeout(()=>{
+        setTimeout(()=> {
             // improve performance by waiting 1 sec before rendering
             var stationsFiltered = List<StationModel>();
+            var screensOnline = 0;
+            var screensOffline = 0;
 
 
             if (filterType == 'connection') {
                 if (filterValue == 'connected') {
                     filterValue = '1'
                 } else if (filterValue == 'disconnected') {
-                    filterValue = '0'
+                    filterValue = '0';
                 }
             }
 
@@ -179,6 +202,13 @@ export class Dashboard implements OnActivate {
                     var connection = i_station.getKey('connection');
                     var name = i_station.getKey('name');
 
+                    if (connection == 0) {
+                        screensOnline++;
+                    } else {
+                        screensOffline++;
+                    }
+
+
                     if ((this.stationsFilteredBy['os'] == 'all' || this.stationsFilteredBy['os'] == os) &&
                         (this.stationsFilteredBy['appVersion'] == 'all' || this.stationsFilteredBy['appVersion'] == appVersion) &&
                         (this.stationsFilteredBy['airVersion'] == 'all' || this.stationsFilteredBy['airVersion'] == airVersion) &&
@@ -190,9 +220,11 @@ export class Dashboard implements OnActivate {
                     }
                 })
             });
+            this.screensOffline = 'screens onffline ' + screensOffline;
+            this.screensOnline = 'screens online ' + screensOnline;
             this.stationsFiltered = stationsFiltered;
             this.totalFilteredPlayers = this.stationsFiltered.size;
-        },delay)
+        }, delay)
 
     }
 
