@@ -203,12 +203,10 @@ export class Dashboard implements OnActivate {
                     var name = i_station.getKey('name');
 
                     if (connection == 0) {
-                        screensOnline++;
-                    } else {
                         screensOffline++;
+                    } else {
+                        screensOnline++;
                     }
-
-
                     if ((this.stationsFilteredBy['os'] == 'all' || this.stationsFilteredBy['os'] == os) &&
                         (this.stationsFilteredBy['appVersion'] == 'all' || this.stationsFilteredBy['appVersion'] == appVersion) &&
                         (this.stationsFilteredBy['airVersion'] == 'all' || this.stationsFilteredBy['airVersion'] == airVersion) &&
