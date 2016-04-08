@@ -4,9 +4,11 @@
 // http://plnkr.co/edit/YX7W20?p=preview
 // https://github.com/SebastianM/angular2-google-maps
 
-import {Component, Input} from 'angular2/core';
+import {Component, Input, ChangeDetectionStrategy, ChangeDetectorRef} from 'angular2/core';
 import {Http} from 'angular2/http';
 import {Ng2Highmaps} from '../../ng2-highcharts/ng2-highcharts';
+import {StationModel} from "../../../stations/StationModel";
+const _ = require('underscore');
 
 window['Highmaps'] = require('highcharts/modules/map')(Highcharts);
 
@@ -14,6 +16,7 @@ window['Highmaps'] = require('highcharts/modules/map')(Highcharts);
 @Component({
     selector: 'stationsMap',
     directives: [Ng2Highmaps],
+    changeDetection: ChangeDetectionStrategy.Default,
     template: `
        <div id="container" style="height: 300px; min-width: 300px; margin: 0 auto">
        <div [ng2-highmaps]="chartMap" (init)="onInit($event)" class="Map"></div>
@@ -21,30 +24,33 @@ window['Highmaps'] = require('highcharts/modules/map')(Highcharts);
     `
 })
 export class StationsMap {
-    chartStock = {};
-    chartMap = {};
 
-    onInit(event){
-        console.log(event);//.series[0].setData([1,2,3,4,5]);
-
-        setTimeout(()=>{
-            jQuery(event.el[0]).highcharts().series[1].setData(this.stationsData1)
-        },3000)
-
-        setTimeout(()=>{
-            jQuery(event.el[0]).highcharts().series[1].setData(this.stationsData2)
-        },5000)
-
-        setTimeout(()=>{
-            jQuery(event.el[0]).highcharts().series[1].setData(this.stationsData3)
-        },7000)
+    constructor(private http:Http) {
+        this.initMap();
     }
 
+    @Input()
+    set stations(i_stations) {
+        console.log(i_stations);
+        this.m_stations = i_stations;
+        this.updateStations();
+    }
+
+    private chartStock = {};
+    protected chartMap = {};
+    private highCharts:any;
     private stationsData1;
     private stationsData2;
     private stationsData3;
+    private m_stations;
 
-    constructor(private http:Http) {
+    onInit(event) {
+        console.log(event);//.series[0].setData([1,2,3,4,5]);
+        this.highCharts = jQuery(event.el[0]).highcharts();
+        this.updateStations();
+    }
+
+    private initMap(){
         var self = this;
 
         this.stationsData1 = [{
@@ -95,7 +101,6 @@ export class StationsMap {
             color: "green"
         }]
 
-
         jQuery.getScript('world_data.js', function (data) {
             jQuery.getJSON('https://www.highcharts.com/samples/data/jsonp.php?filename=world-population.json&callback=?', function (data) {
                 var mapData = Highcharts['maps']['custom/world'];
@@ -120,7 +125,23 @@ export class StationsMap {
                             verticalAlign: 'bottom'
                         }
                     },
+                    plotOptions:{
+                        series:{
+                            point:{
+                                events:{
+                                    click: function(){
+                                        alert(this.name + ' ' + this.id);
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    tooltip: { enabled: false },
                     series: [{
+                        dataLabels: {
+                            enabled: true,
+                            format: '{point.name}'
+                        },
                         name: 'Countries',
                         mapData: mapData,
                     }, {
@@ -131,14 +152,51 @@ export class StationsMap {
                 };
             });
         });
-
     }
 
-    private m_stations;
-
-    @Input()
-    set stations(i_stations) {
-        console.log(i_stations);
-        this.m_stations = i_stations;
+    private getStationConnection(i_value){
+        if (i_value==0)
+            return 'red';
+        if (i_value==1)
+            return 'green';
+        if (i_value==2)
+            return 'yellow';
+        return 'black';
     }
+
+    private updateStations() {
+        if (!this.m_stations)
+            return;
+        if (!this.highCharts)
+            return;
+
+        var stations = [];
+        this.m_stations.forEach((i_station:StationModel)=>{
+            stations.push({
+                id: i_station.getKey('businessId'),
+                name: i_station.getKey('name'),
+                lat: _.random(-10, 120),
+                lon: _.random(-10, 120),
+                color: this.getStationConnection(i_station.getKey('connection'))
+            })
+        });
+        this.highCharts.series[1].setData(stations);
+    }
+
+
 }
+
+// if (this.m_stations){
+//     this.highCharts.series[1].setData(this.stationsData3)
+//}
+// setTimeout(()=>{
+//     jQuery(event.el[0]).highcharts().series[1].setData(this.stationsData1)
+// },3000)
+//
+// setTimeout(()=>{
+//     jQuery(event.el[0]).highcharts().series[1].setData(this.stationsData2)
+// },5000)
+//
+// setTimeout(()=>{
+//     jQuery(event.el[0]).highcharts().series[1].setData(this.stationsData3)
+// },7000)
