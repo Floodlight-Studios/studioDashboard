@@ -50,7 +50,6 @@ export class Dashboard implements OnActivate {
         this.listenBusinessNameFilter();
         this.listenStore()
         this.listenStationsErrors()
-        this.storeService.fetchStations();
     }
 
     private totalFilteredPlayers:number = 0;
@@ -91,11 +90,11 @@ export class Dashboard implements OnActivate {
         /** stations stats **/
         this.stations = this.appStore.getState().stations;
         this.initStationsFilter();
-        this.onStationsFilterSelected('connection', 'all', 2000);
+        this.onStationsFilterSelected('connection', 'all', 1000);
         unsub = this.appStore.sub((stations:Map<string, List<StationModel>>) => {
             this.stations = stations;
             this.initStationsFilter();
-            this.onStationsFilterSelected('connection', 'all', 2000);
+            this.onStationsFilterSelected('connection', 'all', 1000);
         }, 'stations');
         this.unsubs.push(unsub);
 
