@@ -211,7 +211,7 @@ export class Dashboard implements OnActivate {
                         (this.stationsFilteredBy['appVersion'] == 'all' || this.stationsFilteredBy['appVersion'] == appVersion) &&
                         (this.stationsFilteredBy['airVersion'] == 'all' || this.stationsFilteredBy['airVersion'] == airVersion) &&
                         (this.stationsFilteredBy['name'] == 'all' || name.toLowerCase().match(filterValue.toLowerCase())) &&
-                        (this.stationsFilteredBy['connection'] == 'all' || this.stationsFilteredBy['connection'] == connection)) {
+                        (this.stationsFilteredBy['connection'] == 'all' || this.stationsFilteredBy['connection'] == connection) || (this.stationsFilteredBy['connection'] == '1' && connection > 0)) {
 
                         stationsFiltered = stationsFiltered.push(i_station)
 
