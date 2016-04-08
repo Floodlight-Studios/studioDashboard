@@ -1,5 +1,5 @@
 /// <reference path="../../typings/highcharts/highcharts.d.ts" />
-import {Directive, ElementRef, Input} from 'angular2/core';
+import {Directive, ElementRef, Input, Output, EventEmitter} from 'angular2/core';
 
 declare var jQuery: any;
 
@@ -24,9 +24,13 @@ export class Ng2Highmaps {
 				this.chart.destroy();
 			}
 			this.chart = this.jqEle.highcharts('Map', opt);
+            this.init.next({chart: this.chart, el: this.jqEle});
 		} else {
 			//console.log('No valid options...');
 			console.dir(opt);
 		}
 	}
+
+    @Output()
+    init:EventEmitter<any> = new EventEmitter();
 }

@@ -96,7 +96,7 @@
     </div>
     <div class="panel-footer">
       <stationsGrid *ngIf="stationComponentMode=='grid'" [stations]="stationsFiltered"></stationsGrid>
-      <stationsMap *ngIf="stationComponentMode=='map'" data="stationsFiltered"></stationsMap>
+      <stationsMap *ngIf="stationComponentMode=='map'" [stations]="stationsFiltered"></stationsMap>
     </div>
   </div>
 
