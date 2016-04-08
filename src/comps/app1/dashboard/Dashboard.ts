@@ -218,7 +218,7 @@ export class Dashboard implements OnActivate {
                     }
                 })
             });
-            this.screensOffline = 'screens onffline ' + screensOffline;
+            this.screensOffline = 'screens offline ' + screensOffline;
             this.screensOnline = 'screens online ' + screensOnline;
             this.stationsFiltered = stationsFiltered;
             this.totalFilteredPlayers = this.stationsFiltered.size;

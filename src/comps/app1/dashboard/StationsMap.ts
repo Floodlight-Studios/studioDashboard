@@ -70,11 +70,13 @@ export class StationsMap {
                         }, {
                             name: 'Beijing',
                             lat: 39.9167,
-                            lon: 116.3833
+                            lon: 116.3833,
+                            color: "yellow"
                         }, {
                             name: 'Washington D.C.',
                             lat: 38.889931,
-                            lon: -77.009003
+                            lon: -77.009003,
+                            color: "pink"
                         }]
                     }]
 
