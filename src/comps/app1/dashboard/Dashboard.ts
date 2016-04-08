@@ -91,11 +91,11 @@ export class Dashboard implements OnActivate {
         /** stations stats **/
         this.stations = this.appStore.getState().stations;
         this.initStationsFilter();
-        this.onStationsFilterSelected('connection', 'all');
+        this.onStationsFilterSelected('connection', 'all', 2000);
         unsub = this.appStore.sub((stations:Map<string, List<StationModel>>) => {
             this.stations = stations;
             this.initStationsFilter();
-            this.onStationsFilterSelected('connection', 'all', 100);
+            this.onStationsFilterSelected('connection', 'all', 2000);
         }, 'stations');
         this.unsubs.push(unsub);
 
@@ -151,11 +151,12 @@ export class Dashboard implements OnActivate {
         });
     }
 
-    private onStationsFilterSelected(filterType, filterValue, delay:number = 2500) {
+    private onStationsFilterSelected(filterType, filterValue, delay:number) {
 
-        // improve performance by waiting 1 sec before rendering
-        setTimeout(()=> {
-            this.stationsFiltered = List<StationModel>();
+        setTimeout(()=>{
+            // improve performance by waiting 1 sec before rendering
+            var stationsFiltered = List<StationModel>();
+
 
             if (filterType == 'connection') {
                 if (filterValue == 'connected') {
@@ -185,12 +186,15 @@ export class Dashboard implements OnActivate {
                         (this.stationsFilteredBy['name'] == 'all' || name.toLowerCase().match(filterValue.toLowerCase())) &&
                         (this.stationsFilteredBy['connection'] == 'all' || this.stationsFilteredBy['connection'] == connection)) {
 
-                        this.stationsFiltered = this.stationsFiltered.push(i_station)
-                        this.totalFilteredPlayers = this.stationsFiltered.size;
+                        stationsFiltered = stationsFiltered.push(i_station)
+
                     }
                 })
             });
-        }, delay);
+            this.stationsFiltered = stationsFiltered;
+            this.totalFilteredPlayers = this.stationsFiltered.size;
+        },delay)
+
     }
 
     private listenBusinessNameFilter() {
