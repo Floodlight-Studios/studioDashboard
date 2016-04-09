@@ -7,14 +7,24 @@ import {MODAL_DIRECTIVES} from "../../ng2-bs3-modal/ng2-bs3-modal";
     selector: 'stationsGrid',
     directives: [SIMPLEGRID_DIRECTIVES, MODAL_DIRECTIVES],
     pipes: [OrderBy],
+    styles: [
+        `
+            .stationProps {
+               position: relative;
+                top: -10px;
+                color: #222222;
+                left: 2px;
+                font-size: 1.7em;
+             }
+        `
+    ],
     template: `
         <div class="row">
              <div class="col-xs-12">
                 <div style="position: relative; top: 10px">
                     <div>
-                      <a class="btns" (click)="onAdd($event);$event.preventDefault()" href="#"><span class="fa fa-plus"></span></a>
-                      <a class="btns" (click)="onRemove($event);$event.preventDefault()" [ngClass]="{disabled: !privelegesModelSelected}" href="#">
-                       <span class="fa fa-remove"></span>
+                      <a class="stationProps btns" (click)="onSelectStation($event);$event.preventDefault()" href="#">
+                        <span class="fa fa-cog"></span>
                       </a>
                     </div>
                 </div>
@@ -63,13 +73,12 @@ export class StationsGrid {
         this.m_stations = i_stations;
     }
 
-    @Input()
-    partsInCart:string;
+    private onSelectStation(event) {
+
+    }
 
     private m_stations;
     public sort:{field:string, desc:boolean} = {field: null, desc: false};
 
-    @Output()
-    addToCart:EventEmitter<any> = new EventEmitter();
 }
 
