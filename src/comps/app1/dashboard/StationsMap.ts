@@ -3,6 +3,15 @@
 // http://www.highcharts.com/samples/view.php?path=maps/demo/latlon-advanced
 // http://plnkr.co/edit/YX7W20?p=preview
 // https://github.com/SebastianM/angular2-google-maps
+// http://jsfiddle.net/kqck12da/2/
+// http://jsfiddle.net/L6mf6yfo/1/
+// http://jsfiddle.net/L6mf6yfo/1/
+// http://jsfiddle.net/m93r6dsr/41/
+// http://jsfiddle.net/omarshe7ta/m93r6dsr/40/
+
+// add this one
+// http://jsfiddle.net/gh/get/jquery/1.9.1/highslide-software/highcharts.com/tree/master/samples/stock/demo/dynamic-update/
+
 
 import {Component, Input, ChangeDetectionStrategy, ChangeDetectorRef} from 'angular2/core';
 import {Http} from 'angular2/http';
@@ -182,8 +191,6 @@ export class StationsMap {
         });
         this.highCharts.series[1].setData(stations);
     }
-
-
 }
 
 // if (this.m_stations){
