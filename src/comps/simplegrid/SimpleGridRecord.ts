@@ -1,4 +1,4 @@
-import {Component, Input, ChangeDetectionStrategy, HostListener, HostBinding, ElementRef} from 'angular2/core'
+import {Component, Input, Output, ChangeDetectionStrategy, HostListener, HostBinding, EventEmitter} from 'angular2/core'
 import {SimpleGridTable} from "./SimpleGridTable";
 import {Observable} from "rxjs/Observable";
 
@@ -22,6 +22,16 @@ export class SimpleGridRecord {
     @Input()
     set table(i_table) {
         this.m_table = i_table;
+    }
+
+    @Output()
+    onDoubleClicked:EventEmitter<any> = new EventEmitter();
+
+    @HostListener('dblclick', ['$event'])
+    doubleClicked(event) {
+        this.setSelected();
+        this.onDoubleClicked.next({target: event.target});
+        return true;
     }
 
     @HostListener('click', ['$event'])
@@ -57,4 +67,3 @@ export class SimpleGridRecord {
         this.selectedClass = true;
     }
 }
-

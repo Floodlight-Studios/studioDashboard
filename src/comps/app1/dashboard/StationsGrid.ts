@@ -52,7 +52,7 @@ import {SimpleGridRecord} from "../../simplegrid/SimpleGridRecord";
                     </tr>
                     </thead>
                     <tbody>
-                    <tr class="simpleGridRecord" [table]="userSimpleGridTable" simpleGridRecord *ngFor="#item of m_stations | OrderBy:sort.field:sort.desc; #index=index" [item]="item" [index]="index">
+                    <tr class="simpleGridRecord" (onDoubleClicked)="onDoubleClicked($event)" [table]="userSimpleGridTable" simpleGridRecord *ngFor="#item of m_stations | OrderBy:sort.field:sort.desc; #index=index" [item]="item" [index]="index">
                       <td style="width: 30%" simpleGridData editable="false" field="name" [item]="item"></td>
                       <td style="width: 5%" simpleGridData editable="false" field="businessId" [item]="item"></td>
                       <td style="width: 20%" simpleGridData editable="false" field="os" [item]="item"></td>
@@ -84,6 +84,10 @@ export class StationsGrid {
     @Input()
     set stations(i_stations) {
         this.m_stations = i_stations;
+    }
+
+    private onDoubleClicked(event){
+        this.launchStationModal();
     }
 
     private launchStationModal() {
