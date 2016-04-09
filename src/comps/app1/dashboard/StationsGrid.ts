@@ -63,10 +63,6 @@ import {SimpleGridRecord} from "../../simplegrid/SimpleGridRecord";
                       <td style="width: 5%" simpleGridData editable="false" field="peakMemory" [item]="item"></td>
                       <td style="width: 10%" simpleGridData editable="false" field="airVersion" [item]="item"></td>
                       <td style="width: 5%" simpleGridData editable="false" field="appVersion" [item]="item"></td>
-                      <!--<td style="width: 8%" simpleGridData field="businessId" [item]="item"></td>-->
-                      <!--<td style="width: 20%" simpleGridDataChecks (changed)="setAccessMask($event)" [item]="item" [checkboxes]="getAccessMask(item)"></td>-->
-                      <!--<td style="width: 12%" simpleGridData field="privilegeId" [item]="item"></td>-->
-                      <!--<td style="width: 40%" simpleGridDataDropdown [testSelection]="selectedPriveleges()" (changed)="setPriveleges($event)" field="name" [item]="item" [dropdown]="m_priveleges"></td>-->
                     </tr>
                     </tbody>
                   </simpleGridTable>

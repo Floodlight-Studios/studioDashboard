@@ -1,6 +1,5 @@
 import {Component, Input, Output, ChangeDetectionStrategy, HostListener, HostBinding, EventEmitter} from 'angular2/core'
 import {SimpleGridTable} from "./SimpleGridTable";
-import {Observable} from "rxjs/Observable";
 
 @Component({
     selector: 'tr[simpleGridRecord]',
