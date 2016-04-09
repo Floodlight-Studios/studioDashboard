@@ -1,7 +1,10 @@
-import {Component, Input, Output, EventEmitter, ChangeDetectionStrategy, OnChanges, SimpleChange} from 'angular2/core'
+import {Component, Input, ViewChild, EventEmitter, ChangeDetectionStrategy, OnChanges, SimpleChange} from 'angular2/core'
 import {OrderBy} from "../../../pipes/OrderBy";
 import {SIMPLEGRID_DIRECTIVES} from "../../simplegrid/SimpleGrid";
 import {MODAL_DIRECTIVES} from "../../ng2-bs3-modal/ng2-bs3-modal";
+import {SimpleGridTable} from "../../simplegrid/SimpleGridTable";
+import {StationModel} from "../../../stations/StationModel";
+import {SimpleGridRecord} from "../../simplegrid/SimpleGridRecord";
 
 @Component({
     selector: 'stationsGrid',
@@ -9,22 +12,27 @@ import {MODAL_DIRECTIVES} from "../../ng2-bs3-modal/ng2-bs3-modal";
     pipes: [OrderBy],
     styles: [
         `
+            .disabled {
+               opacity: 0.2;
+               cursor: default;
+             }
             .stationProps {
                position: relative;
-                top: -10px;
+                top: -14px;
                 color: #222222;
                 left: 2px;
-                font-size: 1.7em;
+                font-size: 1.2em;
              }
         `
     ],
     template: `
         <div class="row">
              <div class="col-xs-12">
-                <div style="position: relative; top: 10px">
+                <div (click)="$event.preventDefault()" style="position: relative; top: 10px">
                     <div>
-                      <a class="stationProps btns" (click)="onSelectStation($event);$event.preventDefault()" href="#">
-                        <span class="fa fa-cog"></span>
+                      <a class="btns stationProps" href="#" (click)="!userSimpleGridTable || userSimpleGridTable.getSelected() == null ? '' : launchStationModal()" 
+                        [ngClass]="{disabled: !userSimpleGridTable || userSimpleGridTable.getSelected() == null}" href="#">
+                        <span class="fa fa-cogs"></span>
                       </a>
                     </div>
                 </div>
@@ -68,9 +76,26 @@ import {MODAL_DIRECTIVES} from "../../ng2-bs3-modal/ng2-bs3-modal";
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class StationsGrid {
+
+    @ViewChild(SimpleGridTable)
+    simpleGridTable:SimpleGridTable
+
+
     @Input()
     set stations(i_stations) {
         this.m_stations = i_stations;
+    }
+
+    private launchStationModal() {
+        var stationModel:StationModel = this.selectedStation();
+        alert(stationModel.getKey('businessId'));
+    }
+
+    private selectedStation():StationModel {
+        if (!this.simpleGridTable)
+            return null;
+        let selected:SimpleGridRecord = this.simpleGridTable.getSelected();
+        return selected ? this.simpleGridTable.getSelected().item : '';
     }
 
     private onSelectStation(event) {
