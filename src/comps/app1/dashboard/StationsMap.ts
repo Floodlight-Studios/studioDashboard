@@ -116,7 +116,7 @@ export class StationsMap {
                 self.chartMap = {
                     chart: {
                         borderWidth: 1,
-                        height: 300
+                        height: 380
                     },
                     credits: {
                         enabled: false

@@ -94,7 +94,7 @@
         </div>
       </div>
     </div>
-    <div class="panel-footer">
+    <div class="panel-footer" style="height: 400px; overflow-y: scroll">
       <stationsGrid *ngIf="stationComponentMode=='grid'" [stations]="stationsFiltered"></stationsGrid>
       <stationsMap *ngIf="stationComponentMode=='map'" [stations]="stationsFiltered"></stationsMap>
     </div>

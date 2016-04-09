@@ -141,12 +141,10 @@ export class Dashboard implements OnActivate {
         switch (stationComponentMode) {
             case 'map':
             {
-                console.log(1);
                 break;
             }
             case 'grid':
             {
-                console.log(2);
                 break;
             }
         }

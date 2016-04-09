@@ -1,5 +1,3 @@
-///<reference path="../../typings/app.d.ts"/>
-
 import {Injectable} from "angular2/core";
 import {LocalStorage} from "../services/LocalStorage";
 import {StyleModel} from "../models/StyleModel";
