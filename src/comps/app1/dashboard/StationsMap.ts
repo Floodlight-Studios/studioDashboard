@@ -186,7 +186,7 @@ export class StationsMap {
                 name: i_station.getKey('name'),
                 lat: _.random(-10, 120),
                 lon: _.random(-10, 120),
-                color: this.getStationConnection(i_station.getKey('connection'))
+                color: i_station.getConnectionIcon('color')
             })
         });
         this.highCharts.series[1].setData(stations);

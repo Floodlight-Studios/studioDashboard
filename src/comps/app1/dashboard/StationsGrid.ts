@@ -39,25 +39,27 @@ import {SimpleGridRecord} from "../../simplegrid/SimpleGridRecord";
                   <simpleGridTable #userSimpleGridTable>
                     <thead>
                     <tr>
+                      <th sortableHeader="connection" [sort]="sort">connection</th>
+                      <th sortableHeader="watchDogConnection" [sort]="sort">watchdog</th>
                       <th sortableHeader="name" [sort]="sort">name</th>
                       <th sortableHeader="businessId" [sort]="sort">business</th>
-                      <th sortableHeader="businessId" [sort]="sort">os</th>
-                      <th sortableHeader="businessId" [sort]="sort">status</th>
-                      <th sortableHeader="businessId" [sort]="sort">socket</th>
-                      <th sortableHeader="businessId" [sort]="sort">running</th>
-                      <th sortableHeader="businessId" [sort]="sort">totalMem</th>
-                      <th sortableHeader="businessId" [sort]="sort">peakMem</th>
-                      <th sortableHeader="businessId" [sort]="sort">runtime</th>
-                      <th sortableHeader="businessId" [sort]="sort">version</th>
+                      <th sortableHeader="os" [sort]="sort">os</th>
+                      <th sortableHeader="status" [sort]="sort">status</th>                      
+                      <th sortableHeader="runningTime" [sort]="sort">running</th>
+                      <th sortableHeader="totalMemory" [sort]="sort">totalMem</th>
+                      <th sortableHeader="peakMemory" [sort]="sort">peakMem</th>
+                      <th sortableHeader="airVersion" [sort]="sort">runtime</th>
+                      <th sortableHeader="appVersion" [sort]="sort">version</th>
                     </tr>
                     </thead>
                     <tbody>
                     <tr class="simpleGridRecord" (onDoubleClicked)="onDoubleClicked($event)" [table]="userSimpleGridTable" simpleGridRecord *ngFor="#item of m_stations | OrderBy:sort.field:sort.desc; #index=index" [item]="item" [index]="index">
+                      <td style="width: 5%" simpleGridDataImage [color]="item.getConnectionIcon('color')" [field]="item.getConnectionIcon('simple')" [item]="item"></td>
+                      <td style="width: 5%" simpleGridDataImage color="dodgerblue" [field]="item.getWatchDogConnection()" [item]="item"></td>
                       <td style="width: 30%" simpleGridData editable="false" field="name" [item]="item"></td>
                       <td style="width: 5%" simpleGridData editable="false" field="businessId" [item]="item"></td>
                       <td style="width: 20%" simpleGridData editable="false" field="os" [item]="item"></td>
-                      <td style="width: 10%" simpleGridData editable="false" field="status" [item]="item"></td>
-                      <td style="width: 5%" simpleGridData editable="false" field="connection" [item]="item"></td>
+                      <td style="width: 10%" simpleGridData editable="false" field="status" [item]="item"></td>                      
                       <td style="width: 5%" simpleGridData editable="false" field="runningTime" [item]="item"></td>
                       <td style="width: 5%" simpleGridData editable="false" field="totalMemory" [item]="item"></td>
                       <td style="width: 5%" simpleGridData editable="false" field="peakMemory" [item]="item"></td>
