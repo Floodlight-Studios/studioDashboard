@@ -3,20 +3,9 @@ import {MODAL_DIRECTIVES} from "../../ng2-bs3-modal/ng2-bs3-modal";
 
 @Component({
     selector: 'stationDetails',
-    directives: [MODAL_DIRECTIVES],
+    directives: [],
     template: `
-       <modal #modalAddUserSample [animation]="true" (onClose)="onModalClose($event)">
-        <modal-header [show-close]="true">
-          <h4 class="modal-title">
-            <span class="fa fa-user"></span>
-            <!--{{accounts[0]}}-->
-          </h4>
-        </modal-header>
-        <modal-body>
-          <!--<Samplelist></Samplelist>-->
-        </modal-body>
-        <modal-footer [show-default-buttons]="false"></modal-footer>
-      </modal>
+        
     `,
     changeDetection: ChangeDetectionStrategy.OnPush
 })

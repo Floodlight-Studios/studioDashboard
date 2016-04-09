@@ -1,4 +1,4 @@
-import {Component, Input, ViewChild, EventEmitter, ChangeDetectionStrategy, OnChanges, SimpleChange} from 'angular2/core'
+import {Component, Input, Output, ViewChild, EventEmitter, ChangeDetectionStrategy, OnChanges, SimpleChange} from 'angular2/core'
 import {OrderBy} from "../../../pipes/OrderBy";
 import {SIMPLEGRID_DIRECTIVES} from "../../simplegrid/SimpleGrid";
 import {MODAL_DIRECTIVES} from "../../ng2-bs3-modal/ng2-bs3-modal";
@@ -84,13 +84,19 @@ export class StationsGrid {
         this.m_stations = i_stations;
     }
 
+    @Output()
+    onStationSelected:EventEmitter<any> = new EventEmitter();
+
+
     private onDoubleClicked(event){
         this.launchStationModal();
     }
 
     private launchStationModal() {
         var stationModel:StationModel = this.selectedStation();
-        alert(stationModel.getKey('businessId'));
+        // this.modalAddUserSample.open('lg');
+        // alert(stationModel.getKey('businessId'));
+        this.onStationSelected.next(stationModel.getKey('businessId'))
     }
 
     private selectedStation():StationModel {

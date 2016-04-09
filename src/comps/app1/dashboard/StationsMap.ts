@@ -13,7 +13,7 @@
 // http://jsfiddle.net/gh/get/jquery/1.9.1/highslide-software/highcharts.com/tree/master/samples/stock/demo/dynamic-update/
 
 
-import {Component, Input, ChangeDetectionStrategy, ChangeDetectorRef} from 'angular2/core';
+import {Component, Input, Output, EventEmitter, ChangeDetectionStrategy, ChangeDetectorRef} from 'angular2/core';
 import {Http} from 'angular2/http';
 import {Ng2Highmaps} from '../../ng2-highcharts/ng2-highcharts';
 import {StationModel} from "../../../stations/StationModel";
@@ -44,6 +44,9 @@ export class StationsMap {
         this.m_stations = i_stations;
         this.updateStations();
     }
+
+    @Output() onStationSelected:EventEmitter<any> = new EventEmitter();
+
 
     private chartStock = {};
     protected chartMap = {};
@@ -139,7 +142,8 @@ export class StationsMap {
                             point:{
                                 events:{
                                     click: function(){
-                                        alert(this.name + ' ' + this.id);
+                                        self.onStationSelected.next(this.id);
+                                        // alert(this.name + ' ' + this.id);
                                     }
                                 }
                             }

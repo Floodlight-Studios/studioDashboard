@@ -1,4 +1,4 @@
-import {Component, Injector} from 'angular2/core'
+import {Component, ViewChild} from 'angular2/core'
 import {Infobox} from "../../infobox/Infobox";
 import {List, Map} from 'immutable';
 import {AppStore} from "angular2-redux-util/dist/index";
@@ -18,12 +18,14 @@ import {CommBroker, IMessage} from "../../../services/CommBroker";
 import {Consts} from "../../../Conts";
 import {StoreService} from "../../../services/StoreService";
 import {FORM_DIRECTIVES, Control} from "angular2/common";
+import {ModalComponent} from "../../ng2-bs3-modal/components/modal";
+import {MODAL_DIRECTIVES} from "../../ng2-bs3-modal/ng2-bs3-modal";
 const _ = require('underscore');
 
 type stationComponentMode = "map" | "grid";
 
 @Component({
-    directives: [FORM_DIRECTIVES, Infobox, ServerStats, ServerAvg, StationsMap, StationsGrid, Loading],
+    directives: [FORM_DIRECTIVES, MODAL_DIRECTIVES, Infobox, ServerStats, ServerAvg, StationsMap, StationsGrid, Loading],
     selector: 'Dashboard',
     pipes: [SortBy],
     styles: [`      
@@ -54,6 +56,11 @@ export class Dashboard implements OnActivate {
         this.listenStationsErrors()
     }
 
+    @ViewChild('modalStationDetails')
+    modalStationDetails:ModalComponent;
+
+
+    private selectedBusinessId:string = '';
     private screensOnline:string = 'screens online: 0';
     private screensOffline:string = 'screens offline: 0';
     private stationComponentMode:stationComponentMode = 'grid';
@@ -87,6 +94,10 @@ export class Dashboard implements OnActivate {
         this.commBroker.onEvent(Consts.Events().STATIONS_NETWORK_ERROR).subscribe((e:IMessage)=> {
             this.errorLoadingStations = true;
         });
+    }
+
+    private onModalClose(event) {
+
     }
 
     private listenStore() {
@@ -221,7 +232,11 @@ export class Dashboard implements OnActivate {
             this.stationsFiltered = stationsFiltered;
             this.totalFilteredPlayers = this.stationsFiltered.size;
         }, delay)
+    }
 
+    private onStationSelected(busienssId) {
+        this.selectedBusinessId = busienssId;
+        this.modalStationDetails.open('lg');
     }
 
     private listenBusinessNameFilter() {
