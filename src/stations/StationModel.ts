@@ -31,10 +31,10 @@ export class StationModel extends StoreModel {
         }
     }
 
-    public getConnectionIcon(style:'simple'|'color') {
+    public getConnectionIcon(style:'icon'|'color') {
         var connection = this.getConnection();
         switch (style) {
-            case 'simple':
+            case 'icon':
             {
                 switch (connection) {
                     case '0':
