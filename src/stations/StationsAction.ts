@@ -60,6 +60,7 @@ export class StationsAction extends Actions {
                                         airVersion: station._attr.airVersion,
                                         appVersion: station._attr.appVersion,
                                         caching: station._attr.caching,
+                                        localIp: station._attr.localAddress,
                                         cameraStatus: station._attr.cameraStatus,
                                         connection: station._attr.connection,
                                         id: station._attr.id,
