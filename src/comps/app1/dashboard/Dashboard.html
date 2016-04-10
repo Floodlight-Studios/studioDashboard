@@ -95,20 +95,23 @@
       </div>
     </div>
     <div class="panel-footer" style="height: 400px; overflow-y: scroll">
-      <stationsGrid (onStationSelected)="onStationSelected($event)" *ngIf="stationComponentMode=='grid'" [stations]="stationsFiltered"></stationsGrid>
-      <stationsMap (onStationSelected)="onStationSelected($event)" *ngIf="stationComponentMode=='map'" [stations]="stationsFiltered"></stationsMap>
+      <stationsGrid (onStationSelected)="onStationModalOpen($event)" *ngIf="stationComponentMode=='grid'" [stations]="stationsFiltered"></stationsGrid>
+      <stationsMap (onStationSelected)="onStationModalOpen($event)" *ngIf="stationComponentMode=='map'" [stations]="stationsFiltered"></stationsMap>
     </div>
   </div>
   <modal #modalStationDetails [animation]="true" (onClose)="onModalClose($event)">
     <modal-header [show-close]="true">
       <h4 class="modal-title">
-        <span class="fa fa-user"></span>
-        {{selectedBusinessId}}
+        <span class="fa fa-television"></span>
+        {{selectedStation ? (selectedStation.getStationName() + ' / id: ' + selectedStation.getStationId() ) : ''}}
       </h4>
     </modal-header>
     <modal-body>
-        <stationDetails></stationDetails>
+      <stationDetails></stationDetails>
     </modal-body>
     <modal-footer [show-default-buttons]="false"></modal-footer>
   </modal>
 </div>
+
+
+

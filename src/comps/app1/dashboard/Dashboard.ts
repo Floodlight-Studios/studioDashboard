@@ -62,7 +62,7 @@ export class Dashboard implements OnActivate {
     modalStationDetails:ModalComponent;
 
 
-    private selectedBusinessId:string = '';
+    private selectedStation:StationModel;
     private screensOnline:string = 'screens online: 0';
     private screensOffline:string = 'screens offline: 0';
     private stationComponentMode:stationComponentMode = 'grid';
@@ -225,7 +225,6 @@ export class Dashboard implements OnActivate {
                         (this.stationsFilteredBy['connection'] == 'all' || this.stationsFilteredBy['connection'] == connection) || (this.stationsFilteredBy['connection'] == '1' && connection > 0)) {
 
                         stationsFiltered = stationsFiltered.push(i_station)
-
                     }
                 })
             });
@@ -236,8 +235,11 @@ export class Dashboard implements OnActivate {
         }, delay)
     }
 
-    private onStationSelected(busienssId) {
-        this.selectedBusinessId = busienssId;
+    private onStationModalOpen(stationId) {
+        this.stationsFiltered.forEach((stationModel:StationModel)=>{
+            if (stationModel.getStationId()==stationId)
+                this.selectedStation = stationModel;
+        });
         this.modalStationDetails.open('lg');
     }
 

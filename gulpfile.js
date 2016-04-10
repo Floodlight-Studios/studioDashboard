@@ -190,7 +190,7 @@ gulp.task('x_open_server_development', ['x_watch_source'], function () {
     browserSync({
         port: 8080,
         open: false,
-        files: ['index.html', '**/*.ts'],
+        files: ['index.html', '**/*.ts','**/*.html','**/*.css'],
         notify: true,
         reloadDebounce: 400,
         server: {
@@ -210,7 +210,7 @@ gulp.task('x_open_server_development_auto', ['x_watch_source'], function () {
     browserSync({
         port: 8080,
         open: false,
-        files: ['index.html', '**/*.ts'],
+        files: ['index.html', '**/*.ts','**/*.html','**/*.css'],
         notify: true,
         reloadDebounce: 400,
         server: {
