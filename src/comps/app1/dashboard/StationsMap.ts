@@ -186,7 +186,7 @@ export class StationsMap {
         var stations = [];
         this.m_stations.forEach((i_station:StationModel)=>{
             stations.push({
-                id: i_station.getKey('businessId'),
+                id: i_station.getStationId(),
                 name: i_station.getKey('name'),
                 lat: _.random(-10, 120),
                 lon: _.random(-10, 120),

@@ -20,12 +20,14 @@ import {StoreService} from "../../../services/StoreService";
 import {FORM_DIRECTIVES, Control} from "angular2/common";
 import {ModalComponent} from "../../ng2-bs3-modal/components/modal";
 import {MODAL_DIRECTIVES} from "../../ng2-bs3-modal/ng2-bs3-modal";
+import {StationDetails} from "./StationDetails";
 const _ = require('underscore');
 
 type stationComponentMode = "map" | "grid";
 
 @Component({
-    directives: [FORM_DIRECTIVES, MODAL_DIRECTIVES, Infobox, ServerStats, ServerAvg, StationsMap, StationsGrid, Loading],
+    directives: [FORM_DIRECTIVES, MODAL_DIRECTIVES, Infobox, ServerStats,
+        ServerAvg, StationsMap, StationsGrid, Loading, StationDetails],
     selector: 'Dashboard',
     pipes: [SortBy],
     styles: [`      

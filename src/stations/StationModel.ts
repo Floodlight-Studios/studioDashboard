@@ -14,6 +14,10 @@ export class StationModel extends StoreModel {
         return this.getKey('connection')
     }
 
+    public getStationId() {
+        return this.getKey('id')
+    }
+
     public getWatchDogConnection() {
         var watchDogConnection = this.getKey('watchDogConnection')
         var connection = this.getConnection();

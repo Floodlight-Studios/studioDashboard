@@ -4,16 +4,11 @@ import {MODAL_DIRECTIVES} from "../../ng2-bs3-modal/ng2-bs3-modal";
 @Component({
     selector: 'stationDetails',
     directives: [],
-    template: `
-        
-    `,
+    templateUrl: '/src/comps/app1/dashboard/StationDetails.html',
+    styleUrls: ['../comps/app1/dashboard/StationDetails.css'],
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class StationDetails {
-    @Input()
-    parts = [];
-    @Input()
-    partsInCart:string;
 
     private onModalClose($event) {
     }
