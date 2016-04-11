@@ -50,10 +50,7 @@ export class Lib {
                 </Group>
                 <Group name="Resources" visible="7" resourceMode="7">
                   <Tables resources="7"/>
-                </Group>
-                <Group name="Foo" visible="7" resourceMode="7">
-                  <Tables Bar="7"/>
-                </Group>
+                </Group>                
                 <Group name="Editors" visible="7">
                   <Tables player_data="7"/>
                 </Group>
