@@ -52,35 +52,39 @@ export class StationsAction extends Actions {
                              * redux inject stations sources
                              **/
                             var stations:List<StationModel> = List<StationModel>();
-                            result.string.SocketStatus["0"].Business.forEach((business)=> {
-                                var businessId = business._attr.businessId;
-                                business.Stations["0"].Station.forEach((station)=> {
-                                    var stationData = {
-                                        businessId: businessId,
-                                        source: source,
-                                        airVersion: station._attr.airVersion,
-                                        appVersion: station._attr.appVersion,
-                                        caching: station._attr.caching,
-                                        localIp: station._attr.localAddress,
-                                        cameraStatus: station._attr.cameraStatus,
-                                        connection: station._attr.connection,
-                                        id: station._attr.id,
-                                        lastCameraTest: station._attr.lastCameraTest,
-                                        lastUpdate: station._attr.lastUpdate,
-                                        name: station._attr.name,
-                                        os: station._attr.os,
-                                        peakMemory: station._attr.peakMemory,
-                                        runningTime: station._attr.runningTime,
-                                        socket: station._attr.socket,
-                                        startTime: station._attr.startTime,
-                                        status: station._attr.status,
-                                        totalMemory: station._attr.totalMemory,
-                                        watchDogConnection: station._attr.watchDogConnection
-                                    };
-                                    var stationModel:StationModel = new StationModel(stationData)
-                                    stations = stations.push(stationModel);
+                            if (result.string.SocketStatus["0"].Business){
+                                result.string.SocketStatus["0"].Business.forEach((business)=> {
+                                    var businessId = business._attr.businessId;
+                                    if (business.Stations["0"].Station){
+                                        business.Stations["0"].Station.forEach((station)=> {
+                                            var stationData = {
+                                                businessId: businessId,
+                                                source: source,
+                                                airVersion: station._attr.airVersion,
+                                                appVersion: station._attr.appVersion,
+                                                caching: station._attr.caching,
+                                                localIp: station._attr.localAddress,
+                                                cameraStatus: station._attr.cameraStatus,
+                                                connection: station._attr.connection,
+                                                id: station._attr.id,
+                                                lastCameraTest: station._attr.lastCameraTest,
+                                                lastUpdate: station._attr.lastUpdate,
+                                                name: station._attr.name,
+                                                os: station._attr.os,
+                                                peakMemory: station._attr.peakMemory,
+                                                runningTime: station._attr.runningTime,
+                                                socket: station._attr.socket,
+                                                startTime: station._attr.startTime,
+                                                status: station._attr.status,
+                                                totalMemory: station._attr.totalMemory,
+                                                watchDogConnection: station._attr.watchDogConnection
+                                            };
+                                            var stationModel:StationModel = new StationModel(stationData)
+                                            stations = stations.push(stationModel);
+                                        })
+                                    }
                                 })
-                            })
+                            }
                             dispatch(self.receiveStations(stations, source));
                         });
                     })

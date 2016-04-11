@@ -52,7 +52,7 @@ export class BusinessAction extends Actions {
                 return this._http.get(url)
                     .map(result => {
                         var xmlData:string = result.text()
-                        xmlData = xmlData.replace(/}\)/, '').replace(/\(\{"result":"/, '');
+                        // xmlData = xmlData.replace(/}\)/, '').replace(/\(\{"result":"/, '');
                         this.parseString(xmlData, {attrkey: '_attr'}, function (err, result) {
                             var businessUsers:List<BusinessUser> = List<BusinessUser>();
                             for (var business of result.Users.User) {
@@ -114,7 +114,7 @@ export class BusinessAction extends Actions {
             this._http.get(url)
                 .map(result => {
                     var xmlData:string = result.text()
-                    xmlData = xmlData.replace(/}\)/, '').replace(/\(\{"result":"/, '');
+                    // xmlData = xmlData.replace(/}\)/, '').replace(/\(\{"result":"/, '');
                     this.parseString(xmlData, {attrkey: '_attr'}, function (err, result) {
                         var businesses = [], businessIds = [];
                         result.Businesses.BusinessInfo.forEach((business)=> {
@@ -205,7 +205,7 @@ export class BusinessAction extends Actions {
             this._http.get(url)
                 .map(result => {
                     var xmlData:string = result.text()
-                    xmlData = xmlData.replace(/}\)/, '').replace(/\(\{"result":"/, '');
+                    // xmlData = xmlData.replace(/}\)/, '').replace(/\(\{"result":"/, '');
                     dispatch(this.savedBusinessUserAccess({
                         businessId: businessId,
                         privilegeId: privilegeId,
@@ -228,7 +228,7 @@ export class BusinessAction extends Actions {
             this._http.get(url)
                 .map(result => {
                     var jData:string = result.text()
-                    jData = jData.replace(/}\)/, '').replace(/\(\{"result":"/, '');
+                    // jData = jData.replace(/}\)/, '').replace(/\(\{"result":"/, '');
                     if (jData.indexOf('true') > -1) {
                         dispatch({type: ADD_BUSINESS_USER, BusinessUser: businessUser})
                     } else {
@@ -250,7 +250,7 @@ export class BusinessAction extends Actions {
             this._http.get(url)
                 .map(result => {
                     var jData:string = result.text()
-                    jData = jData.replace(/}\)/, '').replace(/\(\{"result":"/, '');
+                    // jData = jData.replace(/}\)/, '').replace(/\(\{"result":"/, '');
                     if (jData.indexOf('true') > -1) {
                         dispatch({type: ADD_BUSINESS_USER, BusinessUser: businessUser})
                     } else {
@@ -267,7 +267,7 @@ export class BusinessAction extends Actions {
             this._http.get(url)
                 .map(result => {
                     var jData:string = result.text()
-                    jData = jData.replace(/}\)/, '').replace(/\(\{"result":"/, '');
+                    // jData = jData.replace(/}\)/, '').replace(/\(\{"result":"/, '');
                     if (jData.indexOf('true') == -1) {
                         bootbox.alert('Problem changing password');
                     }
@@ -310,7 +310,7 @@ export class BusinessAction extends Actions {
             this._http.get(url)
                 .map(result => {
                     var jData:string = result.text()
-                    jData = jData.replace(/}\)/, '').replace(/\(\{"result":"/, '');
+                    // jData = jData.replace(/}\)/, '').replace(/\(\{"result":"/, '');
                     if (jData.indexOf('true') > -1) {
                         dispatch({type: REMOVE_BUSINESS_USER, BusinessUser: businessUser})
                     } else {

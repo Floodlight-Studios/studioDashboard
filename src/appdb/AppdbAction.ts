@@ -25,12 +25,9 @@ export class AppdbAction extends Actions {
         return (dispatch) => {
             const baseUrl = this.appStore.getState().appdb.get('appBaseUrl');
             const url = `${baseUrl}?command=GetCustomers&resellerUserName=${i_user}&resellerPassword=${i_pass}`;
-
             this._http.get(url)
                 .map(result => {
                     var xmlData:string = result.text()
-                    xmlData = xmlData.replace(/}\)/, '').replace(/\(\{"result":"/, '');
-
                     this.parseString(xmlData, {attrkey: 'attr'}, function (err, result) {
                         if (!result) {
                             dispatch({

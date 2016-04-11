@@ -71,7 +71,7 @@ export class ResellerAction extends Actions {
             this._http.get(url)
                 .map(result => {
                     var xmlData:string = result.text()
-                    xmlData = xmlData.replace(/}\)/, '').replace(/\(\{"result":"/, '');
+                    // xmlData = xmlData.replace(/}\)/, '').replace(/\(\{"result":"/, '');
                     this.m_parseString(xmlData, {attrkey: '_attr'}, function (err, result) {
                         if (err) {
                             bootbox.alert('problem loading user info')

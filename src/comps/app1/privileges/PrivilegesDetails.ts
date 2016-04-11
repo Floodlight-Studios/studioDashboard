@@ -143,6 +143,9 @@ export class PrivilegesDetails {
     private renderPrivilegesChecks(i_privelegesSystemModel:PrivelegesTemplateModel, index, privModeEnum:PrivModeEnum):Array<number> {
         var tableName:string = i_privelegesSystemModel.getTableName();
         var selColumn = this.m_selected.getColumns();
+
+
+
         selColumn = selColumn.find((k)=> {
             if (k.get('tableName') == tableName)
                 return true;
@@ -152,7 +155,6 @@ export class PrivilegesDetails {
         // so on the next save it will be added to our config, we just set it to checked [x] by default on UI
         if (!selColumn)
             return [1]
-
         var totalBits = Number(Lib.MapOfIndex(selColumn.get('columns'), index, 'last'));
         var bit;
         switch (privModeEnum) {

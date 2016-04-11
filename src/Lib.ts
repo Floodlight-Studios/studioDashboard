@@ -32,6 +32,8 @@ export class Lib {
         var mapJs = map.toJS();
         var mapJsPairs = _.pairs(mapJs);
         var offset = position == 'first' ? 0 : 1;
+        if (mapJsPairs[index]==undefined)
+            return "0"
         return mapJsPairs[index][offset];
     }
 
