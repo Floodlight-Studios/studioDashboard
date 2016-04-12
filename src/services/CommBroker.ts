@@ -5,7 +5,7 @@ import 'rxjs/add/operator/do';
 import 'rxjs/add/operator/filter';
 import 'rxjs/add/operator/share';
 import {Subject} from "rxjs/Subject";
-
+const _ = require('underscore');
 /**
 
  CommBroker is a React type Mediator injectable service provider
@@ -66,10 +66,10 @@ import {Subject} from "rxjs/Subject";
 
 
 export interface IMessage {
-    fromInstance: any,
-    event: string,
-    context: any,
-    message: any
+    fromInstance:any,
+    event:string,
+    context:any,
+    message:any
 }
 
 // create an alias type just so it's easier to associate
@@ -215,10 +215,11 @@ export class CommBroker {
      @return {Object} m_services member
      **/
     getValue(i_name):any {
-        if (this.services[i_name]) {
+        var v:any = this.services[i_name];
+        if (v === 0)
             return this.services[i_name]
-        } else {
-            return undefined;
-        }
+        if (!_.isUndefined(v))
+            return this.services[i_name]
+        return undefined;
     }
 }

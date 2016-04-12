@@ -9,6 +9,7 @@ import 'rxjs/add/operator/debounceTime';
 
 export const APP_INIT = 'APP_INIT';
 export const SERVERS_STATUS = 'SERVERS_STATUS';
+export const CLOUD_SERVERS = 'CLOUD_SERVERS';
 export const AUTH_PASS = 'AUTH_PASS';
 export const AUTH_FAIL = 'AUTH_FAIL';
 
@@ -68,6 +69,17 @@ export class AppdbAction extends Actions {
                 .map(result => {
                     result = result.json();
                     dispatch({type: SERVERS_STATUS, payload: result});
+                }).subscribe();
+            return;
+        };
+    }
+
+    public getCloudServers() {
+        return (dispatch) => {
+            this._http.get('https://secure.digitalsignage.com/getActiveCloudServers')
+                .map(result => {
+                    result = result.json();
+                    dispatch({type: CLOUD_SERVERS, payload: result});
                 }).subscribe();
             return;
         };

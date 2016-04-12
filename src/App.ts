@@ -54,6 +54,12 @@ import {stations} from "./stations/StationsReducer"
 import {AppdbAction} from "./appdb/AppdbAction";
 import {enableProdMode} from 'angular2/core';
 
+export enum ServerMode {
+    CLOUD,
+    PRIVATE,
+    HYBRID
+}
+
 /**
  Main application bootstrap
  @class App
@@ -78,6 +84,10 @@ export class App {
     private m_styleService:StyleService;
 
     constructor(private appStore:AppStore, private commBroker:CommBroker, styleService:StyleService, private appdbAction:AppdbAction, private router:Router) {
+
+        // todo: add logic to as when on each env
+        // 0 = cloud, 1 = private 2 = hybrid
+        this.commBroker.setValue(Consts.Values().SERVER_MODE, ServerMode.CLOUD);
         this.m_styleService = styleService;
         this.commBroker.setService(Consts.Services().App, this);
         Observable.fromEvent(window, 'resize').debounceTime(250).subscribe(()=> {
@@ -102,7 +112,6 @@ export class App {
         // jQuery('.well').height(appHeight - 224);
 
         this.commBroker.setValue(Consts.Values().APP_SIZE, {height: appHeight, width: appWidth});
-
         this.commBroker.fire({
             fromInstance: self,
             event: Consts.Events().WIN_SIZED,

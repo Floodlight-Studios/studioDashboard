@@ -29,6 +29,7 @@ export class Consts {
         return {
             MENU_MIN_ICON_SHOW: 1550,
             APP_SIZE: 'AppSize',
+            SERVER_MODE: 'serverMode', // 0 = cloud, 1 = private 2 = hybrid
             USER_NAME: 'userName',
             USER_PASS: 'userPass'
         };

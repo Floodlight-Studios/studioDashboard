@@ -248,7 +248,6 @@ export class Dashboard implements OnActivate {
             .debounceTime(250)
             .distinctUntilChanged()
             .subscribe(value=> {
-                console.log(value)
                 this.onStationsFilterSelected('name', value, 100);
             });
     }

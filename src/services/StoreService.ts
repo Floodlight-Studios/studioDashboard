@@ -5,6 +5,9 @@ import {AppdbAction} from "../appdb/AppdbAction";
 import {AppStore} from "angular2-redux-util/dist/index";
 import {StationsAction} from "../stations/StationsAction";
 import {List, Map} from 'immutable';
+import {CommBroker} from "./CommBroker";
+import {Consts} from "../Conts";
+import {ServerMode} from "../App";
 const _ = require('underscore');
 
 @Injectable()
@@ -13,12 +16,13 @@ export class StoreService {
                 private businessActions:BusinessAction,
                 private resellerAction:ResellerAction,
                 private stationsAction:StationsAction,
-                private appDbActions:AppdbAction) {
+                private appDbActions:AppdbAction,
+                private commBroker:CommBroker) {
     }
 
     private singleton:boolean = false; // prevent multiple calls to this service
-    private skipServers:Array<string> = ['mars.signage.me', 'mercury.signage.me'];
-    // private skipServers:Array<string> = [];
+    // private knownServers:Array<string> = ['mars.signage.me', 'mercury.signage.me'];
+    private knownServers:Array<string> = [];
 
     public loadServices() {
         if (this.singleton)
@@ -28,10 +32,9 @@ export class StoreService {
         this.appStore.dispatch(this.businessActions.fetchBusinesses());
         this.appStore.dispatch(this.appDbActions.serverStatus());
         this.appStore.dispatch(this.resellerAction.getResellerInfo());
-        this.timedServices();
     }
 
-    private timedServices() {
+    private startTimedServices() {
         // todo: enable in production and set poll value in settings
         // setInterval(()=> {
         //     this.fetchStations()
@@ -39,8 +42,19 @@ export class StoreService {
     }
 
     private listenServices() {
-        this.appStore.sub(() => {
+
+        this.appStore.sub((servers:List<string>) => {
+            this.knownServers = servers.toArray();
             this.fetchStations();
+        }, 'appdb.cloudServers');
+
+        // if we are in cloud mode, first fetch active servers before getting station
+        this.appStore.sub(() => {
+            if (this.commBroker.getValue(Consts.Values().SERVER_MODE) == ServerMode.CLOUD) {
+                this.appStore.dispatch(this.appDbActions.getCloudServers());
+            } else {
+                this.fetchStations();
+            }
         }, 'business.businessStats');
     }
 
@@ -49,9 +63,9 @@ export class StoreService {
         var config = {}
         sources.forEach((i_businesses:List<string>, source)=> {
             let businesses = i_businesses.toArray();
-            if (this.skipServers.indexOf(source) > -1)
-                return;
-            config[source] = businesses;
+            if (this.knownServers.indexOf(source) > -1)
+                config[source] = businesses;
+
         });
         this.appStore.dispatch(this.stationsAction.getStationsInfo(config));
     }

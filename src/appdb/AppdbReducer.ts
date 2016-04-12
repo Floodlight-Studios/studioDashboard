@@ -23,6 +23,10 @@ export default function appdb(state:Map<string, any> = Map<string, any>({}), act
                 appStartTime: Date.now(),
                 appBaseUrl: `${baseUrl}`
             });
+        case AppdbAction.CLOUD_SERVERS:
+            return state.merge({
+                cloudServers: action.payload
+            });
         case AppdbAction.SERVERS_STATUS:
             return state.merge({serversStatus: action.payload});
         default:
