@@ -13,7 +13,8 @@
 
   <br/>
   <div>
-    <tabs *ngIf="showWhiteLabel">
+    <!--<tabs *ngIf="showWhiteLabel">-->
+    <tabs *ngIf="isWhitelabelEnabled">
       <tab [tabtitle]="'Logo'" style="background-color: red">
         <div class="tabStyle">
           <div class="form-area">

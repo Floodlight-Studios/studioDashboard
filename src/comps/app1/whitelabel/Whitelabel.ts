@@ -21,7 +21,7 @@ const bootbox = require('bootbox');
         '(input-blur)': 'onInputBlur($event)'
     },
     templateUrl: '/src/comps/app1/whitelabel/Whitelabel.html',
-    changeDetection: ChangeDetectionStrategy.Default
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 @CanActivate((to:ComponentInstruction, from:ComponentInstruction) => {
     let authService:AuthService = appInjService().get(AuthService);
@@ -117,7 +117,8 @@ export class Whitelabel {
 
     private onWhiteLabelChange(value) {
         var value = value ? 1 : 0;
-        this.whitelabelModel.setKey<WhitelabelModel>(WhitelabelModel, 'whitelabelEnabled', value);
+        this.appStore.dispatch(this.resellerAction.updateResellerInfo({whitelabelEnabled: value}))
+        // this.whitelabelModel.setKey<WhitelabelModel>(WhitelabelModel, 'whitelabelEnabled', value);
     }
 
     private get isWhitelabelEnabled():boolean {
