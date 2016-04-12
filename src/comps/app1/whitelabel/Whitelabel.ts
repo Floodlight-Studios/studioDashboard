@@ -86,12 +86,6 @@ export class Whitelabel {
         this.appStore.dispatch(this.resellerAction.updateResellerInfo({whitelabelEnabled: value}))
     }
 
-    // private get isWhitelabelEnabled():boolean {
-    //     if (!this.whitelabelModel)
-    //         return false;
-    //     return this.whitelabelModel.getKey('whitelabelEnabled')
-    // }
-
     private ngOnDestroy() {
         this.unsub();
     }
