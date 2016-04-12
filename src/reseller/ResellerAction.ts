@@ -7,6 +7,7 @@ import {Lib} from "../Lib";
 import {List, Map} from 'immutable';
 import {AppModel} from "./AppModel";
 import {WhitelabelModel} from "./WhitelabelModel";
+import {AccountModel} from "./AccountModel";
 const Immutable = require('immutable');
 const _ = require('underscore');
 
@@ -17,6 +18,7 @@ export const UPDATE_PRIVILEGE_NAME = 'UPDATE_PRIVILEGE_NAME';
 export const RECEIVE_DEFAULT_PRIVILEGE = 'RECEIVE_DEFAULT_PRIVILEGE';
 export const RECEIVE_APPS = 'RECEIVE_APPS';
 export const RECEIVE_WHITELABEL = 'RECEIVE_WHITELABEL';
+export const RECEIVE_ACCOUNT_INFO = 'RECEIVE_ACCOUNT_INFO';
 export const UPDATE_APP = 'UPDATE_APP';
 export const UPDATE_DEFAULT_PRIVILEGE = 'UPDATE_DEFAULT_PRIVILEGE';
 export const UPDATE_WHITELABEL = 'UPDATE_WHITELABEL';
@@ -194,6 +196,36 @@ export class ResellerAction extends Actions {
         }
     }
 
+
+    public getAccountInfo() {
+        var self = this;
+        return (dispatch)=> {
+            var appdb:Map<string,any> = this.appStore.getState().appdb;
+            var url = appdb.get('appBaseUrlUser') + `&command=GetAccountInfo`;
+            var accountModelList:List<AccountModel> = List<AccountModel>();
+            this._http.get(url)
+                .map(result => {
+                    var xmlData:string = result.text()
+                    this.m_parseString(xmlData, {attrkey: '_attr'}, function (err, result) {
+                        if (err) {
+                            bootbox.alert('problem account info')
+                            return;
+                        }
+                        /**
+                         * redux inject account info
+                         **/
+                        ['Billing','Recurring','Shipping','Contact'].forEach((item)=>{
+                            var values = result.Account[item]["0"]._attr;
+                            values['type'] = item;
+                            var accountModel:AccountModel = new AccountModel(values);
+                            accountModelList = accountModelList.push(accountModel);
+                        });
+                        dispatch(self.receiveAccountInfo(accountModelList));
+                    });
+                }).subscribe();
+        }
+    }
+
     public createPrivilege() {
         return (dispatch)=> {
             // var appdb:Map<string,any> = this.appStore.getState().appdb;
@@ -204,7 +236,6 @@ export class ResellerAction extends Actions {
             //         xmlData = xmlData.replace(/}\)/, '').replace(/\(\{"result":"/, '');
             //         this.m_parseString(xmlData, {attrkey: '_attr'}, function (err, result) {
             //     }).subscribe();
-
             //todo: contact server for creation of privilege id, emulating server for now
             var privilegesModel:PrivelegesModel = this.privilegesModelFactory(_.random(1000, 9999), 'privilege set')
             setTimeout(()=> {
@@ -234,12 +265,12 @@ export class ResellerAction extends Actions {
         }
     }
 
-    // public receiveServerSources(sourceModels:List<SourcesModel>) {
-    //     return {
-    //         type: RECEIVE_SERVER_SOURCES,
-    //         sourceModels
-    //     }
-    // }
+    public receiveAccountInfo(accountModels:List<AccountModel>) {
+        return {
+            type: RECEIVE_ACCOUNT_INFO,
+            accountModels
+        }
+    }
 
     public receiveDefaultPrivilege(privilegeId:number) {
         return {

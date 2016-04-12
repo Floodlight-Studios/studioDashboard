@@ -1,18 +1,10 @@
 <br/>
 <form [ngFormModel]="contGroup">
   <label>
-
-    <!--<div class="material-switch pull-right">-->
-      <!--<input (click)="onKeyChange($event,index)" -->
-             <!--[(ngModel)]="accessKeys[index]" id="{{item}}" name="{{item}}" type="checkbox"/>-->
-      <!--<label [attr.for]="item" class="label-default"></label>-->
-    <!--</div>-->
-
-
-    <div class="material-switch pull-left">
+    <div class="material-switch  pull-left">
       <input id="whiteLabelCheckbox" #whiteLabelCheckbox type="checkbox" [(ngModel)]="whiteLabelEnabled"
              (change)="onWhiteLabelChange(whiteLabelCheckbox.checked)" />
-      <label for="whiteLabelCheckbox" class="label-default"></label>
+      <label for="whiteLabelCheckbox" class="label-primary"></label>
     </div>
     <h4 style="padding-top: 6px">Branding</h4>
   </label>

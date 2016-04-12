@@ -31,6 +31,7 @@ export class StoreService {
         this.appStore.dispatch(this.businessActions.fetchBusinesses());
         this.appStore.dispatch(this.appDbActions.serverStatus());
         this.appStore.dispatch(this.resellerAction.getResellerInfo());
+        this.appStore.dispatch(this.resellerAction.getAccountInfo());
     }
 
     private startTimedServices() {
