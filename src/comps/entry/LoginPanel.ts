@@ -20,7 +20,7 @@ var bootbox = require('bootbox');
                 <br/>
                   <form class="form-signin" role="form">
                     <h2 class="form-signin-heading"></h2>
-                    <input #userName id="userName" type="text" [(ngModel)]="m_user" class="input-underline input-lg form-control" data-localize="username" placeholder="user name" required autofocus>
+                    <input #userName id="userName" spellcheck="false" type="text" [(ngModel)]="m_user" class="input-underline input-lg form-control" data-localize="username" placeholder="user name" required autofocus>
                     <input #userPass id="userPass" type="password" [(ngModel)]="m_pass" class="input-underline input-lg form-control" data-localize="password" placeholder="password" required>
                     <br/>
                     <a id="loginButton"  (click)="authUser()" type="submit" class="btn rounded-btn"> enterprise member login </a>&nbsp;

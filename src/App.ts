@@ -93,7 +93,7 @@ export class App {
         Observable.fromEvent(window, 'resize').debounceTime(250).subscribe(()=> {
             this.appResized();
         });
-        appStore.dispatch(appdbAction.initAppDb());
+        // appStore.dispatch(appdbAction.initAppDb());
 
         router.subscribe(function (currentRoute) {
             console.log(currentRoute);

@@ -10,6 +10,7 @@ import {Consts} from "../Conts";
 
 
 export const RECEIVE_STATIONS = 'RECEIVE_STATIONS';
+export const RECEIVE_TOTAL_STATIONS = 'RECEIVE_TOTAL_STATIONS';
 
 @Injectable()
 export class StationsAction extends Actions {
@@ -25,6 +26,7 @@ export class StationsAction extends Actions {
     public getStationsInfo(config) {
         var self = this;
         return (dispatch)=> {
+            var totalStations = 0;
             var observables:Array<Observable<any>> = [];
             for (let i_source in config) {
                 var i_businesses = config[i_source];
@@ -85,6 +87,7 @@ export class StationsAction extends Actions {
                                     }
                                 })
                             }
+                            totalStations = totalStations + stations.size;
                             dispatch(self.receiveStations(stations, source));
                         });
                     })
@@ -96,7 +99,7 @@ export class StationsAction extends Actions {
                     this.commBroker.fire({fromInstance: this, event: Consts.Events().STATIONS_NETWORK_ERROR, context: this, message: ''});
                 },
                 ()=> {
-                    //console.log('completed');
+                    dispatch(self.receiveTotalStations(totalStations));
                 }
             );
         }
@@ -107,6 +110,13 @@ export class StationsAction extends Actions {
             type: RECEIVE_STATIONS,
             stations,
             source
+        }
+    }
+
+    public receiveTotalStations(totalStations:number) {
+        return {
+            type: RECEIVE_TOTAL_STATIONS,
+            totalStations
         }
     }
 }

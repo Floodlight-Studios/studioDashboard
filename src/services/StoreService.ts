@@ -17,9 +17,12 @@ export class StoreService {
                 private stationsAction:StationsAction,
                 private appDbActions:AppdbAction,
                 private commBroker:CommBroker) {
+
+        this.appStore.dispatch(this.appDbActions.initAppDb());
     }
 
     private singleton:boolean = false; // prevent multiple calls to this service
+    // todo: in private / hybrid mode we need to get list of business servers
     // private knownServers:Array<string> = ['mars.signage.me', 'mercury.signage.me'];
     private knownServers:Array<string> = [];
 
@@ -28,10 +31,10 @@ export class StoreService {
             return;
         this.singleton = true;
         this.listenServices();
-        this.appStore.dispatch(this.businessActions.fetchBusinesses());
-        this.appStore.dispatch(this.appDbActions.serverStatus());
+
         this.appStore.dispatch(this.resellerAction.getResellerInfo());
         this.appStore.dispatch(this.resellerAction.getAccountInfo());
+        this.appStore.dispatch(this.businessActions.fetchBusinesses());
     }
 
     private startTimedServices() {
@@ -42,13 +45,9 @@ export class StoreService {
     }
 
     private listenServices() {
-
-        this.appStore.sub((servers:List<string>) => {
-            this.knownServers = servers.toArray();
-            this.fetchStations();
-        }, 'appdb.cloudServers');
-
-        // if we are in cloud mode, first fetch active servers before getting station
+        /** if we are in cloud mode, first fetch active servers before getting station
+         (1) get businesses
+         **/
         this.appStore.sub(() => {
             // use 0 instead of ServerMode.CLOUD due to production bug with Enums
             if (this.commBroker.getValue(Consts.Values().SERVER_MODE) == 0) {
@@ -57,9 +56,20 @@ export class StoreService {
                 this.fetchStations();
             }
         }, 'business.businessStats');
+
+        /** (2 optional) if we are running in cloud, get list of used servers **/
+        this.appStore.sub((servers:List<string>) => {
+            this.knownServers = servers.toArray();
+            this.fetchStations();
+        }, 'appdb.cloudServers');
+
+        /** (3) once we have all stations, we can get their respective servers **/
+        this.appStore.sub((totalStationsReceived:number) => {
+            this.appStore.dispatch(this.appDbActions.serverStatus());
+        }, 'appdb.totalStations');
     }
 
-    public fetchStations() {
+    private fetchStations() {
         var sources:Map<string,any> = this.appStore.getState().business.getIn(['businessSources']).getData();
         var config = {}
         sources.forEach((i_businesses:List<string>, source)=> {
@@ -71,3 +81,15 @@ export class StoreService {
         this.appStore.dispatch(this.stationsAction.getStationsInfo(config));
     }
 }
+
+
+// this.appStore.sub((serversStatus:Map<string,any>) => {
+//     //this.appStore.dispatch(this.appDbActions.serverStatus());
+// }, 'appdb.serversStatus', false);
+
+
+// this.appStore.sub((stations:Map<string, List<StationModel>>) => {
+//     this.appStore.dispatch(this.appDbActions.serverStatus());
+// }, 'stations');
+
+// this.appStore.dispatch(this.appDbActions.serverStatus());

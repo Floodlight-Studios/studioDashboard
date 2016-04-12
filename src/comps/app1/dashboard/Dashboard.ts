@@ -16,7 +16,6 @@ import {SortBy} from "../../../pipes/SortBy";
 import {StationsGrid} from "./StationsGrid";
 import {CommBroker, IMessage} from "../../../services/CommBroker";
 import {Consts} from "../../../Conts";
-import {StoreService} from "../../../services/StoreService";
 import {FORM_DIRECTIVES, Control} from "angular2/common";
 import {ModalComponent} from "../../ng2-bs3-modal/components/modal";
 import {MODAL_DIRECTIVES} from "../../ng2-bs3-modal/ng2-bs3-modal";
@@ -48,11 +47,11 @@ type stationComponentMode = "map" | "grid";
 })
 export class Dashboard implements OnActivate {
 
-    constructor(private appStore:AppStore, private appDbActions:AppdbAction, private storeService:StoreService, private commBroker:CommBroker) {
+    constructor(private appStore:AppStore, private appDbActions:AppdbAction, private commBroker:CommBroker) {
         this.serverStats = [];
         this.serverStatsCategories = [];
         this.serverAvgResponse = 0;
-        this.appStore.dispatch(this.appDbActions.serverStatus());
+        // this.appStore.dispatch(this.appDbActions.serverStatus());
         this.listenBusinessNameFilter();
         this.listenStore()
         this.listenStationsErrors()

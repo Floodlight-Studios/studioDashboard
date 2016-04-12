@@ -1,11 +1,16 @@
 import {Map} from 'immutable';
 
 import * as AppdbAction from "../appdb/AppdbAction";
+import * as StationsAction from "../stations/StationsAction";
 const Immutable = require('immutable');
 const baseUrl = 'https://galaxy.signage.me/WebService/ResellerService.ashx';
 
 export default function appdb(state:Map<string, any> = Map<string, any>({}), action:any):Map<string, any> {
     switch (action.type) {
+        case StationsAction.RECEIVE_TOTAL_STATIONS:
+            return state.merge({
+                totalStations: action.totalStations
+            });
         case AppdbAction.AUTH_FAIL:
         case AppdbAction.AUTH_PASS:
             return state.merge({

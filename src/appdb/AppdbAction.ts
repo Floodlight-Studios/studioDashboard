@@ -88,23 +88,4 @@ export class AppdbAction extends Actions {
     public initAppDb() {
         return {type: APP_INIT, value: Date.now()};
     }
-
-    public authenticateUserA(i_user, i_pass) {
-        var self = this;
-        console.log('Auth user ' + i_user + ' ' + i_pass)
-        return (dispatch:Redux.Dispatch)=> {
-            setTimeout(()=> {
-                dispatch({type: AUTH_PASS, authenticated: true, user: i_user, pass: i_pass});
-            }, 2000);
-            //dispatch({type: AUTH_USER});
-            // fake server call until backend is ready with CORS
-
-            return;
-            // disabled for now
-            //this._http.get(`${BASE_URL}`)
-            //    .map(result => {
-            //        dispatch({type: AUTH_PASS, user: i_user, pass: i_pass});
-            //    }).subscribe();
-        }
-    }
 }
