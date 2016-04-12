@@ -7,7 +7,6 @@ import {StationsAction} from "../stations/StationsAction";
 import {List, Map} from 'immutable';
 import {CommBroker} from "./CommBroker";
 import {Consts} from "../Conts";
-import {ServerMode} from "../App";
 const _ = require('underscore');
 
 @Injectable()
@@ -50,7 +49,8 @@ export class StoreService {
 
         // if we are in cloud mode, first fetch active servers before getting station
         this.appStore.sub(() => {
-            if (this.commBroker.getValue(Consts.Values().SERVER_MODE) == ServerMode.CLOUD) {
+            // use 0 instead of ServerMode.CLOUD due to production bug with Enums
+            if (this.commBroker.getValue(Consts.Values().SERVER_MODE) == 0) {
                 this.appStore.dispatch(this.appDbActions.getCloudServers());
             } else {
                 this.fetchStations();
@@ -70,18 +70,3 @@ export class StoreService {
         this.appStore.dispatch(this.stationsAction.getStationsInfo(config));
     }
 }
-
-
-// private stationPending:number = 0;
-
-// this.appStore.sub(() => {
-//     this.stationPending--;
-//     if (this.stationPending == 0) console.log('received all station stats from all servers, even failed ones');
-// }, 'stations');
-
-// this.stationPending++;
-// this.appStore.dispatch(this.stationsAction.getStationsInfo(source, businesses));
-
-// prevent side effects
-// if (this.stationPending != 0)
-//     return;
