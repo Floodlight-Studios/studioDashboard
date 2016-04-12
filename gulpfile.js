@@ -185,12 +185,13 @@ gulp.task('x_open_server_bundle', function () {
     opn('http://monstersignage.com/public/index.html');
 });
 
+// , '**/*.ts','**/*.html','**/*.css'
 gulp.task('x_open_server_development', ['x_watch_source'], function () {
     process.stdout.write('Starting browserSync and superstatic...\n');
     browserSync({
         port: 8080,
         open: false,
-        files: ['index.html', '**/*.ts','**/*.html','**/*.css'],
+        files: ['index.html'],
         notify: true,
         reloadDebounce: 400,
         server: {
@@ -205,12 +206,13 @@ gulp.task('x_open_server_development', ['x_watch_source'], function () {
  * to get a fresh server every x minutes for better dev performance run:
  * forever stop 0 ; forever start -a -l f.log node_modules/gulp/bin/gulp.js development_auto ; tail -f ~/.forever/f.log
  **/
+//files: ['index.html', '**/*.ts','**/*.html','**/*.css'],
 gulp.task('x_open_server_development_auto', ['x_watch_source'], function () {
     process.stdout.write('Starting browserSync and superstatic...\n');
     browserSync({
         port: 8080,
         open: false,
-        files: ['index.html', '**/*.ts','**/*.html','**/*.css'],
+        files: ['index.html', '**/*.ts'],
         notify: true,
         reloadDebounce: 400,
         server: {

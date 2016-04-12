@@ -1,4 +1,5 @@
-import {Component, ChangeDetectionStrategy} from 'angular2/core'
+import {Component, ChangeDetectionStrategy, NgZone} from 'angular2/core'
+import {Router} from 'angular2/router';
 import {CanActivate, ComponentInstruction} from "angular2/router";
 import {AuthService} from "../../../services/AuthService";
 import {appInjService} from "../../../services/AppInjService";
@@ -9,16 +10,18 @@ import {ResellerAction} from "../../../reseller/ResellerAction";
 import {AppStore} from "angular2-redux-util/dist/index";
 import {FORM_DIRECTIVES, ControlGroup, FormBuilder, Control} from "angular2/common";
 import {BlurForwarder} from "../../blurforwarder/BlurForwarder";
+import {Loading} from "../../loading/Loading";
 const _ = require('underscore');
+const bootbox = require('bootbox');
 
 @Component({
     selector: 'whitelabel',
-    directives: [Tab, Tabs, FORM_DIRECTIVES, BlurForwarder],
+    directives: [Tab, Tabs, FORM_DIRECTIVES, BlurForwarder, Loading],
     host: {
         '(input-blur)': 'onInputBlur($event)'
     },
     templateUrl: '/src/comps/app1/whitelabel/Whitelabel.html',
-    changeDetection: ChangeDetectionStrategy.OnPush
+    changeDetection: ChangeDetectionStrategy.Default
 })
 @CanActivate((to:ComponentInstruction, from:ComponentInstruction) => {
     let authService:AuthService = appInjService().get(AuthService);
@@ -26,7 +29,7 @@ const _ = require('underscore');
 })
 export class Whitelabel {
 
-    constructor(private appStore:AppStore, private fb:FormBuilder, private resellerAction:ResellerAction) {
+    constructor(private appStore:AppStore, private fb:FormBuilder, private router:Router, private zone:NgZone, private resellerAction:ResellerAction) {
         var i_reseller = this.appStore.getState().reseller;
         this.whitelabelModel = i_reseller.getIn(['whitelabel']);
         this.unsub = this.appStore.sub((whitelabelModel:WhitelabelModel) => {
@@ -60,22 +63,62 @@ export class Whitelabel {
         this.renderFormInputs();
     }
 
+    private whiteLabelStatus = true;
+    private showWhiteLabel = true;
     private formInputs = {};
     private contGroup:ControlGroup;
     private whitelabelModel:WhitelabelModel;
     private unsub;
+    private loading = false;
 
     private onInputBlur(event) {
-        // console.log(event.target);
         setTimeout(()=>this.appStore.dispatch(this.resellerAction.updateResellerInfo(this.contGroup.value)), 1);
     }
 
+    private onClick() {
+        var self = this;
+        bootbox.prompt(`are you sure you want to cancel whitelabel? 
+            type [CANCEL] to change back to the default branding`, (result) => {
+            if (result == 'CANCEL') {
+                self.showWhiteLabel = false;
+            } else {
+                self.showWhiteLabel = true;
+            }
+        });
+
+        this.loading = true;
+        setTimeout(()=> {
+            // this.router.navigate([`/App1/Dashboard`]);
+            this.loading = false;
+        }, 1000)
+        // setTimeout(()=> {
+        //     this.router.navigate([`/App1/White label`]);
+        // }, 400)
+
+        var i_reseller = this.appStore.getState().reseller;
+        this.zone.run(() => {
+            this.whitelabelModel = i_reseller.getIn(['whitelabel']);
+        });
+        this.zone.run(() => {
+            this.whitelabelModel = i_reseller.getIn(['whitelabel']);
+        });
+        this.zone.run(() => {
+            this.whitelabelModel = i_reseller.getIn(['whitelabel']);
+        });
+    }
+
     private renderFormInputs() {
+        var enabled =  this.whitelabelModel.getKey('whitelabelEnabled');;
         _.forEach(this.formInputs, (value, key:string)=> {
             var value = this.whitelabelModel.getKey(key);
             this.formInputs[key].updateValue(value);
         })
     };
+
+    private onWhiteLabelChange(value) {
+        var value = value ? 1 : 0;
+        this.whitelabelModel.setKey<WhitelabelModel>(WhitelabelModel, 'whitelabelEnabled', value);
+    }
 
     private get isWhitelabelEnabled():boolean {
         if (!this.whitelabelModel)
