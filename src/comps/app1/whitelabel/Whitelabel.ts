@@ -63,52 +63,18 @@ export class Whitelabel {
         this.renderFormInputs();
     }
 
-    private whiteLabelStatus = true;
-    private showWhiteLabel = true;
+    private whiteLabelEnabled:boolean = true;
     private formInputs = {};
     private contGroup:ControlGroup;
     private whitelabelModel:WhitelabelModel;
     private unsub;
-    private loading = false;
 
     private onInputBlur(event) {
         setTimeout(()=>this.appStore.dispatch(this.resellerAction.updateResellerInfo(this.contGroup.value)), 1);
     }
 
-    private onClick() {
-        var self = this;
-        bootbox.prompt(`are you sure you want to cancel whitelabel? 
-            type [CANCEL] to change back to the default branding`, (result) => {
-            if (result == 'CANCEL') {
-                self.showWhiteLabel = false;
-            } else {
-                self.showWhiteLabel = true;
-            }
-        });
-
-        this.loading = true;
-        setTimeout(()=> {
-            // this.router.navigate([`/App1/Dashboard`]);
-            this.loading = false;
-        }, 1000)
-        // setTimeout(()=> {
-        //     this.router.navigate([`/App1/White label`]);
-        // }, 400)
-
-        var i_reseller = this.appStore.getState().reseller;
-        this.zone.run(() => {
-            this.whitelabelModel = i_reseller.getIn(['whitelabel']);
-        });
-        this.zone.run(() => {
-            this.whitelabelModel = i_reseller.getIn(['whitelabel']);
-        });
-        this.zone.run(() => {
-            this.whitelabelModel = i_reseller.getIn(['whitelabel']);
-        });
-    }
-
     private renderFormInputs() {
-        var enabled =  this.whitelabelModel.getKey('whitelabelEnabled');;
+        this.whiteLabelEnabled =  this.whitelabelModel.getKey('whitelabelEnabled');;
         _.forEach(this.formInputs, (value, key:string)=> {
             var value = this.whitelabelModel.getKey(key);
             this.formInputs[key].updateValue(value);
@@ -116,16 +82,15 @@ export class Whitelabel {
     };
 
     private onWhiteLabelChange(value) {
-        var value = value ? 1 : 0;
+        value = value ? 1 : 0;
         this.appStore.dispatch(this.resellerAction.updateResellerInfo({whitelabelEnabled: value}))
-        // this.whitelabelModel.setKey<WhitelabelModel>(WhitelabelModel, 'whitelabelEnabled', value);
     }
 
-    private get isWhitelabelEnabled():boolean {
-        if (!this.whitelabelModel)
-            return false;
-        return this.whitelabelModel.getKey('whitelabelEnabled')
-    }
+    // private get isWhitelabelEnabled():boolean {
+    //     if (!this.whitelabelModel)
+    //         return false;
+    //     return this.whitelabelModel.getKey('whitelabelEnabled')
+    // }
 
     private ngOnDestroy() {
         this.unsub();

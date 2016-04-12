@@ -1,20 +1,14 @@
 <br/>
 <form [ngFormModel]="contGroup">
-
   <label>
-    <!--<input [(ngModel)]="whiteLabelStatus" (change)="onWhiteLabelChange($event)" type="checkbox"> enable branding-->
-    <input #angularcb type="checkbox" (change)="onWhiteLabelChange(angularcb.checked)" />
-    <!--<input (click)="onClick()" [ngFormControl]="contGroup.controls['whitelabelEnabled']" type="checkbox" checked> enable branding-->
+    <input #whiteLabelCheckbox type="checkbox" [(ngModel)]="whiteLabelEnabled"
+           (change)="onWhiteLabelChange(whiteLabelCheckbox.checked)" />
+    <label>enable branding</label>
   </label>
-
-  <!--<button (click)="onClick()" type="button" class="btn btn-primary btn-default" data-dismiss="modal">-->
-    <!--toggle white label-->
-  <!--</button>-->
-
   <br/>
   <div>
     <!--<tabs *ngIf="showWhiteLabel">-->
-    <tabs *ngIf="isWhitelabelEnabled">
+    <tabs *ngIf="whiteLabelEnabled">
       <tab [tabtitle]="'Logo'" style="background-color: red">
         <div class="tabStyle">
           <div class="form-area">
