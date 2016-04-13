@@ -33,17 +33,15 @@ export class StoreService {
             return;
         this.singleton = true;
         this.listenServices();
-
         this.appStore.dispatch(this.resellerAction.getResellerInfo());
         this.appStore.dispatch(this.resellerAction.getAccountInfo());
         this.appStore.dispatch(this.businessActions.fetchBusinesses());
     }
 
-    private startTimedServices() {
+    private initPollServices() {
         if (this.running)
             return;
         this.running = true;
-        // todo: enable in production and set poll value in settings
         setInterval(()=> {
             this.appStore.dispatch(this.appDbActions.serverStatus());
             this.fetchStations()
@@ -81,7 +79,8 @@ export class StoreService {
 
         /** (5) received station status **/
         this.appStore.sub((serversStatus:Map<string,any>) => {
-            this.startTimedServices();
+            // todo: enable in production and set poll value in settings
+            //this.initPollServices();
         }, 'appdb.serversStatus', false);
     }
 

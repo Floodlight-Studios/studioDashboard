@@ -1,25 +1,25 @@
-import {Component, ChangeDetectionStrategy, ChangeDetectorRef, ApplicationRef, NgZone} from 'angular2/core'
+import {Component, ChangeDetectionStrategy, NgZone} from 'angular2/core'
+import {Router} from 'angular2/router';
 import {CanActivate, ComponentInstruction} from "angular2/router";
 import {AuthService} from "../../../services/AuthService";
 import {appInjService} from "../../../services/AppInjService";
-import {ResellerAction} from "../../../reseller/ResellerAction";
-import {FormBuilder, ControlGroup} from "angular2/common";
-import {AppStore} from "angular2-redux-util/dist/index";
+import {Tab} from "../../tabs/tab";
+import {Tabs} from "../../tabs/tabs";
 import {WhitelabelModel} from "../../../reseller/WhitelabelModel";
+import {ResellerAction} from "../../../reseller/ResellerAction";
+import {AppStore} from "angular2-redux-util/dist/index";
+import {FORM_DIRECTIVES, ControlGroup, FormBuilder, Control} from "angular2/common";
+import {BlurForwarder} from "../../blurforwarder/BlurForwarder";
+import {Loading} from "../../loading/Loading";
+const _ = require('underscore');
 const bootbox = require('bootbox');
 
 @Component({
     selector: 'accounts',
-    styles: [`
-    hr {
-        display: block;
-        height: 1px;
-        border: 0;
-        border-top: 1px solid #ccc;
-        margin: 2em 0em;
-        padding: 0; 
-    }
-    `],
+    directives: [Tab, Tabs, FORM_DIRECTIVES, BlurForwarder, Loading],
+    host: {
+        '(input-blur)': 'onInputBlur($event)'
+    },
     // changeDetection: ChangeDetectionStrategy.OnPush,
     templateUrl: `/src/comps/app1/account/Account.html`
 })
@@ -29,18 +29,34 @@ const bootbox = require('bootbox');
 })
 export class Account {
 
-    constructor(private appStore:AppStore, private fb:FormBuilder, private resellerAction:ResellerAction) {
+    constructor(private appStore:AppStore, private fb:FormBuilder, private router:Router, private zone:NgZone, private resellerAction:ResellerAction) {
         var i_reseller = this.appStore.getState().reseller;
         this.whitelabelModel = i_reseller.getIn(['whitelabel']);
         this.unsub = this.appStore.sub((whitelabelModel:WhitelabelModel) => {
             this.whitelabelModel = whitelabelModel;
+            this.renderFormInputs();
         }, 'reseller.whitelabel');
+
+        this.contGroup = fb.group({
+            'linksHome': ['']
+        });
+        _.forEach(this.contGroup.controls, (value, key:string)=> {
+            this.formInputs[key] = this.contGroup.controls[key] as Control;
+        })
+        this.renderFormInputs();
     }
 
+    private whiteLabelEnabled:boolean = true;
+    private formInputs = {};
     private contGroup:ControlGroup;
     private whitelabelModel:WhitelabelModel;
     private PAY_SUBSCRIBER:number = 4;
     private unsub;
+
+
+    private onInputBlur(event) {
+        setTimeout(()=>this.appStore.dispatch(this.resellerAction.updateResellerInfo(this.contGroup.value)), 1);
+    }
 
     private onChangeAccountStatus(status:boolean) {
         if (!status) {
@@ -64,9 +80,20 @@ export class Account {
         }
     }
 
+    private renderFormInputs() {
+        this.whiteLabelEnabled =  this.whitelabelModel.getKey('whitelabelEnabled');;
+        _.forEach(this.formInputs, (value, key:string)=> {
+            var value = this.whitelabelModel.getKey(key);
+            this.formInputs[key].updateValue(value);
+        })
+    };
+
+    private onWhiteLabelChange(value) {
+        value = value ? 1 : 0;
+        this.appStore.dispatch(this.resellerAction.updateResellerInfo({whitelabelEnabled: value}))
+    }
+
     private ngOnDestroy() {
         this.unsub();
     }
-
 }
-

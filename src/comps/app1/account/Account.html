@@ -11,7 +11,7 @@
     </div>
 
     <div *ngIf="getAccountStatus()">
-        <span (click)="onChangeAccountStatus(false)" style="cursor: hand; font-size: 4em; padding-right: 60px; padding-top: 20px; color: green" class="fa fa-check-circle pull-right"></span>
+      <span (click)="onChangeAccountStatus(false)" style="cursor: hand; font-size: 4em; padding-right: 60px; padding-top: 20px; color: green" class="fa fa-check-circle pull-right"></span>
     </div>
     <div *ngIf="!getAccountStatus()">
       <span (click)="onChangeAccountStatus(true)" style="cursor: hand; font-size: 4em; padding-right: 60px; padding-top: 20px; color: red" class="fa fa-minus-circle pull-right"></span>
@@ -45,60 +45,74 @@
         </h3>
       </div>
       <div class="panel-body">
-        <form role="form" id="payment-form">
-          <div class="row">
-            <div class="col-xs-12">
-              <div class="form-group">
-                <label for="newName">Pick a new enterprise user name</label>
-                <input id="upgUserName" type="text" class="form-control" name="newName"/>
-              </div>
-              <div class="form-group">
-                <label for="newPass">Pick an enterprise password</label>
-                <input id="upgPass" type="password" class="form-control" name="newPass"/>
-              </div>
-              <div class="form-group">
-                <label for="newPass2">Repeat your new password</label>
-                <input id="upgPass2" type="password" class="form-control" name="newPass2"/>
-              </div>
-            </div>
-            <div class="col-xs-12">
-              <div class="form-group">
-                <label for="cardNumber">CARD NUMBER</label>
-                <div class="input-group">
-                  <input id="upgCredit" type="text" class="form-control" name="cardNumber" placeholder="Valid Card Number" required autofocus data-stripe="number"/>
-                  <span class="input-group-addon"><i class="fa fa-credit-card"></i></span>
+        <form role="form">
+          <tabs>
+            <tab [tabtitle]="'Payment'" style="background-color: red">
+              <div role="form" id="payment-form">
+                <div class="row">
+                  <div class="col-xs-12">
+                    <div class="form-group">
+                      <label for="newName">Pick a new enterprise user name</label>
+                      <input id="upgUserName" type="text" class="form-control" name="newName"/>
+                    </div>
+                    <div class="form-group">
+                      <label for="newPass">Pick an enterprise password</label>
+                      <input id="upgPass" type="password" class="form-control" name="newPass"/>
+                    </div>
+                    <div class="form-group">
+                      <label for="newPass2">Repeat your new password</label>
+                      <input id="upgPass2" type="password" class="form-control" name="newPass2"/>
+                    </div>
+                  </div>
+                  <div class="col-xs-12">
+                    <div class="form-group">
+                      <label for="cardNumber">CARD NUMBER</label>
+                      <div class="input-group">
+                        <input id="upgCredit" type="text" class="form-control" name="cardNumber" placeholder="Valid Card Number" required autofocus data-stripe="number"/>
+                        <span class="input-group-addon"><i class="fa fa-credit-card"></i></span>
+                      </div>
+                    </div>
+                  </div>
                 </div>
-              </div>
-            </div>
-          </div>
-          <div class="row">
-            <div class="col-xs-7 col-md-7">
-              <div class="form-group">
+                <div class="row">
+                  <div class="col-xs-7 col-md-7">
+                    <div class="form-group">
 
-                <div class="col-xs-6 col-lg-6 pl-ziro">
-                  <input id="upgMonth" type="text" class="form-control" name="expMonth" placeholder="MM" required data-stripe="exp_month"/>
+                      <div class="col-xs-6 col-lg-6 pl-ziro">
+                        <input id="upgMonth" type="text" class="form-control" name="expMonth" placeholder="MM" required data-stripe="exp_month"/>
+                      </div>
+                      <div class="col-xs-6 col-lg-6 pl-ziro">
+                        <input id="upgYear" type="text" class="form-control" name="expYear" placeholder="YYYY" required data-stripe="exp_year"/>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-xs-5 col-md-5 pull-right">
+                    <div class="form-group">
+                      <input id="upgCV" class="form-control" name="cvCode" placeholder="CV" required data-stripe="cvc"/>
+                    </div>
+                  </div>
                 </div>
-                <div class="col-xs-6 col-lg-6 pl-ziro">
-                  <input id="upgYear" type="text" class="form-control" name="expYear" placeholder="YYYY" required data-stripe="exp_year"/>
+                <div class="row">
+                  <div class="col-xs-12">
+                    <button class="startUpgrade btn btn-success btn-lg btn-block" type="submit">Start Subscription</button>
+                  </div>
+                </div>
+                <div class="row" style="display:none;">
+                  <div class="col-xs-12">
+                    <p class="payment-errors"></p>
+                  </div>
                 </div>
               </div>
-            </div>
-            <div class="col-xs-5 col-md-5 pull-right">
+            </tab>
+            <tab [tabtitle]="'Billing'" style="background-color: red">
               <div class="form-group">
-                <input id="upgCV" class="form-control" name="cvCode" placeholder="CV" required data-stripe="cvc"/>
+                <input [ngFormControl]="contGroup.controls['linksHome']" type="text" class="form-control" placeholder="home page" required>
               </div>
-            </div>
-          </div>
-          <div class="row">
-            <div class="col-xs-12">
-              <button class="startUpgrade btn btn-success btn-lg btn-block" type="submit">Start Subscription</button>
-            </div>
-          </div>
-          <div class="row" style="display:none;">
-            <div class="col-xs-12">
-              <p class="payment-errors"></p>
-            </div>
-          </div>
+            </tab>
+            <tab [tabtitle]="'Shipping'" style="background-color: red">
+
+            </tab>
+          </tabs>
         </form>
       </div>
     </div>
