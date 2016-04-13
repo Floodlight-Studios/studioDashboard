@@ -89,6 +89,7 @@ export class Account {
 
 
     private onInputBlur(event) {
+        setTimeout(()=>console.log(JSON.stringify(this.contGroup.value)), 1);
         setTimeout(()=>this.appStore.dispatch(this.resellerAction.updateAccountInfo(this.contGroup.value)), 1);
     }
 
@@ -120,7 +121,6 @@ export class Account {
 
     private renderFormInputs() {
         this.whiteLabelEnabled = this.whitelabelModel.getKey('whitelabelEnabled');
-        ;
         _.forEach(this.formInputs, (value, key:string)=> {
             var value = this.whitelabelModel.getKey(key);
             this.formInputs[key].updateValue(value);

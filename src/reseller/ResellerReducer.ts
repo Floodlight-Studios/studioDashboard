@@ -16,7 +16,7 @@ export function reseller(state:Map<string,any> = Map<string,any>(), action:any):
         }
         case ResellerAction.UPDATE_ACCOUNT:
         {
-            console.log(action);
+            // console.log(action);
             return state;//.setIn(['apps'], action.apps);
         }
         case ResellerAction.UPDATE_APP:
