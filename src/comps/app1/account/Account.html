@@ -40,18 +40,144 @@
       <div class="panel-heading">
         <h3 class="panel-title">
           <center>
-            <img src="http://i76.imgup.net/accepted_c22e0.png">
+            <img src="assets/visa.png">
+            <img class="faded" src="assets/mastercard.png">
+            <img class="faded" src="assets/amex.png">
+            <img class="faded" src="assets/discover.png">
+            <img class="faded" src="assets/paypal.png">
           </center>
         </h3>
       </div>
       <div class="panel-body">
-        <form [ngFormModel]="contGroup">
+        <form [ngFormModel]="contGroup" (ngSubmit)="onSubmit(contGroup.value)">
           <tabs>
             <tab [tabtitle]="'Payment'">
-              <input [ngFormControl]="contGroup.controls['billing_companyName']" type="text" class="form-control" placeholder="Company name" required>
+              <div role="form" id="payment-form">
+                <div class="row">
+                  <div class="col-xs-12">
+                    <div class="form-group">
+                      <label for="newName">Pick a new enterprise user name</label>
+                      <input id="upgUserName" [ngFormControl]="contGroup.controls['enterprise_login']" type="text" class="form-control" name="newName"/>
+                    </div>
+                    <div class="form-group">
+                      <label for="newPass">Pick an enterprise password</label>
+                      <input id="upgPass" [ngFormControl]="contGroup.controls['enterprise_pass1']" type="password" class="form-control" name="newPass"/>
+                    </div>
+                    <div class="form-group">
+                      <label for="newPass2">Repeat your new password</label>
+                      <input id="upgPass2" [ngFormControl]="contGroup.controls['enterprise_pass2']" type="password" class="form-control" name="newPass2"/>
+                    </div>
+                  </div>
+                  <div class="col-xs-12">
+                    <div class="form-group">
+                      <label for="cardNumber">CARD NUMBER</label>
+                      <div class="input-group">
+                        <input id="upgCredit" [ngFormControl]="contGroup.controls['billing_cardNumber']" type="text" class="ccNumber form-control" name="cardNumber" placeholder="Valid Card Number"  autofocus data-stripe="number"/>
+                        <span class="input-group-addon"><i class="fa fa-credit-card"></i></span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-xs-7 col-md-7">
+                    <div class="form-group">
+
+                      <div class="col-xs-6 col-lg-6 pl-ziro">
+                        <input id="upgMonth" [ngFormControl]="contGroup.controls['billing_expirationMonth']" type="text" class="form-control" name="expMonth" placeholder="MM"  data-stripe="exp_month"/>
+                      </div>
+                      <div class="col-xs-6 col-lg-6 pl-ziro">
+                        <input id="upgYear" [ngFormControl]="contGroup.controls['billing_expirationYear']" type="text" class="form-control" name="expYear" placeholder="YYYY"  data-stripe="exp_year"/>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-xs-5 col-md-5 pull-right">
+                    <div class="form-group">
+                      <input id="upgCV" [ngFormControl]="contGroup.controls['billing_securityCode']" class="form-control" name="cvCode" placeholder="CV"  data-stripe="cvc"/>
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-xs-12">
+                    <button class="startUpgrade btn btn-success btn-lg btn-block" type="submit">Start Subscription</button>
+                  </div>
+                </div>
+                <div class="row" style="display:none;">
+                  <div class="col-xs-12">
+                    <p class="payment-errors"></p>
+                  </div>
+                </div>
+              </div>
             </tab>
-            <tab [tabtitle]="'Billing'"></tab>
-            <tab [tabtitle]="'Shipping'"></tab>
+            <tab [tabtitle]="'Billing'">
+              <div class="form-group">
+                <input [ngFormControl]="contGroup.controls['billing_firstName']" type="text" class="form-control" placeholder="first name" >
+              </div>
+              <div class="form-group">
+                <input [ngFormControl]="contGroup.controls['billing_lastName']" type="text" class="form-control" placeholder="last name" >
+              </div>
+              <div class="form-group">
+                <input [ngFormControl]="contGroup.controls['billing_address1']" type="text" class="form-control" placeholder="address1" >
+              </div>
+              <div class="form-group">
+                <input [ngFormControl]="contGroup.controls['billing_address2']" type="text" class="form-control" placeholder="address2" >
+              </div>
+              <div class="form-group">
+                <input [ngFormControl]="contGroup.controls['billing_city']" type="text" class="form-control" placeholder="city" >
+              </div>
+              <div class="form-group">
+                <input [ngFormControl]="contGroup.controls['billing_state']" type="text" class="form-control" placeholder="state" >
+              </div>
+              <div class="form-group">
+                <input [ngFormControl]="contGroup.controls['billing_country']" type="text" class="form-control" placeholder="country" >
+              </div>
+              <div class="form-group">
+                <input [ngFormControl]="contGroup.controls['billing_zipCode']" type="text" class="form-control" placeholder="zip" >
+              </div>
+              <div class="form-group">
+                <input [ngFormControl]="contGroup.controls['billing_workPhone']" type="text" class="form-control" placeholder="work phone" >
+              </div>
+              <div class="form-group">
+                <input [ngFormControl]="contGroup.controls['billing_cellPhone']" type="text" class="form-control" placeholder="cell phone" >
+              </div>
+              <div class="form-group">
+                <input [ngFormControl]="contGroup.controls['billing_email']" type="text" class="form-control" placeholder="email" >
+              </div>
+            </tab>
+            <tab [tabtitle]="'Shipping'">
+              <div class="form-group">
+                <input [ngFormControl]="contGroup.controls['shipping_firstName']" type="text" class="form-control" placeholder="first name" >
+              </div>
+              <div class="form-group">
+                <input [ngFormControl]="contGroup.controls['shipping_lastName']" type="text" class="form-control" placeholder="last name" >
+              </div>
+              <div class="form-group">
+                <input [ngFormControl]="contGroup.controls['shipping_address1']" type="text" class="form-control" placeholder="address1" >
+              </div>
+              <div class="form-group">
+                <input [ngFormControl]="contGroup.controls['shipping_address2']" type="text" class="form-control" placeholder="address2" >
+              </div>
+              <div class="form-group">
+                <input [ngFormControl]="contGroup.controls['shipping_city']" type="text" class="form-control" placeholder="city" >
+              </div>
+              <div class="form-group">
+                <input [ngFormControl]="contGroup.controls['shipping_state']" type="text" class="form-control" placeholder="state" >
+              </div>
+              <div class="form-group">
+                <input [ngFormControl]="contGroup.controls['shipping_country']" type="text" class="form-control" placeholder="country" >
+              </div>
+              <div class="form-group">
+                <input [ngFormControl]="contGroup.controls['shipping_zipCode']" type="text" class="form-control" placeholder="zip" >
+              </div>
+              <div class="form-group">
+                <input [ngFormControl]="contGroup.controls['shipping_workPhone']" type="text" class="form-control" placeholder="work phone" >
+              </div>
+              <div class="form-group">
+                <input [ngFormControl]="contGroup.controls['shipping_cellPhone']" type="text" class="form-control" placeholder="cell phone" >
+              </div>
+              <div class="form-group">
+                <input [ngFormControl]="contGroup.controls['shipping_email']" type="text" class="form-control" placeholder="email" >
+              </div>
+            </tab>
           </tabs>
         </form>
       </div>
