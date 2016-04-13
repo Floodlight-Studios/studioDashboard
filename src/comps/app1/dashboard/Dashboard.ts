@@ -208,38 +208,20 @@ export class Dashboard implements OnActivate {
                     var connection = i_station.getKey('connection');
                     var name = i_station.getKey('name');
 
-                    if (connection == 0) {
-                        screensOffline++;
-                    } else {
-                        screensOnline++;
-                    }
+                    connection == 0 ? screensOffline++ : screensOnline++;
 
-                    if ((this.stationsFilteredBy['os'] == 'all' || this.stationsFilteredBy['os'] == os)) {
+                    if ((this.stationsFilteredBy['os'] == 'all' || this.stationsFilteredBy['os'] == os))
                         score++;
-                        // console.log(1);
-                    }
-                    if (this.stationsFilteredBy['name'] == 'all' || name.toLowerCase().match(this.stationsFilteredBy['name'] .toLowerCase())) {
+                    if (this.stationsFilteredBy['name'] == 'all' || name.toLowerCase().match(this.stationsFilteredBy['name'] .toLowerCase()))
                         score++;
-                        // console.log(2);
-                    }
-                    if (this.stationsFilteredBy['appVersion'] == 'all' || this.stationsFilteredBy['appVersion'] == appVersion) {
+                    if (this.stationsFilteredBy['appVersion'] == 'all' || this.stationsFilteredBy['appVersion'] == appVersion)
                         score++;
-                        // console.log(3);
-                    }
-                    if (this.stationsFilteredBy['airVersion'] == 'all' || this.stationsFilteredBy['airVersion'] == airVersion) {
+                    if (this.stationsFilteredBy['airVersion'] == 'all' || this.stationsFilteredBy['airVersion'] == airVersion)
                         score++;
-                        // console.log(4);
-                    }
-
-                    if (this.stationsFilteredBy['connection'] == 'all'
-                        || this.stationsFilteredBy['connection'] == connection
-                        || (this.stationsFilteredBy['connection'] == '1' && connection > 0)) {
-                        // console.log(5);
+                    if (this.stationsFilteredBy['connection'] == 'all' || this.stationsFilteredBy['connection'] == connection || (this.stationsFilteredBy['connection'] == '1' && connection > 0))
                         score++;
-                    }
-                    if (score == STATION_SCORE) {
+                    if (score == STATION_SCORE)
                         stationsFiltered = stationsFiltered.push(i_station)
-                    }
                 })
             });
             this.screensOffline = 'screens offline ' + screensOffline;
