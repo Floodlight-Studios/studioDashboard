@@ -26,6 +26,7 @@ export class StoreService {
     // todo: in private / hybrid mode we need to get list of business servers
     // private knownServers:Array<string> = ['mars.signage.me', 'mercury.signage.me'];
     private knownServers:Array<string> = [];
+    private running:boolean = false;
 
     public loadServices() {
         if (this.singleton)
@@ -39,10 +40,14 @@ export class StoreService {
     }
 
     private startTimedServices() {
+        if (this.running)
+            return;
+        this.running = true;
         // todo: enable in production and set poll value in settings
-        // setInterval(()=> {
-        //     this.fetchStations()
-        // }, 3000);
+        setInterval(()=> {
+            this.appStore.dispatch(this.appDbActions.serverStatus());
+            this.fetchStations()
+        }, 10000);
     }
 
     private listenServices() {
@@ -76,7 +81,7 @@ export class StoreService {
 
         /** (5) received station status **/
         this.appStore.sub((serversStatus:Map<string,any>) => {
-            // console.log(serversStatus);
+            this.startTimedServices();
         }, 'appdb.serversStatus', false);
     }
 

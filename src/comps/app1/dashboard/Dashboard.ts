@@ -1,4 +1,4 @@
-import {Component, ViewChild} from 'angular2/core'
+import {Component, ViewChild, ChangeDetectorRef} from 'angular2/core'
 import {Infobox} from "../../infobox/Infobox";
 import {List, Map} from 'immutable';
 import {AppStore} from "angular2-redux-util/dist/index";
@@ -47,7 +47,8 @@ type stationComponentMode = "map" | "grid";
 })
 export class Dashboard implements OnActivate {
 
-    constructor(private appStore:AppStore, private appDbActions:AppdbAction, private commBroker:CommBroker) {
+    constructor(private appStore:AppStore, private appDbActions:AppdbAction, private cd:ChangeDetectorRef, private commBroker:CommBroker) {
+        // constructor(private appStore:AppStore, private appDbActions:AppdbAction, private commBroker:CommBroker) {
         this.serverStats = [];
         this.serverStatsCategories = [];
         this.serverAvgResponse = 0;
@@ -111,7 +112,8 @@ export class Dashboard implements OnActivate {
         unsub = this.appStore.sub((stations:Map<string, List<StationModel>>) => {
             this.stations = stations;
             this.initStationsFilter();
-            this.onStationsFilterSelected('connection', 'all', 1000);
+            //this.onStationsFilterSelected('connection', 'all', 1000);
+            this.setStationsFiltered();
         }, 'stations');
         this.unsubs.push(unsub);
 
@@ -188,31 +190,18 @@ export class Dashboard implements OnActivate {
         });
     }
 
-    private onStationsFilterSelected(filterType, filterValue, delay:number) {
+    private setStationsFiltered() {
 
         setTimeout(()=> {
-            // improve performance by waiting 1 sec before rendering
             var stationsFiltered = List<StationModel>();
             var screensOnline = 0;
             var screensOffline = 0;
+            var score;
+            var STATION_SCORE = 5;
 
-
-            if (filterType == 'connection') {
-                if (filterValue == 'connected') {
-                    filterValue = '1'
-                } else if (filterValue == 'disconnected') {
-                    filterValue = '0';
-                }
-            }
-
-            if (filterType == 'name') {
-                if (filterValue == '')
-                    filterValue = 'all'
-            }
-
-            this.stationsFilteredBy[filterType] = filterValue.match('all') ? 'all' : filterValue;
             this.stations.forEach((stationList:List<StationModel>, source)=> {
                 stationList.forEach((i_station:StationModel)=> {
+                    score = 0;
                     var os = i_station.getKey('os');
                     var appVersion = i_station.getKey('appVersion');
                     var airVersion = i_station.getKey('airVersion');
@@ -224,12 +213,31 @@ export class Dashboard implements OnActivate {
                     } else {
                         screensOnline++;
                     }
-                    if ((this.stationsFilteredBy['os'] == 'all' || this.stationsFilteredBy['os'] == os) &&
-                        (this.stationsFilteredBy['appVersion'] == 'all' || this.stationsFilteredBy['appVersion'] == appVersion) &&
-                        (this.stationsFilteredBy['airVersion'] == 'all' || this.stationsFilteredBy['airVersion'] == airVersion) &&
-                        (this.stationsFilteredBy['name'] == 'all' || name.toLowerCase().match(filterValue.toLowerCase())) &&
-                        (this.stationsFilteredBy['connection'] == 'all' || this.stationsFilteredBy['connection'] == connection) || (this.stationsFilteredBy['connection'] == '1' && connection > 0)) {
 
+                    if ((this.stationsFilteredBy['os'] == 'all' || this.stationsFilteredBy['os'] == os)) {
+                        score++;
+                        // console.log(1);
+                    }
+                    if (this.stationsFilteredBy['name'] == 'all' || name.toLowerCase().match(this.stationsFilteredBy['name'] .toLowerCase())) {
+                        score++;
+                        // console.log(2);
+                    }
+                    if (this.stationsFilteredBy['appVersion'] == 'all' || this.stationsFilteredBy['appVersion'] == appVersion) {
+                        score++;
+                        // console.log(3);
+                    }
+                    if (this.stationsFilteredBy['airVersion'] == 'all' || this.stationsFilteredBy['airVersion'] == airVersion) {
+                        score++;
+                        // console.log(4);
+                    }
+
+                    if (this.stationsFilteredBy['connection'] == 'all'
+                        || this.stationsFilteredBy['connection'] == connection
+                        || (this.stationsFilteredBy['connection'] == '1' && connection > 0)) {
+                        // console.log(5);
+                        score++;
+                    }
+                    if (score == STATION_SCORE) {
                         stationsFiltered = stationsFiltered.push(i_station)
                     }
                 })
@@ -238,7 +246,25 @@ export class Dashboard implements OnActivate {
             this.screensOnline = 'screens online ' + screensOnline;
             this.stationsFiltered = stationsFiltered;
             this.totalFilteredPlayers = this.stationsFiltered.size;
-        }, delay)
+            this.cd.markForCheck();
+        }, 1000)
+
+    }
+
+    private onStationsFilterSelected(filterType, filterValue, delay:number) {
+        if (filterType == 'connection') {
+            if (filterValue == 'connected') {
+                filterValue = '1'
+            } else if (filterValue == 'disconnected') {
+                filterValue = '0';
+            }
+        }
+        if (filterType == 'name') {
+            if (filterValue == '')
+                filterValue = 'all'
+        }
+        this.stationsFilteredBy[filterType] = filterValue.match('all') ? 'all' : filterValue;
+        this.setStationsFiltered();
     }
 
     private onStationModalOpen(stationId) {
