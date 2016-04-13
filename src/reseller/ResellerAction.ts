@@ -22,6 +22,7 @@ export const RECEIVE_ACCOUNT_INFO = 'RECEIVE_ACCOUNT_INFO';
 export const UPDATE_APP = 'UPDATE_APP';
 export const UPDATE_DEFAULT_PRIVILEGE = 'UPDATE_DEFAULT_PRIVILEGE';
 export const UPDATE_WHITELABEL = 'UPDATE_WHITELABEL';
+export const UPDATE_ACCOUNT = 'UPDATE_ACCOUNT';
 export const ADD_PRIVILEGE = 'ADD_PRIVILEGE';
 export const REMOVE_PRIVILEGE = 'REMOVE_PRIVILEGE';
 
@@ -297,6 +298,13 @@ export class ResellerAction extends Actions {
     public updateResellerInfo(payload:any) {
         return {
             type: UPDATE_WHITELABEL,
+            payload
+        }
+    }
+
+    public updateAccountInfo(payload:any) {
+        return {
+            type: UPDATE_ACCOUNT,
             payload
         }
     }

@@ -38,7 +38,7 @@ export class Account {
         }, 'reseller.whitelabel');
 
         this.contGroup = fb.group({
-            'linksHome': ['']
+            'billing_companyName': ['']
         });
         _.forEach(this.contGroup.controls, (value, key:string)=> {
             this.formInputs[key] = this.contGroup.controls[key] as Control;
@@ -55,14 +55,19 @@ export class Account {
 
 
     private onInputBlur(event) {
-        setTimeout(()=>this.appStore.dispatch(this.resellerAction.updateResellerInfo(this.contGroup.value)), 1);
+        this.contGroup.value
+        //var table = event.split('_')[0];
+        // var value = event.split('_')[1];
+        // setTimeout(()=>this.appStore.dispatch(this.resellerAction.updateAccountInfo({table, value}), 1);
+
+        // setTimeout(()=>this.appStore.dispatch(this.resellerAction.updateAccountInfo(this.contGroup.value)), 1);
     }
 
     private onChangeAccountStatus(status:boolean) {
         if (!status) {
             bootbox.prompt(`are you sure you want to cancel your current subscription? 
             Dangerous: type [DELETE_NOW] to cancel association of all your screens`, (result) => {
-                if (result=='DELETE_NOW') {
+                if (result == 'DELETE_NOW') {
                     this.appStore.dispatch(this.resellerAction.updateResellerInfo({accountStatus: 0}));
                 }
             });
@@ -81,7 +86,8 @@ export class Account {
     }
 
     private renderFormInputs() {
-        this.whiteLabelEnabled =  this.whitelabelModel.getKey('whitelabelEnabled');;
+        this.whiteLabelEnabled = this.whitelabelModel.getKey('whitelabelEnabled');
+        ;
         _.forEach(this.formInputs, (value, key:string)=> {
             var value = this.whitelabelModel.getKey(key);
             this.formInputs[key].updateValue(value);

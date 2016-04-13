@@ -70,6 +70,7 @@ export class Whitelabel {
     private unsub;
 
     private onInputBlur(event) {
+        console.log(this.contGroup.value);
         setTimeout(()=>this.appStore.dispatch(this.resellerAction.updateResellerInfo(this.contGroup.value)), 1);
     }
 
