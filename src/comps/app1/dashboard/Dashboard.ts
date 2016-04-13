@@ -139,11 +139,18 @@ export class Dashboard implements OnActivate {
         let t = 0;
         this.serverStats = [];
         this.serverStatsCategories = [];
+        var servers = ['galaxy'];
+        this.appStore.getState().stations.forEach((v, server)=> {
+            servers.push(server.split('.')[0]);
+        });
         serversStatus.forEach((value, key)=> {
-            self.serverStatsCategories.push(key);
-            c++;
-            t = t + Number(value);
-            self.serverStats.push(Number(value));
+            // only show servers that user has stations on
+            if (servers.indexOf(key) > -1) {
+                self.serverStatsCategories.push(key);
+                c++;
+                t = t + Number(value);
+                self.serverStats.push(Number(value));
+            }
         })
         this.serverAvgResponse = t / c;
     }
@@ -235,8 +242,8 @@ export class Dashboard implements OnActivate {
     }
 
     private onStationModalOpen(stationId) {
-        this.stationsFiltered.forEach((stationModel:StationModel)=>{
-            if (stationModel.getStationId()==stationId)
+        this.stationsFiltered.forEach((stationModel:StationModel)=> {
+            if (stationModel.getStationId() == stationId)
                 this.selectedStation = stationModel;
         });
         this.modalStationDetails.open('lg');

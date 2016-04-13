@@ -40,7 +40,6 @@ export class StationsMap {
 
     @Input()
     set stations(i_stations) {
-        console.log(i_stations);
         this.m_stations = i_stations;
         this.updateStations();
     }

@@ -7,6 +7,7 @@ import {StationsAction} from "../stations/StationsAction";
 import {List, Map} from 'immutable';
 import {CommBroker} from "./CommBroker";
 import {Consts} from "../Conts";
+import {StationModel} from "../stations/StationModel";
 const _ = require('underscore');
 
 @Injectable()
@@ -63,10 +64,20 @@ export class StoreService {
             this.fetchStations();
         }, 'appdb.cloudServers');
 
-        /** (3) once we have all stations, we can get their respective servers **/
+        /** (3) receive each set of stations status per server **/
+        this.appStore.sub((stations:Map<string, List<StationModel>>) => {
+            // console.log('received station');
+        }, 'stations');
+
+        /** (4) once we have all stations, we can get their respective servers **/
         this.appStore.sub((totalStationsReceived:number) => {
             this.appStore.dispatch(this.appDbActions.serverStatus());
         }, 'appdb.totalStations');
+
+        /** (5) received station status **/
+        this.appStore.sub((serversStatus:Map<string,any>) => {
+            // console.log(serversStatus);
+        }, 'appdb.serversStatus', false);
     }
 
     private fetchStations() {
@@ -82,14 +93,5 @@ export class StoreService {
     }
 }
 
-
-// this.appStore.sub((serversStatus:Map<string,any>) => {
-//     //this.appStore.dispatch(this.appDbActions.serverStatus());
-// }, 'appdb.serversStatus', false);
-
-
-// this.appStore.sub((stations:Map<string, List<StationModel>>) => {
-//     this.appStore.dispatch(this.appDbActions.serverStatus());
-// }, 'stations');
 
 // this.appStore.dispatch(this.appDbActions.serverStatus());
