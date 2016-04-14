@@ -15,7 +15,7 @@ import {OrderBy} from "../../../pipes/OrderBy";
     directives: [SIMPLEGRID_DIRECTIVES],
     template: `
         <div *ngIf="apps && apps.size > 0">
-          <simpleGridTable #userSimpleGridTable>
+          <simpleGridTable>
             <thead>
             <tr>
               <th>icon</th>
@@ -24,7 +24,7 @@ import {OrderBy} from "../../../pipes/OrderBy";
             </tr>
             </thead>
             <tbody>
-            <tr class="simpleGridRecord" [table]="userSimpleGridTable" simpleGridRecord *ngFor="#item of apps | OrderBy:sort.field:sort.desc; #index=index" [item]="item" [index]="index">
+            <tr class="simpleGridRecord" simpleGridRecord *ngFor="#item of apps | OrderBy:sort.field:sort.desc; #index=index" [item]="item" [index]="index">
               <td style="width: 10%" simpleGridDataImage color="dodgerblue" [field]="item.getIcon(item)" [item]="item"></td> 
               <td style="width: 70%" simpleGridData field="appName" [item]="item"></td>
               <td style="width: 20%" simpleGridDataChecks slideMode="true" [item]="item" [checkboxes]="getInstalledStatus(item)" (changed)="onAppInstalledChange($event,index)"></td>

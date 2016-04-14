@@ -53,7 +53,7 @@ import {SimpleGridRecord} from "../../simplegrid/SimpleGridRecord";
                     </tr>
                     </thead>
                     <tbody>
-                    <tr class="simpleGridRecord" (onDoubleClicked)="onDoubleClicked($event)" [table]="userSimpleGridTable" simpleGridRecord *ngFor="#item of m_stations | OrderBy:sort.field:sort.desc; #index=index" [item]="item" [index]="index">
+                    <tr class="simpleGridRecord" (onDoubleClicked)="onDoubleClicked($event)" simpleGridRecord *ngFor="#item of m_stations | OrderBy:sort.field:sort.desc; #index=index" [item]="item" [index]="index">
                       <td style="width: 5%" simpleGridDataImage [color]="item.getConnectionIcon('color')" [field]="item.getConnectionIcon('icon')" [item]="item"></td>
                       <td style="width: 5%" simpleGridDataImage color="dodgerblue" [field]="item.getWatchDogConnection()" [item]="item"></td>
                       <td style="width: 25%" simpleGridData editable="false" field="name" [item]="item"></td>

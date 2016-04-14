@@ -1,4 +1,4 @@
-import {Component, Input, Output, ChangeDetectionStrategy, HostListener, HostBinding, EventEmitter} from 'angular2/core'
+import {Component, Input, Output, ChangeDetectionStrategy, HostListener, forwardRef, Inject, HostBinding, EventEmitter} from 'angular2/core'
 import {SimpleGridTable} from "./SimpleGridTable";
 
 @Component({
@@ -9,6 +9,12 @@ import {SimpleGridTable} from "./SimpleGridTable";
     `
 })
 export class SimpleGridRecord {
+
+    // we have to Inject -> forwardRef as SimpleGridTable is not yet due to load order of files
+    constructor(@Inject(forwardRef(() => SimpleGridTable)) i_table: SimpleGridTable){
+        this.m_table = i_table;
+    }
+
     private m_table:SimpleGridTable
     private m_index;
 
@@ -18,10 +24,10 @@ export class SimpleGridRecord {
     @Input()
     selectable:boolean = true;
 
-    @Input()
-    set table(i_table) {
-        this.m_table = i_table;
-    }
+    // @Input()
+    // set table(i_table) {
+    //     this.m_table = i_table;
+    // }
 
     @Output()
     onDoubleClicked:EventEmitter<any> = new EventEmitter();
