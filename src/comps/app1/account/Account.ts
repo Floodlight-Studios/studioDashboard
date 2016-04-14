@@ -91,6 +91,7 @@ export class Account {
         this.renderFormInputs();
     }
 
+    private userName = '';
     private whiteLabelEnabled:boolean = true;
     private formInputs = {};
     private contGroup:ControlGroup;
@@ -134,6 +135,9 @@ export class Account {
     private renderFormInputs() {
         if (!this.accountModels)
             return;
+
+        this.userName = this.appStore.getState().appdb.getIn(['credentials']).get('user');
+
         this.accountModels.forEach((accountModel:AccountModel)=> {
             var type:string = accountModel.getType().toLowerCase();
             switch (type) {
@@ -149,7 +153,6 @@ export class Account {
                             var data = accountModel.getKey(field);
                             this.formInputs[key].updateValue(data);
                         }
-
                     })
                     break;
                 }
@@ -162,12 +165,42 @@ export class Account {
                     break;
                 }
             }
-            // var value = this.accountModel.getKey(key);
-            // this.formInputs[key].updateValue(value);
-
-
         })
     };
+
+    private getRecurring(key):string {
+        var result:string = '';
+        if (!this.accountModels)
+            return result;
+        this.accountModels.forEach((accountModel:AccountModel)=> {
+            if (accountModel.getType() == 'Recurring' && result == '')
+                result = accountModel.getKey(key);
+        });
+        if (_.isUndefined(result))
+            return '----';
+        if (key == 'lastPayment' && result != '')
+            return result.split(' ')[0];
+        if (key == 'paymentStatus' && result != '')
+            return (result == '1' ? 'Completed' : 'Failed');
+        if (key == 'recurringMode' && result != '') {
+            switch (result) {
+                case '0':
+                    return result = 'Disabled';
+                case '1':
+                    return result = 'Credit card';
+                case '2':
+                    return result = 'Paypal';
+            }
+        }
+        return result;
+    }
+
+    private onPaymentChanged(event){
+    }
+
+    private getSelectedPayment(item){
+        return 'selected';
+    }
 
     private onWhiteLabelChange(value) {
         value = value ? 1 : 0;

@@ -20,10 +20,15 @@
     <br/>
     <hr/>
     <h3 class="pull-left">Payment method</h3>
-    <select class="form-control pull-right" style="width: 150px; margin-top: 20px">
-      <option>Credit card</option>
-      <option>Paypal</option>
+
+    <select (change)="onPaymentChanged($event)"  style="width: 150px; margin-top: 20px" class="form-control pull-right">
+      <option *ngFor="#item of ['credit card','paypal']" [selected]="getSelectedPayment(item)">{{item}}</option>
     </select>
+
+    <!--<select class="form-control pull-right" >-->
+      <!--<option>Credit card</option>-->
+      <!--<option>Paypal</option>-->
+    <!--</select>-->
     <br/>
     <br/>
     <div class="clearfix"></div>
@@ -41,10 +46,10 @@
         <h3 class="panel-title">
           <center>
             <img src="assets/visa.png">
-            <img class="faded" src="assets/mastercard.png">
-            <img class="faded" src="assets/amex.png">
-            <img class="faded" src="assets/discover.png">
-            <img class="faded" src="assets/paypal.png">
+            <img src="assets/mastercard.png">
+            <img src="assets/amex.png">
+            <img src="assets/discover.png">
+            <img src="assets/paypal.png">
           </center>
         </h3>
       </div>
@@ -55,18 +60,18 @@
               <div role="form" id="payment-form">
                 <div class="row">
                   <div class="col-xs-12">
-                    <div class="form-group">
-                      <label for="newName">Pick a new enterprise user name</label>
-                      <input id="upgUserName" [ngFormControl]="contGroup.controls['enterprise_login']" type="text" class="form-control" name="newName"/>
-                    </div>
-                    <div class="form-group">
-                      <label for="newPass">Pick an enterprise password</label>
-                      <input id="upgPass" [ngFormControl]="contGroup.controls['enterprise_pass1']" type="password" class="form-control" name="newPass"/>
-                    </div>
-                    <div class="form-group">
-                      <label for="newPass2">Repeat your new password</label>
-                      <input id="upgPass2" [ngFormControl]="contGroup.controls['enterprise_pass2']" type="password" class="form-control" name="newPass2"/>
-                    </div>
+                    <!--<div class="form-group">-->
+                      <!--<label for="newName">Pick a new enterprise user name</label>-->
+                      <!--<input id="upgUserName" [ngFormControl]="contGroup.controls['enterprise_login']" type="text" class="form-control" name="newName"/>-->
+                    <!--</div>-->
+                    <!--<div class="form-group">-->
+                      <!--<label for="newPass">Pick an enterprise password</label>-->
+                      <!--<input id="upgPass" [ngFormControl]="contGroup.controls['enterprise_pass1']" type="password" class="form-control" name="newPass"/>-->
+                    <!--</div>-->
+                    <!--<div class="form-group">-->
+                      <!--<label for="newPass2">Repeat your new password</label>-->
+                      <!--<input id="upgPass2" [ngFormControl]="contGroup.controls['enterprise_pass2']" type="password" class="form-control" name="newPass2"/>-->
+                    <!--</div>-->
                   </div>
                   <div class="col-xs-12">
                     <div class="form-group">
@@ -106,6 +111,16 @@
                     <p class="payment-errors"></p>
                   </div>
                 </div>
+              </div>
+            </tab>
+            <tab [tabtitle]="'Credentials'">
+              <div class="form-group">
+                <h4>Login: {{userName}}</h4>
+                <h4>Pass: ************</h4>
+                <hr/>
+                <h5>Last payment on {{getRecurring('lastPayment')}}</h5>
+                <h5>Last payment status {{getRecurring('paymentStatus')}}</h5>
+                <h5>Current payment mode {{getRecurring('recurringMode')}}</h5>
               </div>
             </tab>
             <tab [tabtitle]="'Billing'">
