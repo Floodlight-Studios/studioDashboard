@@ -5,6 +5,7 @@ import {PrivelegesModel} from "./PrivelegesModel";
 import {Lib} from "../Lib";
 import {AppModel} from "./AppModel";
 import {WhitelabelModel} from "./WhitelabelModel";
+import {AccountModel} from "./AccountModel";
 const _ = require('underscore');
 
 export function reseller(state:Map<string,any> = Map<string,any>(), action:any):Map<string,any> {
@@ -13,11 +14,6 @@ export function reseller(state:Map<string,any> = Map<string,any>(), action:any):
         case ResellerAction.RECEIVE_APPS:
         {
             return state.setIn(['apps'], action.apps);
-        }
-        case ResellerAction.UPDATE_ACCOUNT:
-        {
-            // console.log(action);
-            return state;//.setIn(['apps'], action.apps);
         }
         case ResellerAction.UPDATE_APP:
         {
@@ -96,6 +92,19 @@ export function reseller(state:Map<string,any> = Map<string,any>(), action:any):
                 }
             })
             return state.setIn(['privileges'], privileges);
+        }
+        case ResellerAction.UPDATE_ACCOUNT:
+        {
+            return state;
+            // var accountModel:AccountModel = state.get('whitelabel');
+            // _.forEach(action.payload, (value, key)=> {
+            //     if (value === false)
+            //         value = 0;
+            //     if (value === true)
+            //         value = 1;
+            //     whitelabel = whitelabel.setKey<WhitelabelModel>(WhitelabelModel, key, value);
+            // })
+            // return state.setIn(['whitelabel'], whitelabel);
         }
         case ResellerAction.UPDATE_WHITELABEL:
         {

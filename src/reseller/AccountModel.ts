@@ -6,4 +6,8 @@ export class AccountModel extends StoreModel {
         super(data);
     }
 
+    public getType():string {
+        return this.getKey('type');
+    }
+
 }

@@ -11,7 +11,8 @@ import {AppStore} from "angular2-redux-util/dist/index";
 import {FORM_DIRECTIVES, ControlGroup, FormBuilder, Control} from "angular2/common";
 import {BlurForwarder} from "../../blurforwarder/BlurForwarder";
 import {Loading} from "../../loading/Loading";
-import {Lib} from "../../../Lib";
+import {List} from "immutable";
+import {AccountModel} from "../../../reseller/AccountModel";
 const _ = require('underscore');
 const bootbox = require('bootbox');
 
@@ -37,11 +38,21 @@ export class Account {
 
     constructor(private el:ElementRef, private appStore:AppStore, private fb:FormBuilder, private router:Router, private zone:NgZone, private resellerAction:ResellerAction) {
         var i_reseller = this.appStore.getState().reseller;
+
+        /** Whitelabel **/
         this.whitelabelModel = i_reseller.getIn(['whitelabel']);
         this.unsub = this.appStore.sub((whitelabelModel:WhitelabelModel) => {
             this.whitelabelModel = whitelabelModel;
-            this.renderFormInputs();
+            //this.renderFormInputs();
         }, 'reseller.whitelabel');
+
+        /** Accounts **/
+        this.accountModels = i_reseller.getIn(['accounts']);
+        this.renderFormInputs();
+        this.unsub = this.appStore.sub((accountModels:List<AccountModel>) => {
+            this.accountModels = accountModels;
+            this.renderFormInputs();
+        }, 'reseller.accounts');
 
         this.contGroup = fb.group({
             'enterprise_login': [''],
@@ -84,6 +95,7 @@ export class Account {
     private formInputs = {};
     private contGroup:ControlGroup;
     private whitelabelModel:WhitelabelModel;
+    private accountModels:List<AccountModel>;
     private PAY_SUBSCRIBER:number = 4;
     private unsub;
 
@@ -120,10 +132,40 @@ export class Account {
     }
 
     private renderFormInputs() {
-        this.whiteLabelEnabled = this.whitelabelModel.getKey('whitelabelEnabled');
-        _.forEach(this.formInputs, (value, key:string)=> {
-            var value = this.whitelabelModel.getKey(key);
-            this.formInputs[key].updateValue(value);
+        if (!this.accountModels)
+            return;
+        this.accountModels.forEach((accountModel:AccountModel)=> {
+            var type:string = accountModel.getType().toLowerCase();
+            switch (type) {
+                case 'shipping':
+                {
+                }
+                case 'billing':
+                {
+                    _.forEach(this.formInputs, (value, key:string)=> {
+                        var table = key.split('_')[0];
+                        if (table == type) {
+                            var field = key.split('_')[1];
+                            var data = accountModel.getKey(field);
+                            this.formInputs[key].updateValue(data);
+                        }
+
+                    })
+                    break;
+                }
+                case 'recurring':
+                {
+                    break;
+                }
+                case 'contact':
+                {
+                    break;
+                }
+            }
+            // var value = this.accountModel.getKey(key);
+            // this.formInputs[key].updateValue(value);
+
+
         })
     };
 
