@@ -217,6 +217,8 @@ export class ResellerAction extends Actions {
                          **/
                         ['Billing','Recurring','Shipping','Contact'].forEach((item)=>{
                             var values = result.Account[item]["0"]._attr;
+                            if (_.isUndefined(values))
+                                values = {};
                             values['type'] = item;
                             var accountModel:AccountModel = new AccountModel(values);
                             accountModelList = accountModelList.push(accountModel);

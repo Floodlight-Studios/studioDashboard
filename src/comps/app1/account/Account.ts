@@ -1,5 +1,4 @@
-import {Component, ElementRef, NgZone} from 'angular2/core'
-import {Router} from 'angular2/router';
+import {Component} from 'angular2/core'
 import {CanActivate, ComponentInstruction} from "angular2/router";
 import {AuthService} from "../../../services/AuthService";
 import {appInjService} from "../../../services/AppInjService";
@@ -13,11 +12,31 @@ import {BlurForwarder} from "../../blurforwarder/BlurForwarder";
 import {Loading} from "../../loading/Loading";
 import {List} from "immutable";
 import {AccountModel} from "../../../reseller/AccountModel";
+import {CreditService} from "../../../services/CreditService";
 const _ = require('underscore');
 const bootbox = require('bootbox');
 
+// Recurring table:
+//================
+// recurringMode:"value"
+//      0 = disabled
+//      1 = CC
+//      2 = PayPal
+// paymentStatus:"value"
+//      0 = failed
+//      1 = passed
+// accountStatus:"value"
+//      0 = not verified
+//      1 = intermediate state while the account is been created
+//      2 = account is created
+//      3 = intermediate state
+//      4 = account paid
+// lastPayment:"4/12/2016 12:00:00 AM"
+//      date
+
 @Component({
     selector: 'accounts',
+    providers: [CreditService],
     styles: [`
         .faded {
             opacity: 0.4;
@@ -36,8 +55,16 @@ const bootbox = require('bootbox');
 })
 export class Account {
 
-    constructor(private el:ElementRef, private appStore:AppStore, private fb:FormBuilder, private router:Router, private zone:NgZone, private resellerAction:ResellerAction) {
+    constructor(private creditService:CreditService, private appStore:AppStore, private fb:FormBuilder, private resellerAction:ResellerAction) {
         var i_reseller = this.appStore.getState().reseller;
+         var a = creditService.validateCardNumber('5418426187097565');
+         var b = creditService.validateCardExpiry('10','15');
+         var b = creditService.validateCardCVC(123,'visa');
+         var b = creditService.parseCardType('5418426187097565');
+         var b = creditService.parseCardExpiry('10/2016');
+         var b = creditService.formatCardNumber('5418 4261 8709 7565');
+         var b = creditService.formatCardNumber('5418-4261-8709 7565');
+         var b = creditService.formatCardExpiry('1/16');
 
         /** Whitelabel **/
         this.whitelabelModel = i_reseller.getIn(['whitelabel']);
@@ -92,17 +119,21 @@ export class Account {
     }
 
     private payments = [{
+        index: 1,
+        icon: 'fa-credit-card-alt',
+        name: 'credit card'
+    }, {
+        index: 2,
+        icon: 'fa-cc-paypal',
+        name: 'paypal'
+    },{
+        index: 0,
         icon: 'fa-times-circle',
         name: 'disable'
-    }, {
-        icon: 'fa-credit-card-alt',
-        name: 'paypal'
-    }, {
-        icon: 'fa-cc-paypal',
-        name: 'credit card'
     }]
 
     private userName = '';
+    private businessId = '';
     private whiteLabelEnabled:boolean = true;
     private formInputs = {};
     private contGroup:ControlGroup;
@@ -148,6 +179,7 @@ export class Account {
             return;
 
         this.userName = this.appStore.getState().appdb.getIn(['credentials']).get('user');
+        this.businessId = this.appStore.getState().reseller.getIn(['whitelabel']).getKey('businessId');
 
         this.accountModels.forEach((accountModel:AccountModel)=> {
             var type:string = accountModel.getType().toLowerCase();
@@ -158,6 +190,8 @@ export class Account {
                 case 'billing':
                 {
                     _.forEach(this.formInputs, (value, key:string)=> {
+                        if (_.isUndefined(key))
+                            return;
                         var table = key.split('_')[0];
                         if (table == type) {
                             var field = key.split('_')[1];
@@ -179,30 +213,26 @@ export class Account {
         })
     };
 
-    private getAccountModel(modelType, key) {
+    private getAccountModelKey(modelType, key) {
         var result = '';
         if (!this.accountModels)
             return result;
         this.accountModels.forEach((accountModel:AccountModel)=> {
-            if (accountModel.getType() == modelType && result == '')
-                result = accountModel.getKey(key);
+            var t = accountModel.getType();
+            if (accountModel.getType() == modelType && result == ''){
+                var a = accountModel.getKey(key);
+                return result = a;
+            }
+
         });
         return result;
     }
 
-    // recurringMode
-    // 0 = disabled
-    // 1 = CC
-    // 2 = PayPal
     private getRecurring(key):any {
         var result:string = '';
         if (!this.accountModels)
             return result;
-        result = this.getAccountModel('Recurring', key);
-        // this.accountModels.forEach((accountModel:AccountModel)=> {
-        //     if (accountModel.getType() == 'Recurring' && result == '')
-        //         result = accountModel.getKey(key);
-        // });
+        result = this.getAccountModelKey('Recurring', key);
         if (_.isUndefined(result))
             return '----';
         if (key == 'lastPayment' && result != '')
@@ -217,11 +247,10 @@ export class Account {
     private onPaymentChanged(event) {
     }
 
-    private getSelectedPayment(i_paymentMethod) {
-        return 'selected';
-        var paymentMethod = this.getAccountModel('recurringMode', 'paymentMethod');
-        if (i_paymentMethod.toLowerCase().trim() == paymentMethod.toLowerCase().trim())
-            return 'selected';
+    private getSelectedPayment(i_recurringMode) {
+        var recurringMode = this.getAccountModelKey('Recurring', 'recurringMode');
+        if (i_recurringMode.index == recurringMode)
+             return 'selected';
     }
 
     private onWhiteLabelChange(value) {

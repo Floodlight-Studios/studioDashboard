@@ -32,7 +32,7 @@
 
 
       <select (change)="onPaymentChanged($event)" style="width: 200px; margin-top: 20px; font-size: 1.3em" class="form-control pull-right">
-        <option *ngFor="#item of payments.reverse()" [selected]="getSelectedPayment(item)">{{item.name}}</option>
+        <option *ngFor="#item of payments" [selected]="getSelectedPayment(item)">{{item.name}}</option>
       </select>
 
       <hr/>
@@ -72,7 +72,17 @@
         <form [ngFormModel]="contGroup" (ngSubmit)="onSubmit(contGroup.value)">
           <tabs>
             <tab [tabtitle]="'Payment'">
-              <div *ngIf="getRecurring('recurringMode').icon == 'fa-cc-paypal'" role="form">
+              <div *ngIf="getAccountModelKey('Recurring', 'recurringMode') == '0'" role="form">
+                  <br/>
+                  <br/>
+                <center>
+                  <h1 style="color: red">Account is inactive</h1>
+                  <h5>to reactivate update your payment method</h5>
+                  <br/>
+                  <br/>
+                </center>
+              </div>
+              <div *ngIf="getAccountModelKey('Recurring', 'recurringMode') == '2'" role="form">
                 <center>
                   <br/>
                   <br/>
@@ -83,7 +93,7 @@
                   <br/>
                 </center>
               </div>
-              <div *ngIf="getRecurring('recurringMode').icon == 'fa-credit-card-alt'" role="form" id="payment-form">
+              <div *ngIf="getAccountModelKey('Recurring', 'recurringMode') == '1'" role="form" id="payment-form">
                 <div class="row">
                   <div class="col-xs-12">
                     <!--<div class="form-group">-->
@@ -143,8 +153,10 @@
             </tab>
             <tab [tabtitle]="'Credentials'">
               <div class="form-group">
-                <h3>Login: {{userName}}</h3>
-                <h3>Pass: ************</h3>
+                <h4>Login: {{userName}}</h4>
+                <h4>Pass: ************</h4>
+                <hr/>
+                <h5>Enterprise id: {{businessId}}</h5>
                 <!--<h5>Last payment on {{getRecurring('lastPayment')}}</h5>-->
                 <!--<h5>Last payment status {{getRecurring('paymentStatus')}}</h5>-->
               </div>
