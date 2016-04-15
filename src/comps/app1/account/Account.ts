@@ -168,7 +168,11 @@ export class Account {
         })
     };
 
-    private getRecurring(key):string {
+    // recurringMode
+    // 0 = disabled
+    // 1 = CC
+    // 2 = PayPal
+    private getRecurring(key):any {
         var result:string = '';
         if (!this.accountModels)
             return result;
@@ -181,25 +185,27 @@ export class Account {
         if (key == 'lastPayment' && result != '')
             return result.split(' ')[0];
         if (key == 'paymentStatus' && result != '')
-            return (result == '1' ? 'Completed' : 'Failed');
+            return (result == '1' ? true : false);
         if (key == 'recurringMode' && result != '') {
             switch (result) {
                 case '0':
-                    return result = 'Disabled';
+                    return result = 'fa-times-circle';
                 case '1':
-                    return result = 'Credit card';
+                    return result = 'fa-credit-card-alt';
                 case '2':
-                    return result = 'Paypal';
+                    return result = 'fa-cc-paypal ';
             }
         }
         return result;
     }
 
-    private onPaymentChanged(event){
+    private onPaymentChanged(event) {
     }
 
-    private getSelectedPayment(item){
-        return 'selected';
+    private getSelectedPayment(i_paymentMethod) {
+        var paymentMethod = this.getRecurring('recurringMode');
+        if (i_paymentMethod.toLowerCase().trim() == paymentMethod.toLowerCase().trim())
+            return 'selected';
     }
 
     private onWhiteLabelChange(value) {
