@@ -91,6 +91,17 @@ export class Account {
         this.renderFormInputs();
     }
 
+    private payments = [{
+        icon: 'fa-times-circle',
+        name: 'disable'
+    }, {
+        icon: 'fa-credit-card-alt',
+        name: 'paypal'
+    }, {
+        icon: 'fa-cc-paypal',
+        name: 'credit card'
+    }]
+
     private userName = '';
     private whiteLabelEnabled:boolean = true;
     private formInputs = {};
@@ -193,7 +204,7 @@ export class Account {
                 case '1':
                     return result = 'fa-credit-card-alt';
                 case '2':
-                    return result = 'fa-cc-paypal ';
+                    return result = 'fa-cc-paypal';
             }
         }
         return result;
@@ -203,6 +214,7 @@ export class Account {
     }
 
     private getSelectedPayment(i_paymentMethod) {
+        return 'selected';
         var paymentMethod = this.getRecurring('recurringMode');
         if (i_paymentMethod.toLowerCase().trim() == paymentMethod.toLowerCase().trim())
             return 'selected';
