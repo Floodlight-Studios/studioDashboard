@@ -7,40 +7,40 @@
     <div>
       <div class="pull-left">
         <h3>Enterprise edition status</h3>
-        <label *ngIf="getRecurring('paymentStatus')">all is good, last successful payment completed on {{getRecurring('lastPayment')}}</label>
-        <label style="color: red" *ngIf="!getRecurring('paymentStatus')">account inactive your payment failed on {{getRecurring('lastPayment')}}</label>
+        <label *ngIf="getRecurringValue('paymentStatus')">all is good, last successful payment completed on {{getRecurringValue('lastPayment')}}</label>
+        <label style="color: red" *ngIf="!getRecurringValue('paymentStatus')">account inactive your payment failed on {{getRecurringValue('lastPayment')}}</label>
       </div>
 
-      <div *ngIf="getRecurring('paymentStatus')">
+      <div *ngIf="getRecurringValue('paymentStatus')">
         <!--<span (click)="onChangeAccountStatus(false)" style="cursor: hand; font-size: 4em; padding-right: 60px; padding-top: 20px; color: green" class="fa fa-check-circle pull-right"></span>-->
         <span style="font-size: 4em; padding-right: 60px; padding-top: 20px; color: green" class="fa fa-check-circle pull-right"></span>
       </div>
-      <span *ngIf="!getRecurring('paymentStatus')" style="font-size: 4em; padding-right: 60px; padding-top: 20px; color: red" class="fa fa-minus-circle pull-right"></span>
+      <span *ngIf="!getRecurringValue('paymentStatus')" style="font-size: 4em; padding-right: 60px; padding-top: 20px; color: red" class="fa fa-minus-circle pull-right"></span>
       <div class="clearfix"></div>
-      <div *ngIf="!getRecurring('paymentStatus')">
+      <div *ngIf="!getRecurringValue('paymentStatus')">
         <!--<span (click)="onChangeAccountStatus(true)" style="cursor: hand; font-size: 4em; padding-right: 60px; padding-top: 20px; color: red" class="fa fa-minus-circle pull-right"></span>-->
 
       </div>
     </div>
     <hr/>
     <div>
-      <div class="pull-left">
+      <div *ngIf="getRecurringValue('recurringMode') != 'ANNUAL'" class="pull-left">
         <h3>Manage your subscription</h3>
-        <label *ngIf="getAccountStatus()">choose between credit card or paypal</label>
-        <label style="color: red" *ngIf="!getAccountStatus()">account inactive avoid interruption & update billing info</label>
+        <label *ngIf="isAccountActive()">choose between credit card or paypal</label>
+        <label style="color: red" *ngIf="!isAccountActive()">account inactive avoid interruption & update billing info</label>
       </div>
 
-
-      <select (change)="onPaymentChanged($event)" style="width: 200px; margin-top: 20px; font-size: 1.3em" class="form-control pull-right">
-        <option *ngFor="#item of payments" [selected]="getSelectedPayment(item)">{{item.name}}</option>
-      </select>
-
+      <div *ngIf="getRecurringValue('recurringMode') != 'ANNUAL'">
+        <select (change)="onPaymentChanged($event)" style="width: 200px; margin-top: 20px; font-size: 1.3em" class="form-control pull-right">
+          <option *ngFor="#item of payments" [selected]="getSelectedPayment(item)">{{item.name}}</option>
+        </select>
+      </div>
       <hr/>
-      <!--<div *ngIf="getAccountStatus()">-->
+      <!--<div *ngIf="isAccountActive()">-->
       <!--&lt;!&ndash;<span (click)="onChangeAccountStatus(false)" style="cursor: hand; font-size: 4em; padding-right: 50px; padding-top: 20px; color: green" class="fa fa-credit-card-alt pull-right"></span>&ndash;&gt;-->
-      <!--<span (click)="onChangeAccountStatus(false)" style="cursor: hand; font-size: 4em; padding-right: 50px; padding-top: 20px; color: #505050" class="fa pull-right {{getRecurring('recurringMode')}}"></span>-->
+      <!--<span (click)="onChangeAccountStatus(false)" style="cursor: hand; font-size: 4em; padding-right: 50px; padding-top: 20px; color: #505050" class="fa pull-right {{getRecurringValue('recurringMode')}}"></span>-->
       <!--</div>-->
-      <!--<div *ngIf="!getAccountStatus()">-->
+      <!--<div *ngIf="!isAccountActive()">-->
       <!--<span (click)="onChangeAccountStatus(true)" style="cursor: hand; font-size: 4em; padding-right: 60px; padding-top: 20px; color: red" class="fa fa-minus-circle pull-right"></span>-->
       <!--</div>-->
 
@@ -72,9 +72,9 @@
         <form [ngFormModel]="contGroup" (ngSubmit)="onSubmit(contGroup.value)">
           <tabs>
             <tab [tabtitle]="'Payment'">
-              <div *ngIf="getAccountModelKey('Recurring', 'recurringMode') == '0'" role="form">
-                  <br/>
-                  <br/>
+              <div *ngIf="getRecurringValue('recurringMode') == '0'" role="form">
+                <br/>
+                <br/>
                 <center>
                   <h1 style="color: red">Account is inactive</h1>
                   <h5>to reactivate update your payment method</h5>
@@ -82,7 +82,16 @@
                   <br/>
                 </center>
               </div>
-              <div *ngIf="getAccountModelKey('Recurring', 'recurringMode') == '2'" role="form">
+              <div *ngIf="getRecurringValue('recurringMode') == 'ANNUAL'" role="form">
+                <br/>
+                <br/>
+                <center>
+                  <h1 style="color: green">Annual payer</h1>
+                  <br/>
+                  <br/>
+                </center>
+              </div>
+              <div *ngIf="getRecurringValue('recurringMode') == '2'" role="form">
                 <center>
                   <br/>
                   <br/>
@@ -93,22 +102,22 @@
                   <br/>
                 </center>
               </div>
-              <div *ngIf="getAccountModelKey('Recurring', 'recurringMode') == '1'" role="form" id="payment-form">
+              <div *ngIf="getRecurringValue('recurringMode') == '1'" role="form" id="payment-form">
                 <div class="row">
-                  <div class="col-xs-12">
+                  <!--<div class="col-xs-12">-->
                     <!--<div class="form-group">-->
-                    <!--<label for="newName">Pick a new enterprise user name</label>-->
-                    <!--<input id="upgUserName" [ngFormControl]="contGroup.controls['enterprise_login']" type="text" class="form-control" name="newName"/>-->
+                      <!--<label for="newName">Pick a new enterprise user name</label>-->
+                      <!--<input id="upgUserName" [ngFormControl]="contGroup.controls['enterprise_login']" type="text" class="form-control" name="newName"/>-->
                     <!--</div>-->
                     <!--<div class="form-group">-->
-                    <!--<label for="newPass">Pick an enterprise password</label>-->
-                    <!--<input id="upgPass" [ngFormControl]="contGroup.controls['enterprise_pass1']" type="password" class="form-control" name="newPass"/>-->
+                      <!--<label for="newPass">Pick an enterprise password</label>-->
+                      <!--<input id="upgPass" [ngFormControl]="contGroup.controls['enterprise_pass1']" type="password" class="form-control" name="newPass"/>-->
                     <!--</div>-->
                     <!--<div class="form-group">-->
-                    <!--<label for="newPass2">Repeat your new password</label>-->
-                    <!--<input id="upgPass2" [ngFormControl]="contGroup.controls['enterprise_pass2']" type="password" class="form-control" name="newPass2"/>-->
+                      <!--<label for="newPass2">Repeat your new password</label>-->
+                      <!--<input id="upgPass2" [ngFormControl]="contGroup.controls['enterprise_pass2']" type="password" class="form-control" name="newPass2"/>-->
                     <!--</div>-->
-                  </div>
+                  <!--</div>-->
                   <div class="col-xs-12">
                     <div class="form-group">
                       <label for="cardNumber">CARD NUMBER</label>
@@ -157,8 +166,8 @@
                 <h4>Pass: ************</h4>
                 <hr/>
                 <h5>Enterprise id: {{businessId}}</h5>
-                <!--<h5>Last payment on {{getRecurring('lastPayment')}}</h5>-->
-                <!--<h5>Last payment status {{getRecurring('paymentStatus')}}</h5>-->
+                <!--<h5>Last payment on {{getRecurringValue('lastPayment')}}</h5>-->
+                <!--<h5>Last payment status {{getRecurringValue('paymentStatus')}}</h5>-->
               </div>
             </tab>
             <tab [tabtitle]="'Billing'">
@@ -229,6 +238,41 @@
               </div>
               <div class="form-group">
                 <input [ngFormControl]="contGroup.controls['shipping_email']" type="text" class="form-control" placeholder="email">
+              </div>
+            </tab>
+            <tab [tabtitle]="'Contact'">
+              <div class="form-group">
+                <input [ngFormControl]="contGroup.controls['contact_firstName']" type="text" class="form-control" placeholder="first name">
+              </div>
+              <div class="form-group">
+                <input [ngFormControl]="contGroup.controls['contact_lastName']" type="text" class="form-control" placeholder="last name">
+              </div>
+              <div class="form-group">
+                <input [ngFormControl]="contGroup.controls['contact_address1']" type="text" class="form-control" placeholder="address1">
+              </div>
+              <div class="form-group">
+                <input [ngFormControl]="contGroup.controls['contact_address2']" type="text" class="form-control" placeholder="address2">
+              </div>
+              <div class="form-group">
+                <input [ngFormControl]="contGroup.controls['contact_city']" type="text" class="form-control" placeholder="city">
+              </div>
+              <div class="form-group">
+                <input [ngFormControl]="contGroup.controls['contact_state']" type="text" class="form-control" placeholder="state">
+              </div>
+              <div class="form-group">
+                <input [ngFormControl]="contGroup.controls['contact_country']" type="text" class="form-control" placeholder="country">
+              </div>
+              <div class="form-group">
+                <input [ngFormControl]="contGroup.controls['contact_zipCode']" type="text" class="form-control" placeholder="zip">
+              </div>
+              <div class="form-group">
+                <input [ngFormControl]="contGroup.controls['contact_workPhone']" type="text" class="form-control" placeholder="work phone">
+              </div>
+              <div class="form-group">
+                <input [ngFormControl]="contGroup.controls['contact_cellPhone']" type="text" class="form-control" placeholder="cell phone">
+              </div>
+              <div class="form-group">
+                <input [ngFormControl]="contGroup.controls['contact_email']" type="text" class="form-control" placeholder="email">
               </div>
             </tab>
           </tabs>

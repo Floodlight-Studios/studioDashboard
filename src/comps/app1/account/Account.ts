@@ -18,10 +18,7 @@ const bootbox = require('bootbox');
 
 // Recurring table:
 //================
-// recurringMode:"value"
-//      0 = disabled
-//      1 = CC
-//      2 = PayPal
+
 // paymentStatus:"value"
 //      0 = failed
 //      1 = passed
@@ -57,14 +54,14 @@ export class Account {
 
     constructor(private creditService:CreditService, private appStore:AppStore, private fb:FormBuilder, private resellerAction:ResellerAction) {
         var i_reseller = this.appStore.getState().reseller;
-         var a = creditService.validateCardNumber('5418426187097565');
-         var b = creditService.validateCardExpiry('10','15');
-         var b = creditService.validateCardCVC(123,'visa');
-         var b = creditService.parseCardType('5418426187097565');
-         var b = creditService.parseCardExpiry('10/2016');
-         var b = creditService.formatCardNumber('5418 4261 8709 7565');
-         var b = creditService.formatCardNumber('5418-4261-8709 7565');
-         var b = creditService.formatCardExpiry('1/16');
+        // var a = creditService.validateCardNumber('5418426187097565');
+        // var b = creditService.validateCardExpiry('10','15');
+        // var b = creditService.validateCardCVC(123,'visa');
+        // var b = creditService.parseCardType('5418426187097565');
+        // var b = creditService.parseCardExpiry('10/2016');
+        // var b = creditService.formatCardNumber('5418 4261 8709 7565');
+        // var b = creditService.formatCardNumber('5418-4261-8709 7565');
+        // var b = creditService.formatCardExpiry('1/16');
 
         /** Whitelabel **/
         this.whitelabelModel = i_reseller.getIn(['whitelabel']);
@@ -110,7 +107,18 @@ export class Account {
             'shipping_zipCode': [''],
             'shipping_workPhone': [''],
             'shipping_cellPhone': [''],
-            'shipping_email': ['']
+            'shipping_email': [''],
+            'contact_firstName': [''],
+            'contact_lastName': [''],
+            'contact_address1': [''],
+            'contact_address2': [''],
+            'contact_city': [''],
+            'contact_state': [''],
+            'contact_country': [''],
+            'contact_zipCode': [''],
+            'contact_workPhone': [''],
+            'contact_cellPhone': [''],
+            'contact_email': ['']
         });
         _.forEach(this.contGroup.controls, (value, key:string)=> {
             this.formInputs[key] = this.contGroup.controls[key] as Control;
@@ -126,7 +134,7 @@ export class Account {
         index: 2,
         icon: 'fa-cc-paypal',
         name: 'paypal'
-    },{
+    }, {
         index: 0,
         icon: 'fa-times-circle',
         name: 'disable'
@@ -166,14 +174,6 @@ export class Account {
         }
     }
 
-    private getAccountStatus():boolean {
-        if (this.whitelabelModel && this.whitelabelModel.getAccountStatus() == this.PAY_SUBSCRIBER) {
-            return true;
-        } else {
-            return false;
-        }
-    }
-
     private renderFormInputs() {
         if (!this.accountModels)
             return;
@@ -184,6 +184,9 @@ export class Account {
         this.accountModels.forEach((accountModel:AccountModel)=> {
             var type:string = accountModel.getType().toLowerCase();
             switch (type) {
+                case 'contact':
+                {
+                }
                 case 'shipping':
                 {
                 }
@@ -205,10 +208,6 @@ export class Account {
                 {
                     break;
                 }
-                case 'contact':
-                {
-                    break;
-                }
             }
         })
     };
@@ -218,30 +217,51 @@ export class Account {
         if (!this.accountModels)
             return result;
         this.accountModels.forEach((accountModel:AccountModel)=> {
-            var t = accountModel.getType();
-            if (accountModel.getType() == modelType && result == ''){
-                var a = accountModel.getKey(key);
-                return result = a;
+            if (accountModel.getType() == modelType && result == '') {
+                result = accountModel.getKey(key);
+                return;
             }
-
         });
         return result;
     }
 
-    private getRecurring(key):any {
-        var result:string = '';
+    private getRecurringValue(key):any {
         if (!this.accountModels)
-            return result;
-        result = this.getAccountModelKey('Recurring', key);
-        if (_.isUndefined(result))
-            return '----';
-        if (key == 'lastPayment' && result != '')
-            return result.split(' ')[0];
-        if (key == 'paymentStatus' && result != '')
-            return (result == '1' ? true : false);
-        if (key == 'recurringMode' && result != '')
-            return result = this.payments[result];
-        return result;
+            return '';
+        var value = this.getAccountModelKey('Recurring', key);
+        if (_.isUndefined(value))
+            value = '';
+
+        switch (key) {
+            case 'recurringMode':
+            {
+                // annual subscriber paying
+                if (value == '' && this.isAccountActive())
+                    return 'ANNUAL';
+                // 0 = disabled | 1 = CC | 2 = PayPal
+                if (value == '')
+                    return value;
+                var payment = _.find(this.payments,(k)=>{
+                    return Number(k.index) == Number(value);
+                })
+                return payment.index;
+            }
+            case 'paymentStatus':
+            {
+                // annual subscriber paying
+                if (value == '' && this.isAccountActive())
+                    return true;
+                if (value == '')
+                    return value;
+                return (value == '1' ? true : false);
+            }
+            case 'lastPayment':
+            {
+                if (value == '')
+                    return value;
+                return value.split(' ')[0];
+            }
+        }
     }
 
     private onPaymentChanged(event) {
@@ -250,7 +270,15 @@ export class Account {
     private getSelectedPayment(i_recurringMode) {
         var recurringMode = this.getAccountModelKey('Recurring', 'recurringMode');
         if (i_recurringMode.index == recurringMode)
-             return 'selected';
+            return 'selected';
+    }
+
+    private isAccountActive():boolean {
+        if (this.whitelabelModel && this.whitelabelModel.getAccountStatus() == this.PAY_SUBSCRIBER) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
     private onWhiteLabelChange(value) {

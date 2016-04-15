@@ -84,7 +84,6 @@ export class App {
     private m_styleService:StyleService;
     
     constructor(private appStore:AppStore, private commBroker:CommBroker, styleService:StyleService, private appdbAction:AppdbAction, private router:Router) {
-
         // todo: add logic to as when on each env
         // 0 = cloud, 1 = private 2 = hybrid
         this.commBroker.setValue(Consts.Values().SERVER_MODE, ServerMode.CLOUD);
@@ -93,8 +92,6 @@ export class App {
         Observable.fromEvent(window, 'resize').debounceTime(250).subscribe(()=> {
             this.appResized();
         });
-        // appStore.dispatch(appdbAction.initAppDb());
-
         router.subscribe(function (currentRoute) {
             console.log(currentRoute);
         });
