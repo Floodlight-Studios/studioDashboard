@@ -270,6 +270,13 @@ export class Account {
             return false;
         }
     }
+    
+    private onUpdateCreditCard(event){
+        var cardNumber = this.contGroup.controls['billing_cardNumber'].value
+        var cardType = this.creditService.parseCardType(cardNumber);
+        var cardValid = this.creditService.validateCardNumber(cardNumber);
+        console.log(cardValid);
+    }
 
     private onWhiteLabelChange(value) {
         value = value ? 1 : 0;
@@ -277,6 +284,11 @@ export class Account {
     }
 
     private isCardSelected(i_cardType) {
+        var recurringMode = this.getRecurringValue('recurringMode');
+        if (recurringMode == 2 && i_cardType == 'paypal')
+            return true;
+        if (recurringMode == 2 && i_cardType != 'paypal')
+            return false;
         var cardNumber = this.contGroup.controls['billing_cardNumber'].value
         if (cardNumber.charAt(0)=='X')
             return false;
