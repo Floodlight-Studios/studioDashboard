@@ -179,6 +179,17 @@ export class Account {
         })
     };
 
+    private getAccountModel(modelType, key) {
+        var result = '';
+        if (!this.accountModels)
+            return result;
+        this.accountModels.forEach((accountModel:AccountModel)=> {
+            if (accountModel.getType() == modelType && result == '')
+                result = accountModel.getKey(key);
+        });
+        return result;
+    }
+
     // recurringMode
     // 0 = disabled
     // 1 = CC
@@ -187,10 +198,11 @@ export class Account {
         var result:string = '';
         if (!this.accountModels)
             return result;
-        this.accountModels.forEach((accountModel:AccountModel)=> {
-            if (accountModel.getType() == 'Recurring' && result == '')
-                result = accountModel.getKey(key);
-        });
+        result = this.getAccountModel('Recurring', key);
+        // this.accountModels.forEach((accountModel:AccountModel)=> {
+        //     if (accountModel.getType() == 'Recurring' && result == '')
+        //         result = accountModel.getKey(key);
+        // });
         if (_.isUndefined(result))
             return '----';
         if (key == 'lastPayment' && result != '')
@@ -206,8 +218,8 @@ export class Account {
     }
 
     private getSelectedPayment(i_paymentMethod) {
-        return 'select';
-        var paymentMethod = this.getRecurring('recurringMode');
+        return 'selected';
+        var paymentMethod = this.getAccountModel('recurringMode', 'paymentMethod');
         if (i_paymentMethod.toLowerCase().trim() == paymentMethod.toLowerCase().trim())
             return 'selected';
     }
