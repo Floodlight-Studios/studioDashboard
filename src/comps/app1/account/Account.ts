@@ -197,16 +197,8 @@ export class Account {
             return result.split(' ')[0];
         if (key == 'paymentStatus' && result != '')
             return (result == '1' ? true : false);
-        if (key == 'recurringMode' && result != '') {
-            switch (result) {
-                case '0':
-                    return result = 'fa-times-circle';
-                case '1':
-                    return result = 'fa-credit-card-alt';
-                case '2':
-                    return result = 'fa-cc-paypal';
-            }
-        }
+        if (key == 'recurringMode' && result != '')
+            return result = this.payments[result];
         return result;
     }
 
@@ -214,8 +206,8 @@ export class Account {
     }
 
     private getSelectedPayment(i_paymentMethod) {
-        return 'selected';
         var paymentMethod = this.getRecurring('recurringMode');
+        console.log(1111);
         if (i_paymentMethod.toLowerCase().trim() == paymentMethod.toLowerCase().trim())
             return 'selected';
     }

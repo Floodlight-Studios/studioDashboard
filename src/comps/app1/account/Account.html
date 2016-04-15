@@ -32,16 +32,16 @@
 
 
       <select (change)="onPaymentChanged($event)" style="width: 200px; margin-top: 20px; font-size: 1.3em" class="form-control pull-right">
-        <option *ngFor="#item of payments" [selected]="getSelectedPayment(item)">{{item.name}}</option>
+        <option *ngFor="#item of payments.reverse()" [selected]="getSelectedPayment(item)">{{item.name}}</option>
       </select>
 
       <hr/>
       <!--<div *ngIf="getAccountStatus()">-->
-        <!--&lt;!&ndash;<span (click)="onChangeAccountStatus(false)" style="cursor: hand; font-size: 4em; padding-right: 50px; padding-top: 20px; color: green" class="fa fa-credit-card-alt pull-right"></span>&ndash;&gt;-->
-        <!--<span (click)="onChangeAccountStatus(false)" style="cursor: hand; font-size: 4em; padding-right: 50px; padding-top: 20px; color: #505050" class="fa pull-right {{getRecurring('recurringMode')}}"></span>-->
+      <!--&lt;!&ndash;<span (click)="onChangeAccountStatus(false)" style="cursor: hand; font-size: 4em; padding-right: 50px; padding-top: 20px; color: green" class="fa fa-credit-card-alt pull-right"></span>&ndash;&gt;-->
+      <!--<span (click)="onChangeAccountStatus(false)" style="cursor: hand; font-size: 4em; padding-right: 50px; padding-top: 20px; color: #505050" class="fa pull-right {{getRecurring('recurringMode')}}"></span>-->
       <!--</div>-->
       <!--<div *ngIf="!getAccountStatus()">-->
-        <!--<span (click)="onChangeAccountStatus(true)" style="cursor: hand; font-size: 4em; padding-right: 60px; padding-top: 20px; color: red" class="fa fa-minus-circle pull-right"></span>-->
+      <!--<span (click)="onChangeAccountStatus(true)" style="cursor: hand; font-size: 4em; padding-right: 60px; padding-top: 20px; color: red" class="fa fa-minus-circle pull-right"></span>-->
       <!--</div>-->
 
 
@@ -72,17 +72,18 @@
         <form [ngFormModel]="contGroup" (ngSubmit)="onSubmit(contGroup.value)">
           <tabs>
             <tab [tabtitle]="'Payment'">
-              <div *ngIf="getRecurring('recurringMode')=='fa-cc-paypal'" role="form">
+              <div *ngIf="getRecurring('recurringMode').icon == 'fa-cc-paypal'" role="form">
                 <center>
                   <br/>
                   <br/>
-                  <button class="btn btn-danger" style="padding: 10px 30px 10px 30px; font-size: 2em">Connect to Paypal <span class="fa fa-paypal"></span>
+                  <button class="btn btn-danger" style="padding: 10px 30px 10px 30px; font-size: 2em">Connect to Paypal
+                    <span class="fa fa-paypal"></span>
                   </button>
                   <br/>
                   <br/>
                 </center>
               </div>
-              <div *ngIf="getRecurring('recurringMode')=='fa-credit-card-alt'" role="form" id="payment-form">
+              <div *ngIf="getRecurring('recurringMode').icon == 'fa-credit-card-alt'" role="form" id="payment-form">
                 <div class="row">
                   <div class="col-xs-12">
                     <!--<div class="form-group">-->
