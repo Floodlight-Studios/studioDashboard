@@ -206,8 +206,8 @@ export class Account {
     }
 
     private getSelectedPayment(i_paymentMethod) {
+        return 'select';
         var paymentMethod = this.getRecurring('recurringMode');
-        console.log(1111);
         if (i_paymentMethod.toLowerCase().trim() == paymentMethod.toLowerCase().trim())
             return 'selected';
     }

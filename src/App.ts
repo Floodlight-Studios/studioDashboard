@@ -82,12 +82,12 @@ export enum ServerMode {
 ])
 export class App {
     private m_styleService:StyleService;
-    private aa;
-    private cc;
+    private credit;
+    private doc:any = document;
     constructor(private appStore:AppStore, private commBroker:CommBroker, styleService:StyleService, private appdbAction:AppdbAction, private router:Router) {
 
 
-        this.aa = (function () {
+        this.credit = (function () {
 
             var indexOf = [].indexOf || function (item) {
                     for (var i = 0, l = this.length; i < l; i++) {
@@ -104,9 +104,9 @@ export class App {
                     var r, rc, re;
                     if (ele.selectionStart != null) {
                         return ele.selectionStart;
-                    } else if (document.selection != null) {
+                    } else if (this.doc.selection != null) {
                         ele.focus();
-                        r = document.selection.createRange();
+                        r = this.doc.selection.createRange();
                         re = ele.createTextRange();
                         rc = re.duplicate();
                         re.moveToBookmark(r.getBookmark());
@@ -260,8 +260,8 @@ export class App {
                 };
                 hasTextSelected = function (target) {
                     var ref;
-                    if ((typeof document !== "undefined" && document !== null ? (ref = document.selection) != null ? ref.createRange : void 0 : void 0) != null) {
-                        if (document.selection.createRange().text) {
+                    if ((typeof document !== "undefined" && document !== null ? (ref = this.doc.selection) != null ? ref.createRange : void 0 : void 0) != null) {
+                        if (this.doc.selection.createRange().text) {
                             return true;
                         }
                     }
@@ -653,13 +653,14 @@ export class App {
             });
 
         }).call(this);
-        var a = this.aa.validateCardNumber('5418426187097565');
-        var a = this.aa.validateCardNumber('3111111111111111');
-        var a = this.aa.validateCardNumber('6011377973821024');
-        var b = this.aa.parseCardType('5310707407079700');
-        var b = this.aa.parseCardType('5418426187097565');
-        var b = this.aa.parseCardType('6011377973821024');
-        var b = this.aa.parseCardType('1011377973821024');
+        var a = this.credit.validateCardNumber('5418426187097565');
+        var a = this.credit.validateCardNumber('3111111111111111');
+        var a = this.credit.validateCardNumber('6011377973821024');
+        var b = this.credit.parseCardType('5310707407079700');
+        var b = this.credit.parseCardType('5418426187097565');
+        var b = this.credit.parseCardType('6011377973821024');
+        var b = this.credit.parseCardType('1011377973821024');
+        var b = this.credit.parseCardType('4012888888881881');
 
         // todo: add logic to as when on each env
         // 0 = cloud, 1 = private 2 = hybrid
