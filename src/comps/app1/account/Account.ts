@@ -21,7 +21,7 @@ const bootbox = require('bootbox');
     providers: [CreditService],
     styles: [`
         .faded {
-            opacity: 0.4;
+            opacity: 0.3;
         }
     `],
     directives: [Tab, Tabs, FORM_DIRECTIVES, BlurForwarder, Loading],
@@ -116,6 +116,8 @@ export class Account {
         icon: 'fa-times-circle',
         name: 'disable'
     }]
+
+    private cards = ['visa', 'mastercard', 'amex', 'discover', 'paypal'];
 
     private userName = '';
     private businessId = '';
@@ -272,6 +274,18 @@ export class Account {
     private onWhiteLabelChange(value) {
         value = value ? 1 : 0;
         this.appStore.dispatch(this.resellerAction.updateResellerInfo({whitelabelEnabled: value}))
+    }
+
+    private isCardSelected(i_cardType) {
+        var cardNumber = this.contGroup.controls['billing_cardNumber'].value
+        if (cardNumber.charAt(0)=='X')
+            return false;
+        var cardType = this.creditService.parseCardType(cardNumber);
+        if (_.isNull(cardType))
+            return false;
+        if (cardType!=i_cardType)
+            return false;
+        return true;
     }
 
     private ngOnDestroy() {

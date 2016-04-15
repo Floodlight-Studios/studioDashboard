@@ -39,11 +39,7 @@
       <div class="panel-heading">
         <h3 class="panel-title">
           <center>
-            <img src="assets/visa.png">
-            <img src="assets/mastercard.png">
-            <img src="assets/amex.png">
-            <img src="assets/discover.png">
-            <img src="assets/paypal.png">
+            <img *ngFor="#card of cards" [ngClass]="{faded: !isCardSelected(card)}" style="padding: 5px" [src]="'assets/'+card+'.png'">
           </center>
         </h3>
       </div>
