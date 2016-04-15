@@ -95,16 +95,20 @@ export function reseller(state:Map<string,any> = Map<string,any>(), action:any):
         }
         case ResellerAction.UPDATE_ACCOUNT:
         {
+            _.forEach(action.payload, (v, k)=> {
+                var type = k.split('_')[0]
+                var key = k.split('_')[1]
+                var value = v;
+                var accountModels:List<AccountModel> = state.getIn(['accounts']);
+                var index = accountModels.findIndex((i:AccountModel) => i.getType().toLowerCase() === type.toLowerCase());
+                if (index == -1)
+                    return state;
+                accountModels = accountModels.update(index, (accountModel:AccountModel) => {
+                    return accountModel.setKey<AccountModel>(AccountModel, key, value);
+                });
+                state = state.setIn(['accounts'], accountModels);
+            });
             return state;
-            // var accountModel:AccountModel = state.get('whitelabel');
-            // _.forEach(action.payload, (value, key)=> {
-            //     if (value === false)
-            //         value = 0;
-            //     if (value === true)
-            //         value = 1;
-            //     whitelabel = whitelabel.setKey<WhitelabelModel>(WhitelabelModel, key, value);
-            // })
-            // return state.setIn(['whitelabel'], whitelabel);
         }
         case ResellerAction.UPDATE_WHITELABEL:
         {

@@ -12,14 +12,11 @@
       </div>
 
       <div *ngIf="getRecurringValue('paymentStatus')">
-        <!--<span (click)="onChangeAccountStatus(false)" style="cursor: hand; font-size: 4em; padding-right: 60px; padding-top: 20px; color: green" class="fa fa-check-circle pull-right"></span>-->
         <span style="font-size: 4em; padding-right: 60px; padding-top: 20px; color: green" class="fa fa-check-circle pull-right"></span>
       </div>
       <span *ngIf="!getRecurringValue('paymentStatus')" style="font-size: 4em; padding-right: 60px; padding-top: 20px; color: red" class="fa fa-minus-circle pull-right"></span>
       <div class="clearfix"></div>
       <div *ngIf="!getRecurringValue('paymentStatus')">
-        <!--<span (click)="onChangeAccountStatus(true)" style="cursor: hand; font-size: 4em; padding-right: 60px; padding-top: 20px; color: red" class="fa fa-minus-circle pull-right"></span>-->
-
       </div>
     </div>
     <hr/>
@@ -29,31 +26,13 @@
         <label *ngIf="isAccountActive()">choose between credit card or paypal</label>
         <label style="color: red" *ngIf="!isAccountActive()">account inactive avoid interruption & update billing info</label>
       </div>
-
       <div *ngIf="getRecurringValue('recurringMode') != 'ANNUAL'">
         <select (change)="onPaymentChanged($event)" style="width: 200px; margin-top: 20px; font-size: 1.3em" class="form-control pull-right">
           <option *ngFor="#item of payments" [selected]="getSelectedPayment(item)">{{item.name}}</option>
         </select>
       </div>
       <hr/>
-      <!--<div *ngIf="isAccountActive()">-->
-      <!--&lt;!&ndash;<span (click)="onChangeAccountStatus(false)" style="cursor: hand; font-size: 4em; padding-right: 50px; padding-top: 20px; color: green" class="fa fa-credit-card-alt pull-right"></span>&ndash;&gt;-->
-      <!--<span (click)="onChangeAccountStatus(false)" style="cursor: hand; font-size: 4em; padding-right: 50px; padding-top: 20px; color: #505050" class="fa pull-right {{getRecurringValue('recurringMode')}}"></span>-->
-      <!--</div>-->
-      <!--<div *ngIf="!isAccountActive()">-->
-      <!--<span (click)="onChangeAccountStatus(true)" style="cursor: hand; font-size: 4em; padding-right: 60px; padding-top: 20px; color: red" class="fa fa-minus-circle pull-right"></span>-->
-      <!--</div>-->
-
-
     </div>
-    <!--<h3 class="pull-left">Payment method</h3>-->
-    <!--<select (change)="onPaymentChanged($event)"  style="width: 150px; margin-top: 20px" class="form-control pull-right">-->
-    <!--<option *ngFor="#item of ['credit card','paypal']" [selected]="getSelectedPayment(item)">{{item}}</option>-->
-    <!--</select>-->
-    <!--<select class="form-control pull-right" >-->
-    <!--<option>Credit card</option>-->
-    <!--<option>Paypal</option>-->
-    <!--</select>-->
   </div>
   <div class="col-xs-12 col-md-6">
     <div class="panel panel-default">
@@ -166,8 +145,6 @@
                 <h4>Pass: ************</h4>
                 <hr/>
                 <h5>Enterprise id: {{businessId}}</h5>
-                <!--<h5>Last payment on {{getRecurringValue('lastPayment')}}</h5>-->
-                <!--<h5>Last payment status {{getRecurringValue('paymentStatus')}}</h5>-->
               </div>
             </tab>
             <tab [tabtitle]="'Billing'">

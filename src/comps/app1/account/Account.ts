@@ -1,4 +1,4 @@
-import {Component} from 'angular2/core'
+import {Component, ChangeDetectionStrategy} from 'angular2/core'
 import {CanActivate, ComponentInstruction} from "angular2/router";
 import {AuthService} from "../../../services/AuthService";
 import {appInjService} from "../../../services/AppInjService";
@@ -16,21 +16,6 @@ import {CreditService} from "../../../services/CreditService";
 const _ = require('underscore');
 const bootbox = require('bootbox');
 
-// Recurring table:
-//================
-
-// paymentStatus:"value"
-//      0 = failed
-//      1 = passed
-// accountStatus:"value"
-//      0 = not verified
-//      1 = intermediate state while the account is been created
-//      2 = account is created
-//      3 = intermediate state
-//      4 = account paid
-// lastPayment:"4/12/2016 12:00:00 AM"
-//      date
-
 @Component({
     selector: 'accounts',
     providers: [CreditService],
@@ -43,7 +28,7 @@ const bootbox = require('bootbox');
     host: {
         '(input-blur)': 'onInputBlur($event)'
     },
-    // changeDetection: ChangeDetectionStrategy.OnPush,
+    changeDetection: ChangeDetectionStrategy.OnPush,
     templateUrl: `/src/comps/app1/account/Account.html`
 })
 @CanActivate((to:ComponentInstruction, from:ComponentInstruction) => {
@@ -54,14 +39,6 @@ export class Account {
 
     constructor(private creditService:CreditService, private appStore:AppStore, private fb:FormBuilder, private resellerAction:ResellerAction) {
         var i_reseller = this.appStore.getState().reseller;
-        // var a = creditService.validateCardNumber('5418426187097565');
-        // var b = creditService.validateCardExpiry('10','15');
-        // var b = creditService.validateCardCVC(123,'visa');
-        // var b = creditService.parseCardType('5418426187097565');
-        // var b = creditService.parseCardExpiry('10/2016');
-        // var b = creditService.formatCardNumber('5418 4261 8709 7565');
-        // var b = creditService.formatCardNumber('5418-4261-8709 7565');
-        // var b = creditService.formatCardExpiry('1/16');
 
         /** Whitelabel **/
         this.whitelabelModel = i_reseller.getIn(['whitelabel']);
@@ -241,14 +218,14 @@ export class Account {
                 // 0 = disabled | 1 = CC | 2 = PayPal
                 if (value == '')
                     return value;
-                var payment = _.find(this.payments,(k)=>{
+                var payment = _.find(this.payments, (k)=> {
                     return Number(k.index) == Number(value);
                 })
                 return payment.index;
             }
             case 'paymentStatus':
             {
-                // annual subscriber paying
+                // annual subscriber paying: 0 = failed | 1 = passed
                 if (value == '' && this.isAccountActive())
                     return true;
                 if (value == '')
@@ -265,6 +242,11 @@ export class Account {
     }
 
     private onPaymentChanged(event) {
+        var payment = event.target.value;
+        payment = _.find(this.payments, (k)=> {
+            return k.name == payment;
+        })
+        this.appStore.dispatch(this.resellerAction.updateAccountInfo({"recurring_recurringMode": payment.index}));
     }
 
     private getSelectedPayment(i_recurringMode) {
@@ -274,6 +256,12 @@ export class Account {
     }
 
     private isAccountActive():boolean {
+        // accountStatus:"value"
+        //      0 = not verified
+        //      1 = intermediate state while the account is been created
+        //      2 = account is created
+        //      3 = intermediate state
+        //      4 = account paid | this.PAY_SUBSCRIBER
         if (this.whitelabelModel && this.whitelabelModel.getAccountStatus() == this.PAY_SUBSCRIBER) {
             return true;
         } else {
