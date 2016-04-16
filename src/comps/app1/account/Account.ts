@@ -290,6 +290,8 @@ export class Account {
         if (recurringMode == 2 && i_cardType != 'paypal')
             return false;
         var cardNumber = this.contGroup.controls['billing_cardNumber'].value
+        if (_.isUndefined(cardNumber))
+            return false;
         if (cardNumber.charAt(0)=='X')
             return false;
         var cardType = this.creditService.parseCardType(cardNumber);
