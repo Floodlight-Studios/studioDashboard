@@ -28,7 +28,7 @@ const bootbox = require('bootbox');
     host: {
         '(input-blur)': 'onInputBlur($event)'
     },
-    changeDetection: ChangeDetectionStrategy.OnPush,
+    changeDetection: ChangeDetectionStrategy.Default,
     templateUrl: `/src/comps/app1/account/Account.html`
 })
 @CanActivate((to:ComponentInstruction, from:ComponentInstruction) => {
@@ -139,20 +139,6 @@ export class Account {
         setTimeout(()=>console.log(JSON.stringify(this.contGroup.value)), 1);
     }
 
-    private onChangeAccountStatus(status:boolean) {
-        if (!status) {
-            bootbox.prompt(`are you sure you want to cancel your current subscription? 
-            Dangerous: type [DELETE_NOW] to cancel association of all your screens`, (result) => {
-                if (result == 'DELETE_NOW') {
-                    this.appStore.dispatch(this.resellerAction.updateResellerInfo({accountStatus: 0}));
-                }
-            });
-        } else {
-            //todo: check if CC info available before re-enabling customer
-            this.appStore.dispatch(this.resellerAction.updateResellerInfo({accountStatus: this.PAY_SUBSCRIBER}));
-        }
-    }
-
     private renderFormInputs() {
         if (!this.accountModels)
             return;
@@ -214,6 +200,7 @@ export class Account {
         switch (key) {
             case 'recurringMode':
             {
+                // todo: only set as ANNUAL if payer_id -2 waiting for API
                 // annual subscriber paying
                 if (value == '' && this.isAccountActive())
                     return 'ANNUAL';
@@ -248,13 +235,33 @@ export class Account {
         payment = _.find(this.payments, (k)=> {
             return k.name == payment;
         })
-        this.appStore.dispatch(this.resellerAction.updateAccountInfo({"recurring_recurringMode": payment.index}));
+
+        if (payment.name == 'disable') {
+            // this.appStore.dispatch(this.resellerAction.updateResellerInfo({accountStatus: 0}));
+            this.appStore.dispatch(this.resellerAction.updateAccountInfo({"recurring_recurringMode": 0}));
+            bootbox.prompt(`are you sure you want to cancel your current subscription? 
+            Dangerous: type [DELETE_NOW] to cancel association of all your screens`, (result) => {
+                if (result == 'DELETE_NOW') {
+                    this.appStore.dispatch(this.resellerAction.updateResellerInfo({accountStatus: 0}));
+                } else {
+                    //this.appStore.dispatch(this.resellerAction.updateResellerInfo({accountStatus: this.PAY_SUBSCRIBER}));
+                    this.appStore.dispatch(this.resellerAction.updateAccountInfo({"recurring_recurringMode": 1}));
+                }
+            });
+        } else {
+            //todo: check if CC info available before re-enabling customer
+            //this.appStore.dispatch(this.resellerAction.updateResellerInfo({accountStatus: this.PAY_SUBSCRIBER}));
+            this.appStore.dispatch(this.resellerAction.updateAccountInfo({"recurring_recurringMode": payment.index}));
+        }
+
+
     }
 
     private getSelectedPayment(i_recurringMode) {
         var recurringMode = this.getAccountModelKey('Recurring', 'recurringMode');
         if (i_recurringMode.index == recurringMode)
             return 'selected';
+        return '';
     }
 
     private isAccountActive():boolean {
@@ -270,7 +277,7 @@ export class Account {
             return false;
         }
     }
-    
+
     private onUpdateCreditCard(event){
         var cardNumber = this.contGroup.controls['billing_cardNumber'].value
         var cardType = this.creditService.parseCardType(cardNumber);
