@@ -5,7 +5,6 @@ import {Directive, Input} from 'angular2/core'
 })
 export class Nodelogger {
     @Input() nodeLogger;
-
     ngOnChanges(event:any) {
         if (event.nodeLogger.isFirstChange()) {
             console.log("Node logger ** instantiated **:", this.nodeLogger);
