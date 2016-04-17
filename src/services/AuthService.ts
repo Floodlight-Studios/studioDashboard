@@ -89,7 +89,7 @@ export class AuthService {
                 i_remember = credentials.r;
             }
         }
-        this.appdbAction.createDispatcher(this.appdbAction.authenticateUser)(i_user, i_pass, i_remember);
+        this.appdbAction.createDispatcher(this.appdbAction.authenticateUser)(i_user.trim(), i_pass.trim(), i_remember);
     }
 
     public getLocalstoreCred():{u:string, p:string, r:string} {
