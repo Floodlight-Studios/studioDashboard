@@ -121,6 +121,7 @@ export class Account {
 
     private userName = '';
     private businessId = '';
+    private payerId = '';
     private whiteLabelEnabled:boolean = true;
     private formInputs = {};
     private contGroup:ControlGroup;
@@ -145,6 +146,7 @@ export class Account {
 
         this.userName = this.appStore.getState().appdb.getIn(['credentials']).get('user');
         this.businessId = this.appStore.getState().reseller.getIn(['whitelabel']).getKey('businessId');
+        this.payerId = this.appStore.getState().reseller.getIn(['whitelabel']).getKey('payerId');
 
         this.accountModels.forEach((accountModel:AccountModel)=> {
             var type:string = accountModel.getType().toLowerCase();
@@ -200,9 +202,8 @@ export class Account {
         switch (key) {
             case 'recurringMode':
             {
-                // todo: only set as ANNUAL if payer_id -2 waiting for API
                 // annual subscriber paying
-                if (value == '' && this.isAccountActive())
+                if (value == '' && this.isAccountActive() && this.payerId == '-2')
                     return 'ANNUAL';
                 // 0 = disabled | 1 = CC | 2 = PayPal
                 if (value == '')
@@ -254,8 +255,6 @@ export class Account {
             //this.appStore.dispatch(this.resellerAction.updateResellerInfo({accountStatus: this.PAY_SUBSCRIBER}));
             this.appStore.dispatch(this.resellerAction.updateAccountInfo({"recurring_recurringMode": payment.index}));
         }
-
-
     }
 
     private getSelectedPayment(i_recurringMode) {
@@ -279,7 +278,7 @@ export class Account {
         }
     }
 
-    private onUpdateCreditCard(event){
+    private onUpdateCreditCard(event) {
         var cardNumber = this.contGroup.controls['billing_cardNumber'].value
         var cardType = this.creditService.parseCardType(cardNumber);
         var cardValid = this.creditService.validateCardNumber(cardNumber);
@@ -300,12 +299,12 @@ export class Account {
         var cardNumber = this.contGroup.controls['billing_cardNumber'].value
         if (_.isUndefined(cardNumber))
             return false;
-        if (cardNumber.charAt(0)=='X')
+        if (cardNumber.charAt(0) == 'X')
             return false;
         var cardType = this.creditService.parseCardType(cardNumber);
         if (_.isNull(cardType))
             return false;
-        if (cardType!=i_cardType)
+        if (cardType != i_cardType)
             return false;
         return true;
     }

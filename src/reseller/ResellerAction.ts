@@ -94,6 +94,7 @@ export class ResellerAction extends Actions {
                             companyName: result.User.BusinessInfo["0"]._attr.name,
                             providerId: result.User.BusinessInfo["0"]._attr.providerId,
                             resellerId: result.User.BusinessInfo["0"]._attr.resellerId,
+                            payerId: result.User.BusinessInfo["0"]._attr.payerId,
                             createAccountOption: result.User.BusinessInfo["0"].WhiteLabel["0"].Studio["0"].Application["0"].CreateAccount["0"]._attr.show,
                             linksContact: result.User.BusinessInfo["0"].WhiteLabel["0"].Studio["0"].Application["0"].Links["0"]._attr.contact,
                             linksDownload: result.User.BusinessInfo["0"].WhiteLabel["0"].Studio["0"].Application["0"].Links["0"]._attr.download,
@@ -231,7 +232,6 @@ export class ResellerAction extends Actions {
 
     public createPrivilege() {
         return (dispatch)=> {
-            // var appdb:Map<string,any> = this.appStore.getState().appdb;
             // var url = appdb.get('appBaseUrlUser') + `&command=GetBusinessUserInfo`;
             // this._http.get(url)
             //     .map(result => {
@@ -250,7 +250,6 @@ export class ResellerAction extends Actions {
     public saveWhiteLabel() {
         var link = 123;
         var template = `
-        STUDIO =
             <Studio>
               <Application>
                 <Logo tooltip="" link="${link}" filename="Logo.jpg"/>
