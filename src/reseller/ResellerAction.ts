@@ -84,6 +84,9 @@ export class ResellerAction extends Actions {
                          * redux inject reseller info including white label
                          **/
                         var whitelabel = {
+                            createAccountOption: result.User.BusinessInfo["0"].WhiteLabel["0"].Studio["0"].Application["0"].CreateAccount ? result.User.BusinessInfo["0"].WhiteLabel["0"].Studio["0"].Application["0"].CreateAccount["0"]._attr.show : '',
+                            chatShow: result.User.BusinessInfo["0"].WhiteLabel["0"].Studio["0"].Chat["0"]._attr.show,
+                            twitterShow: result.User.BusinessInfo["0"].WhiteLabel["0"].Studio["0"].Twitter["0"]._attr.show,
                             resellerSourceId: result.User.BusinessInfo[0].SourceInfo["0"]._attr.id,
                             whitelabelEnabled: result.User.BusinessInfo["0"].WhiteLabel["0"]._attr.enabled,
                             accountStatus: result.User.BusinessInfo["0"]._attr.accountStatus,
@@ -95,7 +98,6 @@ export class ResellerAction extends Actions {
                             providerId: result.User.BusinessInfo["0"]._attr.providerId,
                             resellerId: result.User.BusinessInfo["0"]._attr.resellerId,
                             payerId: result.User.BusinessInfo["0"]._attr.payerId,
-                            createAccountOption: result.User.BusinessInfo["0"].WhiteLabel["0"].Studio["0"].Application["0"].CreateAccount["0"]._attr.show,
                             linksContact: result.User.BusinessInfo["0"].WhiteLabel["0"].Studio["0"].Application["0"].Links["0"]._attr.contact,
                             linksDownload: result.User.BusinessInfo["0"].WhiteLabel["0"].Studio["0"].Application["0"].Links["0"]._attr.download,
                             linksHome: result.User.BusinessInfo["0"].WhiteLabel["0"].Studio["0"].Application["0"].Links["0"]._attr.home,
@@ -103,7 +105,6 @@ export class ResellerAction extends Actions {
                             logoTooltip: result.User.BusinessInfo["0"].WhiteLabel["0"].Studio["0"].Application["0"].Logo["0"]._attr.tooltip,
                             bannerEmbedReference: result.User.BusinessInfo["0"].WhiteLabel["0"].Studio["0"].Banner["0"]._attr.embeddedReference,
                             chatLink: result.User.BusinessInfo["0"].WhiteLabel["0"].Studio["0"].Chat["0"]._attr.link,
-                            chatShow: result.User.BusinessInfo["0"].WhiteLabel["0"].Studio["0"].Chat["0"]._attr.show,
                             mainMenuLink0: result.User.BusinessInfo["0"].WhiteLabel["0"].Studio["0"].MainMenu["0"].CommandGroup["0"].Command["0"]._attr.href,
                             mainMenuId0: result.User.BusinessInfo["0"].WhiteLabel["0"].Studio["0"].MainMenu["0"].CommandGroup["0"].Command["0"]._attr.id,
                             mainMenuLabel0: result.User.BusinessInfo["0"].WhiteLabel["0"].Studio["0"].MainMenu["0"].CommandGroup["0"].Command["0"]._attr.label,
@@ -122,8 +123,7 @@ export class ResellerAction extends Actions {
                             icon: result.User.BusinessInfo["0"].WhiteLabel["0"].Studio["0"].MainMenu["0"].CommandGroup["0"]._attr.icon,
                             iconId: result.User.BusinessInfo["0"].WhiteLabel["0"].Studio["0"].MainMenu["0"].CommandGroup["0"]._attr.id,
                             iconLabel: result.User.BusinessInfo["0"].WhiteLabel["0"].Studio["0"].MainMenu["0"].CommandGroup["0"]._attr.label,
-                            twitterLink: result.User.BusinessInfo["0"].WhiteLabel["0"].Studio["0"].Twitter["0"]._attr.link,
-                            twitterShow: result.User.BusinessInfo["0"].WhiteLabel["0"].Studio["0"].Twitter["0"]._attr.show
+                            twitterLink: result.User.BusinessInfo["0"].WhiteLabel["0"].Studio["0"].Twitter["0"]._attr.link
                         }
                         var whitelabelModel:WhitelabelModel = new WhitelabelModel(whitelabel);
                         dispatch(self.receiveWhitelabel(whitelabelModel));
@@ -139,6 +139,7 @@ export class ResellerAction extends Actions {
                                     desc: i_app.Description["0"],
                                     appName: i_app._attr.appName,
                                     appId: i_app._attr.id,
+                                    installed: 0,
                                     moduleId: i_app.Components["0"].Component["0"]._attr.moduleId,
                                     uninstallable: i_app._attr.uninstallable,
                                     showInScene: i_app.Components["0"].Component["0"]._attr.showInScene,
@@ -146,9 +147,11 @@ export class ResellerAction extends Actions {
                                     version: i_app.Components["0"].Component["0"]._attr.version
                                 }
                             })
+                            var c = 0;
                             var userApps:List<AppModel> = List<AppModel>();
                             result.User.BusinessInfo["0"].InstalledApps["0"].App.forEach((i_app)=> {
                                 var appId = i_app._attr.id;
+                                console.log(`appid: ${++c} ${appId}`);
                                 if (!_.isUndefined(apps[appId])) {
                                     var app:AppModel = new AppModel({
                                         appId: appId,
@@ -161,6 +164,8 @@ export class ResellerAction extends Actions {
                                         version: apps[appId]['version']
                                     })
                                     userApps = userApps.push(app);
+                                } else {
+                                    console.log('not installing ' + appId);
                                 }
                             })
                             dispatch(self.receiveApps(userApps));
