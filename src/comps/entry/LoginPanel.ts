@@ -1,4 +1,4 @@
-import {Component, Injectable} from 'angular2/core';
+import {Component, Injectable, ViewChild, ElementRef, Renderer} from 'angular2/core';
 import {ROUTER_DIRECTIVES} from 'angular2/router';
 import {RouterLink} from 'angular2/router';
 import {Router} from "angular2/router";
@@ -20,8 +20,8 @@ var bootbox = require('bootbox');
                 <br/>
                   <form class="form-signin" role="form">
                     <h2 class="form-signin-heading"></h2>
-                    <input #userName id="userName" spellcheck="false" type="text" [(ngModel)]="m_user" class="input-underline input-lg form-control" data-localize="username" placeholder="user name" required autofocus>
-                    <input #userPass id="userPass" type="password" [(ngModel)]="m_pass" class="input-underline input-lg form-control" data-localize="password" placeholder="password" required>
+                    <input (keyup.enter)="passFocus()" #userName id="userName" spellcheck="false" type="text" [(ngModel)]="m_user" class="input-underline input-lg form-control" data-localize="username" placeholder="user name" required autofocus>
+                    <input (keyup.enter)="authUser()" #userPass id="userPass" type="password" [(ngModel)]="m_pass" class="input-underline input-lg form-control" data-localize="password" placeholder="password" required>
                     <br/>
                     <a id="loginButton"  (click)="authUser()" type="submit" class="btn rounded-btn"> enterprise member login </a>&nbsp;
                     <!--<a type="submit" class="btn rounded-btn"> Register</a> -->
@@ -48,7 +48,7 @@ export class LoginPanel {
     private m_unsub:()=>void;
     private showLoginPanel:boolean = false;
 
-    constructor(private appStore:AppStore, private router:Router, private authService:AuthService) {
+    constructor(private appStore:AppStore, private renderer:Renderer, private router:Router, private authService:AuthService) {
         this.m_router = router;
         this.m_user = '';
         this.m_pass = '';
@@ -70,6 +70,12 @@ export class LoginPanel {
         } else {
             this.showLoginPanel = true;
         }
+    }
+
+    @ViewChild('userPass') userPass:ElementRef;
+
+    private passFocus() {
+        this.renderer.invokeElementMethod(this.userPass.nativeElement, 'focus', [])
     }
 
     private authUser() {
