@@ -1,9 +1,7 @@
-///<reference path="../../../typings/app.d.ts" />
-
 import {Component} from "angular2/core";
-import {Consts} from "../../../src/Conts";
-import {CommBroker} from "../../services/CommBroker";
+import {AppStore} from "angular2-redux-util";
 import {LocalStorage} from "../../services/LocalStorage";
+const _ = require('underscore');
 
 @Component({
     selector: 'Logout',
@@ -15,10 +13,13 @@ import {LocalStorage} from "../../services/LocalStorage";
 })
 
 export class Logout {
-    constructor(localStorage:LocalStorage) {
-        localStorage.removeItem('remember_me')
+    constructor(private appStore:AppStore, private localStorage:LocalStorage) {
+        var linksHome = this.appStore.getState().reseller.getIn(['whitelabel']).getKey('linksHome');
+        if (_.isEmpty(linksHome))
+            linksHome = 'http://www.digitalsignage.com';
+        this.localStorage.removeItem('remember_me')
         jQuery('body').fadeOut(1000, function () {
-            window.location.replace("https://github.com/born2net/ng2Boilerplate");
+            window.location.replace(linksHome);
         });
     }
 }
