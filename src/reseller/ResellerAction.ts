@@ -215,7 +215,7 @@ export class ResellerAction extends Actions {
                         /**
                          * redux inject account info
                          **/
-                        ['Billing','Recurring','Shipping','Contact'].forEach((item)=>{
+                        ['Billing', 'Recurring', 'Shipping', 'Contact'].forEach((item)=> {
                             var values = result.Account[item]["0"]._attr;
                             if (_.isUndefined(values))
                                 values = {};
@@ -230,6 +230,47 @@ export class ResellerAction extends Actions {
     }
 
     public createPrivilege() {
+        return (dispatch)=> {
+            // var appdb:Map<string,any> = this.appStore.getState().appdb;
+            // var url = appdb.get('appBaseUrlUser') + `&command=GetBusinessUserInfo`;
+            // this._http.get(url)
+            //     .map(result => {
+            //         var xmlData:string = result.text()
+            //         xmlData = xmlData.replace(/}\)/, '').replace(/\(\{"result":"/, '');
+            //         this.m_parseString(xmlData, {attrkey: '_attr'}, function (err, result) {
+            //     }).subscribe();
+            //todo: contact server for creation of privilege id, emulating server for now
+            var privilegesModel:PrivelegesModel = this.privilegesModelFactory(_.random(1000, 9999), 'privilege set')
+            setTimeout(()=> {
+                dispatch(this.addPrivilege(privilegesModel));
+            }, 100)
+        }
+    }
+
+    public saveWhiteLabel() {
+        var link = 123;
+        var template = `
+        STUDIO =
+            <Studio>
+              <Application>
+                <Logo tooltip="" link="${link}" filename="Logo.jpg"/>
+                <Links home="www.yahoo.com" download="http://www.facebook.com/?ref=home" contact=""/>
+                <CreateAccount show="1"/>
+              </Application>
+              <MainMenu>
+                <CommandGroup id="help" label="Help" icon="helpIcon">
+                  <Command id="help1" label="Visit site" href="http://www.yahoo.com"/>
+                  <Command id="help2" label="" href=""/>
+                  <Command id="help3" label="Support" href="http://www.espn.com"/>
+                  <Command id="help4" label="Report a bug" href="http://www.test.com"/>
+                  <Command id="about" label="TEST" href="http://www.abscbn.com"/>
+                </CommandGroup>
+              </MainMenu>
+              <Banner embeddedReference="0"/>
+              <Twitter show="0" link=""/>
+              <Chat show="1" link=" http://chat.digitalsignage.com"/>
+            </Studio>
+        `;
         return (dispatch)=> {
             // var appdb:Map<string,any> = this.appStore.getState().appdb;
             // var url = appdb.get('appBaseUrlUser') + `&command=GetBusinessUserInfo`;
