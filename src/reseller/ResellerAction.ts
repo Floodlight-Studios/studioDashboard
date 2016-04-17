@@ -130,43 +130,31 @@ export class ResellerAction extends Actions {
 
                         Lib.AppsXmlTemplate((err, xmlTemplate)=> {
 
+                            var isAppInstalled = (i_appId):number => {
+                                var returns = 0;
+                                result.User.BusinessInfo["0"].InstalledApps["0"].App.forEach((i_app)=> {
+                                    if (i_appId === i_app._attr.id)
+                                        returns = i_app._attr.installed;
+                                })
+                                return returns;
+                            }
                             /**
                              * redux inject Apps
                              **/
-                            var apps = {};
+                            var userApps:List<AppModel> = List<AppModel>();
                             xmlTemplate.Apps.App.forEach((i_app) => {
-                                apps[i_app._attr.id] = {
+                                var app:AppModel = new AppModel({
                                     desc: i_app.Description["0"],
                                     appName: i_app._attr.appName,
                                     appId: i_app._attr.id,
-                                    installed: 0,
+                                    installed: isAppInstalled(i_app._attr.id),
                                     moduleId: i_app.Components["0"].Component["0"]._attr.moduleId,
                                     uninstallable: i_app._attr.uninstallable,
                                     showInScene: i_app.Components["0"].Component["0"]._attr.showInScene,
                                     showInTimeline: i_app.Components["0"].Component["0"]._attr.showInTimeline,
                                     version: i_app.Components["0"].Component["0"]._attr.version
-                                }
-                            })
-                            var c = 0;
-                            var userApps:List<AppModel> = List<AppModel>();
-                            result.User.BusinessInfo["0"].InstalledApps["0"].App.forEach((i_app)=> {
-                                var appId = i_app._attr.id;
-                                console.log(`appid: ${++c} ${appId}`);
-                                if (!_.isUndefined(apps[appId])) {
-                                    var app:AppModel = new AppModel({
-                                        appId: appId,
-                                        installed: i_app._attr.installed,
-                                        appName: apps[appId]['appName'],
-                                        moduleId: apps[appId]['moduleId'],
-                                        uninstallable: apps[appId]['uninstallable'],
-                                        showInScene: apps[appId]['showInScene'],
-                                        showInTimeline: apps[appId]['showInTimeline'],
-                                        version: apps[appId]['version']
-                                    })
-                                    userApps = userApps.push(app);
-                                } else {
-                                    console.log('not installing ' + appId);
-                                }
+                                });
+                                userApps = userApps.push(app);
                             })
                             dispatch(self.receiveApps(userApps));
                         });
