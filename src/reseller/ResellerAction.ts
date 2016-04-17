@@ -264,14 +264,15 @@ export class ResellerAction extends Actions {
             </Studio>
         `;
         return (dispatch)=> {
-            // var appdb:Map<string,any> = this.appStore.getState().appdb;
-            // var url = appdb.get('appBaseUrlUser') + `&command=GetBusinessUserInfo`;
-            // this._http.get(url)
-            //     .map(result => {
-            //         var xmlData:string = result.text()
-            //         xmlData = xmlData.replace(/}\)/, '').replace(/\(\{"result":"/, '');
-            //         this.m_parseString(xmlData, {attrkey: '_attr'}, function (err, result) {
-            //     }).subscribe();
+            var appdb:Map<string,any> = this.appStore.getState().appdb;
+            var url = appdb.get('appBaseUrlUser') + `&command=SaveWhiteLabel&useWhiteLabel=1&resellerName=AAA&customStudio=${template}&defaultThemeId=1`;
+            this._http.get(url)
+                .map(result => {
+                    var xmlData:string = result.text();
+                    this.m_parseString(xmlData, {attrkey: '_attr'}, function (err, result) {
+                    })
+                }).subscribe();
+
             //todo: contact server for creation of privilege id, emulating server for now
             var privilegesModel:PrivelegesModel = this.privilegesModelFactory(_.random(1000, 9999), 'privilege set')
             setTimeout(()=> {

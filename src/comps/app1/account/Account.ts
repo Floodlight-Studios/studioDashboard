@@ -238,16 +238,17 @@ export class Account {
         })
 
         if (payment.name == 'disable') {
-            // this.appStore.dispatch(this.resellerAction.updateResellerInfo({accountStatus: 0}));
-            this.appStore.dispatch(this.resellerAction.updateAccountInfo({"recurring_recurringMode": 0}));
+            // disable subscription but don't save to server until validated by user
             var recurringMode = this.getRecurringValue('recurringMode');
-            bootbox.prompt(`are you sure you want to cancel your current subscription? 
-            Dangerous: type [DELETE_NOW] to cancel association of all your screens`, (result) => {
+            this.appStore.dispatch(this.resellerAction.updateAccountInfo({"recurring_recurringMode": 0}));
+            bootbox.prompt(`are you sure you want to cancel your current subscription?  
+            type [DELETE_NOW] to cancel association of all your screens`, (result) => {
                 if (result == 'DELETE_NOW') {
+                    //todo unsubscribe if confirmed by user
                     // this.appStore.dispatch(this.resellerAction.updateResellerInfo({accountStatus: 2}));
                     // this.appStore.dispatch(this.resellerAction.updateAccountInfo({"recurring_recurringMode": 0}));
                 } else {
-                    this.appStore.dispatch(this.resellerAction.updateAccountInfo({"recurring_recurringMode": 1}));
+                    this.appStore.dispatch(this.resellerAction.updateAccountInfo({"recurring_recurringMode": recurringMode}));
                 }
             });
         } else {
