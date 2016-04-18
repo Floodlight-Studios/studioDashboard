@@ -28,11 +28,49 @@ export class Lib {
         };
     }
 
+    static CleanCharForXml(value:string):any {
+        var clean = function(value:string){
+            if (_.isNull(value))
+                return '';
+            if (_.isNumber(value))
+                return value;
+            if (_.isBoolean(value))
+                return value;
+            value = value.replace(/\}/g, ' ');
+            value = value.replace(/%/g, ' ');
+            value = value.replace(/{/g, ' ');
+            value = value.replace(/"/g, '`');
+            value = value.replace(/'/g, '`');
+            value = value.replace(/&/g, 'and');
+            value = value.replace(/>/g, ' ');
+            value = value.replace(/</g, ' ');
+            value = value.replace(/\[/g, ' ');
+            value = value.replace(/]/g, ' ');
+            value = value.replace(/#/g, ' ');
+            value = value.replace(/\$/g, ' ');
+            value = value.replace(/\^/g, ' ');
+            value = value.replace(/;/g, ' ');
+            return value
+        }
+        if (_.isNull(value))
+            return '';
+        if (_.isNumber(value))
+            return value;
+        if (_.isBoolean(value))
+            return value;
+        if (_.isString(value))
+            return clean(value);
+        _.forEach(value,(v,k)=>{
+            value[k] = clean(v);
+        });
+        return value;
+    }
+
     static MapOfIndex(map:Map<string,any>, index:number, position:"first" | "last"):string {
         var mapJs = map.toJS();
         var mapJsPairs = _.pairs(mapJs);
         var offset = position == 'first' ? 0 : 1;
-        if (mapJsPairs[index]==undefined)
+        if (mapJsPairs[index] == undefined)
             return "0"
         return mapJsPairs[index][offset];
     }
@@ -98,6 +136,7 @@ export class Lib {
             callBack(err, result);
         });
     }
+
     static AppsXmlTemplate(callBack:(err, result)=>any) {
         const parseString = require('xml2js').parseString;
         var xmlData = `

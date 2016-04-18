@@ -48,38 +48,38 @@ System.config({
   map: {
     "angular2": "npm:angular2@2.0.0-beta.14",
     "angular2-polyfill": "npm:angular2-polyfill@0.0.2",
-    "angular2-redux-util": "npm:angular2-redux-util@0.8.57",
+    "angular2-redux-util": "npm:angular2-redux-util@0.8.59",
     "angular2-uuid": "npm:angular2-uuid@1.0.7",
     "bootbox": "npm:bootbox@4.4.0",
     "bootstrap": "github:twbs/bootstrap@3.3.6",
-    "clean-css": "npm:clean-css@3.4.11",
+    "clean-css": "npm:clean-css@3.4.12",
     "core-js": "npm:core-js@1.2.6",
     "crypto": "github:jspm/nodelibs-crypto@0.1.0",
     "css": "github:systemjs/plugin-css@0.1.20",
     "gulp-util": "npm:gulp-util@3.0.7",
-    "highcharts": "npm:highcharts@4.2.3",
-    "immutable": "npm:immutable@3.7.6",
+    "highcharts": "npm:highcharts@4.2.4",
+    "immutable": "npm:immutable@3.8.0",
     "is-equal": "npm:is-equal@1.5.1",
     "jquery": "npm:jquery@2.2.3",
     "lodash": "npm:lodash@4.5.1",
-    "moment": "npm:moment@2.12.0",
+    "moment": "npm:moment@2.13.0",
     "ng2-bootstrap": "npm:ng2-bootstrap@1.0.7",
     "ng2-bs3-modal": "npm:ng2-bs3-modal@0.2.2",
-    "plugin-typescript": "github:frankwallis/plugin-typescript@4.0.5",
-    "redux": "npm:redux@3.3.1",
+    "plugin-typescript": "github:frankwallis/plugin-typescript@4.0.6",
+    "redux": "npm:redux@3.4.0",
     "redux-thunk": "npm:redux-thunk@1.0.3",
     "reflect-metadata": "npm:reflect-metadata@0.1.3",
-    "reselect": "npm:reselect@2.3.0",
+    "reselect": "npm:reselect@2.4.0",
     "rxjs": "npm:rxjs@5.0.0-beta.2",
     "text": "github:systemjs/plugin-text@0.0.4",
-    "ts": "github:frankwallis/plugin-typescript@4.0.5",
+    "ts": "github:frankwallis/plugin-typescript@4.0.6",
     "twbs/bootstrap": "github:twbs/bootstrap@3.3.6",
-    "typescript": "npm:typescript@1.8.9",
+    "typescript": "npm:typescript@1.8.10",
     "underscore": "npm:underscore@1.8.3",
     "xml2js": "npm:xml2js@0.4.16",
-    "zone.js": "npm:zone.js@0.6.10",
-    "github:frankwallis/plugin-typescript@4.0.5": {
-      "typescript": "npm:typescript@1.8.9"
+    "zone.js": "npm:zone.js@0.6.11",
+    "github:frankwallis/plugin-typescript@4.0.6": {
+      "typescript": "npm:typescript@1.8.10"
     },
     "github:jspm/nodelibs-assert@0.1.0": {
       "assert": "npm:assert@1.3.0"
@@ -140,6 +140,12 @@ System.config({
     "github:twbs/bootstrap@3.3.6": {
       "jquery": "github:components/jquery@2.2.1"
     },
+    "npm:acorn@1.2.2": {
+      "fs": "github:jspm/nodelibs-fs@0.1.2",
+      "path": "github:jspm/nodelibs-path@0.1.0",
+      "process": "github:jspm/nodelibs-process@0.1.2",
+      "stream": "github:jspm/nodelibs-stream@0.1.0"
+    },
     "npm:amdefine@1.0.0": {
       "fs": "github:jspm/nodelibs-fs@0.1.2",
       "module": "github:jspm/nodelibs-module@0.1.0",
@@ -147,24 +153,29 @@ System.config({
       "process": "github:jspm/nodelibs-process@0.1.2"
     },
     "npm:angular2-polyfill@0.0.2": {
-      "angular": "npm:angular@1.5.3",
+      "angular": "npm:angular@1.5.5",
       "camelcase": "npm:camelcase@2.1.1",
       "dot-prop": "npm:dot-prop@2.4.0"
     },
-    "npm:angular2-redux-util@0.8.57": {
-      "immutable": "npm:immutable@3.7.6",
+    "npm:angular2-redux-util@0.8.59": {
+      "immutable": "npm:immutable@3.8.0",
       "is-equal": "npm:is-equal@1.5.1",
       "object-path": "npm:object-path@0.9.2",
-      "redux": "npm:redux@3.3.1"
+      "redux": "npm:redux@3.4.0"
     },
     "npm:angular2@2.0.0-beta.14": {
       "reflect-metadata": "npm:reflect-metadata@0.1.2",
       "rxjs": "npm:rxjs@5.0.0-beta.2",
-      "zone.js": "npm:zone.js@0.6.10"
+      "zone.js": "npm:zone.js@0.6.11"
+    },
+    "npm:angular2@2.0.0-beta.9": {
+      "reflect-metadata": "npm:reflect-metadata@0.1.3",
+      "rxjs": "npm:rxjs@5.0.0-beta.2",
+      "zone.js": "npm:zone.js@0.5.15"
     },
     "npm:asn1.js@4.5.2": {
       "assert": "github:jspm/nodelibs-assert@0.1.0",
-      "bn.js": "npm:bn.js@4.11.1",
+      "bn.js": "npm:bn.js@4.11.3",
       "buffer": "github:jspm/nodelibs-buffer@0.1.0",
       "fs": "github:jspm/nodelibs-fs@0.1.2",
       "inherits": "npm:inherits@2.0.1",
@@ -177,7 +188,7 @@ System.config({
     "npm:beeper@1.1.0": {
       "process": "github:jspm/nodelibs-process@0.1.2"
     },
-    "npm:bn.js@4.11.1": {
+    "npm:bn.js@4.11.3": {
       "buffer": "github:jspm/nodelibs-buffer@0.1.0"
     },
     "npm:bootbox@4.4.0": {
@@ -214,14 +225,14 @@ System.config({
       "inherits": "npm:inherits@2.0.1"
     },
     "npm:browserify-rsa@4.0.1": {
-      "bn.js": "npm:bn.js@4.11.1",
+      "bn.js": "npm:bn.js@4.11.3",
       "buffer": "github:jspm/nodelibs-buffer@0.1.0",
       "constants": "github:jspm/nodelibs-constants@0.1.0",
       "crypto": "github:jspm/nodelibs-crypto@0.1.0",
       "randombytes": "npm:randombytes@2.0.3"
     },
     "npm:browserify-sign@4.0.0": {
-      "bn.js": "npm:bn.js@4.11.1",
+      "bn.js": "npm:bn.js@4.11.3",
       "browserify-rsa": "npm:browserify-rsa@4.0.1",
       "buffer": "github:jspm/nodelibs-buffer@0.1.0",
       "create-hash": "npm:create-hash@1.1.2",
@@ -237,7 +248,7 @@ System.config({
       "buffer": "github:jspm/nodelibs-buffer@0.1.0",
       "pako": "npm:pako@0.2.8",
       "process": "github:jspm/nodelibs-process@0.1.2",
-      "readable-stream": "npm:readable-stream@2.0.6",
+      "readable-stream": "npm:readable-stream@2.1.0",
       "util": "github:jspm/nodelibs-util@0.1.0"
     },
     "npm:buffer-xor@1.0.3": {
@@ -257,7 +268,7 @@ System.config({
       "systemjs-json": "github:systemjs/plugin-json@0.1.0"
     },
     "npm:camelcase-keys@2.0.0": {
-      "camelcase": "npm:camelcase@2.1.0",
+      "camelcase": "npm:camelcase@2.1.1",
       "map-obj": "npm:map-obj@1.0.1"
     },
     "npm:chalk@1.1.1": {
@@ -274,7 +285,7 @@ System.config({
       "stream": "github:jspm/nodelibs-stream@0.1.0",
       "string_decoder": "github:jspm/nodelibs-string_decoder@0.1.0"
     },
-    "npm:clean-css@3.4.11": {
+    "npm:clean-css@3.4.12": {
       "buffer": "github:jspm/nodelibs-buffer@0.1.0",
       "commander": "npm:commander@2.8.1",
       "fs": "github:jspm/nodelibs-fs@0.1.2",
@@ -315,7 +326,7 @@ System.config({
       "buffer": "github:jspm/nodelibs-buffer@0.1.0"
     },
     "npm:create-ecdh@4.0.0": {
-      "bn.js": "npm:bn.js@4.11.1",
+      "bn.js": "npm:bn.js@4.11.3",
       "buffer": "github:jspm/nodelibs-buffer@0.1.0",
       "crypto": "github:jspm/nodelibs-crypto@0.1.0",
       "elliptic": "npm:elliptic@6.2.3"
@@ -365,7 +376,7 @@ System.config({
       "minimalistic-assert": "npm:minimalistic-assert@1.0.0"
     },
     "npm:diffie-hellman@5.0.2": {
-      "bn.js": "npm:bn.js@4.11.1",
+      "bn.js": "npm:bn.js@4.11.3",
       "buffer": "github:jspm/nodelibs-buffer@0.1.0",
       "crypto": "github:jspm/nodelibs-crypto@0.1.0",
       "miller-rabin": "npm:miller-rabin@4.0.0",
@@ -376,10 +387,10 @@ System.config({
       "is-obj": "npm:is-obj@1.0.1"
     },
     "npm:duplexer2@0.0.2": {
-      "readable-stream": "npm:readable-stream@1.1.13"
+      "readable-stream": "npm:readable-stream@1.1.14"
     },
     "npm:elliptic@6.2.3": {
-      "bn.js": "npm:bn.js@4.11.1",
+      "bn.js": "npm:bn.js@4.11.3",
       "brorand": "npm:brorand@1.0.5",
       "hash.js": "npm:hash.js@1.0.3",
       "inherits": "npm:inherits@2.0.1",
@@ -404,6 +415,13 @@ System.config({
       "buffer": "github:jspm/nodelibs-buffer@0.1.0",
       "create-hash": "npm:create-hash@1.1.2",
       "crypto": "github:jspm/nodelibs-crypto@0.1.0"
+    },
+    "npm:falafel@1.2.0": {
+      "acorn": "npm:acorn@1.2.2",
+      "buffer": "github:jspm/nodelibs-buffer@0.1.0",
+      "foreach": "npm:foreach@2.0.5",
+      "isarray": "npm:isarray@0.0.1",
+      "object-keys": "npm:object-keys@1.0.9"
     },
     "npm:fancy-log@1.2.0": {
       "chalk": "npm:chalk@1.1.1",
@@ -473,7 +491,7 @@ System.config({
     "npm:hash.js@1.0.3": {
       "inherits": "npm:inherits@2.0.1"
     },
-    "npm:highcharts@4.2.3": {
+    "npm:highcharts@4.2.4": {
       "process": "github:jspm/nodelibs-process@0.1.2"
     },
     "npm:hosted-git-info@2.1.4": {
@@ -487,6 +505,12 @@ System.config({
     },
     "npm:inherits@2.0.1": {
       "util": "github:jspm/nodelibs-util@0.1.0"
+    },
+    "npm:inline-process-browser@2.0.1": {
+      "buffer": "github:jspm/nodelibs-buffer@0.1.0",
+      "falafel": "npm:falafel@1.2.0",
+      "process": "github:jspm/nodelibs-process@0.1.2",
+      "through2": "npm:through2@0.6.5"
     },
     "npm:is-arrow-function@2.0.3": {
       "is-callable": "npm:is-callable@1.1.3"
@@ -576,7 +600,7 @@ System.config({
       "trim-newlines": "npm:trim-newlines@1.0.0"
     },
     "npm:miller-rabin@4.0.0": {
-      "bn.js": "npm:bn.js@4.11.1",
+      "bn.js": "npm:bn.js@4.11.3",
       "brorand": "npm:brorand@1.0.5"
     },
     "npm:moment@2.12.0": {
@@ -587,7 +611,7 @@ System.config({
       "stream": "github:jspm/nodelibs-stream@0.1.0"
     },
     "npm:ng2-bootstrap@1.0.7": {
-      "angular2": "npm:angular2@2.0.0-beta.14",
+      "angular2": "npm:angular2@2.0.0-beta.9",
       "fs": "github:jspm/nodelibs-fs@0.1.2",
       "moment": "npm:moment@2.12.0",
       "path": "github:jspm/nodelibs-path@0.1.0",
@@ -667,7 +691,7 @@ System.config({
       "assert": "github:jspm/nodelibs-assert@0.1.0"
     },
     "npm:public-encrypt@4.0.0": {
-      "bn.js": "npm:bn.js@4.11.1",
+      "bn.js": "npm:bn.js@4.11.3",
       "browserify-rsa": "npm:browserify-rsa@4.0.1",
       "buffer": "github:jspm/nodelibs-buffer@0.1.0",
       "create-hash": "npm:create-hash@1.1.2",
@@ -693,7 +717,17 @@ System.config({
       "path": "github:jspm/nodelibs-path@0.1.0",
       "path-type": "npm:path-type@1.1.0"
     },
-    "npm:readable-stream@1.1.13": {
+    "npm:readable-stream@1.0.34": {
+      "buffer": "github:jspm/nodelibs-buffer@0.1.0",
+      "core-util-is": "npm:core-util-is@1.0.2",
+      "events": "github:jspm/nodelibs-events@0.1.1",
+      "inherits": "npm:inherits@2.0.1",
+      "isarray": "npm:isarray@0.0.1",
+      "process": "github:jspm/nodelibs-process@0.1.2",
+      "stream-browserify": "npm:stream-browserify@1.0.0",
+      "string_decoder": "npm:string_decoder@0.10.31"
+    },
+    "npm:readable-stream@1.1.14": {
       "buffer": "github:jspm/nodelibs-buffer@0.1.0",
       "core-util-is": "npm:core-util-is@1.0.2",
       "events": "github:jspm/nodelibs-events@0.1.1",
@@ -714,24 +748,36 @@ System.config({
       "string_decoder": "npm:string_decoder@0.10.31",
       "util-deprecate": "npm:util-deprecate@1.0.2"
     },
-    "npm:readable-stream@2.0.6": {
+    "npm:readable-stream@2.1.0": {
       "buffer": "github:jspm/nodelibs-buffer@0.1.0",
       "core-util-is": "npm:core-util-is@1.0.2",
       "events": "github:jspm/nodelibs-events@0.1.1",
       "inherits": "npm:inherits@2.0.1",
+      "inline-process-browser": "npm:inline-process-browser@2.0.1",
       "isarray": "npm:isarray@1.0.0",
       "process": "github:jspm/nodelibs-process@0.1.2",
       "process-nextick-args": "npm:process-nextick-args@1.0.6",
+      "stream": "github:jspm/nodelibs-stream@0.1.0",
       "string_decoder": "npm:string_decoder@0.10.31",
+      "unreachable-branch-transform": "npm:unreachable-branch-transform@0.5.1",
       "util-deprecate": "npm:util-deprecate@1.0.2"
+    },
+    "npm:recast@0.11.5": {
+      "assert": "github:jspm/nodelibs-assert@0.1.0",
+      "ast-types": "npm:ast-types@0.8.16",
+      "esprima": "npm:esprima@2.7.2",
+      "os": "github:jspm/nodelibs-os@0.1.0",
+      "private": "npm:private@0.1.6",
+      "process": "github:jspm/nodelibs-process@0.1.2",
+      "source-map": "npm:source-map@0.5.3"
     },
     "npm:redent@1.0.0": {
       "indent-string": "npm:indent-string@2.1.0",
       "strip-indent": "npm:strip-indent@1.0.1"
     },
-    "npm:redux@3.3.1": {
+    "npm:redux@3.4.0": {
       "lodash": "npm:lodash@4.5.1",
-      "lodash-es": "npm:lodash-es@4.8.2",
+      "lodash-es": "npm:lodash-es@4.11.1",
       "loose-envify": "npm:loose-envify@1.1.0",
       "process": "github:jspm/nodelibs-process@0.1.2"
     },
@@ -782,6 +828,9 @@ System.config({
       "amdefine": "npm:amdefine@1.0.0",
       "process": "github:jspm/nodelibs-process@0.1.2"
     },
+    "npm:source-map@0.5.3": {
+      "process": "github:jspm/nodelibs-process@0.1.2"
+    },
     "npm:sparkles@1.0.0": {
       "events": "github:jspm/nodelibs-events@0.1.1"
     },
@@ -798,7 +847,7 @@ System.config({
     "npm:stream-browserify@1.0.0": {
       "events": "github:jspm/nodelibs-events@0.1.1",
       "inherits": "npm:inherits@2.0.1",
-      "readable-stream": "npm:readable-stream@1.1.13"
+      "readable-stream": "npm:readable-stream@1.0.34"
     },
     "npm:string_decoder@0.10.31": {
       "buffer": "github:jspm/nodelibs-buffer@0.1.0"
@@ -819,6 +868,12 @@ System.config({
     "npm:supports-color@2.0.0": {
       "process": "github:jspm/nodelibs-process@0.1.2"
     },
+    "npm:through2@0.6.5": {
+      "process": "github:jspm/nodelibs-process@0.1.2",
+      "readable-stream": "npm:readable-stream@1.0.34",
+      "util": "github:jspm/nodelibs-util@0.1.0",
+      "xtend": "npm:xtend@4.0.1"
+    },
     "npm:through2@2.0.1": {
       "process": "github:jspm/nodelibs-process@0.1.2",
       "readable-stream": "npm:readable-stream@2.0.5",
@@ -828,8 +883,14 @@ System.config({
     "npm:timers-browserify@1.4.2": {
       "process": "npm:process@0.11.2"
     },
-    "npm:typescript@1.8.9": {
+    "npm:typescript@1.8.10": {
       "os": "github:jspm/nodelibs-os@0.1.0"
+    },
+    "npm:unreachable-branch-transform@0.5.1": {
+      "esmangle-evaluator": "npm:esmangle-evaluator@1.0.0",
+      "recast": "npm:recast@0.11.5",
+      "stream": "github:jspm/nodelibs-stream@0.1.0",
+      "util": "github:jspm/nodelibs-util@0.1.0"
     },
     "npm:url@0.10.3": {
       "assert": "github:jspm/nodelibs-assert@0.1.0",
@@ -871,7 +932,8 @@ System.config({
       "lodash": "npm:lodash@4.5.1",
       "process": "github:jspm/nodelibs-process@0.1.2"
     },
-    "npm:zone.js@0.6.10": {
+    "npm:zone.js@0.6.11": {
+      "buffer": "github:jspm/nodelibs-buffer@0.1.0",
       "process": "github:jspm/nodelibs-process@0.1.2"
     }
   }

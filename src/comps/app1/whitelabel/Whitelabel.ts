@@ -11,6 +11,7 @@ import {AppStore} from "angular2-redux-util/dist/index";
 import {FORM_DIRECTIVES, ControlGroup, FormBuilder, Control} from "angular2/common";
 import {BlurForwarder} from "../../blurforwarder/BlurForwarder";
 import {Loading} from "../../loading/Loading";
+import {Lib} from "../../../Lib";
 const _ = require('underscore');
 const bootbox = require('bootbox');
 
@@ -70,13 +71,17 @@ export class Whitelabel {
     private unsub;
 
     private onInputBlur(event) {
-        setTimeout(()=>this.appStore.dispatch(this.resellerAction.updateResellerInfo(this.contGroup.value)), 1);
+        setTimeout(()=>this.appStore.dispatch(this.resellerAction.saveWhiteLabel(Lib.CleanCharForXml(this.contGroup.value))), 1);
     }
 
     private renderFormInputs() {
-        this.whiteLabelEnabled =  this.whitelabelModel.getKey('whitelabelEnabled');;
+        this.whiteLabelEnabled = this.whitelabelModel.getKey('whitelabelEnabled');
         _.forEach(this.formInputs, (value, key:string)=> {
             var value = this.whitelabelModel.getKey(key);
+            if (value == "0")
+                value = 0;
+            if (value == "1")
+                value = 1;
             this.formInputs[key].updateValue(value);
         })
     };

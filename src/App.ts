@@ -89,7 +89,9 @@ export enum ServerMode {
 export class App {
     private m_styleService:StyleService;
     
-    constructor(private appStore:AppStore, private commBroker:CommBroker, styleService:StyleService, private appdbAction:AppdbAction, private router:Router) {
+    constructor(private localStorage:LocalStorage, private appStore:AppStore, private commBroker:CommBroker, styleService:StyleService, private appdbAction:AppdbAction, private router:Router) {
+        // force logout
+        // this.localStorage.removeItem('remember_me')
         // todo: add logic to as when on each env
         // 0 = cloud, 1 = private 2 = hybrid
         this.commBroker.setValue(Consts.Values().SERVER_MODE, ServerMode.CLOUD);
@@ -106,14 +108,6 @@ export class App {
     public appResized():void {
         var appHeight = document.body.clientHeight;
         var appWidth = document.body.clientWidth;
-        //console.log('resized ' + appHeight);
-        // jQuery(Consts.Elems().APP_NAVIGATOR_EVER).height(appHeight - 115);
-        // jQuery(Consts.Elems().APP_NAVIGATOR_WASP).height(appHeight - 115);
-        // jQuery(Consts.Clas().CLASS_APP_HEIGHT).height(appHeight - 420);
-        // jQuery('#mainPanelWrap').height(appHeight - 115);
-        // jQuery('#propPanel').height(appHeight - 130);
-        // jQuery('.well').height(appHeight - 224);
-
         this.commBroker.setValue(Consts.Values().APP_SIZE, {height: appHeight, width: appWidth});
         this.commBroker.fire({
             fromInstance: self,

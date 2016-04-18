@@ -9,6 +9,7 @@ import {AppModel} from "./AppModel";
 import {WhitelabelModel} from "./WhitelabelModel";
 import {AccountModel} from "./AccountModel";
 const Immutable = require('immutable');
+const bootbox = require('bootbox');
 const _ = require('underscore');
 
 export const RECEIVE_PRIVILEGES = 'RECEIVE_PRIVILEGES';
@@ -240,14 +241,18 @@ export class ResellerAction extends Actions {
         }
     }
 
-    public saveWhiteLabel() {
-        var link = 123;
-        var template = `
+    public saveWhiteLabel(payload:any) {
+        return (dispatch)=> {
+            dispatch(this.updateResellerInfo(payload));
+
+            var createAccountOption= this.appStore.getsKey('reseller','whitelabel','createAccountOption')
+
+            var template = `
             <Studio>
               <Application>
-                <Logo tooltip="" link="${link}" filename="Logo.jpg"/>
-                <Links home="www.yahoo.com" download="http://www.facebook.com/?ref=home" contact=""/>
-                <CreateAccount show="1"/>
+                <Logo tooltip="" link="" filename="Logo.jpg"/>
+                <Links home="${this.appStore.getsKey('reseller','whitelabel','linksHome')}" download="http://www.facebook.com/?ref=home" contact=""/>
+                <CreateAccount show="${createAccountOption}"/>
               </Application>
               <MainMenu>
                 <CommandGroup id="help" label="Help" icon="helpIcon">
@@ -261,23 +266,16 @@ export class ResellerAction extends Actions {
               <Banner embeddedReference="0"/>
               <Twitter show="0" link=""/>
               <Chat show="1" link=" http://chat.digitalsignage.com"/>
-            </Studio>
-        `;
-        return (dispatch)=> {
+            </Studio>`;
+            template = template.replace(/>\s*/g, '>').replace(/\s*</g, '<').replace(/(\r\n|\n|\r)/gm, "");
+
             var appdb:Map<string,any> = this.appStore.getState().appdb;
-            var url = appdb.get('appBaseUrlUser') + `&command=SaveWhiteLabel&useWhiteLabel=1&resellerName=AAA&customStudio=${template}&defaultThemeId=1`;
+            var url = appdb.get('appBaseUrlUser') + `&command=SaveWhiteLabel&useWhiteLabel=1&resellerName=${this.appStore.getsKey('reseller','whitelabel','companyName')}&customStudio=${template}&defaultThemeId=1`;
             this._http.get(url)
                 .map(result => {
-                    var xmlData:string = result.text();
-                    this.m_parseString(xmlData, {attrkey: '_attr'}, function (err, result) {
-                    })
+                    if (result.text()!='True')
+                        bootbox.alert('Problem saving to server...')
                 }).subscribe();
-
-            //todo: contact server for creation of privilege id, emulating server for now
-            var privilegesModel:PrivelegesModel = this.privilegesModelFactory(_.random(1000, 9999), 'privilege set')
-            setTimeout(()=> {
-                dispatch(this.addPrivilege(privilegesModel));
-            }, 100)
         }
     }
 

@@ -47,7 +47,7 @@ export class StationsAction extends Actions {
                         xmlData = xmlData.replace(/&lt;/ig, '<').replace(/&gt;/ig, '>');
                         this.m_parseString(xmlData, {attrkey: '_attr'}, function (err, result) {
                             if (err) {
-                                bootbox.alert('problem loading user info')
+                                bootbox.alert('problem loading station info')
                                 return;
                             }
                             /**
@@ -195,7 +195,7 @@ export class StationsAction extends Actions {
 //                 xmlData = xmlData.replace(/&lt;/ig, '<').replace(/&gt;/ig, '>');
 //                 this.m_parseString(xmlData, {attrkey: '_attr'}, function (err, result) {
 //                     if (err) {
-//                         bootbox.alert('problem loading user info')
+//                         bootbox.alert('problem loading station info')
 //                         return;
 //                     }
 //                     /**
