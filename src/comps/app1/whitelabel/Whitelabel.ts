@@ -64,7 +64,7 @@ export class Whitelabel {
         this.renderFormInputs();
     }
 
-    private whiteLabelEnabled:boolean = true;
+    private whiteLabelEnabled:any = true;
     private formInputs = {};
     private contGroup:ControlGroup;
     private whitelabelModel:WhitelabelModel;
@@ -76,19 +76,18 @@ export class Whitelabel {
 
     private renderFormInputs() {
         this.whiteLabelEnabled = this.whitelabelModel.getKey('whitelabelEnabled');
+        this.whiteLabelEnabled = Lib.BooleanToNumber(this.whiteLabelEnabled);
+
         _.forEach(this.formInputs, (value, key:string)=> {
             var value = this.whitelabelModel.getKey(key);
-            if (value == "0")
-                value = 0;
-            if (value == "1")
-                value = 1;
+            value = Lib.BooleanToNumber(value);
             this.formInputs[key].updateValue(value);
         })
     };
 
     private onWhiteLabelChange(value) {
-        value = value ? 1 : 0;
-        this.appStore.dispatch(this.resellerAction.updateResellerInfo({whitelabelEnabled: value}))
+        value = Lib.BooleanToNumber(value);
+        setTimeout(()=>this.appStore.dispatch(this.resellerAction.saveWhiteLabel(Lib.CleanCharForXml({whitelabelEnabled: value}))), 1);
     }
 
     private ngOnDestroy() {

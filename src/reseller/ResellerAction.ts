@@ -270,7 +270,7 @@ export class ResellerAction extends Actions {
             template = template.replace(/>\s*/g, '>').replace(/\s*</g, '<').replace(/(\r\n|\n|\r)/gm, "");
 
             var appdb:Map<string,any> = this.appStore.getState().appdb;
-            var url = appdb.get('appBaseUrlUser') + `&command=SaveWhiteLabel&useWhiteLabel=1&resellerName=${this.appStore.getsKey('reseller','whitelabel','companyName')}&customStudio=${template}&defaultThemeId=1`;
+            var url = appdb.get('appBaseUrlUser') + `&command=SaveWhiteLabel&useWhiteLabel=${this.appStore.getsKey('reseller','whitelabel','whitelabelEnabled')}&resellerName=${this.appStore.getsKey('reseller','whitelabel','companyName')}&customStudio=${template}&defaultThemeId=1`;
             this._http.get(url)
                 .map(result => {
                     if (result.text()!='True')

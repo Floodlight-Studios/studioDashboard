@@ -114,10 +114,7 @@ export function reseller(state:Map<string,any> = Map<string,any>(), action:any):
         {
             var whitelabel:WhitelabelModel = state.get('whitelabel');
             _.forEach(action.payload, (value, key)=> {
-                if (value === false)
-                    value = 0;
-                if (value === true)
-                    value = 1;
+                value = Lib.BooleanToNumber(value);
                 whitelabel = whitelabel.setKey<WhitelabelModel>(WhitelabelModel, key, value);
             })
             return state.setIn(['whitelabel'], whitelabel);
