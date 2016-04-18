@@ -29,9 +29,9 @@ export class Lib {
     }
 
     static BooleanToNumber(value:any):any {
-        if (value === "0" || value === 'false' || value === false)
+        if (value === "0" || value === 'false' || value === "False" || value === false)
             return 0;
-        if (value === 1 || value === "true" || value === true)
+        if (value === 1 || value === "true" || value === "True" || value === true)
             return 1;
         return value;
     }
