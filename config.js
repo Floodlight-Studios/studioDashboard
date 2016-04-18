@@ -611,7 +611,7 @@ System.config({
       "stream": "github:jspm/nodelibs-stream@0.1.0"
     },
     "npm:ng2-bootstrap@1.0.7": {
-      "angular2": "npm:angular2@2.0.0-beta.9",
+      "angular2": "npm:angular2@2.0.0-beta.14",
       "fs": "github:jspm/nodelibs-fs@0.1.2",
       "moment": "npm:moment@2.12.0",
       "path": "github:jspm/nodelibs-path@0.1.0",
