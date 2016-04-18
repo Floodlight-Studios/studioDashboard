@@ -245,27 +245,27 @@ export class ResellerAction extends Actions {
         return (dispatch)=> {
             dispatch(this.updateResellerInfo(payload));
 
-            var createAccountOption= this.appStore.getsKey('reseller','whitelabel','createAccountOption')
-
             var template = `
             <Studio>
               <Application>
-                <Logo tooltip="" link="" filename="Logo.jpg"/>
-                <Links home="${this.appStore.getsKey('reseller','whitelabel','linksHome')}" download="http://www.facebook.com/?ref=home" contact=""/>
-                <CreateAccount show="${createAccountOption}"/>
+                <Logo tooltip="${this.appStore.getsKey('reseller','whitelabel','logoTooltip')}" 
+                 link="${this.appStore.getsKey('reseller','whitelabel','logoLink')}" filename="Logo.jpg"/>
+                <Links home="${this.appStore.getsKey('reseller','whitelabel','linksHome')}" 
+                download="${this.appStore.getsKey('reseller','whitelabel','linksDownload')}" contact="${this.appStore.getsKey('reseller','whitelabel','linksContact')}"/>
+                <CreateAccount show="${this.appStore.getsKey('reseller','whitelabel','createAccountOption')}"/>
               </Application>
               <MainMenu>
                 <CommandGroup id="help" label="Help" icon="helpIcon">
-                  <Command id="help1" label="Visit site" href="http://www.yahoo.com"/>
-                  <Command id="help2" label="" href=""/>
-                  <Command id="help3" label="Support" href="http://www.espn.com"/>
-                  <Command id="help4" label="Report a bug" href="http://www.test.com"/>
-                  <Command id="about" label="TEST" href="http://www.abscbn.com"/>
+                  <Command id="help1" label="Visit site" href="${this.appStore.getsKey('reseller','whitelabel','mainMenuLink0')}"/>
+                  <Command id="help2" label="" href="${this.appStore.getsKey('reseller','whitelabel','mainMenuLink1')}"/>
+                  <Command id="help3" label="Support" href="${this.appStore.getsKey('reseller','whitelabel','mainMenuLink2')}"/>
+                  <Command id="help4" label="Report a bug" href="${this.appStore.getsKey('reseller','whitelabel','mainMenuLink3')}"/>
+                  <Command id="about" label="${this.appStore.getsKey('reseller','whitelabel','mainMenuLabel4')}" href="${this.appStore.getsKey('reseller','whitelabel','mainMenuLabel4')}"/>
                 </CommandGroup>
               </MainMenu>
               <Banner embeddedReference="0"/>
-              <Twitter show="0" link=""/>
-              <Chat show="1" link=" http://chat.digitalsignage.com"/>
+              <Twitter show="${this.appStore.getsKey('reseller','whitelabel','twitterShow')}" link="${this.appStore.getsKey('reseller','whitelabel','twitterLink')}"/>
+              <Chat show="${this.appStore.getsKey('reseller','whitelabel','chatShow')}" link="${this.appStore.getsKey('reseller','whitelabel','chatLink')}"/>
             </Studio>`;
             template = template.replace(/>\s*/g, '>').replace(/\s*</g, '<').replace(/(\r\n|\n|\r)/gm, "");
 
