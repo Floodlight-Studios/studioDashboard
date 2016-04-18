@@ -21,7 +21,7 @@ import {Component, Input, Output, EventEmitter, ChangeDetectionStrategy, OnChang
     changeDetection: ChangeDetectionStrategy.OnPush,
     template: `
         <label [ngStyle]="_style.label" class="editableLabel"  *ngIf="!_editing" (click)="onEdit(true)">{{_value}}</label>
-        <i *ngIf="!_editing && showIcon" (click)="onEdit(true)" class="editableLabel fa fa-edit"></i>
+        <i *ngIf="!_editing && showIcon" [ngStyle]="_style.editIcon" (click)="onEdit(true)" class="editableLabel fa fa-edit"></i>
          <span *ngIf="_editing">
             <input [ngStyle]="_style.input"  value="{{_value}}" type="{{_type}}" [(ngModel)]="_value"/>
                 <a (click)="onEdit(false)" class="editableLabel fa fa-check"></a>

@@ -11,8 +11,10 @@ import {FORM_DIRECTIVES, ControlGroup, FormBuilder, Control} from "angular2/comm
 import {BlurForwarder} from "../../blurforwarder/BlurForwarder";
 import {Loading} from "../../loading/Loading";
 import {List} from "immutable";
+import {Lib} from "../../../Lib";
 import {AccountModel} from "../../../reseller/AccountModel";
 import {CreditService} from "../../../services/CreditService";
+import {InputEdit} from "../../../comps/inputedit/InputEdit";
 const _ = require('underscore');
 const bootbox = require('bootbox');
 
@@ -24,7 +26,7 @@ const bootbox = require('bootbox');
             opacity: 0.3;
         }
     `],
-    directives: [Tab, Tabs, FORM_DIRECTIVES, BlurForwarder, Loading],
+    directives: [Tab, Tabs, FORM_DIRECTIVES, BlurForwarder, Loading, InputEdit],
     host: {
         '(input-blur)': 'onInputBlur($event)'
     },
@@ -119,6 +121,7 @@ export class Account {
 
     private cards = ['visa', 'mastercard', 'amex', 'discover', 'paypal'];
 
+    private companyName = '';
     private userName = '';
     private businessId = '';
     private payerId = '';
@@ -129,7 +132,25 @@ export class Account {
     private accountModels:List<AccountModel>;
     private PAY_SUBSCRIBER:number = 4;
     private unsub;
-
+    private stylesObj = {
+        editIcon: {
+            'position': 'relative',
+            'top': '-8px'
+        },
+        input: {
+            'font-size': '1.7em',
+            'color': 'dodgerblue',
+            'overflow': 'hidden',
+            'width': '300px'
+        },
+        label: {
+            'font-size': '1.7em',
+            'color': '#333333',
+            'overflow': 'hidden',
+            'white-space': 'nowrap',
+            'width': '300px'
+        }
+    }
 
     private onInputBlur(event) {
         setTimeout(()=>console.log(JSON.stringify(this.contGroup.value)), 1);
@@ -144,6 +165,7 @@ export class Account {
         if (!this.accountModels)
             return;
 
+        this.companyName = this.appStore.getsKey('reseller', 'whitelabel', 'companyName');
         this.userName = this.appStore.getState().appdb.getIn(['credentials']).get('user');
         this.businessId = this.appStore.getState().reseller.getIn(['whitelabel']).getKey('businessId');
         this.payerId = this.appStore.getState().reseller.getIn(['whitelabel']).getKey('payerId');
@@ -178,6 +200,10 @@ export class Account {
             }
         })
     };
+
+    private onCompanyNameEdited(value) {
+        this.appStore.dispatch(this.resellerAction.saveWhiteLabel(Lib.CleanCharForXml({companyName: value})));
+    }
 
     private getAccountModelKey(modelType, key) {
         var result = '';

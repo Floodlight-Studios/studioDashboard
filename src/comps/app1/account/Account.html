@@ -137,6 +137,8 @@
             </tab>
             <tab [tabtitle]="'Credentials'">
               <div class="form-group">
+                <InputEdit [style]="stylesObj" [editable]="true" (labelEdited)="onCompanyNameEdited($event)" [value]="companyName"></InputEdit>
+                <hr/>
                 <h4>Login: {{userName}}</h4>
                 <h4>Pass: ************</h4>
                 <hr/>
