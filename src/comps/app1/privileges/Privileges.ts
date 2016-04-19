@@ -58,9 +58,10 @@ const bootbox = require('bootbox');
                 </SimpleList>
                 <Loading *ngIf="!privelegesList" [src]="'assets/preload6.gif'" [style]="{'margin-top': '150px'}"></Loading>
              </div>
-             <div class="col-xs-9 userView">                
+             <div class="col-xs-9" style="max-height: 100% !important; overflow-y: scroll">                
                 <Loading *ngIf="!privelegesList" [src]="'assets/preload6.gif'" [style]="{'margin-top': '150px'}"></Loading>
-                <privilegesDetails [selected]="privelegesModelSelected" [priveleges]="privelegesList" ></privilegesDetails>
+                <!--<privilegesDetails [selected]="privelegesModelSelected" [priveleges]="privelegesList" ></privilegesDetails>-->
+                <privilegesDetails [selected]="privelegesModelSelected"></privilegesDetails>
              </div>
         </div>
     `
@@ -150,7 +151,7 @@ export class Privileges {
     private onAdd(){
         this.appStore.dispatch(this.resellerAction.createPrivilege());
     }
-    
+
     private onRemove() {
         if (!this.privelegesModelSelected)
             return;

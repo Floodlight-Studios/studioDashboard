@@ -71,7 +71,7 @@ export class Whitelabel {
     private unsub;
 
     private onInputBlur(event) {
-        this.appStore.dispatch(this.resellerAction.saveWhiteLabel(Lib.CleanCharForXml(this.contGroup.value)));
+        setTimeout(()=>this.appStore.dispatch(this.resellerAction.saveWhiteLabel(Lib.CleanCharForXml(this.contGroup.value))), 1);
     }
 
     private renderFormInputs() {
@@ -86,7 +86,7 @@ export class Whitelabel {
     };
 
     private onWhiteLabelChange(value) {
-        this.appStore.dispatch(this.resellerAction.saveWhiteLabel({whitelabelEnabled: value}));
+        setTimeout(()=>this.appStore.dispatch(this.resellerAction.saveWhiteLabel({whitelabelEnabled: value})), 1)
     }
 
     private ngOnDestroy() {

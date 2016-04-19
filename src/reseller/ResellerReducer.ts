@@ -75,6 +75,24 @@ export function reseller(state:Map<string,any> = Map<string,any>(), action:any):
             var updatedPrivelegesModels:List<PrivelegesModel> = privileges.filter((privelegesModel:PrivelegesModel) => privelegesModel.getPrivelegesId() !== action.privilegeId) as List<PrivelegesModel>;
             return state.setIn(['privileges'], updatedPrivelegesModels);
         }
+        case ResellerAction.UPDATE_PRIVILEGE_ATTRIBUTE:
+        {
+            var privileges = state.get('privileges');
+            privileges.forEach((i_privelegesModel:PrivelegesModel, counter)=> {
+                if (i_privelegesModel.getName() == action.payload.selPrivName) {
+                    i_privelegesModel.getColumns().forEach((group, c) => {
+                        if (group.get('tableName') == action.payload.tableName) {
+                            var value = Lib.BooleanToNumber(action.payload.value);
+                            var path = ['groups', c, action.payload.privelegesAttribute];
+                            var data = i_privelegesModel.getData().updateIn(path, v => value)
+                            var updPriv = i_privelegesModel.setData<PrivelegesModel>(PrivelegesModel, data);
+                            privileges = privileges.set(counter, updPriv);
+                        }
+                    })
+                }
+            })
+            return state.setIn(['privileges'], privileges);
+        }
         case ResellerAction.UPDATE_PRIVILEGES:
         {
             var privileges = state.get('privileges');

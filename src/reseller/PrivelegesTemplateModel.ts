@@ -13,6 +13,17 @@ export class PrivelegesTemplateModel extends StoreModel {
         return this.getKey('tableName');
     }
 
+    public getGroupAttributes():Array<any> {
+        var result = [];
+        var keys = this.getData().toJS();
+        for (var key in keys) {
+            if (key == 'name' || key == 'columns' || key == 'tableName')
+                continue;
+            result.push(key);
+        }
+        return result;
+    }
+
     public getColumns() {
         return this.getKey('columns');
     }
@@ -20,7 +31,7 @@ export class PrivelegesTemplateModel extends StoreModel {
     public getColumnSize():number {
         try {
             return this.getKey('columns').size
-        } catch(e) {
+        } catch (e) {
             return 0;
         }
 

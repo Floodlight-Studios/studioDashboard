@@ -13,6 +13,16 @@ enum PrivModeEnum {ADD, DEL, UPD}
 @Component({
     selector: 'privilegesDetails',
     directives: [SIMPLEGRID_DIRECTIVES],
+    styles: [`
+        .btn-outlined {
+            position: relative;
+            top: 28px;
+            border-radius: 0;
+            -webkit-transition: all 0.3s;
+               -moz-transition: all 0.3s;
+                    transition: all 0.3s;
+        }
+    `],
     template: `
           <div *ngIf="!m_privelegesSystemModelList || !m_selected">
             <center>
@@ -21,11 +31,19 @@ enum PrivModeEnum {ADD, DEL, UPD}
           </div>
           <div *ngIf="m_privelegesSystemModelList && m_selected">
               <div *ngFor="#privilegesItem of m_privelegesSystemModelList">
+                <br/>
                 <hr/>
+                <h3>{{privilegesItem.getTableName()}}</h3>
+                
+                <a *ngFor="#groupAttribute of privilegesItem.getGroupAttributes(privilegesItem, groupAttribute)" 
+                  (click)="updatePrivilegesGroupAttributes($event, privilegesItem, groupAttribute)"
+                  href="#" class="btn btn-outlined btn-xs {{renderPrivilegesGroupAttributes(privilegesItem, groupAttribute)}}"
+                  role="button">{{groupAttribute}}
+                </a>
                 <simpleGridTable #userSimpleGridTable>
                     <thead>
                         <tr>
-                          <th>{{privilegesItem.getTableName() }}</th>
+                          <th></th>
                           <th>delete</th>
                           <th>add</th>
                           <th>update</th>
@@ -60,7 +78,7 @@ export class PrivilegesDetails {
 
     private unsub;
     private m_selected:PrivelegesModel;
-    private m_privileges:List<PrivelegesModel>
+    // private m_privileges:List<PrivelegesModel>
     private m_privelegesSystemModelList:List<PrivelegesTemplateModel>
 
     @Input()
@@ -68,10 +86,10 @@ export class PrivilegesDetails {
         this.m_selected = i_selected;
     }
 
-    @Input()
-    set priveleges(i_privileges:List<PrivelegesModel>) {
-        this.m_privileges = i_privileges;
-    }
+    // @Input()
+    // set priveleges(i_privileges:List<PrivelegesModel>) {
+    //     this.m_privileges = i_privileges;
+    // }
 
     private onPrivilegeChange(event:{ value:Array<number>, item:{ PrivModeEnum:PrivModeEnum, index:number, item:PrivelegesTemplateModel } }) {
 
@@ -139,6 +157,37 @@ export class PrivilegesDetails {
         return (field) => {
             return field[0];
         }
+    }
+
+    private updatePrivilegesGroupAttributes(event, i_privelegesSystemModel:PrivelegesTemplateModel, privelegesAttribute:string):void {
+        event.preventDefault();
+        let selPrivName = this.m_selected.getName();
+        var tableName = i_privelegesSystemModel.getTableName();
+        var selColumn = this.m_selected.getColumns();
+        selColumn = selColumn.find((k)=> {
+            if (k.get('tableName') == tableName)
+                return true;
+        })
+        var value = !Lib.BooleanToNumber(selColumn.get(privelegesAttribute));
+        var payload = {
+            selPrivName,
+            privelegesAttribute,
+            tableName,
+            value
+        }
+        this.appStore.dispatch(this.resellerAction.updatePrivilegeAttribute(payload));
+    }
+
+    private renderPrivilegesGroupAttributes(i_privelegesSystemModel:PrivelegesTemplateModel, i_privelegesAttribute:string):string {
+        var tableName = i_privelegesSystemModel.getTableName();
+        var selColumn = this.m_selected.getColumns();
+        selColumn = selColumn.find((k)=> {
+            if (k.get('tableName') == tableName)
+                return true;
+        })
+        if (selColumn.get(i_privelegesAttribute) == '1')
+            return 'btn-primary';
+        return 'btn-secondary';
     }
 
     private renderPrivilegesChecks(i_privelegesSystemModel:PrivelegesTemplateModel, index, privModeEnum:PrivModeEnum):Array<number> {

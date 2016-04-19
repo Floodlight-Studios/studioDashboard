@@ -16,6 +16,7 @@ export const RECEIVE_PRIVILEGES = 'RECEIVE_PRIVILEGES';
 export const RECEIVE_PRIVILEGES_SYSTEM = 'RECEIVE_PRIVILEGES_SYSTEM';
 export const UPDATE_PRIVILEGES = 'UPDATE_PRIVILEGES';
 export const UPDATE_PRIVILEGE_NAME = 'UPDATE_PRIVILEGE_NAME';
+export const UPDATE_PRIVILEGE_ATTRIBUTE = 'UPDATE_PRIVILEGE_ATTRIBUTE';
 export const RECEIVE_DEFAULT_PRIVILEGE = 'RECEIVE_DEFAULT_PRIVILEGE';
 export const RECEIVE_APPS = 'RECEIVE_APPS';
 export const RECEIVE_WHITELABEL = 'RECEIVE_WHITELABEL';
@@ -52,7 +53,7 @@ export class ResellerAction extends Actions {
                     visible: visible,
                     columns: Immutable.fromJS(privilegesGroups.Tables["0"]._attr)
                 };
-                _.forEach(privilegesGroups._attr, (v,k)=>{
+                _.forEach(privilegesGroups._attr, (v, k)=> {
                     values[k] = v;
                 })
                 var group = Map(values);
@@ -169,12 +170,14 @@ export class ResellerAction extends Actions {
                             /**
                              * redux inject privileges XML template system
                              **/
-                            //var privilegesSystemModels = [];
                             xmlTemplate.Privilege.Groups["0"].Group.forEach((table)=> {
-                                let privelegesSystemModel:PrivelegesTemplateModel = new PrivelegesTemplateModel({
-                                    tableName: table._attr.name,
-                                    columns: Immutable.fromJS(table.Tables["0"]._attr)
-                                });
+                                var values = {};
+                                _.forEach(table._attr, (v, k)=> {
+                                    values[k] = v;
+                                })
+                                values['tableName'] = table._attr.name;
+                                values['columns'] = Immutable.fromJS(table.Tables["0"]._attr);
+                                let privelegesSystemModel:PrivelegesTemplateModel = new PrivelegesTemplateModel(values);
                                 if (privelegesSystemModel.getColumnSize() > 0)
                                     self.m_privilegesSystemModels.push(privelegesSystemModel)
                             })
@@ -253,32 +256,32 @@ export class ResellerAction extends Actions {
             var template = `
             <Studio>
               <Application>
-                <Logo tooltip="${this.appStore.getsKey('reseller','whitelabel','logoTooltip')}" 
-                 link="${this.appStore.getsKey('reseller','whitelabel','logoLink')}" filename="Logo.jpg"/>
-                <Links home="${this.appStore.getsKey('reseller','whitelabel','linksHome')}" 
-                download="${this.appStore.getsKey('reseller','whitelabel','linksDownload')}" contact="${this.appStore.getsKey('reseller','whitelabel','linksContact')}"/>
-                <CreateAccount show="${this.appStore.getsKey('reseller','whitelabel','createAccountOption')}"/>
+                <Logo tooltip="${this.appStore.getsKey('reseller', 'whitelabel', 'logoTooltip')}" 
+                 link="${this.appStore.getsKey('reseller', 'whitelabel', 'logoLink')}" filename="Logo.jpg"/>
+                <Links home="${this.appStore.getsKey('reseller', 'whitelabel', 'linksHome')}" 
+                download="${this.appStore.getsKey('reseller', 'whitelabel', 'linksDownload')}" contact="${this.appStore.getsKey('reseller', 'whitelabel', 'linksContact')}"/>
+                <CreateAccount show="${this.appStore.getsKey('reseller', 'whitelabel', 'createAccountOption')}"/>
               </Application>
               <MainMenu>
                 <CommandGroup id="help" label="Help" icon="helpIcon">
-                  <Command id="help1" label="Visit site" href="${this.appStore.getsKey('reseller','whitelabel','mainMenuLink0')}"/>
-                  <Command id="help2" label="" href="${this.appStore.getsKey('reseller','whitelabel','mainMenuLink1')}"/>
-                  <Command id="help3" label="Support" href="${this.appStore.getsKey('reseller','whitelabel','mainMenuLink2')}"/>
-                  <Command id="help4" label="Report a bug" href="${this.appStore.getsKey('reseller','whitelabel','mainMenuLink3')}"/>
-                  <Command id="about" label="${this.appStore.getsKey('reseller','whitelabel','mainMenuLabel4')}" href="${this.appStore.getsKey('reseller','whitelabel','mainMenuLabel4')}"/>
+                  <Command id="help1" label="Visit site" href="${this.appStore.getsKey('reseller', 'whitelabel', 'mainMenuLink0')}"/>
+                  <Command id="help2" label="" href="${this.appStore.getsKey('reseller', 'whitelabel', 'mainMenuLink1')}"/>
+                  <Command id="help3" label="Support" href="${this.appStore.getsKey('reseller', 'whitelabel', 'mainMenuLink2')}"/>
+                  <Command id="help4" label="Report a bug" href="${this.appStore.getsKey('reseller', 'whitelabel', 'mainMenuLink3')}"/>
+                  <Command id="about" label="${this.appStore.getsKey('reseller', 'whitelabel', 'mainMenuLabel4')}" href="${this.appStore.getsKey('reseller', 'whitelabel', 'mainMenuLabel4')}"/>
                 </CommandGroup>
               </MainMenu>
               <Banner embeddedReference="0"/>
-              <Twitter show="${this.appStore.getsKey('reseller','whitelabel','twitterShow')}" link="${this.appStore.getsKey('reseller','whitelabel','twitterLink')}"/>
-              <Chat show="${this.appStore.getsKey('reseller','whitelabel','chatShow')}" link="${this.appStore.getsKey('reseller','whitelabel','chatLink')}"/>
+              <Twitter show="${this.appStore.getsKey('reseller', 'whitelabel', 'twitterShow')}" link="${this.appStore.getsKey('reseller', 'whitelabel', 'twitterLink')}"/>
+              <Chat show="${this.appStore.getsKey('reseller', 'whitelabel', 'chatShow')}" link="${this.appStore.getsKey('reseller', 'whitelabel', 'chatLink')}"/>
             </Studio>`;
             template = template.replace(/>\s*/g, '>').replace(/\s*</g, '<').replace(/(\r\n|\n|\r)/gm, "");
 
             var appdb:Map<string,any> = this.appStore.getState().appdb;
-            var url = appdb.get('appBaseUrlUser') + `&command=SaveWhiteLabel&useWhiteLabel=${this.appStore.getsKey('reseller','whitelabel','whitelabelEnabled')}&resellerName=${this.appStore.getsKey('reseller','whitelabel','companyName')}&customStudio=${template}&defaultThemeId=1`;
+            var url = appdb.get('appBaseUrlUser') + `&command=SaveWhiteLabel&useWhiteLabel=${this.appStore.getsKey('reseller', 'whitelabel', 'whitelabelEnabled')}&resellerName=${this.appStore.getsKey('reseller', 'whitelabel', 'companyName')}&customStudio=${template}&defaultThemeId=1`;
             this._http.get(url)
                 .map(result => {
-                    if (result.text()!='True')
+                    if (result.text() != 'True')
                         bootbox.alert('Problem saving to server...')
                 }).subscribe();
         }
@@ -374,6 +377,13 @@ export class ResellerAction extends Actions {
         return {
             type: REMOVE_PRIVILEGE,
             privilegeId
+        }
+    }
+
+    public updatePrivilegeAttribute(payload) {
+        return {
+            type: UPDATE_PRIVILEGE_ATTRIBUTE,
+            payload
         }
     }
 
