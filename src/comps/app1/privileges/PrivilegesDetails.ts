@@ -31,10 +31,8 @@ enum PrivModeEnum {ADD, DEL, UPD}
           </div>
           <div *ngIf="m_privelegesSystemModelList && m_selected">
               <div *ngFor="#privilegesItem of m_privelegesSystemModelList">
-                <br/>
                 <hr/>
                 <h3>{{privilegesItem.getTableName()}}</h3>
-                
                 <a *ngFor="#groupAttribute of privilegesItem.getGroupAttributes(privilegesItem, groupAttribute)" 
                   (click)="updatePrivilegesGroupAttributes($event, privilegesItem, groupAttribute)"
                   href="#" class="btn btn-outlined btn-xs {{renderPrivilegesGroupAttributes(privilegesItem, groupAttribute)}}"

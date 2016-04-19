@@ -114,34 +114,34 @@ export class Lib {
                   <Tables catalog_items="${getPrivilegesTable('Catalog', 'catalog_items')}" catalog_item_infos="${getPrivilegesTable('Catalog', 'catalog_item_infos')}" catalog_item_resources="${getPrivilegesTable('Catalog', 'catalog_item_resources')}" catalog_item_categories="${getPrivilegesTable('Catalog', 'catalog_item_categories')}" category_values="${getPrivilegesTable('Catalog', 'category_values')}"/>
                 </Group>
                 <Group name="Campaigns" visible="${getPrivilegesGroup('Campaigns', 'visible')}">
-                  <Tables campaigns="${getPrivilegesTable('Campaigns', '')}" campaign_events="${getPrivilegesTable('Campaigns', '')}" campaign_timelines="${getPrivilegesTable('Campaigns', '')}" campaign_timeline_sequences="${getPrivilegesTable('Campaigns', '')}" campaign_timeline_schedules="${getPrivilegesTable('Campaigns', '')}" campaign_sequences="${getPrivilegesTable('Campaigns', '')}" campaign_sequence_timelines="${getPrivilegesTable('Campaigns', '')}" campaign_sequence_schedules="${getPrivilegesTable('Campaigns', '')}" campaign_timeline_channels="${getPrivilegesTable('Campaigns', '')}" campaign_timeline_chanels="${getPrivilegesTable('Campaigns', '')}" campaign_timeline_chanel_players="${getPrivilegesTable('Campaigns', '')}" campaign_timeline_board_viewer_channels="${getPrivilegesTable('Campaigns', '')}" campaign_timeline_board_viewer_chanels="${getPrivilegesTable('Campaigns', '')}" campaign_timeline_board_templates="${getPrivilegesTable('Campaigns', '')}" campaign_channels="${getPrivilegesTable('Campaigns', '')}" campaign_channel_players="${getPrivilegesTable('Campaigns', '')}" campaign_boards="${getPrivilegesTable('Campaigns', '')}"/>
+                  <Tables campaigns="${getPrivilegesTable('Campaigns', 'campaigns')}" campaign_events="${getPrivilegesTable('Campaigns', 'campaign_events')}" campaign_timelines="${getPrivilegesTable('Campaigns', 'campaign_timelines')}" campaign_timeline_sequences="${getPrivilegesTable('Campaigns', 'campaign_timeline_sequences')}" campaign_timeline_schedules="${getPrivilegesTable('Campaigns', 'campaign_timeline_schedules')}" campaign_sequences="${getPrivilegesTable('Campaigns', 'campaign_sequences')}" campaign_sequence_timelines="${getPrivilegesTable('Campaigns', 'campaign_sequence_timelines')}" campaign_sequence_schedules="${getPrivilegesTable('Campaigns', 'campaign_sequence_schedules')}" campaign_timeline_channels="${getPrivilegesTable('Campaigns', 'campaign_timeline_channels')}" campaign_timeline_chanels="${getPrivilegesTable('Campaigns', 'campaign_timeline_chanels')}" campaign_timeline_chanel_players="${getPrivilegesTable('Campaigns', 'campaign_timeline_chanel_players')}" campaign_timeline_board_viewer_channels="${getPrivilegesTable('Campaigns', 'campaign_timeline_board_viewer_channels')}" campaign_timeline_board_viewer_chanels="${getPrivilegesTable('Campaigns', 'campaign_timeline_board_viewer_chanels')}" campaign_timeline_board_templates="${getPrivilegesTable('Campaigns', 'campaign_timeline_board_templates')}" campaign_channels="${getPrivilegesTable('Campaigns', 'campaign_channels')}" campaign_channel_players="${getPrivilegesTable('Campaigns', 'campaign_channel_players')}" campaign_boards="${getPrivilegesTable('Campaigns', 'campaign_boards')}"/>
                 </Group>
                 <Group name="Transitions" visible="${getPrivilegesGroup('Transitions', 'visible')}">
-                  <Tables transition_pools="${getPrivilegesTable('', '')}" transition_pool_items="${getPrivilegesTable('', '')}"/>
+                  <Tables transition_pools="${getPrivilegesTable('Transitions', 'transition_pools')}" transition_pool_items="${getPrivilegesTable('Transitions', 'transition_pool_items')}"/>
                 </Group>
                 <Group name="Scripts" visible="${getPrivilegesGroup('Scripts', 'visible')}">
-                  <Tables scripts="${getPrivilegesTable('', '')}"/>
+                  <Tables scripts="${getPrivilegesTable('Scripts', 'scripts')}"/>
                 </Group>
                 <Group name="AdLocal" visible="${getPrivilegesGroup('AdLocal', 'visible')}">
-                  <Tables ad_local_packages="${getPrivilegesTable('', '')}" ad_local_contents="${getPrivilegesTable('', '')}"/>
+                  <Tables ad_local_packages="${getPrivilegesTable('AdLocal', 'ad_local_packages')}" ad_local_contents="${getPrivilegesTable('AdLocal', 'ad_local_contents')}"/>
                 </Group>
                 <Group name="AdOut" visible="${getPrivilegesGroup('AdOut', 'visible')}" globalSearch="${getPrivilegesGroup('AdOut', 'globalSearch')}">
-                  <Tables ad_out_packages="${getPrivilegesTable('', '')}" ad_out_package_stations="${getPrivilegesTable('', '')}" ad_out_package_contents="${getPrivilegesTable('', '')}"/>
+                  <Tables ad_out_packages="${getPrivilegesTable('AdOut', 'ad_out_packages')}" ad_out_package_stations="${getPrivilegesTable('AdOut', 'ad_out_package_stations')}" ad_out_package_contents="${getPrivilegesTable('AdOut', 'ad_out_package_contents')}"/>
                 </Group>
                 <Group name="AdIn" visible="${getPrivilegesGroup('AdIn', 'visible')}">
-                  <Tables ad_in_domains="${getPrivilegesTable('', '')}" ad_in_domain_businesses="${getPrivilegesTable('', '')}" ad_in_domain_business_packages="${getPrivilegesTable('', '')}" ad_in_domain_business_package_stations="${getPrivilegesTable('', '')}" ad_rates="${getPrivilegesTable('', '')}"/>
+                  <Tables ad_in_domains="${getPrivilegesTable('AdIn', 'ad_in_domains')}" ad_in_domain_businesses="${getPrivilegesTable('AdIn', 'ad_in_domain_businesses')}" ad_in_domain_business_packages="${getPrivilegesTable('AdIn', 'ad_in_domain_business_packages')}" ad_in_domain_business_package_stations="${getPrivilegesTable('AdIn', 'ad_in_domain_business_package_stations')}" ad_rates="${getPrivilegesTable('AdIn', 'ad_rates')}"/>
                 </Group>
                 <Group name="AdRate" visible="${getPrivilegesGroup('AdRate', 'visible')}">
-                  <Tables ad_rates="${getPrivilegesTable('', '')}"/>
+                  <Tables ad_rates="${getPrivilegesTable('AdRate', 'ad_rates')}"/>
                 </Group>
                 <Group name="AdAnalytic" visible="${getPrivilegesGroup('AdAnalytic', 'visible')}">
                   <Tables/>
                 </Group>
                 <Group name="Music" visible="${getPrivilegesGroup('Music', 'visible')}">
-                  <Tables music_channels="${getPrivilegesTable('', '')}" music_channel_songs="${getPrivilegesTable('', '')}"/>
+                  <Tables music_channels="${getPrivilegesTable('Music', 'music_channels')}" music_channel_songs="${getPrivilegesTable('Music', 'music_channel_songs')}"/>
                 </Group>
                 <Group name="Stations" visible="${getPrivilegesGroup('Stations', 'visible')}" stationsNetwork="${getPrivilegesGroup('Stations', 'stationsNetwork')}" updateOnSave="${getPrivilegesGroup('Stations', 'updateOnSave')}" lanServer="${getPrivilegesGroup('Stations', 'lanServer')}" zwave="${getPrivilegesGroup('Stations', 'zwave')}">
-                  <Tables branch_stations="${getPrivilegesTable('', '')}" station_ads="${getPrivilegesTable('', '')}"/>
+                  <Tables branch_stations="${getPrivilegesTable('Stations', 'branch_stations')}" station_ads="${getPrivilegesTable('Stations', 'station_ads')}"/>
                 </Group>
                 <Group name="Changelist" visible="${getPrivilegesGroup('Changelist', 'visible')}">
                   <Tables/>
