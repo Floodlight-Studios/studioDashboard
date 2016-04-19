@@ -21,6 +21,7 @@ enum PrivModeEnum {ADD, DEL, UPD}
           </div>
           <div *ngIf="m_privelegesSystemModelList && m_selected">
               <div *ngFor="#privilegesItem of m_privelegesSystemModelList">
+                <hr/>
                 <simpleGridTable #userSimpleGridTable>
                     <thead>
                         <tr>
@@ -143,7 +144,6 @@ export class PrivilegesDetails {
     private renderPrivilegesChecks(i_privelegesSystemModel:PrivelegesTemplateModel, index, privModeEnum:PrivModeEnum):Array<number> {
         var tableName:string = i_privelegesSystemModel.getTableName();
         var selColumn = this.m_selected.getColumns();
-
 
 
         selColumn = selColumn.find((k)=> {
