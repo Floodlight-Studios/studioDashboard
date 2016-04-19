@@ -45,11 +45,17 @@ export class ResellerAction extends Actions {
         if (i_existingGroups) {
             i_existingGroups.forEach((privilegesGroups:any)=> {
                 var tableName = privilegesGroups._attr.name;
+                var visible = privilegesGroups._attr.visible;
                 tablesDst.push(tableName)
-                var group = Map({
+                var values = {
                     tableName: tableName,
+                    visible: visible,
                     columns: Immutable.fromJS(privilegesGroups.Tables["0"]._attr)
-                });
+                };
+                _.forEach(privilegesGroups._attr, (v,k)=>{
+                    values[k] = v;
+                })
+                var group = Map(values);
                 groups = groups.push(group);
             })
         }

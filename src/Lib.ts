@@ -10,7 +10,6 @@ import {BusinessUser} from "./business/BusinessUser";
 var Immutable = require('immutable');
 const _ = require('underscore');
 
-
 @Injectable()
 export class Lib {
 

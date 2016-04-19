@@ -163,11 +163,6 @@ System.config({
       "object-path": "npm:object-path@0.9.2",
       "redux": "npm:redux@3.4.0"
     },
-    "npm:angular2@2.0.0-beta.14": {
-      "reflect-metadata": "npm:reflect-metadata@0.1.2",
-      "rxjs": "npm:rxjs@5.0.0-beta.2",
-      "zone.js": "npm:zone.js@0.6.11"
-    },
     "npm:angular2@2.0.0-beta.15": {
       "reflect-metadata": "npm:reflect-metadata@0.1.2",
       "rxjs": "npm:rxjs@5.0.0-beta.2",
