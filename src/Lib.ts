@@ -85,11 +85,20 @@ export class Lib {
 
     static PrivilegesXmlTemplate(callBack:(err, result)=>any) {
         const parseString = require('xml2js').parseString;
+
+        var getPrivilegesGroup = (groupName:string, groupProperty:string) => {
+            return 7
+        }
+
+        var getPrivilegesTable = (groupName:string, tableName:string) => {
+            return 7
+        }
+
         var xmlData = `
           <Privilege>
               <Groups>
-                <Group name="Global" visible="7">
-                  <Tables global_settings="7"/>
+                <Group name="Global" visible="${getPrivilegesGroup('Global','visible')}">
+                  <Tables global_settings="${getPrivilegesTable('Global','global_settings')}"/>
                 </Group>
                 <Group name="Screens" visible="7">
                   <Tables boards="7" board_templates="7" board_template_viewers="7"/>
