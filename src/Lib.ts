@@ -87,7 +87,7 @@ export class Lib {
     static PrivilegesXmlTemplate(callBack:(err, result)=>any) {
         const parseString = require('xml2js').parseString;
 
-        var getPrivilegesGroup = (groupName:string, groupProperty:string) => {
+        var getAttributeGroup = (groupName:string, groupProperty:string) => {
             return 0;
         }
 
@@ -98,52 +98,52 @@ export class Lib {
         var xmlData = `
           <Privilege>
               <Groups>
-                <Group name="Global" visible="${getPrivilegesGroup('Global', 'visible')}">
+                <Group name="Global" visible="${getAttributeGroup('Global', 'visible')}">
                   <Tables global_settings="${getPrivilegesTable('Global', 'global_settings')}"/>
                 </Group>
-                <Group name="Screens" visible="${getPrivilegesGroup('Screens', 'visible')}">
+                <Group name="Screens" visible="${getAttributeGroup('Screens', 'visible')}">
                   <Tables boards="${getPrivilegesTable('Screens', 'boards')}" board_templates="${getPrivilegesTable('Screens', 'board_templates')}" board_template_viewers="${getPrivilegesTable('Screens', 'board_template_viewers')}"/>
                 </Group>
-                <Group name="Resources" visible="${getPrivilegesGroup('Resources', 'visible')}" resourceMode="${getPrivilegesGroup('Resources', 'resourceMode')}">
+                <Group name="Resources" visible="${getAttributeGroup('Resources', 'visible')}" resourceMode="${getAttributeGroup('Resources', 'resourceMode')}">
                   <Tables resources="${getPrivilegesTable('', '')}"/>
                 </Group>                
-                <Group name="Editors" visible="${getPrivilegesGroup('Editors', 'visible')}">
+                <Group name="Editors" visible="${getAttributeGroup('Editors', 'visible')}">
                   <Tables player_data="${getPrivilegesTable('Editors', 'player_data')}"/>
                 </Group>
-                <Group name="Catalog" visible="${getPrivilegesGroup('Catalog', 'visible')}">
+                <Group name="Catalog" visible="${getAttributeGroup('Catalog', 'visible')}">
                   <Tables catalog_items="${getPrivilegesTable('Catalog', 'catalog_items')}" catalog_item_infos="${getPrivilegesTable('Catalog', 'catalog_item_infos')}" catalog_item_resources="${getPrivilegesTable('Catalog', 'catalog_item_resources')}" catalog_item_categories="${getPrivilegesTable('Catalog', 'catalog_item_categories')}" category_values="${getPrivilegesTable('Catalog', 'category_values')}"/>
                 </Group>
-                <Group name="Campaigns" visible="${getPrivilegesGroup('Campaigns', 'visible')}">
+                <Group name="Campaigns" visible="${getAttributeGroup('Campaigns', 'visible')}">
                   <Tables campaigns="${getPrivilegesTable('Campaigns', 'campaigns')}" campaign_events="${getPrivilegesTable('Campaigns', 'campaign_events')}" campaign_timelines="${getPrivilegesTable('Campaigns', 'campaign_timelines')}" campaign_timeline_sequences="${getPrivilegesTable('Campaigns', 'campaign_timeline_sequences')}" campaign_timeline_schedules="${getPrivilegesTable('Campaigns', 'campaign_timeline_schedules')}" campaign_sequences="${getPrivilegesTable('Campaigns', 'campaign_sequences')}" campaign_sequence_timelines="${getPrivilegesTable('Campaigns', 'campaign_sequence_timelines')}" campaign_sequence_schedules="${getPrivilegesTable('Campaigns', 'campaign_sequence_schedules')}" campaign_timeline_channels="${getPrivilegesTable('Campaigns', 'campaign_timeline_channels')}" campaign_timeline_chanels="${getPrivilegesTable('Campaigns', 'campaign_timeline_chanels')}" campaign_timeline_chanel_players="${getPrivilegesTable('Campaigns', 'campaign_timeline_chanel_players')}" campaign_timeline_board_viewer_channels="${getPrivilegesTable('Campaigns', 'campaign_timeline_board_viewer_channels')}" campaign_timeline_board_viewer_chanels="${getPrivilegesTable('Campaigns', 'campaign_timeline_board_viewer_chanels')}" campaign_timeline_board_templates="${getPrivilegesTable('Campaigns', 'campaign_timeline_board_templates')}" campaign_channels="${getPrivilegesTable('Campaigns', 'campaign_channels')}" campaign_channel_players="${getPrivilegesTable('Campaigns', 'campaign_channel_players')}" campaign_boards="${getPrivilegesTable('Campaigns', 'campaign_boards')}"/>
                 </Group>
-                <Group name="Transitions" visible="${getPrivilegesGroup('Transitions', 'visible')}">
+                <Group name="Transitions" visible="${getAttributeGroup('Transitions', 'visible')}">
                   <Tables transition_pools="${getPrivilegesTable('Transitions', 'transition_pools')}" transition_pool_items="${getPrivilegesTable('Transitions', 'transition_pool_items')}"/>
                 </Group>
-                <Group name="Scripts" visible="${getPrivilegesGroup('Scripts', 'visible')}">
+                <Group name="Scripts" visible="${getAttributeGroup('Scripts', 'visible')}">
                   <Tables scripts="${getPrivilegesTable('Scripts', 'scripts')}"/>
                 </Group>
-                <Group name="AdLocal" visible="${getPrivilegesGroup('AdLocal', 'visible')}">
+                <Group name="AdLocal" visible="${getAttributeGroup('AdLocal', 'visible')}">
                   <Tables ad_local_packages="${getPrivilegesTable('AdLocal', 'ad_local_packages')}" ad_local_contents="${getPrivilegesTable('AdLocal', 'ad_local_contents')}"/>
                 </Group>
-                <Group name="AdOut" visible="${getPrivilegesGroup('AdOut', 'visible')}" globalSearch="${getPrivilegesGroup('AdOut', 'globalSearch')}">
+                <Group name="AdOut" visible="${getAttributeGroup('AdOut', 'visible')}" globalSearch="${getAttributeGroup('AdOut', 'globalSearch')}">
                   <Tables ad_out_packages="${getPrivilegesTable('AdOut', 'ad_out_packages')}" ad_out_package_stations="${getPrivilegesTable('AdOut', 'ad_out_package_stations')}" ad_out_package_contents="${getPrivilegesTable('AdOut', 'ad_out_package_contents')}"/>
                 </Group>
-                <Group name="AdIn" visible="${getPrivilegesGroup('AdIn', 'visible')}">
+                <Group name="AdIn" visible="${getAttributeGroup('AdIn', 'visible')}">
                   <Tables ad_in_domains="${getPrivilegesTable('AdIn', 'ad_in_domains')}" ad_in_domain_businesses="${getPrivilegesTable('AdIn', 'ad_in_domain_businesses')}" ad_in_domain_business_packages="${getPrivilegesTable('AdIn', 'ad_in_domain_business_packages')}" ad_in_domain_business_package_stations="${getPrivilegesTable('AdIn', 'ad_in_domain_business_package_stations')}" ad_rates="${getPrivilegesTable('AdIn', 'ad_rates')}"/>
                 </Group>
-                <Group name="AdRate" visible="${getPrivilegesGroup('AdRate', 'visible')}">
+                <Group name="AdRate" visible="${getAttributeGroup('AdRate', 'visible')}">
                   <Tables ad_rates="${getPrivilegesTable('AdRate', 'ad_rates')}"/>
                 </Group>
-                <Group name="AdAnalytic" visible="${getPrivilegesGroup('AdAnalytic', 'visible')}">
+                <Group name="AdAnalytic" visible="${getAttributeGroup('AdAnalytic', 'visible')}">
                   <Tables/>
                 </Group>
-                <Group name="Music" visible="${getPrivilegesGroup('Music', 'visible')}">
+                <Group name="Music" visible="${getAttributeGroup('Music', 'visible')}">
                   <Tables music_channels="${getPrivilegesTable('Music', 'music_channels')}" music_channel_songs="${getPrivilegesTable('Music', 'music_channel_songs')}"/>
                 </Group>
-                <Group name="Stations" visible="${getPrivilegesGroup('Stations', 'visible')}" stationsNetwork="${getPrivilegesGroup('Stations', 'stationsNetwork')}" updateOnSave="${getPrivilegesGroup('Stations', 'updateOnSave')}" lanServer="${getPrivilegesGroup('Stations', 'lanServer')}" zwave="${getPrivilegesGroup('Stations', 'zwave')}">
+                <Group name="Stations" visible="${getAttributeGroup('Stations', 'visible')}" stationsNetwork="${getAttributeGroup('Stations', 'stationsNetwork')}" updateOnSave="${getAttributeGroup('Stations', 'updateOnSave')}" lanServer="${getAttributeGroup('Stations', 'lanServer')}" zwave="${getAttributeGroup('Stations', 'zwave')}">
                   <Tables branch_stations="${getPrivilegesTable('Stations', 'branch_stations')}" station_ads="${getPrivilegesTable('Stations', 'station_ads')}"/>
                 </Group>
-                <Group name="Changelist" visible="${getPrivilegesGroup('Changelist', 'visible')}">
+                <Group name="Changelist" visible="${getAttributeGroup('Changelist', 'visible')}">
                   <Tables/>
                 </Group>
               </Groups>
