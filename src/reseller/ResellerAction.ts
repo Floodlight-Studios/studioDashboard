@@ -5,6 +5,10 @@ import {PrivelegesModel} from "./PrivelegesModel";
 import {PrivelegesTemplateModel} from "./PrivelegesTemplateModel";
 import {Lib} from "../Lib";
 import {List, Map} from 'immutable';
+import {Observable} from "rxjs/Observable";
+import 'rxjs/add/operator/catch';
+import 'rxjs/add/operator/finally';
+import 'rxjs/add/observable/throw';
 import {AppModel} from "./AppModel";
 import {WhitelabelModel} from "./WhitelabelModel";
 import {AccountModel} from "./AccountModel";
@@ -297,8 +301,16 @@ export class ResellerAction extends Actions {
                 template = template.replace(/<Privilege>/g, '').replace(/<\/Privilege>/g, '');
                 var appdb:Map<string,any> = this.appStore.getState().appdb;
                 var url = appdb.get('appBaseUrlUser') + `&command=AddPrivilege&privilegeName=${selPrivName}&privilegeData=${template}`;
+                var url = appdb.get('appBaseUrlUser') + `&command=AddPrivilege&privilegeName=AAAAA&privilegeData=${template}`;
                 console.log(url);
                 this._http.get(url)
+                    .catch((err) => {
+                        console.log('On received an error...');
+                        return Observable.throw(err);
+                    })
+                    .finally(() => {
+                        console.log('After the request...');
+                    })
                     .map(result => {
                         if (result.text() != 'True')
                             bootbox.alert('Problem saving to server...')
