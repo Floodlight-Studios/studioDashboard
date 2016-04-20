@@ -7,6 +7,7 @@ import {AppStore} from "angular2-redux-util";
 import {List, Map} from 'immutable';
 import {LoggerMiddleware} from "angular2-redux-util";
 import {BusinessUser} from "./business/BusinessUser";
+import {PrivelegesModel} from "./reseller/PrivelegesModel";
 var Immutable = require('immutable');
 const _ = require('underscore');
 
@@ -84,15 +85,59 @@ export class Lib {
         return mapJsPairs[index][offset];
     }
 
-    static PrivilegesXmlTemplate(callBack:(err, result)=>any) {
+    /**
+     *  PrivilegesXmlTemplate will generate a template for priveleges in 2 possible modes
+     *
+     *  mode 1: just a raw template (we will ignore the values set) and this is the mode when
+     *  no selPrivName and appStore params are given
+     *
+     *  mode 2: is when we actually serialize data to save to server and in this mode we do pass
+     *  in the selPrivName and appStore which we use to retrieve current values from user appStore
+     *  and generate the final XML to save to server
+     *
+     * @param selPrivName
+     * @param appStore
+     * @param callBack
+     * @constructor
+     */
+    static PrivilegesXmlTemplate(selPrivName:string, appStore:AppStore = null, callBack:(err, result)=>any) {
         const parseString = require('xml2js').parseString;
 
-        var getAttributeGroup = (groupName:string, groupProperty:string) => {
-            return 0;
+        var getAttributeGroup = (tableName:string, attribute:string) => {
+            if (_.isNull(appStore))
+                return 0;
+            var result = 0;
+            var reseller = appStore.getState().reseller;
+            var privileges = reseller.getIn(['privileges']);
+            privileges.forEach((i_privelegesModel:PrivelegesModel, counter)=> {
+                if (i_privelegesModel.getName() == selPrivName) {
+                    i_privelegesModel.getColumns().forEach((group, c) => {
+                        if (group.get('tableName') == tableName)
+                            return result = group.get(attribute)
+                    })
+                }
+            })
+            console.log(`${result} ${tableName} ${attribute}`);
+            return result;
         }
 
-        var getPrivilegesTable = (groupName:string, tableName:string) => {
-            return 0;
+
+        var getPrivilegesTable = (tableName:string, attribute:string) => {
+            if (_.isNull(appStore))
+                return 0;
+            var result = 0;
+            var reseller = appStore.getState().reseller;
+            var privileges = reseller.getIn(['privileges']);
+            privileges.forEach((i_privelegesModel:PrivelegesModel, counter)=> {
+                if (i_privelegesModel.getName() == selPrivName) {
+                    i_privelegesModel.getColumns().forEach((group, c) => {
+                        if (group.get('tableName') == tableName)
+                            return result = group.getIn(['columns', attribute])
+                    })
+                }
+            })
+            // console.log(`${result} ${tableName} ${attribute}`);
+            return result;
         }
 
         var xmlData = `
@@ -150,9 +195,16 @@ export class Lib {
         </Privilege>
         `
 
-        parseString(xmlData, {attrkey: '_attr'}, function (err, result) {
-            callBack(err, result);
-        });
+        if (_.isNull(appStore)) {
+            // mode 1: generate object from XML (we don't care about values as this is just a template)
+            parseString(xmlData, {attrkey: '_attr'}, function (err, result) {
+                callBack(err, result);
+            });
+        } else {
+            // mode 2: generate raw XML with real user data from appStore so we can serialize and save to server
+            callBack(null, xmlData);
+        }
+
     }
 
     static AppsXmlTemplate(callBack:(err, result)=>any) {

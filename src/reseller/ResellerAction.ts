@@ -166,7 +166,15 @@ export class ResellerAction extends Actions {
                             dispatch(self.receiveApps(userApps));
                         });
 
-                        Lib.PrivilegesXmlTemplate((err, xmlTemplate)=> {
+                        //todo: test
+                        setTimeout(()=>{
+                            Lib.PrivilegesXmlTemplate('admin', self.appStore, (err, xmlTemplate)=> {
+                                console.log(xmlTemplate);
+                            });
+                        },3000)
+
+
+                        Lib.PrivilegesXmlTemplate(null, null, (err, xmlTemplate)=> {
                             /**
                              * redux inject privileges XML template system
                              **/
