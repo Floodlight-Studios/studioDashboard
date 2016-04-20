@@ -79,6 +79,7 @@ export class ResellerAction extends Actions {
         return (dispatch)=> {
             var appdb:Map<string,any> = this.appStore.getState().appdb;
             var url = appdb.get('appBaseUrlUser') + `&command=GetBusinessUserInfo`;
+            console.log(url);
             this._http.get(url)
                 .map(result => {
                     var xmlData:string = result.text()
@@ -165,13 +166,6 @@ export class ResellerAction extends Actions {
                             })
                             dispatch(self.receiveApps(userApps));
                         });
-
-                        // setTimeout(()=>{
-                        //     Lib.PrivilegesXmlTemplate('admin', self.appStore, (err, xmlTemplate)=> {
-                        //         console.log(xmlTemplate);
-                        //     });
-                        // },3000)
-
 
                         Lib.PrivilegesXmlTemplate(null, null, (err, xmlTemplate)=> {
                             /**
@@ -291,6 +285,23 @@ export class ResellerAction extends Actions {
                     if (result.text() != 'True')
                         bootbox.alert('Problem saving to server...')
                 }).subscribe();
+        }
+    }
+
+    public savePrivileges(selPrivName:string, payload:any) {
+        return (dispatch)=> {
+            var self = this;
+            dispatch(self.updatePrivilegesSystem(payload))
+            Lib.PrivilegesXmlTemplate('admin', self.appStore, (err, template)=> {
+                template = template.replace(/>\s*/g, '>').replace(/\s*</g, '<').replace(/(\r\n|\n|\r)/gm, "");
+                var appdb:Map<string,any> = this.appStore.getState().appdb;
+                var url = appdb.get('appBaseUrlUser') + `&command=AddPrivilege&privilegeName=${selPrivName}&privilegeData=${template}`;
+                this._http.get(url)
+                    .map(result => {
+                        if (result.text() != 'True')
+                            bootbox.alert('Problem saving to server...')
+                    }).subscribe();
+            });
         }
     }
 

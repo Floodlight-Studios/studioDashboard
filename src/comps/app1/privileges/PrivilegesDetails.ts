@@ -113,7 +113,7 @@ export class PrivilegesDetails {
             privModeEnum,
             updTotalBits
         }
-        this.appStore.dispatch(this.resellerAction.updatePrivilegesSystem(payload));
+        this.appStore.dispatch(this.resellerAction.savePrivileges(selPrivName, payload));
     }
 
     private calcMask(i_privModeEnum, i_adding, i_totalBits) {
