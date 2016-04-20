@@ -1,6 +1,5 @@
 import {Injectable} from "angular2/core";
 import {Actions, AppStore} from "angular2-redux-util";
-import {Http, Jsonp} from "angular2/http";
 import {PrivelegesModel} from "./PrivelegesModel";
 import {PrivelegesTemplateModel} from "./PrivelegesTemplateModel";
 import {Lib} from "../Lib";
@@ -12,6 +11,16 @@ import 'rxjs/add/observable/throw';
 import {AppModel} from "./AppModel";
 import {WhitelabelModel} from "./WhitelabelModel";
 import {AccountModel} from "./AccountModel";
+import {
+    Headers,
+    Http,
+    Jsonp,
+    HTTP_BINDINGS,
+    Request,
+    RequestOptions,
+    RequestMethod,
+    RequestOptionsArgs
+} from 'angular2/http'
 const Immutable = require('immutable');
 const bootbox = require('bootbox');
 const _ = require('underscore');
@@ -299,21 +308,36 @@ export class ResellerAction extends Actions {
             Lib.PrivilegesXmlTemplate('admin', self.appStore, (err, template)=> {
                 template = template.replace(/>\s*/g, '>').replace(/\s*</g, '<').replace(/(\r\n|\n|\r)/gm, "");
                 template = template.replace(/<Privilege>/g, '').replace(/<\/Privilege>/g, '');
+                // template = Lib.Base64Parser('encode',template);
                 var appdb:Map<string,any> = this.appStore.getState().appdb;
-                var url = appdb.get('appBaseUrlUser') + `&command=AddPrivilege&privilegeName=${selPrivName}&privilegeData=${template}`;
-                var url = appdb.get('appBaseUrlUser') + `&command=AddPrivilege&privilegeName=AAAAA&privilegeData=${template}`;
+                //// var url = appdb.get('appBaseUrlUser') + `&command=AddPrivilege&privilegeName=${selPrivName}&privilegeData=${template}`;
+                //var url = appdb.get('appBaseUrlUser') + `&command=AddPrivilege&privilegeName=full&privilegeData=${template}`;
+                var url = appdb.get('appBaseUrlUser') + `&command=AddPrivilege&privilegeName=full2`;
+
+                var basicOptions:RequestOptionsArgs = {
+                    url: url,
+                    method: RequestMethod.Post,
+                    search: null,
+                    body: template
+                };
+
+                var reqOptions = new RequestOptions(basicOptions);
+                var req = new Request(reqOptions);
+
                 console.log(url);
-                this._http.get(url)
+                this._http.request(req)
                     .catch((err) => {
                         console.log('On received an error...');
-                        return Observable.throw(err);
+                        return Observable.of(true);
+                        // return Observable.throw(err);
                     })
                     .finally(() => {
                         console.log('After the request...');
                     })
                     .map(result => {
-                        if (result.text() != 'True')
-                            bootbox.alert('Problem saving to server...')
+                        console.log(result);
+                        // if (result.text() != 'True')
+                        //     bootbox.alert('Problem saving to server...')
                     }).subscribe();
             });
         }
