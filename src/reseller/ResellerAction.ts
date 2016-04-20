@@ -301,20 +301,17 @@ export class ResellerAction extends Actions {
         }
     }
 
-    public savePrivileges(selPrivName:string, payload:any) {
+    public savePrivileges(privelegesId:string, selPrivName:string) {
         return (dispatch)=> {
             var self = this;
-            dispatch(self.updatePrivilegesSystem(payload))
-            Lib.PrivilegesXmlTemplate('admin', self.appStore, (err, template)=> {
+            Lib.PrivilegesXmlTemplate(selPrivName, self.appStore, (err, template)=> {
                 template = template.replace(/>\s*/g, '>').replace(/\s*</g, '<').replace(/(\r\n|\n|\r)/gm, "");
                 template = template.replace(/<Privilege>/g, '').replace(/<\/Privilege>/g, '');
-                // template = Lib.Base64Parser('encode',template);
                 var appdb:Map<string,any> = this.appStore.getState().appdb;
-                //// var url = appdb.get('appBaseUrlUser') + `&command=AddPrivilege&privilegeName=${selPrivName}&privilegeData=${template}`;
-                //var url = appdb.get('appBaseUrlUser') + `&command=AddPrivilege&privilegeName=full&privilegeData=${template}`;
-                var url = appdb.get('appBaseUrlUser') + `&command=AddPrivilege&privilegeName=full2`;
+                var url = appdb.get('appBaseUrlUser') + `&command=UpdatePrivilege&privilegeName=${selPrivName}&privilegeId=${privelegesId}`;
 
                 var basicOptions:RequestOptionsArgs = {
+                    //headers: new Headers({'trustme':true}),
                     url: url,
                     method: RequestMethod.Post,
                     search: null,
@@ -327,9 +324,9 @@ export class ResellerAction extends Actions {
                 console.log(url);
                 this._http.request(req)
                     .catch((err) => {
-                        console.log('On received an error...');
-                        return Observable.of(true);
-                        // return Observable.throw(err);
+                        bootbox.alert('Error when saving priveleges');
+                        // return Observable.of(true);
+                        return Observable.throw(err);
                     })
                     .finally(() => {
                         console.log('After the request...');

@@ -149,7 +149,7 @@ export class Lib {
                   <Tables boards="${getPrivilegesTable('Screens', 'boards')}" board_templates="${getPrivilegesTable('Screens', 'board_templates')}" board_template_viewers="${getPrivilegesTable('Screens', 'board_template_viewers')}"/>
                 </Group>
                 <Group name="Resources" visible="${getAttributeGroup('Resources', 'visible')}" resourceMode="${getAttributeGroup('Resources', 'resourceMode')}">
-                  <Tables resources="${getPrivilegesTable('', '')}"/>
+                  <Tables resources="${getPrivilegesTable('Resources', 'resources')}"/>
                 </Group>                
                 <Group name="Editors" visible="${getAttributeGroup('Editors', 'visible')}">
                   <Tables player_data="${getPrivilegesTable('Editors', 'player_data')}"/>

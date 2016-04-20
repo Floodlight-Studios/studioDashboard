@@ -89,33 +89,6 @@ export class PrivilegesDetails {
     //     this.m_privileges = i_privileges;
     // }
 
-    private onPrivilegeChange(event:{ value:Array<number>, item:{ PrivModeEnum:PrivModeEnum, index:number, item:PrivelegesTemplateModel } }) {
-
-        let selPrivName = this.m_selected.getName();
-        let index:number = event.item.index;
-        let adding:boolean = Boolean(event.value[0]);
-        let tableName:string = event.item.item.getTableName();
-        let privModeEnum:PrivModeEnum = event.item.PrivModeEnum;
-
-        var selColumn = this.m_selected.getColumns();
-        selColumn = selColumn.find((k)=> {
-            if (k.get('tableName') == tableName)
-                return true;
-        })
-        var totalBits = Number(Lib.MapOfIndex(selColumn.get('columns'), index, 'last'));
-
-        var updTotalBits = this.calcMask(privModeEnum, adding, totalBits);
-
-        var payload = {
-            selPrivName,
-            tableName,
-            index,
-            privModeEnum,
-            updTotalBits
-        }
-        this.appStore.dispatch(this.resellerAction.savePrivileges(selPrivName, payload));
-    }
-
     private calcMask(i_privModeEnum, i_adding, i_totalBits) {
 
         switch (i_privModeEnum) {
@@ -159,6 +132,7 @@ export class PrivilegesDetails {
 
     private updatePrivilegesGroupAttributes(event, i_privelegesSystemModel:PrivelegesTemplateModel, privelegesAttribute:string):void {
         event.preventDefault();
+        let privelegesId = this.m_selected.getPrivelegesId();
         let selPrivName = this.m_selected.getName();
         var tableName = i_privelegesSystemModel.getTableName();
         var selColumn = this.m_selected.getColumns();
@@ -174,6 +148,37 @@ export class PrivilegesDetails {
             value
         }
         this.appStore.dispatch(this.resellerAction.updatePrivilegeAttribute(payload));
+        this.appStore.dispatch(this.resellerAction.savePrivileges(privelegesId, selPrivName));
+    }
+
+    private onPrivilegeChange(event:{ value:Array<number>, item:{ PrivModeEnum:PrivModeEnum, index:number, item:PrivelegesTemplateModel } }) {
+
+        let selPrivName = this.m_selected.getName();
+        let privelegesId = this.m_selected.getPrivelegesId();
+        let index:number = event.item.index;
+        let adding:boolean = Boolean(event.value[0]);
+        let tableName:string = event.item.item.getTableName();
+        let privModeEnum:PrivModeEnum = event.item.PrivModeEnum;
+
+        var selColumn = this.m_selected.getColumns();
+        selColumn = selColumn.find((k)=> {
+            if (k.get('tableName') == tableName)
+                return true;
+        })
+        var totalBits = Number(Lib.MapOfIndex(selColumn.get('columns'), index, 'last'));
+
+        var updTotalBits = this.calcMask(privModeEnum, adding, totalBits);
+
+        var payload = {
+            privelegesId,
+            selPrivName,
+            tableName,
+            index,
+            privModeEnum,
+            updTotalBits
+        }
+        this.appStore.dispatch(this.resellerAction.updatePrivilegesSystem(payload))
+        this.appStore.dispatch(this.resellerAction.savePrivileges(privelegesId, selPrivName));
     }
 
     private renderPrivilegesGroupAttributes(i_privelegesSystemModel:PrivelegesTemplateModel, i_privelegesAttribute:string):string {
