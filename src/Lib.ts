@@ -100,7 +100,7 @@ export class Lib {
      * @param callBack
      * @constructor
      */
-    static PrivilegesXmlTemplate(selPrivName:string, appStore:AppStore = null, callBack:(err, result)=>any) {
+    static PrivilegesXmlTemplate(selPrivId:string, appStore:AppStore = null, callBack:(err, result)=>any) {
         const parseString = require('xml2js').parseString;
 
         var getAttributeGroup = (tableName:string, attribute:string) => {
@@ -110,7 +110,7 @@ export class Lib {
             var reseller = appStore.getState().reseller;
             var privileges = reseller.getIn(['privileges']);
             privileges.forEach((i_privelegesModel:PrivelegesModel, counter)=> {
-                if (i_privelegesModel.getName() == selPrivName) {
+                if (i_privelegesModel.getPrivelegesId() == selPrivId) {
                     i_privelegesModel.getColumns().forEach((group, c) => {
                         if (group.get('tableName') == tableName)
                             return result = group.get(attribute)
@@ -128,7 +128,7 @@ export class Lib {
             var reseller = appStore.getState().reseller;
             var privileges = reseller.getIn(['privileges']);
             privileges.forEach((i_privelegesModel:PrivelegesModel, counter)=> {
-                if (i_privelegesModel.getName() == selPrivName) {
+                if (i_privelegesModel.getPrivelegesId() == selPrivId) {
                     i_privelegesModel.getColumns().forEach((group, c) => {
                         if (group.get('tableName') == tableName)
                             return result = group.getIn(['columns', attribute])

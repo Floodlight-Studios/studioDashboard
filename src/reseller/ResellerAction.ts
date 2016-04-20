@@ -304,7 +304,7 @@ export class ResellerAction extends Actions {
     public savePrivileges(privelegesId:string, selPrivName:string) {
         return (dispatch)=> {
             var self = this;
-            Lib.PrivilegesXmlTemplate(selPrivName, self.appStore, (err, template)=> {
+            Lib.PrivilegesXmlTemplate(privelegesId, self.appStore, (err, template)=> {
                 template = template.replace(/>\s*/g, '>').replace(/\s*</g, '<').replace(/(\r\n|\n|\r)/gm, "");
                 template = template.replace(/<Privilege>/g, '').replace(/<\/Privilege>/g, '');
                 var appdb:Map<string,any> = this.appStore.getState().appdb;

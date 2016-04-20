@@ -142,6 +142,7 @@ export class PrivilegesDetails {
         })
         var value = !Lib.BooleanToNumber(selColumn.get(privelegesAttribute));
         var payload = {
+            privelegesId,
             selPrivName,
             privelegesAttribute,
             tableName,

@@ -79,7 +79,7 @@ export function reseller(state:Map<string,any> = Map<string,any>(), action:any):
         {
             var privileges = state.get('privileges');
             privileges.forEach((i_privelegesModel:PrivelegesModel, counter)=> {
-                if (i_privelegesModel.getName() == action.payload.selPrivName) {
+                if (i_privelegesModel.getPrivelegesId() == action.payload.privelegesId) {
                     i_privelegesModel.getColumns().forEach((group, c) => {
                         if (group.get('tableName') == action.payload.tableName) {
                             var value = Lib.BooleanToNumber(action.payload.value);
@@ -97,7 +97,7 @@ export function reseller(state:Map<string,any> = Map<string,any>(), action:any):
         {
             var privileges = state.get('privileges');
             privileges.forEach((i_privelegesModel:PrivelegesModel, counter)=> {
-                if (i_privelegesModel.getName() == action.payload.selPrivName) {
+                if (i_privelegesModel.getPrivelegesId() == action.payload.privelegesId) {
                     i_privelegesModel.getColumns().forEach((group, c) => {
                         if (group.get('tableName') == action.payload.tableName) {
                             var key = Lib.MapOfIndex(group.get('columns'), action.payload.index, 'first');
