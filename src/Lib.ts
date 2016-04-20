@@ -121,7 +121,6 @@ export class Lib {
             return result;
         }
 
-
         var getPrivilegesTable = (tableName:string, attribute:string) => {
             if (_.isNull(appStore))
                 return 0;
