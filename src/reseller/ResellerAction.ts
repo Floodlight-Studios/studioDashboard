@@ -321,10 +321,9 @@ export class ResellerAction extends Actions {
                 var reqOptions = new RequestOptions(basicOptions);
                 var req = new Request(reqOptions);
 
-                console.log(url);
                 this._http.request(req)
                     .catch((err) => {
-                        bootbox.alert('Error when saving priveleges');
+                        bootbox.alert('Error when saving priveleges 1');
                         // return Observable.of(true);
                         return Observable.throw(err);
                     })
@@ -332,9 +331,8 @@ export class ResellerAction extends Actions {
                         console.log('After the request...');
                     })
                     .map(result => {
-                        console.log(result);
-                        // if (result.text() != 'True')
-                        //     bootbox.alert('Problem saving to server...')
+                        if (result.status != 200)
+                            bootbox.alert('Error when saving priveleges 2');
                     }).subscribe();
             });
         }

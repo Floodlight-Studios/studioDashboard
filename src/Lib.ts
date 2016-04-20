@@ -117,7 +117,6 @@ export class Lib {
                     })
                 }
             })
-            console.log(`${result} ${tableName} ${attribute}`);
             return result;
         }
 
@@ -135,7 +134,6 @@ export class Lib {
                     })
                 }
             })
-            // console.log(`${result} ${tableName} ${attribute}`);
             return result;
         }
 
