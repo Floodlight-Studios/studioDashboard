@@ -294,8 +294,10 @@ export class ResellerAction extends Actions {
             dispatch(self.updatePrivilegesSystem(payload))
             Lib.PrivilegesXmlTemplate('admin', self.appStore, (err, template)=> {
                 template = template.replace(/>\s*/g, '>').replace(/\s*</g, '<').replace(/(\r\n|\n|\r)/gm, "");
+                template = template.replace(/<Privilege>/g, '').replace(/<\/Privilege>/g, '');
                 var appdb:Map<string,any> = this.appStore.getState().appdb;
                 var url = appdb.get('appBaseUrlUser') + `&command=AddPrivilege&privilegeName=${selPrivName}&privilegeData=${template}`;
+                console.log(url);
                 this._http.get(url)
                     .map(result => {
                         if (result.text() != 'True')
