@@ -108,6 +108,7 @@ export class Privileges {
             return;
         var privilegeId = event.item.getPrivelegesId();
         this.appStore.dispatch(this.resellerAction.updateDefaultPrivilegeName(privilegeId, event.value));
+        this.appStore.dispatch(this.resellerAction.savePrivileges(privilegeId, event.value));
     }
 
     private onDefaultPrivilegeChanged(event) {
