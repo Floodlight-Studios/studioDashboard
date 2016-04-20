@@ -161,6 +161,7 @@ export class StationsMap {
         };
         var reqOptions = new RequestOptions(basicOptions);
         var req = new Request(reqOptions);
+        //todo: change map stations data http service so its in service and not in component
         this.http.request(req)
             .catch((err) => {
                 bootbox.alert('Error loading station map data 1');
