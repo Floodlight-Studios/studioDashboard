@@ -44,7 +44,6 @@ export const REMOVE_PRIVILEGE = 'REMOVE_PRIVILEGE';
 @Injectable()
 export class ResellerAction extends Actions {
 
-
     constructor(private appStore:AppStore, private _http:Http, private jsonp:Jsonp) {
         super(appStore);
         this.m_parseString = require('xml2js').parseString;

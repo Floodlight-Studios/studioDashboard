@@ -18,6 +18,10 @@ export class StationModel extends StoreModel {
         return this.getKey('id')
     }
 
+    public getPublicIp() {
+        return this.getKey('publicIp')
+    }
+
     public getStationName() {
         return this.getKey('name')
     }

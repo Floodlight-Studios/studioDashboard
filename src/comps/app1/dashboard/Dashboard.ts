@@ -230,7 +230,6 @@ export class Dashboard implements OnActivate {
             this.totalFilteredPlayers = this.stationsFiltered.size;
             this.cd.markForCheck();
         }, 1000)
-
     }
 
     private onStationsFilterSelected(filterType, filterValue, delay:number) {
