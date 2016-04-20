@@ -292,11 +292,28 @@ export class ResellerAction extends Actions {
             template = template.replace(/>\s*/g, '>').replace(/\s*</g, '<').replace(/(\r\n|\n|\r)/gm, "");
 
             var appdb:Map<string,any> = this.appStore.getState().appdb;
-            var url = appdb.get('appBaseUrlUser') + `&command=SaveWhiteLabel&useWhiteLabel=${this.appStore.getsKey('reseller', 'whitelabel', 'whitelabelEnabled')}&resellerName=${this.appStore.getsKey('reseller', 'whitelabel', 'companyName')}&customStudio=${template}&defaultThemeId=1`;
-            this._http.get(url)
+            var url = appdb.get('appBaseUrlUser') + `&command=SaveWhiteLabel&useWhiteLabel=${this.appStore.getsKey('reseller', 'whitelabel', 'whitelabelEnabled')}&resellerName=${this.appStore.getsKey('reseller', 'whitelabel', 'companyName')}&defaultThemeId=1`;
+
+            var basicOptions:RequestOptionsArgs = {
+                url: url,
+                method: RequestMethod.Post,
+                search: null,
+                body: template
+            };
+            var reqOptions = new RequestOptions(basicOptions);
+            var req = new Request(reqOptions);
+
+            this._http.request(req)
+                .catch((err) => {
+                    bootbox.alert('Error when whitelabel 1');
+                    // return Observable.of(true);
+                    return Observable.throw(err);
+                })
+                .finally(() => {
+                })
                 .map(result => {
-                    if (result.text() != 'True')
-                        bootbox.alert('Problem saving to server...')
+                    if (result.status != 200)
+                        bootbox.alert('Error when whitelabel 2');
                 }).subscribe();
         }
     }
@@ -328,7 +345,6 @@ export class ResellerAction extends Actions {
                         return Observable.throw(err);
                     })
                     .finally(() => {
-                        console.log('After the request...');
                     })
                     .map(result => {
                         if (result.status != 200)
