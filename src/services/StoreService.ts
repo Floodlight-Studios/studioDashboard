@@ -72,9 +72,10 @@ export class StoreService {
             // console.log('received station');
         }, 'stations');
 
-        /** (4) once we have all stations, we can get their respective servers **/
+        /** (4) once we have all stations, we can get their respective servers and each connected station ip **/
         this.appStore.sub((totalStationsReceived:number) => {
             this.appStore.dispatch(this.appDbActions.serverStatus());
+            this.appStore.dispatch(this.stationsAction.getStationsIps())
         }, 'appdb.totalStations');
 
         /** (5) received station status **/

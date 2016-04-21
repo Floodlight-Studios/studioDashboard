@@ -15,22 +15,7 @@
 
 import {Component, Input, Output, EventEmitter, ChangeDetectionStrategy, ChangeDetectorRef} from 'angular2/core';
 import {Ng2Highmaps} from '../../ng2-highcharts/ng2-highcharts';
-import {StationModel} from "../../../stations/StationModel";
-import {Observable} from "rxjs/Observable";
-import 'rxjs/add/operator/catch';
-import 'rxjs/add/operator/finally';
-import 'rxjs/add/observable/throw';
-import {
-    Headers,
-    Http,
-    Jsonp,
-    HTTP_BINDINGS,
-    Request,
-    RequestOptions,
-    RequestMethod,
-    RequestOptionsArgs
-} from 'angular2/http'
-const bootbox = require('bootbox');
+// import {Http} from 'angular2/http'
 const _ = require('underscore');
 
 window['Highmaps'] = require('highcharts/modules/map')(Highcharts);
@@ -47,17 +32,19 @@ window['Highmaps'] = require('highcharts/modules/map')(Highcharts);
 })
 export class StationsMap {
 
-    constructor(private http:Http) {
+    // constructor(private http:Http) {
+    constructor() {
         this.initMap();
     }
+
     @Input()
     set stations(i_stations) {
         this.m_stations = i_stations;
         this.updateStations();
     }
+
     @Output() onStationSelected:EventEmitter<any> = new EventEmitter();
 
-    private chartStock = {};
     protected chartMap = {};
     private highCharts:any;
     private m_stations;
@@ -135,52 +122,51 @@ export class StationsMap {
     }
 
     private updateStations() {
-        if (!this.m_stations)
-            return;
-        if (!this.highCharts)
-            return;
-
-        var stations = [];
-        this.m_stations.forEach((i_station:StationModel)=> {
-            var publicIp = i_station.getPublicIp();
-            if (_.isEmpty(publicIp))
-                return;
-            stations.push({
-                id: i_station.getStationId(),
-                name: i_station.getKey('name'),
-                publicIp: i_station.getPublicIp(),
-                color: i_station.getConnectionIcon('color')
-            });
-        });
-        var body = JSON.stringify(stations);
-        var basicOptions:RequestOptionsArgs = {
-            url: 'https://secure.digitalsignage.com/getGeoByIp',
-            headers: new Headers({'Content-Type': 'application/json'}),
-            method: RequestMethod.Post,
-            body: body
-        };
-        var reqOptions = new RequestOptions(basicOptions);
-        var req = new Request(reqOptions);
-        //todo: change map stations data http service so its in service and not in component
-        this.http.request(req)
-            .catch((err) => {
-                bootbox.alert('Error loading station map data 1');
-                // return Observable.of(true);
-                return Observable.throw(err);
-            })
-            .finally(() => {
-                // console.log('done');
-            })
-            .map(result => {
-                var stations = result.json();
-                for (var station in stations){
-                    var current = stations[station];
-                    var rand = _.random(0,30)/100;
-                    current.lat = current.lat + rand;
-                    current.lon = current.lon + rand;
-                }
-                this.highCharts.series[1].setData(stations);
-            }).subscribe();
+        // if (!this.m_stations)
+        //     return;
+        // if (!this.highCharts)
+        //     return;
+        //
+        // var stations = [];
+        // this.m_stations.forEach((i_station:StationModel)=> {
+        //     var publicIp = i_station.getPublicIp();
+        //     if (_.isEmpty(publicIp))
+        //         return;
+        //     stations.push({
+        //         id: i_station.getStationId(),
+        //         name: i_station.getKey('name'),
+        //         publicIp: i_station.getPublicIp(),
+        //         color: i_station.getConnectionIcon('color')
+        //     });
+        // });
+        // var body = JSON.stringify(stations);
+        // var basicOptions:RequestOptionsArgs = {
+        //     url: 'https://secure.digitalsignage.com/getGeoByIp',
+        //     headers: new Headers({'Content-Type': 'application/json'}),
+        //     method: RequestMethod.Post,
+        //     body: body
+        // };
+        // var reqOptions = new RequestOptions(basicOptions);
+        // var req = new Request(reqOptions);
+        // this.http.request(req)
+        //     .catch((err) => {
+        //         bootbox.alert('Error loading station map data 1');
+        //         // return Observable.of(true);
+        //         return Observable.throw(err);
+        //     })
+        //     .finally(() => {
+        //         // console.log('done');
+        //     })
+        //     .map(result => {
+        //         var stations = result.json();
+        //         for (var station in stations){
+        //             var current = stations[station];
+        //             var rand = _.random(0,30)/100;
+        //             current.lat = current.lat + rand;
+        //             current.lon = current.lon + rand;
+        //         }
+        //         this.highCharts.series[1].setData(stations);
+        //     }).subscribe();
 
     }
 }
@@ -242,3 +228,4 @@ export class StationsMap {
 // private stationsData1;
 // private stationsData2;
 // private stationsData3;
+// private chartStock = {};

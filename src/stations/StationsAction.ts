@@ -1,12 +1,26 @@
 import {Injectable} from "angular2/core";
 import {Actions, AppStore} from "angular2-redux-util";
-import {Http, Jsonp, Response} from "angular2/http";
 import {Observable} from "rxjs/Observable";
 import {List, Map} from 'immutable';
+import 'rxjs/add/operator/catch';
+import 'rxjs/add/operator/finally';
+import 'rxjs/add/observable/throw';
+import {
+    Headers,
+    Http,
+    Jsonp,
+    Response,
+    HTTP_BINDINGS,
+    Request,
+    RequestOptions,
+    RequestMethod,
+    RequestOptionsArgs
+} from 'angular2/http'
 import {StationModel} from "./StationModel";
-import {Subject} from "rxjs/Subject";
 import {CommBroker} from "../services/CommBroker";
 import {Consts} from "../Conts";
+const _ = require('underscore');
+const bootbox = require('bootbox');
 
 
 export const RECEIVE_STATIONS = 'RECEIVE_STATIONS';
@@ -54,10 +68,10 @@ export class StationsAction extends Actions {
                              * redux inject stations sources
                              **/
                             var stations:List<StationModel> = List<StationModel>();
-                            if (result.string.SocketStatus["0"].Business){
+                            if (result.string.SocketStatus["0"].Business) {
                                 result.string.SocketStatus["0"].Business.forEach((business)=> {
                                     var businessId = business._attr.businessId;
-                                    if (business.Stations["0"].Station){
+                                    if (business.Stations["0"].Station) {
                                         business.Stations["0"].Station.forEach((station)=> {
                                             var stationData = {
                                                 businessId: businessId,
@@ -97,12 +111,61 @@ export class StationsAction extends Actions {
                     err = err.json();
                     var status = err['currentTarget'].status;
                     var statusText = err['currentTarget'].statusText;
-                    this.commBroker.fire({fromInstance: this, event: Consts.Events().STATIONS_NETWORK_ERROR, context: this, message: ''});
+                    this.commBroker.fire({
+                        fromInstance: this,
+                        event: Consts.Events().STATIONS_NETWORK_ERROR,
+                        context: this,
+                        message: ''
+                    });
                 },
                 ()=> {
                     dispatch(self.receiveTotalStations(totalStations));
                 }
             );
+        }
+    }
+
+    public getStationsIps() {
+        var self = this;
+        return (dispatch)=> {
+            var stationsIps = [];
+            var stations:Map<string, List<StationModel>> = this.appStore.getState().stations;
+            stations.forEach((stationList:List<StationModel>, source)=> {
+                stationList.forEach((i_station:StationModel)=> {
+                    var ip = i_station.getKey('publicIp');
+                    var id = i_station.getKey('id');
+                    if (!_.isEmpty(ip))
+                        stationsIps.push({id,ip})
+                })
+            });
+            var body = JSON.stringify(stationsIps);
+            var basicOptions:RequestOptionsArgs = {
+                url: 'https://secure.digitalsignage.com/getGeoByIp',
+                headers: new Headers({'Content-Type': 'application/json'}),
+                method: RequestMethod.Post,
+                body: body
+            };
+            var reqOptions = new RequestOptions(basicOptions);
+            var req = new Request(reqOptions);
+            this._http.request(req)
+                .catch((err) => {
+                    bootbox.alert('Error loading station IPs 1');
+                    // return Observable.of(true);
+                    return Observable.throw(err);
+                })
+                .finally(() => {
+                    // console.log('done');
+                })
+                .map(result => {
+                    var stations = result.json();
+                    for (var station in stations) {
+                        var current = stations[station];
+                        var rand = _.random(0, 30) / 100;
+                        current.lat = current.lat + rand;
+                        current.lon = current.lon + rand;
+                    }
+                    //this.highCharts.series[1].setData(stations);
+                }).subscribe();
         }
     }
 
