@@ -24,6 +24,7 @@ const bootbox = require('bootbox');
 
 
 export const RECEIVE_STATIONS = 'RECEIVE_STATIONS';
+export const RECEIVE_STATIONS_GEO = 'RECEIVE_STATIONS_GEO';
 export const RECEIVE_TOTAL_STATIONS = 'RECEIVE_TOTAL_STATIONS';
 
 @Injectable()
@@ -132,11 +133,13 @@ export class StationsAction extends Actions {
             var stations:Map<string, List<StationModel>> = this.appStore.getState().stations;
             stations.forEach((stationList:List<StationModel>, source)=> {
                 stationList.forEach((i_station:StationModel)=> {
-                    // todo: check it doesnt already have geo data, if it does no need to get it again
                     var ip = i_station.getKey('publicIp');
+                    var lat = i_station.getKey('lat');
                     var id = i_station.getKey('id');
-                    if (!_.isEmpty(ip))
-                        stationsIps.push({id,ip})
+                    var businessId = i_station.getKey('businessId');
+                    var source = i_station.getKey('source');
+                    if (!_.isEmpty(ip) && _.isEmpty(lat))
+                        stationsIps.push({id, businessId, ip, source})
                 })
             });
             var body = JSON.stringify(stationsIps);
@@ -159,12 +162,13 @@ export class StationsAction extends Actions {
                 })
                 .map(result => {
                     var stations = result.json();
-                    for (var station in stations) {
-                        var current = stations[station];
-                        var rand = _.random(0, 30) / 100;
-                        current.lat = current.lat + rand;
-                        current.lon = current.lon + rand;
-                    }
+                    dispatch(this.receiveStationsGeo(stations));
+                    // for (var station in stations) {
+                    //     var current = stations[station];
+                    //     var rand = _.random(0, 30) / 100;
+                    //     current.lat = current.lat + rand;
+                    //     current.lon = current.lon + rand;
+                    // }
                     //this.highCharts.series[1].setData(stations);
                 }).subscribe();
         }
@@ -175,6 +179,13 @@ export class StationsAction extends Actions {
             type: RECEIVE_STATIONS,
             stations,
             source
+        }
+    }
+
+    public receiveStationsGeo(payload:Array<any>) {
+        return {
+            type: RECEIVE_STATIONS_GEO,
+            payload
         }
     }
 
