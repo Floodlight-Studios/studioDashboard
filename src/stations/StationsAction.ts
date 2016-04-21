@@ -162,13 +162,17 @@ export class StationsAction extends Actions {
                 })
                 .map(result => {
                     var stations = result.json();
+                    var stationsDict = {}
+                    for (var station in stations) {
+                        var current = stations[station];
+                        // stationsDict[current.source] ? null : stationsDict[current.source]  = {};
+                        // stationsDict[current.source][current.businessId] ? null : stationsDict[current.source][current.businessId] = {};
+                        // stationsDict[current.source][current.businessId][current.id] = current.ip
+                        var rand = _.random(0, 30) / 100;
+                        current.lat = current.lat + rand;
+                        current.lon = current.lon + rand;
+                    }
                     dispatch(this.receiveStationsGeo(stations));
-                    // for (var station in stations) {
-                    //     var current = stations[station];
-                    //     var rand = _.random(0, 30) / 100;
-                    //     current.lat = current.lat + rand;
-                    //     current.lon = current.lon + rand;
-                    // }
                     //this.highCharts.series[1].setData(stations);
                 }).subscribe();
         }
