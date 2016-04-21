@@ -52,7 +52,7 @@ export class ResellerAction extends Actions {
     private m_parseString;
     private m_privilegesSystemModels:Array<PrivelegesTemplateModel> = [];
 
-    private privilegesModelFactory(i_defaultPrivId:number, i_defaultPrivName, i_existingGroups?:Array<any>):PrivelegesModel {
+    private privilegesModelFactory(i_defaultPrivId, i_defaultPrivName, i_existingGroups?:Array<any>):PrivelegesModel {
         let groups = List();
         let tablesDst = [];
         if (i_existingGroups) {
@@ -179,10 +179,11 @@ export class ResellerAction extends Actions {
                             dispatch(self.receiveApps(userApps));
                         });
 
+                        /**
+                         * redux inject privileges XML template system
+                         **/
                         Lib.PrivilegesXmlTemplate(null, null, (err, xmlTemplate)=> {
-                            /**
-                             * redux inject privileges XML template system
-                             **/
+
                             xmlTemplate.Privilege.Groups["0"].Group.forEach((table)=> {
                                 var values = {};
                                 _.forEach(table._attr, (v, k)=> {
@@ -247,18 +248,75 @@ export class ResellerAction extends Actions {
 
     public createPrivilege() {
         return (dispatch)=> {
-            // var url = appdb.get('appBaseUrlUser') + `&command=GetBusinessUserInfo`;
-            // this._http.get(url)
-            //     .map(result => {
-            //         var xmlData:string = result.text()
-            //         xmlData = xmlData.replace(/}\)/, '').replace(/\(\{"result":"/, '');
-            //         this.m_parseString(xmlData, {attrkey: '_attr'}, function (err, result) {
-            //     }).subscribe();
-            //todo: contact server for creation of privilege id, emulating server for now
-            var privilegesModel:PrivelegesModel = this.privilegesModelFactory(_.random(1000, 9999), 'privilege set')
-            setTimeout(()=> {
-                dispatch(this.addPrivilege(privilegesModel));
-            }, 100)
+            var self = this;
+            var privilegeDefault = this.appStore.getState().reseller.getIn(['privilegeDefault']);
+            var privName = 'privilege ' + _.uniqueId();
+            Lib.PrivilegesXmlTemplate(privilegeDefault, self.appStore, (err, template)=> {
+                template = template.replace(/>\s*/g, '>').replace(/\s*</g, '<').replace(/(\r\n|\n|\r)/gm, "");
+                template = template.replace(/<Privilege>/g, '').replace(/<\/Privilege>/g, '');
+                var appdb:Map<string,any> = this.appStore.getState().appdb;
+                var url = appdb.get('appBaseUrlUser') + `&command=AddPrivilege&privilegeName=${privName}`;
+
+                var basicOptions:RequestOptionsArgs = {
+                    url: url,
+                    method: RequestMethod.Post,
+                    search: null,
+                    body: template
+                };
+                var reqOptions = new RequestOptions(basicOptions);
+                var req = new Request(reqOptions);
+
+                this._http.request(req)
+                    .catch((err) => {
+                        bootbox.alert('Error when saving priveleges 1');
+                        // return Observable.of(true);
+                        return Observable.throw(err);
+                    })
+                    .finally(() => {
+                    })
+                    .map(result => {
+                        var privilegesId = result.text();
+                        var privilegesModel:PrivelegesModel = this.privilegesModelFactory(privilegesId, privName)
+                        dispatch(this.addPrivilege(privilegesModel));
+                    }).subscribe();
+            });
+        }
+    }
+
+    public deletePrivilege(privilegeId) {
+        return (dispatch)=> {
+            var appdb:Map<string,any> = this.appStore.getState().appdb;
+            var url = appdb.get('appBaseUrlUser') + `&command=DeletePrivilege&privilegeId=${privilegeId}`;
+            this._http.get(url)
+                .catch((err) => {
+                    bootbox.alert('Error when removing privilege');
+                    // return Observable.of(true);
+                    return Observable.throw(err);
+                })
+                .finally(() => {
+                })
+                .map(result => {
+                    //var result:any = result.text();
+                    dispatch(this.removePrivilege(privilegeId));
+                }).subscribe();
+        }
+    }
+
+    public setDefaultPrivilege(privilegeId) {
+        return (dispatch)=> {
+            var appdb:Map<string,any> = this.appStore.getState().appdb;
+            var url = appdb.get('appBaseUrlUser') + `&command=SetPrivilegeAsDefault&privilegeId=${privilegeId}`;
+            this._http.get(url)
+                .catch((err) => {
+                    bootbox.alert('Error when setting default privileges');
+                    // return Observable.of(true);
+                    return Observable.throw(err);
+                })
+                .finally(() => {
+                })
+                .map(result => {
+                    dispatch(this.updateDefaultPrivilege(privilegeId));
+                }).subscribe();
         }
     }
 

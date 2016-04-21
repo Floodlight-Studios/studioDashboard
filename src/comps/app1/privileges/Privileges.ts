@@ -114,7 +114,7 @@ export class Privileges {
     private onDefaultPrivilegeChanged(event) {
         for (var id in event.metadata) {
             if (event.metadata[id].index == event.index)
-                this.appStore.dispatch(this.resellerAction.updateDefaultPrivilege(Number(id)));
+                this.appStore.dispatch(this.resellerAction.setDefaultPrivilege(Number(id)));
         }
     }
 
@@ -149,22 +149,26 @@ export class Privileges {
         }
     }
 
-    private onAdd(){
+    private onAdd() {
         this.appStore.dispatch(this.resellerAction.createPrivilege());
     }
 
     private onRemove() {
         if (!this.privelegesModelSelected)
             return;
-        var simpleListItems = this.simpleList.getSelected();
-        var simpleListDefaultIndex = this.simpleList.selectedIconIndex;
-        for (var i in simpleListItems) {
-            if (simpleListItems[i].selected && simpleListItems[i].index == simpleListDefaultIndex) {
-                bootbox.alert('Sorry can not delete the default privilege set. Be sure to apply the default privilege to another set and try again')
-                return;
+        bootbox.confirm("Are you sure you want to remove the privilege set?", (result) => {
+            if (result) {
+                var simpleListItems = this.simpleList.getSelected();
+                var simpleListDefaultIndex = this.simpleList.selectedIconIndex;
+                for (var i in simpleListItems) {
+                    if (simpleListItems[i].selected && simpleListItems[i].index == simpleListDefaultIndex) {
+                        bootbox.alert('Sorry can not delete the default privilege set. Be sure to apply the default privilege to another set and try again')
+                        return;
+                    }
+                }
+                this.appStore.dispatch(this.resellerAction.deletePrivilege(this.privelegesModelSelected.getPrivelegesId()));
             }
-        }
-        this.appStore.dispatch(this.resellerAction.removePrivilege(this.privelegesModelSelected.getPrivelegesId()));
+        });
     }
 
     private ngOnDestroy() {

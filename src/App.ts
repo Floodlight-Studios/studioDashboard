@@ -121,7 +121,7 @@ export class App {
     }
 }
 
-enableProdMode();
+//enableProdMode();
 bootstrap(App, [ROUTER_PROVIDERS, HTTP_PROVIDERS, JSONP_PROVIDERS,
     provide(AppStore, {useFactory: Lib.StoreFactory({notify, appdb, business, stations, reseller})}),
     provide(StoreService, {useClass: StoreService}),
@@ -133,10 +133,9 @@ bootstrap(App, [ROUTER_PROVIDERS, HTTP_PROVIDERS, JSONP_PROVIDERS,
     provide(LocalStorage, {useClass: LocalStorage}),
     provide(CommBroker, {useClass: CommBroker}),
     provide(Consts, {useClass: Consts}),
+    provide("DEV_ENV",{useValue :true}),
     provide(PLATFORM_PIPES, {useValue: CharCount, multi: true}),
     provide(LocationStrategy, {useClass: HashLocationStrategy})]).then((appRef:ComponentRef) => {
         appInjService(appRef.injector);
     }
 );
-
-

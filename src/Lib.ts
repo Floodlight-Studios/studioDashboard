@@ -105,7 +105,7 @@ export class Lib {
 
         var getAttributeGroup = (tableName:string, attribute:string) => {
             if (_.isNull(appStore))
-                return 0;
+                return 1;
             var result = 0;
             var reseller = appStore.getState().reseller;
             var privileges = reseller.getIn(['privileges']);
@@ -122,7 +122,7 @@ export class Lib {
 
         var getPrivilegesTable = (tableName:string, attribute:string) => {
             if (_.isNull(appStore))
-                return 0;
+                return 7;
             var result = 0;
             var reseller = appStore.getState().reseller;
             var privileges = reseller.getIn(['privileges']);
