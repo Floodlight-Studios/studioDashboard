@@ -76,6 +76,8 @@ export class StoreService {
         this.appStore.sub((totalStationsReceived:number) => {
             this.appStore.dispatch(this.appDbActions.serverStatus());
             this.appStore.dispatch(this.stationsAction.getStationsIps())
+
+            setTimeout(()=>this.appStore.dispatch(this.stationsAction.getStationsIps()), 5000)
         }, 'appdb.totalStations');
 
         /** (5) received station status **/

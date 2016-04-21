@@ -22,6 +22,10 @@ export class StationModel extends StoreModel {
         return this.getKey('publicIp')
     }
 
+    public getLocation() {
+        return this.getKey('geoLocation')
+    }
+
     public getStationName() {
         return this.getKey('name')
     }

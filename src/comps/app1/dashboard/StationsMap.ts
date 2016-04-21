@@ -13,9 +13,9 @@
 // http://jsfiddle.net/gh/get/jquery/1.9.1/highslide-software/highcharts.com/tree/master/samples/stock/demo/dynamic-update/
 
 
-import {Component, Input, Output, EventEmitter, ChangeDetectionStrategy, ChangeDetectorRef} from 'angular2/core';
+import {Component, Input, Output, EventEmitter, ChangeDetectionStrategy} from 'angular2/core';
 import {Ng2Highmaps} from '../../ng2-highcharts/ng2-highcharts';
-// import {Http} from 'angular2/http'
+import {StationModel} from "../../../stations/StationModel";
 const _ = require('underscore');
 
 window['Highmaps'] = require('highcharts/modules/map')(Highcharts);
@@ -122,52 +122,25 @@ export class StationsMap {
     }
 
     private updateStations() {
-        // if (!this.m_stations)
-        //     return;
-        // if (!this.highCharts)
-        //     return;
-        //
-        // var stations = [];
-        // this.m_stations.forEach((i_station:StationModel)=> {
-        //     var publicIp = i_station.getPublicIp();
-        //     if (_.isEmpty(publicIp))
-        //         return;
-        //     stations.push({
-        //         id: i_station.getStationId(),
-        //         name: i_station.getKey('name'),
-        //         publicIp: i_station.getPublicIp(),
-        //         color: i_station.getConnectionIcon('color')
-        //     });
-        // });
-        // var body = JSON.stringify(stations);
-        // var basicOptions:RequestOptionsArgs = {
-        //     url: 'https://secure.digitalsignage.com/getGeoByIp',
-        //     headers: new Headers({'Content-Type': 'application/json'}),
-        //     method: RequestMethod.Post,
-        //     body: body
-        // };
-        // var reqOptions = new RequestOptions(basicOptions);
-        // var req = new Request(reqOptions);
-        // this.http.request(req)
-        //     .catch((err) => {
-        //         bootbox.alert('Error loading station map data 1');
-        //         // return Observable.of(true);
-        //         return Observable.throw(err);
-        //     })
-        //     .finally(() => {
-        //         // console.log('done');
-        //     })
-        //     .map(result => {
-        //         var stations = result.json();
-        //         for (var station in stations){
-        //             var current = stations[station];
-        //             var rand = _.random(0,30)/100;
-        //             current.lat = current.lat + rand;
-        //             current.lon = current.lon + rand;
-        //         }
-        //         this.highCharts.series[1].setData(stations);
-        //     }).subscribe();
-
+        if (!this.m_stations)
+            return;
+        if (!this.highCharts)
+            return;
+        var stations = [];
+        this.m_stations.forEach((i_station:StationModel)=> {
+            var geoLocation = i_station.getLocation();
+            if (_.isUndefined(geoLocation))
+                return;
+            stations.push({
+                id: i_station.getStationId(),
+                name: i_station.getKey('name'),
+                publicIp: i_station.getPublicIp(),
+                lat: geoLocation.lat,
+                lon: geoLocation.lon,
+                color: i_station.getConnectionIcon('color')
+            });
+        });
+        this.highCharts.series[1].setData(stations);
     }
 }
 
@@ -229,3 +202,49 @@ export class StationsMap {
 // private stationsData2;
 // private stationsData3;
 // private chartStock = {};
+
+// if (!this.m_stations)
+//     return;
+// if (!this.highCharts)
+//     return;
+//
+// var stations = [];
+// this.m_stations.forEach((i_station:StationModel)=> {
+//     var publicIp = i_station.getPublicIp();
+//     if (_.isEmpty(publicIp))
+//         return;
+//     stations.push({
+//         id: i_station.getStationId(),
+//         name: i_station.getKey('name'),
+//         publicIp: i_station.getPublicIp(),
+//         color: i_station.getConnectionIcon('color')
+//     });
+// });
+// var body = JSON.stringify(stations);
+// var basicOptions:RequestOptionsArgs = {
+//     url: 'https://secure.digitalsignage.com/getGeoByIp',
+//     headers: new Headers({'Content-Type': 'application/json'}),
+//     method: RequestMethod.Post,
+//     body: body
+// };
+// var reqOptions = new RequestOptions(basicOptions);
+// var req = new Request(reqOptions);
+// this.http.request(req)
+//     .catch((err) => {
+//         bootbox.alert('Error loading station map data 1');
+//         // return Observable.of(true);
+//         return Observable.throw(err);
+//     })
+//     .finally(() => {
+//         // console.log('done');
+//     })
+//     .map(result => {
+//         var stations = result.json();
+//         for (var station in stations){
+//             var current = stations[station];
+//             var rand = _.random(0,30)/100;
+//             current.lat = current.lat + rand;
+//             current.lon = current.lon + rand;
+//         }
+//         this.highCharts.series[1].setData(stations);
+//     }).subscribe();

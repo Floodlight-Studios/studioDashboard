@@ -127,18 +127,18 @@ export class StationsAction extends Actions {
     }
 
     public getStationsIps() {
-        var self = this;
         return (dispatch)=> {
             var stationsIps = [];
             var stations:Map<string, List<StationModel>> = this.appStore.getState().stations;
             stations.forEach((stationList:List<StationModel>, source)=> {
                 stationList.forEach((i_station:StationModel)=> {
                     var ip = i_station.getKey('publicIp');
-                    var lat = i_station.getKey('lat');
+                    var geoLocation = i_station.getKey('geoLocation');
                     var id = i_station.getKey('id');
                     var businessId = i_station.getKey('businessId');
                     var source = i_station.getKey('source');
-                    if (!_.isEmpty(ip) && _.isEmpty(lat))
+                    // only get stations with public ip and no location info
+                    if (!_.isUndefined(ip) && _.isUndefined(geoLocation))
                         stationsIps.push({id, businessId, ip, source})
                 })
             });
@@ -162,18 +162,13 @@ export class StationsAction extends Actions {
                 })
                 .map(result => {
                     var stations = result.json();
-                    var stationsDict = {}
                     for (var station in stations) {
-                        var current = stations[station];
-                        // stationsDict[current.source] ? null : stationsDict[current.source]  = {};
-                        // stationsDict[current.source][current.businessId] ? null : stationsDict[current.source][current.businessId] = {};
-                        // stationsDict[current.source][current.businessId][current.id] = current.ip
+                        var i_station = stations[station];
                         var rand = _.random(0, 30) / 100;
-                        current.lat = current.lat + rand;
-                        current.lon = current.lon + rand;
+                        i_station.lat = (i_station.lat + rand).toFixed(4);
+                        i_station.lon = (i_station.lon + rand).toFixed(4);
                     }
                     dispatch(this.receiveStationsGeo(stations));
-                    //this.highCharts.series[1].setData(stations);
                 }).subscribe();
         }
     }
@@ -326,3 +321,7 @@ export class StationsAction extends Actions {
 //         );
 //     }
 // }
+// stationsDict[current.source] ? null : stationsDict[current.source]  = {};
+// stationsDict[current.source][current.businessId] ? null : stationsDict[current.source][current.businessId] = {};
+// stationsDict[current.source][current.businessId][current.id] = current.ip
+//this.highCharts.series[1].setData(stations);
