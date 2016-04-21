@@ -132,6 +132,7 @@ export class StationsAction extends Actions {
             var stations:Map<string, List<StationModel>> = this.appStore.getState().stations;
             stations.forEach((stationList:List<StationModel>, source)=> {
                 stationList.forEach((i_station:StationModel)=> {
+                    // todo: check it doesnt already have geo data, if it does no need to get it again
                     var ip = i_station.getKey('publicIp');
                     var id = i_station.getKey('id');
                     if (!_.isEmpty(ip))
