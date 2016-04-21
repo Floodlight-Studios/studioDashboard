@@ -81,7 +81,7 @@ export class StoreService {
         /** (5) received station status **/
         this.appStore.sub((serversStatus:Map<string,any>) => {
             // todo: enable in production and set poll value in settings
-            this.initPollServices();
+            // this.initPollServices();
         }, 'appdb.serversStatus', false);
     }
 
@@ -97,6 +97,3 @@ export class StoreService {
         this.appStore.dispatch(this.stationsAction.getStationsInfo(config));
     }
 }
-
-
-// this.appStore.dispatch(this.appDbActions.serverStatus());
