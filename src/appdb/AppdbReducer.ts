@@ -9,7 +9,7 @@ export default function appdb(state:Map<string, any> = Map<string, any>({}), act
     switch (action.type) {
         case StationsAction.RECEIVE_TOTAL_STATIONS:
             return state.merge({
-                totalStations: action.totalStations
+                totalStations: {time: Date.now(), totalStations: action.totalStations}
             });
         case AppdbAction.AUTH_FAIL:
         case AppdbAction.AUTH_PASS:

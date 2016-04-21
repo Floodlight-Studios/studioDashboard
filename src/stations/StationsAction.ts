@@ -38,6 +38,17 @@ export class StationsAction extends Actions {
 
     private m_parseString;
 
+    private getStationGeoLocation(i_source:string, i_businessId:string, i_stationId:string):string {
+        var stations:List<StationModel> = this.appStore.getState().stations.get(i_source);
+        if (_.isUndefined(stations))
+            return '';
+        var stationIndex = stations.findIndex((stationModel:StationModel) => {
+            return stationModel.getKey('businessId') === i_businessId && stationModel.getKey('id') == i_stationId;
+        });
+        var station:StationModel = stations.get(stationIndex);
+        return station.getLocation();
+    }
+
     public getStationsInfo(config) {
         var self = this;
         return (dispatch)=> {
@@ -74,8 +85,12 @@ export class StationsAction extends Actions {
                                     var businessId = business._attr.businessId;
                                     if (business.Stations["0"].Station) {
                                         business.Stations["0"].Station.forEach((station)=> {
+                                            var stationId = station._attr.id;
+                                            var geoLocation = self.getStationGeoLocation(source, businessId, stationId)
                                             var stationData = {
                                                 businessId: businessId,
+                                                id: stationId,
+                                                geoLocation: geoLocation,
                                                 source: source,
                                                 airVersion: station._attr.airVersion,
                                                 appVersion: station._attr.appVersion,
@@ -84,7 +99,6 @@ export class StationsAction extends Actions {
                                                 publicIp: station._attr.publicIp,
                                                 cameraStatus: station._attr.cameraStatus,
                                                 connection: station._attr.connection,
-                                                id: station._attr.id,
                                                 lastCameraTest: station._attr.lastCameraTest,
                                                 lastUpdate: station._attr.lastUpdate,
                                                 name: station._attr.name,
@@ -133,12 +147,12 @@ export class StationsAction extends Actions {
             stations.forEach((stationList:List<StationModel>, source)=> {
                 stationList.forEach((i_station:StationModel)=> {
                     var ip = i_station.getKey('publicIp');
-                    var geoLocation = i_station.getKey('geoLocation');
+                    var geoLocation = i_station.getLocation();
                     var id = i_station.getKey('id');
                     var businessId = i_station.getKey('businessId');
                     var source = i_station.getKey('source');
                     // only get stations with public ip and no location info
-                    if (!_.isUndefined(ip) && _.isUndefined(geoLocation))
+                    if (!_.isUndefined(ip) && _.isEmpty(geoLocation))
                         stationsIps.push({id, businessId, ip, source})
                 })
             });

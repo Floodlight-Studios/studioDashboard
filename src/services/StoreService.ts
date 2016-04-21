@@ -44,8 +44,8 @@ export class StoreService {
         this.running = true;
         setInterval(()=> {
             this.appStore.dispatch(this.appDbActions.serverStatus());
-            // this.fetchStations()
-        }, 10000);
+            this.fetchStations()
+        }, 5000);
     }
 
     private listenServices() {
@@ -69,21 +69,19 @@ export class StoreService {
 
         /** (3) receive each set of stations status per server **/
         this.appStore.sub((stations:Map<string, List<StationModel>>) => {
-            // console.log('received station');
+             console.log('received station');
         }, 'stations');
 
         /** (4) once we have all stations, we can get their respective servers and geo info **/
-        this.appStore.sub((totalStationsReceived:number) => {
+        this.appStore.sub((totalStationsReceived:Map<string,any>) => {
             this.appStore.dispatch(this.appDbActions.serverStatus());
             this.appStore.dispatch(this.stationsAction.getStationsIps())
-
-            setTimeout(()=>this.appStore.dispatch(this.stationsAction.getStationsIps()), 5000)
         }, 'appdb.totalStations');
 
         /** (5) received station status **/
         this.appStore.sub((serversStatus:Map<string,any>) => {
             // todo: enable in production and set poll value in settings
-            //this.initPollServices();
+            this.initPollServices();
         }, 'appdb.serversStatus', false);
     }
 

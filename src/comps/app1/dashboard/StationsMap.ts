@@ -129,7 +129,7 @@ export class StationsMap {
         var stations = [];
         this.m_stations.forEach((i_station:StationModel)=> {
             var geoLocation = i_station.getLocation();
-            if (_.isUndefined(geoLocation))
+            if (_.isEmpty(geoLocation))
                 return;
             stations.push({
                 id: i_station.getStationId(),
