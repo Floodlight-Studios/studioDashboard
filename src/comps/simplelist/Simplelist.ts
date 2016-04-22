@@ -95,7 +95,6 @@ export class SimpleList {
         // }
         //this.current.next({item, selected: this.m_metadata[id].selected});
         this.selected.next(this.m_metadata);
-
     }
 
     private renderIcon(index, item) {
