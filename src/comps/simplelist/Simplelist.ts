@@ -28,7 +28,6 @@ export class SimpleList {
     private m_iconSelectedIndex:number = -1;
     private m_iconSelectedMode:boolean = false;
     private m_metadata:Object = {};
-    // private m_editClickPending = false;
 
     @Input()
     list:List<any>;
@@ -88,12 +87,6 @@ export class SimpleList {
             selected: true //this.m_editClickPending ? true : !this.m_metadata[id].selected
 
         }
-
-        // if (this.m_editClickPending) {
-        //     this.m_editClickPending = false;
-        //     return;
-        // }
-        //this.current.next({item, selected: this.m_metadata[id].selected});
         this.selected.next(this.m_metadata);
     }
 
@@ -117,7 +110,6 @@ export class SimpleList {
         for (let id in this.m_metadata)
             this.m_metadata[id].selected = true;
         this.list.forEach((i_item)=> {
-            //this.current.next({item: i_item, selected: true});
             this.selected.next(this.m_metadata);
         })
     }
@@ -136,11 +128,6 @@ export class SimpleList {
                 metadata: this.m_metadata
             });
         }, 1)
-        // if (this.m_iconSelectedMode) {
-        //     event.stopImmediatePropagation();
-        //     event.preventDefault();
-        //     return false;
-        // }
         return true;
     }
 
@@ -155,12 +142,6 @@ export class SimpleList {
             this.m_metadata[id] = {};
         this.m_metadata[id].index = index;
         return id;
-        // if (this.m_metadata[id])
-        //     return id;
-        // this.m_metadata[id] = {
-        //     selected: false
-        // };
-        // return id;
     }
 
     private getContent(item):string {
@@ -183,4 +164,3 @@ export class SimpleList {
         return this.m_iconSelectedIndex;
     }
 }
-
