@@ -28,13 +28,10 @@ export class SimpleList {
     private m_iconSelectedIndex:number = -1;
     private m_iconSelectedMode:boolean = false;
     private m_metadata:Object = {};
-    private m_editClickPending = false;
+    // private m_editClickPending = false;
 
     @Input()
     list:List<any>;
-
-    @Input()
-    multi:boolean = true;
 
     @Input()
     editable:boolean = false;
@@ -74,29 +71,28 @@ export class SimpleList {
     @Output()
     edited:EventEmitter<any> = new EventEmitter();
 
-    private onEditChanged(event){
+    private onEditChanged(event) {
         this.edited.emit((event))
     }
 
     private itemSelected(item, index) {
         let id = this.contentId ? this.contentId(item) : index;
-        if (!this.multi) {
-            for (let id in this.m_metadata) {
-                this.m_metadata[id] = {
-                    selected: false
-                }
+        for (let id in this.m_metadata) {
+            this.m_metadata[id] = {
+                selected: false
             }
         }
         this.m_metadata[id] = {
             item: item,
             index: index,
-            selected: this.m_editClickPending ? true : !this.m_metadata[id].selected
+            selected: true //this.m_editClickPending ? true : !this.m_metadata[id].selected
 
         }
-        if (this.m_editClickPending) {
-            this.m_editClickPending = false;
-            return;
-        }
+
+        // if (this.m_editClickPending) {
+        //     this.m_editClickPending = false;
+        //     return;
+        // }
         //this.current.next({item, selected: this.m_metadata[id].selected});
         this.selected.next(this.m_metadata);
 
@@ -129,7 +125,7 @@ export class SimpleList {
 
     private onIconClick(event, index) {
         var self = this;
-        this.m_editClickPending = true;
+        // this.m_editClickPending = true;
         this.m_iconSelectedIndex = index;
         setTimeout(()=> {
             let match = _.find(self.m_metadata, (i) => i.index == index);
@@ -141,7 +137,6 @@ export class SimpleList {
                 metadata: this.m_metadata
             });
         }, 1)
-        // removed 4-22-2016 to fix wrong selection bug
         // if (this.m_iconSelectedMode) {
         //     event.stopImmediatePropagation();
         //     event.preventDefault();
