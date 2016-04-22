@@ -353,8 +353,17 @@ export class ResellerAction extends Actions {
             dispatch(this.updateAccountInfo(payload));
 
             var cardInfo = '';
-            if (validatedCreditCard())
-                cardInfo = `cardType="${getStoreValue('Billing', 'cardType')}" securityCode="${getStoreValue('Billing', 'securityCode')}" expirationMonth="${getStoreValue('Billing', 'expirationMonth')}" expirationYear="${getStoreValue('Billing', 'expirationYear')}" cardNumber="${getStoreValue('Billing', 'cardNumber')}"`;
+            if (validatedCreditCard()){
+                cardInfo = `
+                    cardType="${getStoreValue('Billing', 'cardType')}" 
+                    securityCode="${getStoreValue('Billing', 'securityCode')}" 
+                    expirationMonth="${getStoreValue('Billing', 'expirationMonth')}"
+                    expirationYear="${getStoreValue('Billing', 'expirationYear')}" 
+                    cardNumber="${getStoreValue('Billing', 'cardNumber')}"`;
+            } else {
+                console.log('not updating credit card info');
+            }
+
 
             var template = `
               <Account>
