@@ -349,18 +349,17 @@ export class ResellerAction extends Actions {
             return _.isUndefined(result) ? '' : result;
         }
 
-
         return (dispatch)=> {
             dispatch(this.updateAccountInfo(payload));
 
-            var cardInfo = '';
-            if (validatedCreditCard())
-                cardInfo = `"cardType="${getStoreValue('Billing', 'cardType')}" securityCode="${getStoreValue('Billing', 'securityCode')}" expirationMonth="${getStoreValue('Billing', 'expirationMonth')}" expirationYear="${getStoreValue('Billing', 'expirationYear')}" cardNumber="${getStoreValue('Billing', 'cardNumber')}"`;
+            // var cardInfo = '';
+            // if (validatedCreditCard())
+            //     cardInfo = `"cardType="${getStoreValue('Billing', 'cardType')}" securityCode="${getStoreValue('Billing', 'securityCode')}" expirationMonth="${getStoreValue('Billing', 'expirationMonth')}" expirationYear="${getStoreValue('Billing', 'expirationYear')}" cardNumber="${getStoreValue('Billing', 'cardNumber')}"`;
 
             var template = `
               <Account>
                    <Contact firstName="${getStoreValue('Contact', 'firstName')}" lastName="${getStoreValue('Contact', 'lastName')}" email="${getStoreValue('Contact', 'email')}" workPhone="${getStoreValue('Contact', 'workPhone')}" cellPhone="${getStoreValue('Contact', 'cellPhone')}" address1="${getStoreValue('Contact', 'address1')}" address2="${getStoreValue('Contact', 'address2')}" city="${getStoreValue('Contact', 'city')}" state="${getStoreValue('Contact', 'state')}" zipCode="${getStoreValue('Contact', 'zipCode')}" />
-                   <Billing firstName="${getStoreValue('Billing', 'firstName')}" lastName="${getStoreValue('Billing', 'lastName')}" address1="${getStoreValue('Billing', 'address1')}" address2="${getStoreValue('Billing', 'address2')}" city="${getStoreValue('Billing', 'city')}" state="${getStoreValue('Billing', 'state')}" country="${getStoreValue('Billing', 'country')}" zipCode="${getStoreValue('Billing', 'zipCode')}" workPhone="${getStoreValue('Billing', 'workPhone')}" cellPhone="${getStoreValue('Billing', 'cellPhone')}" email="${getStoreValue('Billing', 'email')}" ${cardInfo} />
+                   <Billing firstName="${getStoreValue('Billing', 'firstName')}" lastName="${getStoreValue('Billing', 'lastName')}" address1="${getStoreValue('Billing', 'address1')}" address2="${getStoreValue('Billing', 'address2')}" city="${getStoreValue('Billing', 'city')}" state="${getStoreValue('Billing', 'state')}" country="${getStoreValue('Billing', 'country')}" zipCode="${getStoreValue('Billing', 'zipCode')}" workPhone="${getStoreValue('Billing', 'workPhone')}" cellPhone="${getStoreValue('Billing', 'cellPhone')}" email="${getStoreValue('Billing', 'email')}" cardType="${getStoreValue('Billing', 'cardType')}" securityCode="${getStoreValue('Billing', 'securityCode')}" expirationMonth="${getStoreValue('Billing', 'expirationMonth')}" expirationYear="${getStoreValue('Billing', 'expirationYear')}" cardNumber="${getStoreValue('Billing', 'cardNumber')}" />
                    <Shipping firstName="${getStoreValue('Shipping', 'firstName')}" lastName="${getStoreValue('Shipping', 'lastName')}" address1="${getStoreValue('Shipping', 'address1')}" address2="${getStoreValue('Shipping', 'address2')}" city="${getStoreValue('Shipping', 'city')}" state="${getStoreValue('Shipping', 'state')}" country="${getStoreValue('Shipping', 'country')}" zipCode="${getStoreValue('Shipping', 'zipCode')}" workPhone="${getStoreValue('Shipping', 'workPhone')}" cellPhone="${getStoreValue('Shipping', 'cellPhone')}" email="${getStoreValue('Shipping', 'email')}" />
                    <Recurring id="${getStoreValue('Recurring', 'id')}" recurringMode="${getStoreValue('Recurring', 'recurringMode')}" paymentStatus="${getStoreValue('Recurring', 'paymentStatus')}" failMessage="${getStoreValue('Recurring', 'failMessage')}" lastPayment="${getStoreValue('Recurring', 'lastPayment')}" />
                 </Account>`
