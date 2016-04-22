@@ -141,11 +141,12 @@ export class SimpleList {
                 metadata: this.m_metadata
             });
         }, 1)
-        if (this.m_iconSelectedMode) {
-            event.stopImmediatePropagation();
-            event.preventDefault();
-            return false;
-        }
+        // removed 4-22-2016 to fix wrong selection bug
+        // if (this.m_iconSelectedMode) {
+        //     event.stopImmediatePropagation();
+        //     event.preventDefault();
+        //     return false;
+        // }
         return true;
     }
 
