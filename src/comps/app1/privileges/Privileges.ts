@@ -164,9 +164,12 @@ export class Privileges {
                 return;
             }
         }
-        bootbox.confirm("Are you sure you want to remove the privilege set?", (result) => {
+
+        var selectedPrivId = this.privelegesModelSelected.getPrivelegesId();
+        var selectedPrivName = this.privelegesModelSelected.getName();
+        bootbox.confirm(`Are you sure you want to remove the privilege set ${selectedPrivName} (id:${selectedPrivId})?`, (result) => {
             if (result) {
-                this.appStore.dispatch(this.resellerAction.deletePrivilege(this.privelegesModelSelected.getPrivelegesId()));
+                this.appStore.dispatch(this.resellerAction.deletePrivilege(selectedPrivId));
             }
         });
     }
