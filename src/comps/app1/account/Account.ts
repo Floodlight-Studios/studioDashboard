@@ -90,10 +90,8 @@ export class Account {
             'contact_firstName': [''],
             'contact_lastName': [''],
             'contact_address1': [''],
-            'contact_address2': [''],
             'contact_city': [''],
             'contact_state': [''],
-            'contact_country': [''],
             'contact_zipCode': [''],
             'contact_workPhone': [''],
             'contact_cellPhone': [''],
@@ -153,8 +151,9 @@ export class Account {
     }
 
     private onInputBlur(event) {
-        setTimeout(()=>console.log(JSON.stringify(this.contGroup.value)), 1);
-        setTimeout(()=>this.appStore.dispatch(this.resellerAction.updateAccountInfo(this.contGroup.value)), 1);
+        //setTimeout(()=>console.log(JSON.stringify(this.contGroup.value)), 1);
+        setTimeout(()=>this.appStore.dispatch(this.resellerAction.saveAccountInfo(Lib.CleanCharForXml(this.contGroup.value))), 1);
+        // setTimeout(()=>this.appStore.dispatch(this.resellerAction.updateAccountInfo(this.contGroup.value)), 1);
     }
 
     private onSubmit(value) {

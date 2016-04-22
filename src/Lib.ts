@@ -40,6 +40,8 @@ export class Lib {
 
     static CleanCharForXml(value:any):any {
         var clean = function (value:string) {
+            if (_.isUndefined(value))
+                return '';
             if (_.isNull(value))
                 return '';
             if (_.isNumber(value))
@@ -62,6 +64,8 @@ export class Lib {
             value = value.replace(/;/g, ' ');
             return value
         }
+        if (_.isUndefined(value))
+            return '';
         if (_.isNull(value))
             return '';
         if (_.isNumber(value))
