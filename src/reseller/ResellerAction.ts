@@ -182,7 +182,7 @@ export class ResellerAction extends Actions {
                         /**
                          * redux inject privileges XML template system
                          **/
-                        Lib.PrivilegesXmlTemplate(null, null, (err, xmlTemplate)=> {
+                        Lib.PrivilegesXmlTemplate(false, null, null, (err, xmlTemplate)=> {
 
                             xmlTemplate.Privilege.Groups["0"].Group.forEach((table)=> {
                                 var values = {};
@@ -251,7 +251,7 @@ export class ResellerAction extends Actions {
             var self = this;
             var privilegeDefault = this.appStore.getState().reseller.getIn(['privilegeDefault']);
             var privName = 'privilege ' + _.uniqueId();
-            Lib.PrivilegesXmlTemplate(privilegeDefault, self.appStore, (err, template)=> {
+            Lib.PrivilegesXmlTemplate(true, privilegeDefault, self.appStore, (err, template)=> {
                 template = template.replace(/>\s*/g, '>').replace(/\s*</g, '<').replace(/(\r\n|\n|\r)/gm, "");
                 template = template.replace(/<Privilege>/g, '').replace(/<\/Privilege>/g, '');
                 var appdb:Map<string,any> = this.appStore.getState().appdb;
@@ -378,7 +378,7 @@ export class ResellerAction extends Actions {
     public savePrivileges(privelegesId:string, selPrivName:string) {
         return (dispatch)=> {
             var self = this;
-            Lib.PrivilegesXmlTemplate(privelegesId, self.appStore, (err, template)=> {
+            Lib.PrivilegesXmlTemplate(false, privelegesId, self.appStore, (err, template)=> {
                 template = template.replace(/>\s*/g, '>').replace(/\s*</g, '<').replace(/(\r\n|\n|\r)/gm, "");
                 template = template.replace(/<Privilege>/g, '').replace(/<\/Privilege>/g, '');
                 var appdb:Map<string,any> = this.appStore.getState().appdb;

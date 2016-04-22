@@ -100,11 +100,11 @@ export class Lib {
      * @param callBack
      * @constructor
      */
-    static PrivilegesXmlTemplate(selPrivId:string, appStore:AppStore = null, callBack:(err, result)=>any) {
+    static PrivilegesXmlTemplate(defaultValues:boolean, selPrivId:string, appStore:AppStore = null, callBack:(err, result)=>any) {
         const parseString = require('xml2js').parseString;
 
         var getAttributeGroup = (tableName:string, attribute:string) => {
-            if (_.isNull(appStore))
+            if (_.isNull(appStore) || defaultValues)
                 return 1;
             var result = 0;
             var reseller = appStore.getState().reseller;
@@ -121,7 +121,7 @@ export class Lib {
         }
 
         var getPrivilegesTable = (tableName:string, attribute:string) => {
-            if (_.isNull(appStore))
+            if (_.isNull(appStore) || defaultValues)
                 return 7;
             var result = 0;
             var reseller = appStore.getState().reseller;
