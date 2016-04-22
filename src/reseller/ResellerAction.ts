@@ -87,6 +87,29 @@ export class ResellerAction extends Actions {
         return privilegesModel;
     }
 
+    public appStatus(app:AppModel, mode:boolean) {
+        return (dispatch)=> {
+            dispatch(this.updatedApp(app, mode));
+            var appdb:Map<string,any> = this.appStore.getState().appdb;
+            var url;
+            if (mode){
+                url = appdb.get('appBaseUrlUser') + `&command=InstallApp&appId=${app.getAppId()}`;
+            } else {
+                url = appdb.get('appBaseUrlUser') + `&command=UninstallApp&appId=${app.getAppId()}`;
+            }
+            this._http.get(url)
+                .catch((err) => {
+                    bootbox.alert('Error when updating App mode');
+                    // return Observable.of(true);
+                    return Observable.throw(err);
+                })
+                .finally(() => {
+                })
+                .map(result => {
+                }).subscribe();
+        }
+    }
+
     public getResellerInfo() {
         var self = this;
         return (dispatch)=> {

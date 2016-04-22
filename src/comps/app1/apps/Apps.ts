@@ -61,7 +61,7 @@ export class Apps {
     private onAppInstalledChange(event, index) {
         // let animation of slide complete
         setTimeout(()=> {
-            this.appStore.dispatch(this.resellerAction.updatedApp(event.item, event.value["0"]));
+            this.appStore.dispatch(this.resellerAction.appStatus(event.item, event.value["0"]));            
         }, 1000)
     }
 
