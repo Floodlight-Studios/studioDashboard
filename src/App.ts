@@ -38,6 +38,7 @@ import {LocationStrategy, RouteParams, RouterLink, HashLocationStrategy, RouteCo
 import {AppStore} from "angular2-redux-util";
 import {Lib} from "./Lib";
 import {Observable} from "rxjs/Observable";
+import {CreditService} from "./services/CreditService";
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/debounceTime';
 import 'rxjs/add/observable/fromEvent';
@@ -62,6 +63,7 @@ import {reseller} from "./reseller/ResellerReducer"
 import {stations} from "./stations/StationsReducer"
 import {AppdbAction} from "./appdb/AppdbAction";
 import {enableProdMode} from 'angular2/core';
+
 
 export enum ServerMode {
     CLOUD,
@@ -129,6 +131,7 @@ bootstrap(App, [ROUTER_PROVIDERS, HTTP_PROVIDERS, JSONP_PROVIDERS,
     provide(ResellerAction, {useClass: ResellerAction}),
     provide(StationsAction, {useClass: StationsAction}),
     provide(AppdbAction, {useClass: AppdbAction}),
+    provide(CreditService, {useClass: CreditService}),
     provide(AuthService, {useClass: AuthService}),
     provide(LocalStorage, {useClass: LocalStorage}),
     provide(CommBroker, {useClass: CommBroker}),

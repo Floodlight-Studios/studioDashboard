@@ -151,13 +151,11 @@ export class Account {
     }
 
     private onInputBlur(event) {
-        //setTimeout(()=>console.log(JSON.stringify(this.contGroup.value)), 1);
         setTimeout(()=>this.appStore.dispatch(this.resellerAction.saveAccountInfo(Lib.CleanCharForXml(this.contGroup.value))), 1);
-        // setTimeout(()=>this.appStore.dispatch(this.resellerAction.updateAccountInfo(this.contGroup.value)), 1);
     }
 
     private onSubmit(value) {
-        setTimeout(()=>console.log(JSON.stringify(this.contGroup.value)), 1);
+        //setTimeout(()=>console.log(JSON.stringify(this.contGroup.value)), 1);
     }
 
     private renderFormInputs() {
@@ -306,9 +304,53 @@ export class Account {
 
     private onUpdateCreditCard(event) {
         var cardNumber = this.contGroup.controls['billing_cardNumber'].value
-        var cardType = this.creditService.parseCardType(cardNumber);
-        var cardValid = this.creditService.validateCardNumber(cardNumber);
-        console.log(cardValid);
+        var cardTypeTest = this.creditService.parseCardType(cardNumber);
+        var cardValidTest = this.creditService.validateCardNumber(cardNumber);
+        var expirationTest = this.creditService.validateCardExpiry(this.contGroup.controls['billing_expirationMonth'].value, this.contGroup.controls['billing_expirationYear'].value);
+
+        if (!expirationTest) {
+            bootbox.dialog({
+                message: 'The credit card expiration date is invalid, use MM / YY',
+                title: "expiration problem",
+                buttons: {
+                    danger: {
+                        label: "try again",
+                        className: "btn-danger",
+                        callback: function () {
+                            return;
+                        }
+                    }
+                }
+            });
+            return;
+        }
+        if (!cardValidTest) {
+            bootbox.dialog({
+                message: 'The credit card number entered is invalid, please try again...',
+                title: "credit card number problem",
+                buttons: {
+                    danger: {
+                        label: "try again",
+                        className: "btn-danger",
+                        callback: function () {
+                        }
+                    }
+                }
+            });
+            return;
+        }
+        bootbox.dialog({
+            message: 'for new accounts only, please allow 24 hours for your account to be activated',
+            title: "credit card updated",
+            buttons: {
+                success: {
+                    label: "thank you",
+                    className: "btn-primary",
+                    callback: function () {
+                    }
+                }
+            }
+        });
     }
 
     private onWhiteLabelChange(value) {
