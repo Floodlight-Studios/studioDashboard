@@ -156,6 +156,7 @@ export class Account {
 
     private onSubmit(value) {
         //setTimeout(()=>console.log(JSON.stringify(this.contGroup.value)), 1);
+        setTimeout(()=>this.appStore.dispatch(this.resellerAction.saveAccountInfo(Lib.CleanCharForXml(this.contGroup.value))), 1);
     }
 
     private renderFormInputs() {
@@ -261,17 +262,17 @@ export class Account {
         })
 
         if (payment.name == 'disable') {
-            // disable subscription but don't save to server until validated by user
             var recurringMode = this.getRecurringValue('recurringMode');
-            this.appStore.dispatch(this.resellerAction.updateAccountInfo({"recurring_recurringMode": 0}));
-            bootbox.prompt(`are you sure you want to cancel your current subscription?  
-            type [DELETE_NOW] to cancel association of all your screens`, (result) => {
+            bootbox.prompt(`are you sure you want to cancel your current subscription? type [DELETE_NOW] to cancel association of all your screens`, (result) => {
                 if (result == 'DELETE_NOW') {
-                    //todo unsubscribe if confirmed by user
-                    // this.appStore.dispatch(this.resellerAction.updateResellerInfo({accountStatus: 2}));
-                    // this.appStore.dispatch(this.resellerAction.updateAccountInfo({"recurring_recurringMode": 0}));
+                    this.appStore.dispatch(this.resellerAction.updateAccountInfo({"recurring_recurringMode": 0}));
+                    this.onSubmit(null);
                 } else {
-                    this.appStore.dispatch(this.resellerAction.updateAccountInfo({"recurring_recurringMode": recurringMode}));
+                    this.appStore.dispatch(this.resellerAction.updateAccountInfo({"recurring_recurringMode": 0}));
+                    setTimeout(()=>{
+                        this.appStore.dispatch(this.resellerAction.updateAccountInfo({"recurring_recurringMode": recurringMode}));
+                        this.onSubmit(null);
+                    },1)
                 }
             });
         } else {
@@ -311,7 +312,7 @@ export class Account {
         if (cardNumber.match('XXX')){
             bootbox.dialog({
                 message: 'The credit used is masked with XXX, to update enter full credit card details',
-                title: "Change XXX card to real card number",
+                title: "Cant update credit card with XXX mask",
                 buttons: {
                     danger: {
                         label: "try again",
@@ -398,3 +399,5 @@ export class Account {
         this.unsub();
     }
 }
+// this.appStore.dispatch(this.resellerAction.updateResellerInfo({accountStatus: 2}));
+// this.appStore.dispatch(this.resellerAction.updateAccountInfo({"recurring_recurringMode": 0}));
