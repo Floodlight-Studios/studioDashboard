@@ -308,6 +308,23 @@ export class Account {
         var cardValidTest = this.creditService.validateCardNumber(cardNumber);
         var expirationTest = this.creditService.validateCardExpiry(this.contGroup.controls['billing_expirationMonth'].value, this.contGroup.controls['billing_expirationYear'].value);
 
+        if (cardNumber.match('XXX')){
+            bootbox.dialog({
+                message: 'The credit used is masked with XXX, to update enter full credit card details',
+                title: "Change XXX card to real card number",
+                buttons: {
+                    danger: {
+                        label: "try again",
+                        className: "btn-danger",
+                        callback: function () {
+                            return;
+                        }
+                    }
+                }
+            });
+            return;
+        }
+
         if (!expirationTest) {
             bootbox.dialog({
                 message: 'The credit card expiration date is invalid, use MM / YY',
