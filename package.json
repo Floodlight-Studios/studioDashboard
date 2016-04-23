@@ -87,7 +87,7 @@
     "zone.js": "^0.6.6"
   },
   "jspm": {
-    "dependencies": {     s
+    "dependencies": {
       "angular2": "npm:angular2@^2.0.0-beta.15",
       "angular2-polyfill": "npm:angular2-polyfill@^0.0.2",
       "angular2-redux-util": "npm:angular2-redux-util@^0.8.57",
