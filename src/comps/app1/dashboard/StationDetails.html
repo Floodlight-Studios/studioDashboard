@@ -1,28 +1,27 @@
-<div class="row">
+<div class="row" *ngIf="m_selectedStation">
   <div class="col-xs-6">
     <form role="form" class="col-xs-6">
       <h2>Station location</h2>
-      <button style="margin-bottom: 10px; font-size: 1.2em" class="btn btn-success btn-sm btn-block"><span class="fa fa-refresh"></span> refresh </button>
-      <div style="" class="form-group">
-        <input name="name" placeholder="LONG" type="text" class="coords form-control">
-        <label class="coords" for="name">LONG</label>
+      <div class="form-group">
+        <h5>public ip: {{m_selectedStation.getPublicIp()}}</h5>
+        <h5>local ip: {{m_selectedStation.getLocalIp()}}</h5>
+        <h5>lat: {{m_selectedStation.getLocation().lat}}</h5>
+        <h5>lon: {{m_selectedStation.getLocation().lon}}</h5>
+        <h5>city: {{m_selectedStation.getLocation().city}}</h5>
+        <h5>country: {{m_selectedStation.getLocation().country}}</h5>
       </div>
-      <div style="" class="form-group">
-        <input name="name" type="text" placeholder="LAT" class="coords form-control">
-        <label class="coords" for="name">LAT</label>
+      <div class="form-group">
       </div>
     </form>
   </div>
   <form role="form" class="col-xs-6 go-right">
     <h2>Station details</h2>
-    <p>after entered refresh to update coords</p>
     <div class="form-group">
-      <input id="name" name="name" type="text" class="form-control" required>
+      <input id="name" name="name" type="text" class="form-control" value="{{m_selectedStation.getStationName()}}">
       <label for="name">station name</label>
     </div>
     <div class="form-group">
-      <textarea name="phone" class="form-control" required></textarea>
-      <label for="message">address</label>
+      <textarea name="stationNotes" placeholder="station notes" class="form-control"></textarea>
     </div>
     <!--<p class="bg-success" style="padding:10px;margin-top:20px;clear:both">-->
       <!--<small>-->

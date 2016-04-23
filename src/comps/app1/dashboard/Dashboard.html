@@ -102,8 +102,8 @@
   <modal #modalStationDetails [animation]="true" (onClose)="onModalClose($event)">
     <modal-header [show-close]="true">
       <h4 class="modal-title">
-        <span class="fa fa-television"></span>
-        {{selectedStation ? (selectedStation.getStationName() + ' / id: ' + selectedStation.getStationId() ) : ''}}
+        <span class="fa fa-circle" style="font-size: 2em; color: {{selectedStation ? selectedStation.getConnectionIcon('color') : 'white'}}"></span>
+        <!--{{selectedStation ? (selectedStation.getStationName() + ' / id: ' + selectedStation.getStationId() ) : ''}}-->
       </h4>
     </modal-header>
     <modal-body>
