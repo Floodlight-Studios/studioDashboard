@@ -69,7 +69,7 @@ export class StoreService {
 
         /** (3) receive each set of stations status per server **/
         this.appStore.sub((stations:Map<string, List<StationModel>>) => {
-             console.log('received station');
+             //console.log('received station');
         }, 'stations');
 
         /** (4) once we have all stations, we can get their respective servers and geo info **/

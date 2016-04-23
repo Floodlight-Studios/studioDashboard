@@ -24,7 +24,9 @@ export function stations(state:Map<string,any> = Map<string,any>(), action:any):
                 stations = stations.update(indexOfStation(station.businessId, station.id), (i_station:StationModel) => {
                     return i_station.setKey<StationModel>(StationModel, 'geoLocation', {
                         lat: station.lat,
-                        lon: station.lon
+                        lon: station.lon,
+                        city: station.city,
+                        country: station.country
                     })
                 });
                 state = state.setIn([source], stations);

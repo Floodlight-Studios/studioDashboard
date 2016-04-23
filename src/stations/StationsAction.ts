@@ -181,6 +181,8 @@ export class StationsAction extends Actions {
                         var rand = _.random(0, 30) / 100;
                         i_station.lat = (i_station.lat + rand).toFixed(4);
                         i_station.lon = (i_station.lon + rand).toFixed(4);
+                        i_station['city'] = i_station.city;
+                        i_station['country'] = i_station.country;
                     }
                     dispatch(this.receiveStationsGeo(stations));
                 }).subscribe();

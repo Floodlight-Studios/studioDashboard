@@ -250,10 +250,11 @@ export class Dashboard implements OnActivate {
 
     private onStationModalOpen(stationId) {
         this.stationsFiltered.forEach((stationModel:StationModel)=> {
-            if (stationModel.getStationId() == stationId)
+            if (stationModel.getStationId() == stationId){
                 this.selectedStation = stationModel;
+                this.modalStationDetails.open('lg');
+            }
         });
-        this.modalStationDetails.open('lg');
     }
 
     private listenBusinessNameFilter() {
