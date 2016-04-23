@@ -56,14 +56,14 @@
     </modal-header>
     <modal-body>
       <div class="form-group">
-        <label for="email" class="sr-only">Email</label>
-        <input type="email" name="email" id="email" class="form-control" placeholder="somebody@example.com">
+        <label class="sr-only">Email</label>
+        <input #importUserName class="form-control" spellcheck="false" placeholder="customer name">
       </div>
       <div class="form-group">
-        <label for="key" class="sr-only">Password</label>
-        <input type="password" name="key" id="key" class="form-control" placeholder="Password">
+        <label class="sr-only">Password</label>
+        <input #importUserPass type="password" name="key" class="form-control" spellcheck="false" placeholder="Password">
       </div>
-      <input type="submit" id="btn-login" class="btn" value="import">
+      <input (click)="onImportUser($event)" type="submit" id="btn-login" class="btn" value="import">
     </modal-body>
     <modal-footer [show-default-buttons]="false"></modal-footer>
   </modal>

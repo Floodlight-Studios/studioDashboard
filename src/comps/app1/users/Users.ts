@@ -1,4 +1,4 @@
-import {Component, ViewChild, QueryList} from 'angular2/core'
+import {Component, ViewChild, ElementRef} from 'angular2/core'
 import {CanActivate, ComponentInstruction} from "angular2/router";
 import {SimpleList, ISimpleListItem} from "../../simplelist/SimpleList";
 import {AppStore} from "angular2-redux-util/dist/index";
@@ -62,8 +62,15 @@ export class Users {
     @ViewChild('modalAddUserClean')
     modalAddUserClean:ModalComponent;
 
+    @ViewChild('importUserName')
+    importUserName:ElementRef;
+
+    @ViewChild('importUserPass')
+    importUserPass:ElementRef;
+
     @ViewChild('modalAddUserExisting')
     modalAddUserExisting:ModalComponent;
+
 
     @ViewChild(UsersDetails)
     usersDetails:UsersDetails;
@@ -77,7 +84,7 @@ export class Users {
     private unsub:Function;
     private unsub2:Function;
     private unsub3:Function;
-    private accounts = ['Add new account from template','Add new clean account','Import existing account'];
+    private accounts = ['Add new account from template', 'Add new clean account', 'Import existing account'];
 
     private onAddUser(choice) {
         switch (choice) {
@@ -114,6 +121,17 @@ export class Users {
     }
 
     private onModalClose($event) {
+    }
+
+    private onImportUser(event) {
+        var user = this.importUserName.nativeElement.value;
+        var pass = this.importUserPass.nativeElement.value;
+        if (user.length < 2 || pass.length < 2) {
+            bootbox.alert('user or password entered are too short');
+            return;
+        }
+        this.appStore.dispatch(this.businessAction.associateUser(user, pass));
+        this.modalAddUserExisting.close();
     }
 
     private onShowUserInfo(selectedBusiness:ISimpleListItem) {

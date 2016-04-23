@@ -6,6 +6,10 @@ import {Map, List} from 'immutable';
 import {BusinessUser} from "./BusinessUser";
 import {Subject} from "rxjs/Subject";
 import {BusinessSourcesModel} from "./BusinessSourcesModel";
+import {Observable} from "rxjs/Observable";
+import 'rxjs/add/operator/catch';
+import 'rxjs/add/operator/finally';
+import 'rxjs/add/observable/throw';
 import {StoreModel} from "../models/StoreModel";
 const bootbox = require('bootbox');
 
@@ -91,6 +95,32 @@ export class BusinessAction extends Actions {
         });
     }
 
+    public associateUser(user:string, pass:string) {
+        return (dispatch)=> {
+            // dispatch(this.updatedApp(app, mode));
+            var appdb:Map<string,any> = this.appStore.getState().appdb;
+            var url;
+            url = appdb.get('appBaseUrlUser') + `&command=AssociateAccount&customerUserName=${user}&customerPassword=${pass}`;
+            this._http.get(url)
+                .catch((err) => {
+                    bootbox.alert('Error when updating App mode');
+                    // return Observable.of(true);
+                    return Observable.throw(err);
+                })
+                .finally(() => {
+                })
+                .map(result => {
+                    var reply:any = result.text();
+                    if (reply == 'True'){
+                        bootbox.alert('User imported successfully');
+                        this.fetchBusinesses();
+                    } else {
+                        bootbox.alert('There was a problem importing the user ' + reply);
+                    }
+                }).subscribe();
+        }
+    }
+    
     /**
      * Redux middleware action for getting server businesses
      * **/
