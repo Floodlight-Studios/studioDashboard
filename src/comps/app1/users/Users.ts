@@ -114,7 +114,7 @@ export class Users {
         let businessId = businessModel.getBusinessId();
 
         bootbox.prompt({
-            title: "are you sure you want to delete this account, this operation cant be undone? type your enterprise account password to confirm deletion!",
+            title: "are you sure you want to delete this account, this operation cannot be undone! type your enterprise account password to confirm deletion!",
             inputType: "password",
             buttons: {
                 confirm: {
