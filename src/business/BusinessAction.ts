@@ -120,6 +120,30 @@ export class BusinessAction extends Actions {
         }
     }
 
+    public updateAccount(businessId:string, name:string, maxMonitors:string, allowSharing:string) {
+        return (dispatch)=> {
+            var appdb:Map<string,any> = this.appStore.getState().appdb;
+            var url;
+            url = appdb.get('appBaseUrlUser') + `&command=UpdateAccount&buinessId=${businessId}&businessName=${name}&maxMonitors=${maxMonitors}&allowSharing=${allowSharing}`;
+            this._http.get(url)
+                .catch((err) => {
+                    bootbox.alert('Error updating account');
+                    return Observable.throw(err);
+                })
+                .finally(() => {
+                })
+                .map(result => {
+                    var reply:any = result.text();
+                    // if (reply == 'True') {
+                    //     dispatch(this.fetchBusinesses());
+                    // } else {
+                    //     bootbox.alert('Problem deleting the selected business');
+                    // }
+                }).subscribe();
+            dispatch({type: REMOVE_BUSINESS, businessId})
+        }
+    }
+
     public removeBusiness(businessId:number) {
         return (dispatch)=> {
             var appdb:Map<string,any> = this.appStore.getState().appdb;

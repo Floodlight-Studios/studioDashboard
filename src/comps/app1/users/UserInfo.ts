@@ -4,13 +4,13 @@ import {Infobox} from "../../infobox/Infobox";
 import {UserStorage} from "./UserStorage";
 import {InputEdit} from "../../inputedit/InputEdit";
 import {ISimpleListItem} from "../../simplelist/Simplelist";
-import {ModalComponent} from "../../../comps/ng2-bs3-modal/components/modal";
-import {MODAL_DIRECTIVES, ModalResult} from "../../ng2-bs3-modal/ng2-bs3-modal";
 import {ChangePass} from "../../../comps/app1/users/ChangePass";
+import {BusinessAction} from "../../../business/BusinessAction";
+import {AppStore} from "angular2-redux-util/dist/index";
 
 @Component({
     selector: 'UserInfo',
-    directives: [Infobox, UserStorage, InputEdit, MODAL_DIRECTIVES, ChangePass],
+    directives: [Infobox, UserStorage, InputEdit, ChangePass],
     templateUrl: `/src/comps/app1/users/UserInfo.html`,
     changeDetection: ChangeDetectionStrategy.OnPush,
     styleUrls: [`../comps/app1/users/UserInfo.css`]
@@ -18,7 +18,7 @@ import {ChangePass} from "../../../comps/app1/users/ChangePass";
 })
 export class UserInfo {
 
-    constructor(private ref:ChangeDetectorRef) {
+    constructor(private appStore:AppStore, private businessAction:BusinessAction,private ref:ChangeDetectorRef) {
         var w = '150px';
         this.stylesObj = {
             input: {
@@ -90,9 +90,8 @@ export class UserInfo {
         this.resellerId = businessUser.getKey('resellerId');
     }
 
-
-    @ViewChild('modalChangePassword')
-    modalChangePassword:ModalComponent;
+    // @ViewChild('modalChangePassword')
+    // modalChangePassword:ModalComponent;
 
     updateUi() {
         try {
@@ -101,11 +100,8 @@ export class UserInfo {
         }
     }
 
-    private onPasswordChange() {
-        this.modalChangePassword.open('lg');
-    }
-
-    private onModalClose(result:ModalResult) {
+    private onPasswordChanged(value) {
+        //this.appStore.dispatch(this.businessAction.updateAccount(this.businessId, this.userName, this.maxMonitors, this.allowSharing));
     }
 
     ngAfterViewChecked() {
