@@ -143,3 +143,4 @@ export class UsersDetails {
         return Lib.GetAccessMask(accessMask);
     }
 }
+
