@@ -113,9 +113,9 @@ export class BusinessAction extends Actions {
                     var reply:any = result.text();
                     if (reply == 'True'){
                         bootbox.alert('User imported successfully');
-                        this.fetchBusinesses();
+                        dispatch(this.fetchBusinesses());
                     } else {
-                        bootbox.alert('There was a problem importing the user ' + reply);
+                        bootbox.alert('User could not be imported, either the credentials supplied were wrong or the user is already associated with another enterprise account');
                     }
                 }).subscribe();
         }
@@ -247,28 +247,6 @@ export class BusinessAction extends Actions {
     }
 
     public addNewBusinessUser(businessUser:BusinessUser) {
-        return (dispatch)=> {
-            var appdb:Map<string,any> = this.appStore.getState().appdb;
-            let businessId = businessUser.getBusinessId();
-            let name = businessUser.getName();
-            let password = businessUser.getPassword();
-            let accessMask = businessUser.getAccessMask();
-            let privilegeId = businessUser.privilegeId();
-            var url = appdb.get('appBaseUrlUser') + `&command=AddBusinessUser&businessId=${businessId}&newUserName=${name}&newUserPassword=${password}&privilegeId=${privilegeId}&accessMask=${accessMask}`
-            this._http.get(url)
-                .map(result => {
-                    var jData:string = result.text()
-                    // jData = jData.replace(/}\)/, '').replace(/\(\{"result":"/, '');
-                    if (jData.indexOf('true') > -1) {
-                        dispatch({type: ADD_BUSINESS_USER, BusinessUser: businessUser})
-                    } else {
-                        bootbox.alert('Problem adding user, this user name may be already taken');
-                    }
-                }).subscribe();
-        }
-    }
-
-    public updateBusinessUserXXXXXXXXXX(businessUser:BusinessUser, field:string, value:any) {
         return (dispatch)=> {
             var appdb:Map<string,any> = this.appStore.getState().appdb;
             let businessId = businessUser.getBusinessId();
