@@ -117,7 +117,10 @@ export class Users {
             title: "are you sure you want to delete this account, this operation cant be undone? type your enterprise account password to confirm deletion!",
             inputType: "password",
             buttons: {
-                confirm: {label: "Delete"}
+                confirm: {
+                    className: "btn-danger",
+                    label: "Delete"
+                }
             },
             callback: (result) => {
                 if (_.isNull(result))
