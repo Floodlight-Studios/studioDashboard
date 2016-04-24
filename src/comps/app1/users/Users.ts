@@ -17,6 +17,7 @@ import {List} from 'immutable';
 import {PrivelegesModel} from "../../../reseller/PrivelegesModel";
 import {Samplelist} from "./Samplelist";
 const bootbox = require('bootbox');
+const _ = require('underscore');
 
 @Component({
     selector: 'Users',
@@ -111,14 +112,24 @@ export class Users {
             return
         var businessModel:BusinessModel = this.businessesListFiltered.first();
         let businessId = businessModel.getBusinessId();
-        bootbox.prompt(`are you sure you want to delete this account, this cant be undone? type your enterprise account password to confirm deletion!`, (result) => {
-            var password = this.appStore.getState().appdb.get('credentials').get('pass');
-            if (result == password) {
-                this.appStore.dispatch(this.businessAction.removeBusiness(businessId));
-                this.businessUsersListFiltered = null;
-                this.showUserInfo = null;
-            } else {
-                bootbox.alert('enterprise password did not match so account remains');
+
+        bootbox.prompt({
+            title: "are you sure you want to delete this account, this operation cant be undone? type your enterprise account password to confirm deletion!",
+            inputType: "password",
+            buttons: {
+                confirm: {label: "Delete"}
+            },
+            callback: (result) => {
+                if (_.isNull(result))
+                    return;
+                var password = this.appStore.getState().appdb.get('credentials').get('pass');
+                if (result == password) {
+                    this.appStore.dispatch(this.businessAction.removeBusiness(businessId));
+                    this.businessUsersListFiltered = null;
+                    this.showUserInfo = null;
+                } else {
+                    bootbox.alert('enterprise password did not match so account remains');
+                }
             }
         });
     }
