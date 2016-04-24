@@ -77,15 +77,14 @@ export class Whitelabel {
     }
 
     private loadNow() {
-        alert('load');
         var progressHandlingFunction = (e) => {
             console.log('progress ' + e);
         }
         var f = this.fileName.nativeElement.value;
         var form:any = jQuery('form')[0];
         var formData:any = new FormData(form);
-        formData.append("filename", f);
-        //formData.append("filename", "Logo.jpg");
+        // formData.append("filename", f);
+        formData.append("filename", "Logo.jpg");
         formData.append("file", f);
         formData.append("userName", "reseller@ms.com");
         formData.append("password", "123123");
@@ -96,7 +95,7 @@ export class Whitelabel {
             crossDomain: true
         });
         jQuery.ajax({
-            url: 'https://galaxy.mediasignage.com/WebService/ResourceUpload.ashx',  //Server script to process data
+            url: 'http://galaxy.mediasignage.com/WebService/ResourceUpload.ashx',  //Server script to process data
             type: 'POST',
             xhr: function () {  // Custom XMLHttpRequest
                 var myXhr = jQuery.ajaxSettings.xhr();
