@@ -111,11 +111,14 @@ export class Users {
             return
         var businessModel:BusinessModel = this.businessesListFiltered.first();
         let businessId = businessModel.getBusinessId();
-        bootbox.confirm(`Are you sure you want to remove business id ${businessId}? This cannot be undone and all configuration and user data will be permanently erased!!!`, (result) => {
-            if (result) {
+        bootbox.prompt(`are you sure you want to delete this account, this cant be undone? type your enterprise account password to confirm deletion!`, (result) => {
+            var password = this.appStore.getState().appdb.get('credentials').get('pass');
+            if (result == password) {
                 this.appStore.dispatch(this.businessAction.removeBusiness(businessId));
                 this.businessUsersListFiltered = null;
                 this.showUserInfo = null;
+            } else {
+                bootbox.alert('enterprise password did not match so account remains');
             }
         });
     }

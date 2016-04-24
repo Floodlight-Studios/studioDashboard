@@ -97,7 +97,6 @@ export class BusinessAction extends Actions {
 
     public associateUser(user:string, pass:string) {
         return (dispatch)=> {
-            // dispatch(this.updatedApp(app, mode));
             var appdb:Map<string,any> = this.appStore.getState().appdb;
             var url;
             url = appdb.get('appBaseUrlUser') + `&command=AssociateAccount&customerUserName=${user}&customerPassword=${pass}`;
@@ -111,7 +110,7 @@ export class BusinessAction extends Actions {
                 })
                 .map(result => {
                     var reply:any = result.text();
-                    if (reply == 'True'){
+                    if (reply == 'True') {
                         bootbox.alert('User imported successfully');
                         dispatch(this.fetchBusinesses());
                     } else {
@@ -120,7 +119,31 @@ export class BusinessAction extends Actions {
                 }).subscribe();
         }
     }
-    
+
+    public removeBusiness(businessId:number) {
+        return (dispatch)=> {
+            var appdb:Map<string,any> = this.appStore.getState().appdb;
+            var url;
+            url = appdb.get('appBaseUrlUser') + `&command=DeleteAccount&buinessId=${businessId}`;
+            this._http.get(url)
+                .catch((err) => {
+                    bootbox.alert('Error removing account');
+                    return Observable.throw(err);
+                })
+                .finally(() => {
+                })
+                .map(result => {
+                    var reply:any = result.text();
+                    // if (reply == 'True') {
+                    //     dispatch(this.fetchBusinesses());
+                    // } else {
+                    //     bootbox.alert('Problem deleting the selected business');
+                    // }
+                }).subscribe();
+            dispatch({type: REMOVE_BUSINESS, businessId})
+        }
+    }
+
     /**
      * Redux middleware action for getting server businesses
      * **/
@@ -286,28 +309,6 @@ export class BusinessAction extends Actions {
                     //     name: name
                     // }))
                 }).subscribe();
-        }
-    }
-
-    public removeBusiness(businessId:number) {
-        return (dispatch)=> {
-            // var appdb:Map<string,any> = this.appStore.getState().appdb;
-            // var url = appdb.get('appBaseUrlUser') + `&command=RemoveBusinessUser&customerUserName=${businessUser.getName()}`
-            // this._http.get(url)
-            //     .map(result => {
-            //         var jData:string = result.text()
-            //         jData = jData.replace(/}\)/, '').replace(/\(\{"result":"/, '');
-            //         if (jData.indexOf('true') > -1) {
-            //             dispatch({type: REMOVE_BUSINESS_USER, BusinessUser: businessUser})
-            //         } else {
-            //             bootbox.alert('Problem removing user');
-            //         }
-            //     }).subscribe();
-            //todo: remove from server
-            setTimeout(()=> {
-                dispatch({type: REMOVE_BUSINESS, businessId})
-            }, 400)
-
         }
     }
 
