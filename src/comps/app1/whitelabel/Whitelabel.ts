@@ -80,48 +80,70 @@ export class Whitelabel {
         var progressHandlingFunction = (e) => {
             console.log('progress ' + e);
         }
+        var httpRequest = new XMLHttpRequest();
+        httpRequest.onload = function (oEvent) {
+            if (httpRequest.status == 200) {
+                alert(httpRequest.response);
+            }
+        };
         var f = this.fileName.nativeElement.value;
         var form:any = jQuery('form')[0];
         var formData:any = new FormData(form);
         // formData.append("filename", f);
-        formData.append("filename", "Logo.jpg");
+
+
+
+        //formData.append("file", f);
+        // var f2 = jQuery('#elemetFile')[0]['file'];
+        // var f3 = document.getElementById("elemetFile").files[0].name;
         formData.append("file", f);
+        formData.append("filename", "Logo.jpg");
         formData.append("userName", "reseller@ms.com");
         formData.append("password", "123123");
 
-        jQuery.ajaxSetup({
-            cache: false,
-            timeout: 8000,
-            crossDomain: true
-        });
-        jQuery.ajax({
-            url: 'http://galaxy.mediasignage.com/WebService/ResourceUpload.ashx',  //Server script to process data
-            type: 'POST',
-            xhr: function () {  // Custom XMLHttpRequest
-                var myXhr = jQuery.ajaxSettings.xhr();
-                if (myXhr.upload) { // Check if upload property exists
-                    myXhr.upload.addEventListener('progress', progressHandlingFunction, false); // For handling the progress of the upload
-                }
-                return myXhr;
-            },
-            //Ajax events
-            // beforeSend: function (e) {
-            //     alert('before ' + e)
-            // },
-            success: function (e) {
-                alert('success ' + e)
-            },
-            error: function (e) {
-                alert('error ' + e)
-            },
-            // Form data
-            data: formData,
-            //Options to tell jQuery not to process data or worry about content-type.
-            cache: false,
-            contentType: false,
-            processData: false,
-            crossDomain: true
-        });
+        // var formData = new FormData();
+        // formData.append("filename", "Logo.jpg");
+        // formData.append("file", "Logo.jpg");
+        // formData.append("userName", "reseller@ms.com");
+        // formData.append("password", "123123");
+
+        httpRequest.open("POST", "http://galaxy.mediasignage.com/WebService/ResourceUpload.ashx");
+        httpRequest.send(formData);
+
+
+        // jQuery.ajaxSetup({
+        //     cache: false,
+        //     timeout: 8000,
+        //     crossDomain: true
+        // });
+        // jQuery.ajax({
+        //     url: 'http://galaxy.mediasignage.com/WebService/ResourceUpload.ashx',  //Server script to process data
+        //     type: 'POST',
+        //     xhr: function () {  // Custom XMLHttpRequest
+        //         var myXhr = jQuery.ajaxSettings.xhr();
+        //         if (myXhr.upload) { // Check if upload property exists
+        //             myXhr.upload.addEventListener('progress', progressHandlingFunction, false); // For handling the progress of the upload
+        //         }
+        //         return myXhr;
+        //     },
+        //     //Ajax events
+        //     // beforeSend: function (e) {
+        //     //     alert('before ' + e)
+        //     // },
+        //     success: function (e) {
+        //         alert('success ' + e)
+        //     },
+        //     error: function (e) {
+        //         alert('error ' + e)
+        //     },
+        //     // Form data
+        //     data: formData,
+        //     //Options to tell jQuery not to process data or worry about content-type.
+        //     cache: false,
+        //     contentType: false,
+        //     processData: false,
+        //     crossDomain: true
+        // });
 
         // alert('loading');
         // var httpRequest = new XMLHttpRequest();
