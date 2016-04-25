@@ -8,7 +8,8 @@
       <ul class="list-group" id="contact-list">
         <li (click)="onSelectedSample(sample)" class="list-group-item" *ngFor="#sample of m_samples">
           <div class="col-xs-12 col-sm-3">
-            <span style="font-size: 3em; padding-top: 8px" class="sampleIcon fa fa-circle-o-notch"></span>
+            <!--<span style="font-size: 3em; padding-top: 8px" class="sampleIcon fa fa-circle-o-notch"></span>-->
+            <img style="width: 70px; opacity: 0.6" src="http://galaxy.signage.me/Resources/Images/lite_html/{{sample.getBusinessId()}}.png"/>
           </div>
           <div class="col-xs-12 col-sm-9">
             <span style="font-size: 1.8em" class="name">{{sample.getName()}}</span><br/>
