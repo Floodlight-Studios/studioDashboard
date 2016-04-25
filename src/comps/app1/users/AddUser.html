@@ -5,12 +5,16 @@
         <div class="inner userGeneral tallPanel">
           <div class="panel panel-default">
             <div class="panel-heading">
-              <div *ngIf="businessId == 1">
-                new user under Enterprise account
-                <i class="fa fa-users pull-right"></i>
+              <!--<div *ngIf="businessId == 1">-->
+                <!--new user under Enterprise account-->
+                <!--<i class="fa fa-users pull-right"></i>-->
+              <!--</div>-->
+              <div *ngIf="mode=='fromSample'">
+                create new account using sample id: {{businessId}}
+                <i class="fa fa-user-plus pull-right"></i>
               </div>
-              <div *ngIf="businessId > 1">
-                Under business id: {{businessId}}
+              <div *ngIf="mode=='fromClean'">
+                create new account under business id: {{businessId}}
                 <i class="fa fa-user-plus pull-right"></i>
               </div>
 

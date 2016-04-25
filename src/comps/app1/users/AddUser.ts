@@ -54,6 +54,9 @@ export class AddUser {
     @Input()
     priveleges:Array<PrivelegesModel> = [];
 
+    @Input()
+    mode:'fromSample'|'fromClean' = null;
+
     private privilegeName:string = '';
     private notesForm:ControlGroup;
     private userName:AbstractControl;

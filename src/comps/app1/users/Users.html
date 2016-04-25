@@ -21,7 +21,7 @@
     <Loading *ngIf="!businessesUsers || !priveleges" [src]="'assets/preload6.gif'" [style]="{'margin-top': '150px'}"></Loading>
   </div>
 
-  <modal #modalAddUserSample [animation]="true" (onClose)="onModalClose($event)">
+  <modal #modalSamples [animation]="true" (onClose)="onModalClose($event)">
     <modal-header [show-close]="true">
       <h4 class="modal-title">
         <span class="fa fa-user"></span>
@@ -34,7 +34,7 @@
     <modal-footer [show-default-buttons]="false"></modal-footer>
   </modal>
 
-  <modal #modalAddUserDuplicate [animation]="true" (onClose)="onModalClose($event)">
+  <modal #modalAddUserClean [animation]="true" (onClose)="onModalClose($event)">
     <modal-header [show-close]="true">
       <h4 class="modal-title">
         <span class="fa fa-user"></span>
@@ -42,7 +42,20 @@
       </h4>
     </modal-header>
     <modal-body>
-      <addUser [businessId]="getSelectedBusinessId()" [priveleges]="priveleges"></addUser>
+      <addUser [mode]="'fromClean'" [businessId]="getSelectedBusinessId()" [priveleges]="priveleges"></addUser>
+    </modal-body>
+    <modal-footer [show-default-buttons]="false"></modal-footer>
+  </modal>
+
+  <modal #modalAddUserSamples [animation]="true" (onClose)="onModalClose($event)">
+    <modal-header [show-close]="true">
+      <h4 class="modal-title">
+        <span class="fa fa-user"></span>
+        {{accounts[1]}}
+      </h4>
+    </modal-header>
+    <modal-body>
+      <addUser [mode]="'fromSample'" [businessId]="getSelectedSampleBusinessId()" [priveleges]="priveleges"></addUser>
     </modal-body>
     <modal-footer [show-default-buttons]="false"></modal-footer>
   </modal>

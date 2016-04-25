@@ -63,11 +63,14 @@ export class Users {
     @ViewChild(SimpleList)
     simpleList:SimpleList;
 
-    @ViewChild('modalAddUserSample')
-    modalAddUserSample:ModalComponent;
+    @ViewChild('modalSamples')
+    modalSamples:ModalComponent;
 
-    @ViewChild('modalAddUserDuplicate')
-    modalAddUserDuplicate:ModalComponent;
+    @ViewChild('modalAddUserClean')
+    modalAddUserClean:ModalComponent;
+
+    @ViewChild('modalAddUserSamples')
+    modalAddUserSamples:ModalComponent;
 
     @ViewChild('importUserName')
     importUserName:ElementRef;
@@ -88,23 +91,29 @@ export class Users {
     private businessesUsers:List<BusinessUser>
     private priveleges:List<PrivelegesModel>
     private showUserInfo:Object = null;
+    private selectedSampleBusinessId:number = -1;
     private unsub:Function;
     private unsub2:Function;
     private unsub3:Function;
     private accounts = ['Add new account from template', 'Add new user under selected account', 'Import existing account'];
 
-    private onAddUser(choice) {
+    private onAddUser(choice, fromSample:boolean = false) {
         switch (choice) {
             case this.accounts[0]:
             {
-                this.modalAddUserSample.open('lg');
+                this.modalSamples.open('lg');
                 break;
             }
             case this.accounts[1]:
             {
-                if (this.getSelectedBusinessId()==-1)
+                if (fromSample == false && this.getSelectedBusinessId() == -1)
                     return bootbox.alert('you must first select a business from the list, to create the new account under...');
-                this.modalAddUserDuplicate.open('lg');
+
+                if (fromSample == false && this.getSelectedBusinessId() > 0)
+                    return this.modalAddUserClean.open('lg');
+
+                if (fromSample == true && this.getSelectedSampleBusinessId() > 0)
+                    return this.modalAddUserSamples.open('lg');
                 break;
             }
             case this.accounts[2]:
@@ -145,10 +154,10 @@ export class Users {
         });
     }
 
-    private onSelectedsample(businessId){
-        this.modalAddUserSample.close();
-        console.log(businessId);
-        this.onAddUser(this.accounts[1]);
+    private onSelectedsample(businessId) {
+        this.selectedSampleBusinessId = businessId;
+        this.modalSamples.close();
+        this.onAddUser(this.accounts[1], true);
     }
 
     private onModalClose($event) {
@@ -166,9 +175,13 @@ export class Users {
     }
 
     private getSelectedBusinessId():number {
-        if(!this.businessUsersListFiltered)
+        if (!this.businessUsersListFiltered)
             return -1;
         return this.businessesListFiltered.first().getBusinessId();
+    }
+
+    private getSelectedSampleBusinessId():number {
+        return this.selectedSampleBusinessId;
     }
 
     private onShowUserInfo(selectedBusiness:ISimpleListItem) {
