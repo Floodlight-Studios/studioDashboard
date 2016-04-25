@@ -1,26 +1,5 @@
 <br/>
 <form [ngFormModel]="contGroup">
-  <!--<script>-->
-  <!--var loadNow = function(){-->
-  <!--alert('loading');-->
-  <!--var httpRequest = new XMLHttpRequest();-->
-  <!--httpRequest.onload = function (oEvent) {-->
-  <!--if (httpRequest.status == 200) {-->
-  <!--alert('finish');-->
-  <!--}-->
-  <!--};-->
-  <!--var formData = new FormData();-->
-  <!--formData.append("filename", "Logo.jpg");-->
-  <!--formData.append("file", elemetFile.file);-->
-  <!--formData.append("userName", "reseller@ms.com");-->
-  <!--formData.append("password", "123213");-->
-  <!--httpRequest.open("POST", "https://galaxy.mediasignage.com/WebService/ResourceUpload.ashx");-->
-  <!--httpRequest.send(formData);-->
-  <!--}-->
-
-  <!--</script>-->
-
-
   <label>
     <div class="material-switch  pull-left">
       <input id="whiteLabelCheckbox" #whiteLabelCheckbox type="checkbox" [(ngModel)]="whiteLabelEnabled" (change)="onWhiteLabelChange(whiteLabelCheckbox.checked)"/>
@@ -53,10 +32,30 @@
               <div class="form-group">
                 <span class="help-block">
                   <hr/>
+
+                  <!--<script>-->
+                  <!--var loadNow = function(){-->
+                  <!--alert('loading');-->
+                  <!--var httpRequest = new XMLHttpRequest();-->
+                  <!--httpRequest.onload = function (oEvent) {-->
+                  <!--if (httpRequest.status == 200) {-->
+                  <!--alert('finish');-->
+                  <!--}-->
+                  <!--};-->
+                  <!--var formData = new FormData();-->
+                  <!--formData.append("filename", "Logo.jpg");-->
+                  <!--formData.append("file", elemetFile.file);-->
+                  <!--formData.append("userName", "reseller@ms.com");-->
+                  <!--formData.append("password", "123213");-->
+                  <!--httpRequest.open("POST", "https://galaxy.mediasignage.com/WebService/ResourceUpload.ashx");-->
+                  <!--httpRequest.send(formData);-->
+                  <!--}-->
+                  <!--</script>-->
                   <!--<form id="formData">-->
                   <!--<input type="file" id="elemetFile" value="Go"/>-->
                   <!--<button (click)="loadNow()">Load</button>-->
                   <!--</form>-->
+
                   <h3>Upload Logo</h3>
                   <form id="formData">
                     <input enctype="multipart/form-data" #fileName id="elemetFile" name="file" value="Go" type="file"/>
