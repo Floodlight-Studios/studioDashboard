@@ -306,7 +306,6 @@ export class BusinessAction extends Actions {
             this._http.get(url)
                 .map(result => {
                     var jData:string = result.text()
-                    // jData = jData.replace(/}\)/, '').replace(/\(\{"result":"/, '');
                     if (jData.indexOf('true') > -1) {
                         dispatch({type: ADD_BUSINESS_USER, BusinessUser: businessUser})
                     } else {
