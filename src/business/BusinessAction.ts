@@ -20,6 +20,7 @@ export const REQUEST_BUSINESSES = 'REQUEST_BUSINESSES';
 export const RECEIVE_BUSINESSES = 'RECEIVE_BUSINESSES';
 export const RECEIVE_BUSINESSES_STATS = 'RECEIVE_BUSINESSES_STATS';
 export const SET_BUSINESS_DATA = 'SET_BUSINESS_DATA';
+export const SET_ACCOUNT_DATA = 'SET_ACCOUNT_DATA';
 export const CHANGE_BUSINESS_USER_NAME = 'CHANGE_BUSINESS_USER_NAME';
 export const SET_BUSINESS_USER_ACCESS = 'SET_BUSINESS_USER_ACCESS';
 export const ADD_BUSINESS_USER = 'ADD_BUSINESS_USER';
@@ -122,6 +123,7 @@ export class BusinessAction extends Actions {
 
     public updateAccount(businessId:string, name:string, maxMonitors:string, allowSharing:string) {
         return (dispatch)=> {
+            dispatch(this.saveAccountInfo({businessId, name, maxMonitors, allowSharing}));
             var appdb:Map<string,any> = this.appStore.getState().appdb;
             var url;
             url = appdb.get('appBaseUrlUser') + `&command=UpdateAccount&buinessId=${businessId}&businessName=${name}&maxMonitors=${maxMonitors}&allowSharing=${allowSharing}`;
@@ -358,6 +360,14 @@ export class BusinessAction extends Actions {
             type: SET_BUSINESS_USER_ACCESS,
             payload: i_payload
         };
+    }
+
+    public saveAccountInfo(payload) {
+        return {
+            type: SET_ACCOUNT_DATA,
+            payload: payload
+        }
+
     }
 
     public requestBusinessUser() {

@@ -100,8 +100,21 @@ export class UserInfo {
         }
     }
 
-    private onPasswordChanged(value) {
-        //this.appStore.dispatch(this.businessAction.updateAccount(this.businessId, this.userName, this.maxMonitors, this.allowSharing));
+    private updateStore(){
+        this.appStore.dispatch(this.businessAction.updateAccount(this.businessId, this.userName, this.maxMonitors, this.allowSharing));
+    }
+    private onChangeMonitors(event){
+        this.maxMonitors = event;
+        this.updateStore();
+    }
+
+    private onChangeSharing(event){
+        console.log(event);
+    }
+
+    private onChangeUserName(event){
+        this.userName = event;
+        this.updateStore();
     }
 
     ngAfterViewChecked() {

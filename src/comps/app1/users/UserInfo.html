@@ -3,19 +3,32 @@
     <div class="inner userGeneral">
       <div class="row">
         <div class="col-xs-3">
+          <span style="font-size: 5em; color: grey" class="fa fa-tv padLeft">
+          </span>
+        </div>
+        <div class="col-xs-8">
+          <h3 style="width: 260px" class="padLeft">
+            <InputEdit (labelEdited)="onChangeMonitors($event)" [style]="stylesObj" [editable]="true" [value]="'1000'"></InputEdit>
+          </h3>
+        </div>
+      </div>
+      <div class="row">
+        <div class="padLeftMore">
+          <i class="fa fa-tag" style="color: gray"></i>
+          <label class="">Licenses allowed for account</label>
+          <small>stations connected to one or more screens</small>
+        </div>
+      </div>
+      <hr style="padding: 5px; margin: 5px"/>
+      <div class="row">
+        <div class="col-xs-3">
           <span style="font-size: 6em; color: grey" class="fa fa-user padLeft">
           </span>
         </div>
         <div class="col-xs-8">
           <h3 style="width: 260px" class="padLeft">
-            <InputEdit [style]="stylesObj" [editable]="true" [value]="userName"></InputEdit>
+            <InputEdit (labelEdited)="onChangeUserName($event)" [style]="stylesObj" [editable]="true" [value]="userName"></InputEdit>
           </h3>
-          <!--<h3 class="padLeft">-->
-            <!--<InputEdit [style]="stylesObj" (labelEdited)="onPasswordChanged($event)" [editable]="true" [type]="'password'" [value]="'***********'"></InputEdit>-->
-            <!--<InputEdit [style]="stylesObj" [editable]="true" (labelEdited)="onCompanyNameEdited($event)" [value]="companyName"></InputEdit>-->
-            <!--<Label style="padding-top: 5px">*************</Label>-->
-            <!--<span (click)="onPasswordChange()" style="padding-right: 56px; cursor: pointer" class="fa fa-key pull-right"></span>-->
-          <!--</h3>-->
         </div>
       </div>
       <div class="row">
@@ -26,15 +39,6 @@
           <label>
             business id: {{businessId}}
           </label>
-          <!--<h5 style="width: 200px">-->
-            <!--name / email-->
-            <!--<InputEdit [style]="stylesDesc" [showIcon]="true" [editable]="true" [value]="nameEmail"></InputEdit>-->
-          <!--</h5>-->
-          <!--<h5 style="width: 200px">-->
-            <!--business description:-->
-            <!--<InputEdit [style]="stylesDesc" [showIcon]="true" [editable]="true" [value]="businessDescription"></InputEdit>-->
-          <!--</h5>-->
-
         </div>
       </div>
     </div>
