@@ -136,11 +136,10 @@ export class BusinessAction extends Actions {
                 })
                 .map(result => {
                     var reply:any = result.text();
-                    // if (reply == 'True') {
-                    //     dispatch(this.fetchBusinesses());
-                    // } else {
-                    //     bootbox.alert('Problem deleting the selected business');
-                    // }
+                    if (reply == 'True') {
+                    } else {
+                        bootbox.alert('Problem updating the selected account');
+                    }
                 }).subscribe();
         }
     }
