@@ -8,7 +8,7 @@
         </div>
         <div class="col-xs-8">
           <h3 style="width: 260px" class="padLeft">
-            <InputEdit (labelEdited)="onChangeMonitors($event)" [style]="stylesObj" [editable]="true" [value]="'1000'"></InputEdit>
+            <InputEdit (labelEdited)="onChangeMonitors($event)" [style]="stylesObj" [editable]="true" [value]="maxMonitors"></InputEdit>
           </h3>
         </div>
       </div>
@@ -73,7 +73,9 @@
           <li class="list-group-item">
             allow sharing
             <div class="material-switch pull-right">
-              <input id="someSwitchOptionDefault8" [checked]="allowSharing" name="someSwitchOption008" type="checkbox"/>
+              <input (change)="onChangeSharing(someSwitchOptionDefault8.checked)"
+                     [(ngModel)]="allowSharing" id="someSwitchOptionDefault8" #someSwitchOptionDefault8
+                     name="someSwitchOption008" type="checkbox"/>
               <label for="someSwitchOptionDefault8" class="label-default"></label>
             </div>
           </li>

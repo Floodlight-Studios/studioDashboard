@@ -36,7 +36,9 @@
 
   <label>
     <div class="material-switch  pull-left">
-      <input id="whiteLabelCheckbox" #whiteLabelCheckbox type="checkbox" [(ngModel)]="whiteLabelEnabled" (change)="onWhiteLabelChange(whiteLabelCheckbox.checked)"/>
+      <input id="whiteLabelCheckbox" #whiteLabelCheckbox type="checkbox"
+             [(ngModel)]="whiteLabelEnabled"
+             (change)="onWhiteLabelChange(whiteLabelCheckbox.checked)"/>
       <label for="whiteLabelCheckbox" class="label-primary"></label>
     </div>
     <h4 style="padding-top: 6px">Business own branding</h4>

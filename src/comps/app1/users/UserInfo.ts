@@ -7,6 +7,7 @@ import {ISimpleListItem} from "../../simplelist/Simplelist";
 import {ChangePass} from "../../../comps/app1/users/ChangePass";
 import {BusinessAction} from "../../../business/BusinessAction";
 import {AppStore} from "angular2-redux-util/dist/index";
+import {Lib} from "../../../Lib";
 
 @Component({
     selector: 'UserInfo',
@@ -18,7 +19,7 @@ import {AppStore} from "angular2-redux-util/dist/index";
 })
 export class UserInfo {
 
-    constructor(private appStore:AppStore, private businessAction:BusinessAction,private ref:ChangeDetectorRef) {
+    constructor(private appStore:AppStore, private businessAction:BusinessAction, private ref:ChangeDetectorRef) {
         var w = '150px';
         this.stylesObj = {
             input: {
@@ -100,19 +101,21 @@ export class UserInfo {
         }
     }
 
-    private updateStore(){
+    private updateStore() {
         this.appStore.dispatch(this.businessAction.updateAccount(this.businessId, this.userName, this.maxMonitors, this.allowSharing));
     }
-    private onChangeMonitors(event){
+
+    private onChangeMonitors(event) {
         this.maxMonitors = event;
         this.updateStore();
     }
 
-    private onChangeSharing(event){
-        console.log(event);
+    private onChangeSharing(event) {
+        this.allowSharing = Lib.BooleanToNumber(event);
+        this.updateStore();
     }
 
-    private onChangeUserName(event){
+    private onChangeUserName(event) {
         this.userName = event;
         this.updateStore();
     }

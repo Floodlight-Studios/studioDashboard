@@ -20,7 +20,7 @@ export const REQUEST_BUSINESSES = 'REQUEST_BUSINESSES';
 export const RECEIVE_BUSINESSES = 'RECEIVE_BUSINESSES';
 export const RECEIVE_BUSINESSES_STATS = 'RECEIVE_BUSINESSES_STATS';
 export const SET_BUSINESS_DATA = 'SET_BUSINESS_DATA';
-export const SET_ACCOUNT_DATA = 'SET_ACCOUNT_DATA';
+export const SET_BUSINESS_ACCOUNT_DATA = 'SET_BUSINESS_ACCOUNT_DATA';
 export const CHANGE_BUSINESS_USER_NAME = 'CHANGE_BUSINESS_USER_NAME';
 export const SET_BUSINESS_USER_ACCESS = 'SET_BUSINESS_USER_ACCESS';
 export const ADD_BUSINESS_USER = 'ADD_BUSINESS_USER';
@@ -142,7 +142,6 @@ export class BusinessAction extends Actions {
                     //     bootbox.alert('Problem deleting the selected business');
                     // }
                 }).subscribe();
-            dispatch({type: REMOVE_BUSINESS, businessId})
         }
     }
 
@@ -364,7 +363,7 @@ export class BusinessAction extends Actions {
 
     public saveAccountInfo(payload) {
         return {
-            type: SET_ACCOUNT_DATA,
+            type: SET_BUSINESS_ACCOUNT_DATA,
             payload: payload
         }
 

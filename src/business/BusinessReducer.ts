@@ -27,7 +27,7 @@ export function business(state:Map<string,any> = Map<string,any>(), action:any):
 
         case BusinessAction.RECEIVE_BUSINESSES_SOURCES:
             return state.setIn(['businessSources'], action.businessSources);
-        
+
         case BusinessAction.RECEIVE_BUSINESSES_STATS:
             return state.setIn(['businessStats'], action.stats);
 
@@ -35,6 +35,20 @@ export function business(state:Map<string,any> = Map<string,any>(), action:any):
             var businesses:List<BusinessModel> = state.getIn(['businesses'])
             var list:List<BusinessModel> = businessesReducer(businesses, action);
             return state.setIn(['businesses'], list);
+
+        case BusinessAction.SET_BUSINESS_ACCOUNT_DATA:
+        {
+            var businesses:List<BusinessModel> = state.getIn(['businesses'])
+            function indexOf(businessId:string) {
+                return businesses.findIndex((i:BusinessModel) => i.getBusinessId() === businessId);
+            }
+            businesses = businesses.update(indexOf(action.payload.businessId), (business:BusinessModel) => {
+                var updBusiness:BusinessModel = business.setKey<BusinessModel>(BusinessModel, 'name', action.payload.name)
+                updBusiness = updBusiness.setKey<BusinessModel>(BusinessModel, 'allowSharing', action.payload.allowSharing)
+                return updBusiness.setKey<BusinessModel>(BusinessModel, 'maxMonitors', action.payload.maxMonitors)
+            });
+            return state.setIn(['businesses'], businesses);
+        }
 
         case BusinessAction.CHANGE_BUSINESS_USER_NAME:
         {
@@ -68,14 +82,14 @@ export function business(state:Map<string,any> = Map<string,any>(), action:any):
         case BusinessAction.REMOVE_BUSINESS:
         {
             var businesses:List<BusinessModel> = state.getIn(['businesses'])
-            var updatedBusinesses:List<BusinessModel> = businesses.filter((businessModel: BusinessModel) => businessModel.getBusinessId() !== action.businessId) as List<BusinessModel>;
+            var updatedBusinesses:List<BusinessModel> = businesses.filter((businessModel:BusinessModel) => businessModel.getBusinessId() !== action.businessId) as List<BusinessModel>;
             return state.setIn(['businesses'], updatedBusinesses);
         }
 
         case BusinessAction.REMOVE_BUSINESS_USER:
         {
             var businessUsers:List<BusinessUser> = state.getIn(['businessUsers'])
-            var updatedBusinessUsers:List<BusinessUser> = businessUsers.filter((businessUser: BusinessUser) => businessUser.getName() !== action.BusinessUser.getName()) as List<BusinessUser>;
+            var updatedBusinessUsers:List<BusinessUser> = businessUsers.filter((businessUser:BusinessUser) => businessUser.getName() !== action.BusinessUser.getName()) as List<BusinessUser>;
             return state.setIn(['businessUsers'], updatedBusinessUsers);
         }
 
