@@ -95,7 +95,7 @@ export class Users {
     private unsub:Function;
     private unsub2:Function;
     private unsub3:Function;
-    private accounts = ['Add new account from template', 'Add new user under selected account', 'Import existing account'];
+    private accounts = ['Add new account from sample', 'Add new account from blank', 'Import existing account'];
 
     private onAddUser(choice, fromSample:boolean = false) {
         switch (choice) {
@@ -106,15 +106,15 @@ export class Users {
             }
             case this.accounts[1]:
             {
-                if (fromSample == false && this.getSelectedBusinessId() == -1)
-                    return bootbox.alert('you must first select a business from the list, to create the new account under...');
-
-                if (fromSample == false && this.getSelectedBusinessId() > 0)
-                    return this.modalAddUserClean.open('lg');
-
-                if (fromSample == true && this.getSelectedSampleBusinessId() > 0)
+                // if (fromSample == false && this.getSelectedBusinessId() == -1)
+                //     return bootbox.alert('you must first select a business from the list, to create the new account under...');
+                // if (fromSample == false && this.getSelectedBusinessId() > 0)
+                //     return this.modalAddUserClean.open('lg');
+                if (fromSample) {
                     return this.modalAddUserSamples.open('lg');
-                break;
+                } else {
+                    return this.modalAddUserClean.open('lg');
+                }
             }
             case this.accounts[2]:
             {

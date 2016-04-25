@@ -14,12 +14,15 @@
                 <i class="fa fa-user-plus pull-right"></i>
               </div>
               <div *ngIf="mode=='fromClean'">
-                create new account under business id: {{businessId}}
+                account with no pre-configuration
                 <i class="fa fa-user-plus pull-right"></i>
               </div>
 
             </div>
             <ul class="list-group">
+              <li *ngIf="mode != 'fromUser'" class="list-group-item">
+                <input type="text" class="longInput form-control" placeholder="business name" required [ngFormControl]="notesForm.controls['businessName']">
+              </li>
               <li class="list-group-item">
                 <input type="text" class="longInput form-control" placeholder="name" required [ngFormControl]="notesForm.controls['userName']">
               </li>

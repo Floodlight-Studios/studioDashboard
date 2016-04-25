@@ -28,6 +28,7 @@ export class AddUser {
     constructor(private appStore:AppStore, private businessActions:BusinessAction, private fb:FormBuilder, private modal:ModalComponent) {
         this.notesForm = fb.group({
             'userName': ['', Validators.required],
+            'businessName': [],
             matchingPassword: fb.group({
                 password: ['', Validators.required],
                 confirmPassword: ['', Validators.required]
@@ -36,10 +37,12 @@ export class AddUser {
         });
 
         this.sub = modal.onClose.subscribe(()=> {
-            var control:Control = this.notesForm.controls['userName'] as Control;
+            var userNameControl:Control = this.notesForm.controls['userName'] as Control;
+            var businessNameControl:Control = this.notesForm.controls['businessName'] as Control;
             this.passwordGroup.controls['password'].updateValue('')
             this.passwordGroup.controls['confirmPassword'].updateValue('')
-            control.updateValue('')
+            userNameControl.updateValue('')
+            businessNameControl.updateValue('')
         })
         this.passwordGroup = this.notesForm.controls['matchingPassword'];
         this.userName = this.notesForm.controls['userName'];
@@ -55,16 +58,17 @@ export class AddUser {
     priveleges:Array<PrivelegesModel> = [];
 
     @Input()
-    mode:'fromSample'|'fromClean' = null;
+    mode:'fromSample'|'fromClean'|'fromUser' = null;
 
     private privilegeName:string = '';
     private notesForm:ControlGroup;
     private userName:AbstractControl;
+    private businessName:AbstractControl;
     private passwordGroup;
     private sub:EventEmitter<any>;
 
     private onKeyChange(event, index) {
-        console.log(event.target.checked + ' ' + index);
+        // console.log(event.target.checked + ' ' + index);
     }
 
     private areEqual(group:ControlGroup) {
@@ -104,16 +108,38 @@ export class AddUser {
                 privilegeId = privelegesModel.getPrivelegesId();
             }
         })
-        const businessUser:BusinessUser = new BusinessUser({
+        var userData = {
             accessMask: computedAccessMask,
             privilegeId: privilegeId,
             password: event.matchingPassword.password,
             name: event.userName,
+            businessName: event.businessName,
             businessId: this.businessId,
-        });
+        }
+        
 
-        //todo: add option to addNewBusiness as well once API is available from server
-        this.appStore.dispatch(this.businessActions.addNewBusinessUser(businessUser));
+        switch (this.mode) {
+            case 'fromSample':
+            {
+                userData['businessId'] = this.businessId; 
+                var businessUser:BusinessUser = new BusinessUser(userData);
+                this.appStore.dispatch(this.businessActions.duplicateAccount(businessUser));
+                break;
+            }
+            case 'fromClean':
+            {
+                userData['businessId'] = 999;
+                var businessUser:BusinessUser = new BusinessUser(userData);
+                this.appStore.dispatch(this.businessActions.duplicateAccount(businessUser));
+                break;
+            }
+            case 'fromUser':
+            {
+                var businessUser:BusinessUser = new BusinessUser(userData);
+                this.appStore.dispatch(this.businessActions.addNewBusinessUser(businessUser));
+                break;
+            }
+        }
         this.modal.close();
     }
 

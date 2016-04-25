@@ -18,6 +18,10 @@ export class BusinessUser extends StoreModel {
         return this.getKey('businessId');
     }
 
+    public businessName(){
+        return this.getKey('businessName');
+    }
+
     public getName(){
         return this.getKey('name');
     }

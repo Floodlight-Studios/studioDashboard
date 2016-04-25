@@ -13,7 +13,7 @@
     </h4>
   </modal-header>
   <modal-body>
-    <addUser [businessId]="getBusinessIdSelected()" [priveleges]="m_priveleges"></addUser>
+    <addUser [mode]="'fromUser'" [businessId]="getBusinessIdSelected()" [priveleges]="m_priveleges"></addUser>
   </modal-body>
   <modal-footer [show-default-buttons]="false"></modal-footer>
 </modal>

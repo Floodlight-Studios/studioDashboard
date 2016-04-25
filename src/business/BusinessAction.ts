@@ -99,31 +99,6 @@ export class BusinessAction extends Actions {
         });
     }
 
-    public associateUser(user:string, pass:string) {
-        return (dispatch)=> {
-            var appdb:Map<string,any> = this.appStore.getState().appdb;
-            var url;
-            url = appdb.get('appBaseUrlUser') + `&command=AssociateAccount&customerUserName=${user}&customerPassword=${pass}`;
-            this._http.get(url)
-                .catch((err) => {
-                    bootbox.alert('Error when updating App mode');
-                    // return Observable.of(true);
-                    return Observable.throw(err);
-                })
-                .finally(() => {
-                })
-                .map(result => {
-                    var reply:any = result.text();
-                    if (reply == 'True') {
-                        bootbox.alert('User imported successfully');
-                        dispatch(this.fetchBusinesses());
-                    } else {
-                        bootbox.alert('User could not be imported, either the credentials supplied were wrong or the user is already associated with another enterprise account');
-                    }
-                }).subscribe();
-        }
-    }
-
     public getSamples() {
         var self = this;
         return (dispatch)=> {
@@ -145,39 +120,14 @@ export class BusinessAction extends Actions {
 
             var sampleData = Lib.GetSamples();
             var samples = [];
-            _.forEach(sampleData,(v,businessId)=> {
+            _.forEach(sampleData, (v, businessId)=> {
                 var name = v.split(',')[0]
                 var type = v.split(',')[1]
-                var sampleModel = new SampleModel({businessId, name,type});
+                var sampleModel = new SampleModel({businessId, name, type});
                 samples.push(sampleModel);
             })
             var sampleModels:List<SampleModel> = List(samples);
             dispatch(this.receiveBusinessSamples(sampleModels));
-        }
-    }
-
-    public duplicateAccount (customerBusinessName:string, customerUserName:string, customerPassword:string, templateBusinessId:string, privilegeId:string, accessMask:string) {
-        return (dispatch)=> {
-            var appdb:Map<string,any> = this.appStore.getState().appdb;
-            var url;
-            url = appdb.get('appBaseUrlUser') + `&command=DuplicateAccount&customerBusinessName=${customerBusinessName}&customerUserName=${customerUserName}&customerPassword=${customerPassword}&templateBusinessId=${templateBusinessId}&privilegeId=${privilegeId}&accessMask=${accessMask}`;
-            this._http.get(url)
-                .catch((err) => {
-                    bootbox.alert('Error creating a new account from samples');
-                    // return Observable.of(true);
-                    return Observable.throw(err);
-                })
-                .finally(() => {
-                })
-                .map(result => {
-                    var reply:any = result.text();
-                    if (reply == 'True') {
-                        bootbox.alert('User imported successfully');
-                        dispatch(this.fetchBusinesses());
-                    } else {
-                        bootbox.alert('User could not be imported, either the credentials supplied were wrong or the user is already associated with another enterprise account');
-                    }
-                }).subscribe();
         }
     }
 
@@ -353,6 +303,64 @@ export class BusinessAction extends Actions {
         }
     }
 
+    // import existing account from MediaSignage
+    public associateUser(user:string, pass:string) {
+        return (dispatch)=> {
+            var appdb:Map<string,any> = this.appStore.getState().appdb;
+            var url;
+            url = appdb.get('appBaseUrlUser') + `&command=AssociateAccount&customerUserName=${user}&customerPassword=${pass}`;
+            this._http.get(url)
+                .catch((err) => {
+                    bootbox.alert('Error when updating App mode');
+                    // return Observable.of(true);
+                    return Observable.throw(err);
+                })
+                .finally(() => {
+                })
+                .map(result => {
+                    var reply:any = result.text();
+                    if (reply == 'True') {
+                        bootbox.alert('User imported successfully');
+                        dispatch(this.fetchBusinesses());
+                    } else {
+                        bootbox.alert('User could not be imported, either the credentials supplied were wrong or the user is already associated with another enterprise account');
+                    }
+                }).subscribe();
+        }
+    }
+
+    // new account from sample or 999 for blank
+    public duplicateAccount(businessUser:BusinessUser) {
+        let businessId = businessUser.getBusinessId();
+        let name = businessUser.getName();
+        let businessName = businessUser.businessName();
+        let password = businessUser.getPassword();
+        let accessMask = businessUser.getAccessMask();
+        let privilegeId = businessUser.privilegeId();
+        return (dispatch)=> {
+            var appdb:Map<string,any> = this.appStore.getState().appdb;
+            var url;
+            url = appdb.get('appBaseUrlUser') + `&command=DuplicateAccount&customerBusinessName=${businessName}&customerUserName=${name}&customerPassword=${password}&templateBusinessId=${businessId}&privilegeId=${privilegeId}&accessMask=${accessMask}`;
+            this._http.get(url)
+                .catch((err) => {
+                    bootbox.alert('Error creating a new account from samples');
+                    // return Observable.of(true);
+                    return Observable.throw(err);
+                })
+                .finally(() => {
+                })
+                .map(result => {
+                    var reply:any = result.text();
+                    if (reply == 'True') {
+                        dispatch(this.fetchBusinesses());
+                    } else {
+                        bootbox.alert('User could not be imported, either the credentials supplied were wrong or the user is already associated with another enterprise account');
+                    }
+                }).subscribe();
+        }
+    }
+
+    // new user under an account
     public addNewBusinessUser(businessUser:BusinessUser) {
         return (dispatch)=> {
             var appdb:Map<string,any> = this.appStore.getState().appdb;
