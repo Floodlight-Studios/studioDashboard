@@ -16,6 +16,7 @@ import {Loading} from "../../loading/Loading";
 import {List} from 'immutable';
 import {PrivelegesModel} from "../../../reseller/PrivelegesModel";
 import {Samplelist} from "./Samplelist";
+import {SampleModel} from "../../../business/SampleModel";
 const bootbox = require('bootbox');
 const _ = require('underscore');
 
@@ -41,6 +42,11 @@ export class Users {
         this.unsub = this.appStore.sub((i_businesses:List<BusinessModel>) => {
             this.businessesList = i_businesses;
         }, 'business.businesses');
+
+        this.samples = i_businesses.getIn(['samples']);
+        this.unsub = this.appStore.sub((i_samples:List<SampleModel>) => {
+            this.samples = i_samples;
+        }, 'business.samples');
 
         this.businessesUsers = i_businesses.getIn(['businessUsers']);
         this.unsub2 = this.appStore.sub((businessUsers:List<BusinessUser>) => {
@@ -77,6 +83,7 @@ export class Users {
     usersDetails:UsersDetails;
 
     private businessesList:List<BusinessModel> = List<BusinessModel>();
+    private samples:List<SampleModel> = List<SampleModel>();
     private businessesListFiltered:List<BusinessModel>
     private businessUsersListFiltered:List<BusinessUser>;
     private businessesUsers:List<BusinessUser>

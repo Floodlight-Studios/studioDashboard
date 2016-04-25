@@ -36,6 +36,7 @@ export class StoreService {
         this.appStore.dispatch(this.resellerAction.getResellerInfo());
         this.appStore.dispatch(this.resellerAction.getAccountInfo());
         this.appStore.dispatch(this.businessActions.fetchBusinesses());
+        this.appStore.dispatch(this.businessActions.getSamples());
     }
 
     private initPollServices() {
@@ -51,6 +52,7 @@ export class StoreService {
     private listenServices() {
         /** if we are in cloud mode, first fetch active servers before getting station
          (1) get businesses
+         We also listen to samples retrieved
          **/
         this.appStore.sub(() => {
             // use 0 instead of ServerMode.CLOUD due to production bug with Enums
@@ -60,6 +62,16 @@ export class StoreService {
                 this.fetchStations();
             }
         }, 'business.businessStats');
+
+        // this.appStore.sub(() => {
+        //     // use 0 instead of ServerMode.CLOUD due to production bug with Enums
+        //     if (this.commBroker.getValue(Consts.Values().SERVER_MODE) == 0) {
+        //         this.appStore.dispatch(this.appDbActions.getCloudServers());
+        //     } else {
+        //         this.fetchStations();
+        //     }
+        // }, 'resellers.samples');
+
 
         /** (2 optional) if we are running in cloud, get list of used servers **/
         this.appStore.sub((servers:List<string>) => {

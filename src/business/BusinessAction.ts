@@ -10,12 +10,15 @@ import {Observable} from "rxjs/Observable";
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/finally';
 import 'rxjs/add/observable/throw';
-import {StoreModel} from "../models/StoreModel";
+import {SampleModel} from "../business/SampleModel";
+import {Lib} from "../Lib";
 const bootbox = require('bootbox');
+const _ = require('underscore');
 
 export const REQUEST_BUSINESS_USER = 'REQUEST_BUSINESS_USER';
 export const RECEIVE_BUSINESSES_SOURCES = 'RECEIVE_BUSINESSES_SOURCES';
 export const RECEIVE_BUSINESS_USER = 'RECEIVE_BUSINESS_USER';
+export const RECEIVE_BUSINESS_SAMPLES = 'RECEIVE_BUSINESS_SAMPLES';
 export const REQUEST_BUSINESSES = 'REQUEST_BUSINESSES';
 export const RECEIVE_BUSINESSES = 'RECEIVE_BUSINESSES';
 export const RECEIVE_BUSINESSES_STATS = 'RECEIVE_BUSINESSES_STATS';
@@ -118,6 +121,38 @@ export class BusinessAction extends Actions {
                         bootbox.alert('User could not be imported, either the credentials supplied were wrong or the user is already associated with another enterprise account');
                     }
                 }).subscribe();
+        }
+    }
+
+    public getSamples() {
+        var self = this;
+        return (dispatch)=> {
+            var appdb:Map<string,any> = this.appStore.getState().appdb;
+
+            // Enable this later when we move sample list to a web service, for now we do it via static content
+            // this._http.get('http://galaxy.signage.me/WebService/getResellerTemplates.ashx?resellerId=1&ver=2')
+            //     .map(result => {
+            //         var sampleData:any = result.text().replace('templates','"templates"');
+            //         sampleData = JSON.parse(sampleData);
+            //         var samples = [];
+            //         sampleData.templates.forEach((v)=>{
+            //             var sampleModel = new SampleModel(v);
+            //             samples.push(sampleModel);
+            //         })
+            //         var sampleModels:List<SampleModel> = List(samples);
+            //         dispatch(this.receiveBusinessSamples(sampleModels));
+            //     }).subscribe();
+
+            var sampleData = Lib.GetSamples();
+            var samples = [];
+            _.forEach(sampleData,(v,businessId)=> {
+                var name = v.split(',')[0]
+                var type = v.split(',')[1]
+                var sampleModel = new SampleModel({businessId, name,type});
+                samples.push(sampleModel);
+            })
+            var sampleModels:List<SampleModel> = List(samples);
+            dispatch(this.receiveBusinessSamples(sampleModels));
         }
     }
 
@@ -393,6 +428,13 @@ export class BusinessAction extends Actions {
         return {
             type: RECEIVE_BUSINESS_USER,
             businessUsers
+        }
+    }
+
+    public receiveBusinessSamples(sampleModels:List<SampleModel>) {
+        return {
+            type: RECEIVE_BUSINESS_SAMPLES,
+            sampleModels
         }
     }
 

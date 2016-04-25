@@ -1,4 +1,6 @@
 import {Component, Input, Output, EventEmitter, ChangeDetectionStrategy, OnChanges, SimpleChange} from 'angular2/core'
+import {SampleModel} from "../../../business/SampleModel";
+import {List} from 'immutable';
 
 @Component({
     selector: 'Samplelist',
@@ -7,12 +9,16 @@ import {Component, Input, Output, EventEmitter, ChangeDetectionStrategy, OnChang
     styleUrls: ['../comps/app1/users/Samplelist.css']
 })
 export class Samplelist {
-    @Input()
-    parts = [];
-    @Input()
-    partsInCart:string;
 
-    @Output()
-    addToCart:EventEmitter<any> = new EventEmitter();
+    private m_samples:List<SampleModel>;
+    @Input()
+    set samples(i_samples:List<SampleModel>){
+        this.m_samples = i_samples;
+    }
+
+    protected  onSelectedSample(sample:SampleModel){
+        console.log(sample);
+    }
+
 }
 

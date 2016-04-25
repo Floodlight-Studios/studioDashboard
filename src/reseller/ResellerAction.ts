@@ -92,7 +92,7 @@ export class ResellerAction extends Actions {
             dispatch(this.updatedApp(app, mode));
             var appdb:Map<string,any> = this.appStore.getState().appdb;
             var url;
-            if (mode){
+            if (mode) {
                 url = appdb.get('appBaseUrlUser') + `&command=InstallApp&appId=${app.getAppId()}`;
             } else {
                 url = appdb.get('appBaseUrlUser') + `&command=UninstallApp&appId=${app.getAppId()}`;
@@ -238,7 +238,6 @@ export class ResellerAction extends Actions {
         }
     }
 
-
     public getAccountInfo() {
         var self = this;
         return (dispatch)=> {
@@ -376,7 +375,7 @@ export class ResellerAction extends Actions {
             dispatch(this.updateAccountInfo(payload));
 
             var cardInfo = '';
-            if (validatedCreditCard()){
+            if (validatedCreditCard()) {
                 cardInfo = `
                     cardType="${getStoreValue('Billing', 'cardType')}" 
                     securityCode="${getStoreValue('Billing', 'securityCode')}" 
