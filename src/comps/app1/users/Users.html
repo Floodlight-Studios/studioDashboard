@@ -42,7 +42,7 @@
       </h4>
     </modal-header>
     <modal-body>
-      <addUser [businessId]="1" [priveleges]="priveleges"></addUser>
+      <addUser [businessId]="getSelectedBusinessId()" [priveleges]="priveleges"></addUser>
     </modal-body>
     <modal-footer [show-default-buttons]="false"></modal-footer>
   </modal>

@@ -85,7 +85,7 @@ export class Users {
     private unsub:Function;
     private unsub2:Function;
     private unsub3:Function;
-    private accounts = ['Add new account from template', 'Add new clean account', 'Import existing account'];
+    private accounts = ['Add new account from template', 'Add new user under selected account', 'Import existing account'];
 
     private onAddUser(choice) {
         switch (choice) {
@@ -96,6 +96,8 @@ export class Users {
             }
             case this.accounts[1]:
             {
+                if (this.getSelectedBusinessId()==-1)
+                    return bootbox.alert('you must first select a business from the list, to create the new account under...');
                 this.modalAddUserClean.open('lg');
                 break;
             }
@@ -149,6 +151,12 @@ export class Users {
         }
         this.appStore.dispatch(this.businessAction.associateUser(user, pass));
         this.modalAddUserExisting.close();
+    }
+
+    private getSelectedBusinessId():number {
+        if(!this.businessUsersListFiltered)
+            return -1;
+        return this.businessesListFiltered.first().getBusinessId();
     }
 
     private onShowUserInfo(selectedBusiness:ISimpleListItem) {
