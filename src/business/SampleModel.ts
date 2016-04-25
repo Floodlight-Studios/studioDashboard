@@ -17,4 +17,8 @@ export class SampleModel extends StoreModel {
         return this.getKey('type')
     }
 
+    public getBusinessId():string {
+        return this.getKey('businessId')
+    }
+
 }

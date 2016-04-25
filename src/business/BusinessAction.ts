@@ -156,6 +156,31 @@ export class BusinessAction extends Actions {
         }
     }
 
+    public duplicateAccount (customerBusinessName:string, customerUserName:string, customerPassword:string, templateBusinessId:string, privilegeId:string, accessMask:string) {
+        return (dispatch)=> {
+            var appdb:Map<string,any> = this.appStore.getState().appdb;
+            var url;
+            url = appdb.get('appBaseUrlUser') + `&command=DuplicateAccount&customerBusinessName=${customerBusinessName}&customerUserName=${customerUserName}&customerPassword=${customerPassword}&templateBusinessId=${templateBusinessId}&privilegeId=${privilegeId}&accessMask=${accessMask}`;
+            this._http.get(url)
+                .catch((err) => {
+                    bootbox.alert('Error creating a new account from samples');
+                    // return Observable.of(true);
+                    return Observable.throw(err);
+                })
+                .finally(() => {
+                })
+                .map(result => {
+                    var reply:any = result.text();
+                    if (reply == 'True') {
+                        bootbox.alert('User imported successfully');
+                        dispatch(this.fetchBusinesses());
+                    } else {
+                        bootbox.alert('User could not be imported, either the credentials supplied were wrong or the user is already associated with another enterprise account');
+                    }
+                }).subscribe();
+        }
+    }
+
     public updateAccount(businessId:string, name:string, maxMonitors:string, allowSharing:string) {
         return (dispatch)=> {
             dispatch(this.saveAccountInfo({businessId, name, maxMonitors, allowSharing}));

@@ -29,12 +29,12 @@
       </h4>
     </modal-header>
     <modal-body>
-      <Samplelist [samples]="samples"></Samplelist>
+      <Samplelist (selected)="onSelectedsample($event)" [samples]="samples"></Samplelist>
     </modal-body>
     <modal-footer [show-default-buttons]="false"></modal-footer>
   </modal>
 
-  <modal #modalAddUserClean [animation]="true" (onClose)="onModalClose($event)">
+  <modal #modalAddUserDuplicate [animation]="true" (onClose)="onModalClose($event)">
     <modal-header [show-close]="true">
       <h4 class="modal-title">
         <span class="fa fa-user"></span>

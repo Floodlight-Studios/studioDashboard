@@ -16,8 +16,11 @@ export class Samplelist {
         this.m_samples = i_samples;
     }
 
+    @Output()
+    selected:EventEmitter<any> = new EventEmitter<any>();
+
     protected  onSelectedSample(sample:SampleModel){
-        console.log(sample);
+        this.selected.next(sample.getBusinessId());
     }
 
 }

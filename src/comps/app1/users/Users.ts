@@ -66,8 +66,8 @@ export class Users {
     @ViewChild('modalAddUserSample')
     modalAddUserSample:ModalComponent;
 
-    @ViewChild('modalAddUserClean')
-    modalAddUserClean:ModalComponent;
+    @ViewChild('modalAddUserDuplicate')
+    modalAddUserDuplicate:ModalComponent;
 
     @ViewChild('importUserName')
     importUserName:ElementRef;
@@ -77,7 +77,6 @@ export class Users {
 
     @ViewChild('modalAddUserExisting')
     modalAddUserExisting:ModalComponent;
-
 
     @ViewChild(UsersDetails)
     usersDetails:UsersDetails;
@@ -105,7 +104,7 @@ export class Users {
             {
                 if (this.getSelectedBusinessId()==-1)
                     return bootbox.alert('you must first select a business from the list, to create the new account under...');
-                this.modalAddUserClean.open('lg');
+                this.modalAddUserDuplicate.open('lg');
                 break;
             }
             case this.accounts[2]:
@@ -144,6 +143,12 @@ export class Users {
                 }
             }
         });
+    }
+
+    private onSelectedsample(businessId){
+        this.modalAddUserSample.close();
+        console.log(businessId);
+        this.onAddUser(this.accounts[1]);
     }
 
     private onModalClose($event) {
