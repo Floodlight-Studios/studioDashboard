@@ -56,7 +56,6 @@ export class LogoCompany {
                 url = 'assets/person.png'
                 break;
             }
-
         }
         return url;
     }
@@ -80,6 +79,4 @@ export class LogoCompany {
     private ngOnDestroy() {
         this.unsub();
     }
-
-
 }
