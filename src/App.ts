@@ -63,6 +63,7 @@ import {reseller} from "./reseller/ResellerReducer"
 import {stations} from "./stations/StationsReducer"
 import {AppdbAction} from "./appdb/AppdbAction";
 import {enableProdMode} from 'angular2/core';
+import {LogoCompany} from "./comps/logo/LogoCompany";
 
 
 export enum ServerMode {
@@ -80,7 +81,7 @@ export enum ServerMode {
     encapsulation: ViewEncapsulation.Emulated,
     providers: [StyleService, AppdbAction],
     templateUrl: '/src/App.html',
-    directives: [ROUTER_DIRECTIVES, RouterLink, Filemenu, FilemenuItem, Logo, Footer]
+    directives: [ROUTER_DIRECTIVES, RouterLink, Filemenu, FilemenuItem, Logo, LogoCompany, Footer]
 })
 @RouteConfig([
     {path: "/", name: "root", redirectTo: ["/EntryPanelNoId/Login"], useAsDefault: true},
@@ -108,8 +109,9 @@ export class App {
         router.subscribe(function (currentRoute) {
             console.log(currentRoute);
         });
-    }
 
+    }
+        
     public appResized():void {
         var appHeight = document.body.clientHeight;
         var appWidth = document.body.clientWidth;
@@ -123,7 +125,7 @@ export class App {
     }
 }
 
-//enableProdMode();
+enableProdMode();
 bootstrap(App, [ROUTER_PROVIDERS, HTTP_PROVIDERS, JSONP_PROVIDERS,
     provide(AppStore, {useFactory: Lib.StoreFactory({notify, appdb, business, stations, reseller})}),
     provide(StoreService, {useClass: StoreService}),

@@ -66,8 +66,10 @@ export class UsersDetails {
         let businesses:List<BusinessModel> = this.appStore.getState().business.getIn(['businesses']);
         let index = this.businessActions.findBusinessIndexById(businessId, businesses);
         let businessModel:BusinessModel = this.appStore.getState().business.getIn(['businesses']).get(index);
+        var user = businessUser.getName()
+        var pass = businessUser.getPassword()
         if (businessModel.getKey('studioLite') == '0') {
-            window.open('http://galaxy.digitalsignage.com/WebService/signagestudio.aspx', '_blank');
+            window.open(`https://galaxy.mediasignage.com/WebService/signagestudio.aspx?user=${user}&pass=${pass}&local=en_US`, '_blank');
         } else {
             window.open('https://secure.digitalsignage.com/_studiolite-dist/studiolite.html', '_blank');
         }
