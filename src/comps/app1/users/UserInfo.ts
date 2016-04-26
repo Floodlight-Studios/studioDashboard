@@ -53,6 +53,8 @@ export class UserInfo {
                 'overflow': 'hidden'
             }
         }
+
+        this.samples = Lib.GetSamples();
     };
 
     businessId:string;
@@ -72,6 +74,7 @@ export class UserInfo {
     resellerId;
     verifiedIcon;
     fromTemplateId;
+    samples;
     unsub;
 
     @Input()
@@ -99,6 +102,15 @@ export class UserInfo {
             this.ref.detectChanges();
         } catch (e) {
         }
+    }
+
+    private getTemplateName(){
+        if (this.samples[this.fromTemplateId]){
+            return this.samples[this.fromTemplateId].replace(',',' | ');
+        } else {
+            return '';
+        }
+
     }
 
     private updateStore() {
@@ -132,4 +144,3 @@ export class UserInfo {
         //this.appStore.dispatch(this.businessActions.fetchBusinessUser([]))
     }
 }
-

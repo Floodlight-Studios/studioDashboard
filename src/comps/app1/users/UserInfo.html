@@ -45,7 +45,7 @@
   </div>
   <div class="col-md-7 box">
     <div class="inner" style="height: 100px">
-      <Infobox [value1]="maxMonitors" value2="licenses" value3="total allowed screens" icon="fa-tv"></Infobox>
+      <Infobox style="color: green" [value1]="'ACTIVE ACCOUNT'" value2="supported enterprise user account" value3="Digital Signage | Kiosk" icon="fa-tv"></Infobox>
       <Infobox [value1]="lastLogin" value2="in seconds" value3="time since last login" icon="fa-clock-o"></Infobox>
     </div>
   </div>
@@ -55,7 +55,7 @@
   <div class="col-md-6 box">
     <div class="inner userGeneral">
       <div style="background-color: #F3F3F4" class="panel panel-default tallPanel">
-        <div class="panel-heading">cloud storage
+        <div class="panel-heading">used cloud storage (coming soon)
           <i class="fa fa-cloud-download pull-right"></i>
           <UserStorage></UserStorage>
         </div>
@@ -99,9 +99,9 @@
             from template {{fromTemplateId}}
             <i class="fa fa-modx pull-right"></i>
           </li>
-
           <li class="list-group-item">
-            <h2>SHOW ICON TEMPLATE</h2>
+            <img style="width: 70px; opacity: 0.6" src="http://galaxy.signage.me/Resources/Images/lite_html/{{fromTemplateId}}.png" onError="this.src='assets/blankdoc.png'"/>
+            <h3 style="display: inline-block; position: relative; top: 10px">{{getTemplateName()}}</h3>
           </li>
         </ul>
       </div>
