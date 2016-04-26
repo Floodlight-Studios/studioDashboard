@@ -1,7 +1,6 @@
 ///<reference path="../../../typings/app.d.ts"/>
 
-import {Component, ElementRef} from 'angular2/core';
-import {Observable} from "rxjs/Observable";
+import {Component, ChangeDetectionStrategy, ChangeDetectorRef} from 'angular2/core';
 import 'rxjs/add/observable/fromEvent';
 import 'rxjs/add/observable/fromArray';
 import 'rxjs/add/operator/do';
@@ -17,39 +16,62 @@ import {WhitelabelModel} from "../../reseller/WhitelabelModel";
  **/
 @Component({
     selector: 'logoCompany',
+    changeDetection: ChangeDetectionStrategy.Default,
     template: `
-            <div *ngIf="whitelabelModel" style="padding-top: 10px" > 
+            <div *ngIf="whitelabelModel" style="padding-top: 7px" > 
               <span style="color: gainsboro; font-family: Roboto">{{getBusinessInfo('companyName')}}</span>
-              <img style="width: 35px" class="img-circle" src="http://galaxy.signage.me/Resources/Resellers/{{getBusinessInfo('businessId')}}/{{getBusinessInfo('fileName')}}" />
+              <!--<img style="width: 35px" class="img-circle" src="http://galaxy.signage.me/Resources/Resellers/{{getBusinessInfo('businessId')}}/{{getBusinessInfo('fileName')}}" />-->
+              <img style="width: 35px" class="img-circle" [src]="getImageUrl()" (load)="onImageLoaded()" (error)="onImageError()" />
             </div>
     `
 })
 
 export class LogoCompany {
 
-    constructor(private appStore:AppStore) {
+    constructor(private appStore:AppStore, private cdr:ChangeDetectorRef) {
         var i_reseller = this.appStore.getState().reseller;
         this.whitelabelModel = i_reseller.getIn(['whitelabel']);
         this.unsub = this.appStore.sub((whitelabelModel:WhitelabelModel) => {
             this.whitelabelModel = whitelabelModel;
         }, 'reseller.whitelabel');
-
     }
 
+    private imageRetries:number = 0;
     private unsub;
+
+    private getImageUrl() {
+        if (!this.whitelabelModel)
+            return '';
+        var url = '';
+        switch (this.imageRetries){
+            case 0: {
+                url = 'http://galaxy.signage.me/Resources/Resellers/' + this.getBusinessInfo('businessId') + '/Logo.jpg'
+                break;
+            }
+            case 1: {
+                url = 'http://galaxy.signage.me/Resources/Resellers/' + this.getBusinessInfo('businessId') + '/Logo.png'
+                break;
+            }
+            default: {
+                url = 'assets/person.png'
+                break;
+            }
+
+        }
+        return url;
+    }
+
+    private onImageLoaded() {
+        this.cdr.detach();
+    }
+
+    private onImageError() {
+        this.imageRetries++;
+    }
 
     private getBusinessInfo(field):string {
         if (!this.whitelabelModel)
             return '';
-        //todo: check if logo exists, if not try jpg / png / check case etc...
-        // $.get(image_url)
-        //     .done(function() {
-        //         // Do something now you know the image exists.
-        //
-        //     }).fail(function() {
-        //     // Image doesn't exist - do something else.
-        //
-        // })
         return this.appStore.getsKey('reseller', 'whitelabel', field);
     }
 

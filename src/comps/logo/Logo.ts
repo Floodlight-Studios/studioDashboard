@@ -1,6 +1,6 @@
 ///<reference path="../../../typings/app.d.ts"/>
 
-import {Component, ElementRef} from 'angular2/core';
+import {Component, ElementRef, ChangeDetectionStrategy} from 'angular2/core';
 import {Observable} from "rxjs/Observable";
 import 'rxjs/add/observable/fromEvent';
 import 'rxjs/add/observable/fromArray';
@@ -15,6 +15,7 @@ import 'rxjs/add/operator/distinctUntilChanged';
  **/
 @Component({
     selector: 'Logo',
+    changeDetection: ChangeDetectionStrategy.OnPush,
     styles: [`#logoContainer { padding-left: 10px; }`],
     template: `
             <div id="logoContainer" class="reshid flip">
