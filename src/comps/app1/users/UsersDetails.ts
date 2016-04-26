@@ -68,11 +68,14 @@ export class UsersDetails {
         let businessModel:BusinessModel = this.appStore.getState().business.getIn(['businesses']).get(index);
         var user = businessUser.getName()
         var pass = businessUser.getPassword()
-        if (businessModel.getKey('studioLite') == '0') {
-            window.open(`https://galaxy.mediasignage.com/WebService/signagestudio.aspx?user=${user}&pass=${pass}&local=en_US`, '_blank');
-        } else {
-            window.open('https://secure.digitalsignage.com/_studiolite-dist/studiolite.html', '_blank');
-        }
+        //todo: add support for token based launching of StudioLite and StudioPro
+        alert('coming soon... not supported yet');
+        return;
+        // if (businessModel.getKey('studioLite') == '0') {
+        //     window.open(`https://galaxy.mediasignage.com/WebService/signagestudio.aspx?user=${user}&pass=${pass}&local=en_US`, '_blank');
+        // } else {
+        //     window.open('https://secure.digitalsignage.com/_studiolite-dist/studiolite.html', '_blank');
+        // }
     }
 
     private onModalClose(result:ModalResult) {
