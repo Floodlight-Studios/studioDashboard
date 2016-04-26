@@ -710,6 +710,14 @@ export class Lib {
         return result
     };
 
+    static DevMode():boolean {
+        if (window.location.href.indexOf('localhost') > -1) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
     static GetSamples():Object {
         return {
             1019: 'Sushi Restaurant,pro',

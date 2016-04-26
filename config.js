@@ -65,6 +65,7 @@ System.config({
     "moment": "npm:moment@2.13.0",
     "ng2-bootstrap": "npm:ng2-bootstrap@1.0.7",
     "ng2-bs3-modal": "npm:ng2-bs3-modal@0.2.2",
+    "platform": "npm:platform@1.3.1",
     "plugin-typescript": "github:frankwallis/plugin-typescript@4.0.6",
     "redux": "npm:redux@3.4.0",
     "redux-thunk": "npm:redux-thunk@1.0.3",

@@ -5,6 +5,7 @@
 // import * as Immutable from 'immutable'
 // require('bootstrap');
 
+var platform = require('platform');
 import 'jspm_packages/github/twbs/bootstrap@3.3.6';
 import Immutable = require('immutable');
 import 'zone.js/dist/zone';
@@ -65,7 +66,6 @@ import {AppdbAction} from "./appdb/AppdbAction";
 import {enableProdMode} from 'angular2/core';
 import {LogoCompany} from "./comps/logo/LogoCompany";
 
-
 export enum ServerMode {
     CLOUD,
     PRIVATE,
@@ -94,12 +94,13 @@ export enum ServerMode {
 ])
 export class App {
     private m_styleService:StyleService;
-    
+
     constructor(private localStorage:LocalStorage, private appStore:AppStore, private commBroker:CommBroker, styleService:StyleService, private appdbAction:AppdbAction, private router:Router) {
         // force logout
         // this.localStorage.removeItem('remember_me')
         // todo: add logic to as when on each env
         // 0 = cloud, 1 = private 2 = hybrid
+        this.checkPlatform();
         this.commBroker.setValue(Consts.Values().SERVER_MODE, ServerMode.CLOUD);
         this.m_styleService = styleService;
         this.commBroker.setService(Consts.Services().App, this);
@@ -111,7 +112,26 @@ export class App {
         });
 
     }
-        
+
+    private checkPlatform(){
+        switch (platform.name.toLowerCase()) {
+            case 'microsoft edge':
+            {
+                alert(`${platform.name} browser not supported at this time, please use Google Chrome`);
+                break;
+            }
+            case 'chrome':
+            {
+                break;
+            }
+            default:
+            {
+                alert('for best performance please use Google Chrome');
+                break;
+            }
+        }
+    }
+
     public appResized():void {
         var appHeight = document.body.clientHeight;
         var appWidth = document.body.clientWidth;
@@ -138,7 +158,7 @@ bootstrap(App, [ROUTER_PROVIDERS, HTTP_PROVIDERS, JSONP_PROVIDERS,
     provide(LocalStorage, {useClass: LocalStorage}),
     provide(CommBroker, {useClass: CommBroker}),
     provide(Consts, {useClass: Consts}),
-    provide("DEV_ENV",{useValue :true}),
+    provide("DEV_ENV", {useValue: Lib.DevMode()}),
     provide(PLATFORM_PIPES, {useValue: CharCount, multi: true}),
     provide(LocationStrategy, {useClass: HashLocationStrategy})]).then((appRef:ComponentRef) => {
         appInjService(appRef.injector);

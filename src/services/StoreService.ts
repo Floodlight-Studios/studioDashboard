@@ -8,6 +8,7 @@ import {List, Map} from 'immutable';
 import {CommBroker} from "./CommBroker";
 import {Consts} from "../Conts";
 import {StationModel} from "../stations/StationModel";
+import {Lib} from "../Lib";
 const _ = require('underscore');
 
 @Injectable()
@@ -40,6 +41,7 @@ export class StoreService {
     }
 
     private initPollServices() {
+        console.log('starting poll services...');
         if (this.running)
             return;
         this.running = true;
@@ -63,16 +65,6 @@ export class StoreService {
             }
         }, 'business.businessStats');
 
-        // this.appStore.sub(() => {
-        //     // use 0 instead of ServerMode.CLOUD due to production bug with Enums
-        //     if (this.commBroker.getValue(Consts.Values().SERVER_MODE) == 0) {
-        //         this.appStore.dispatch(this.appDbActions.getCloudServers());
-        //     } else {
-        //         this.fetchStations();
-        //     }
-        // }, 'resellers.samples');
-
-
         /** (2 optional) if we are running in cloud, get list of used servers **/
         this.appStore.sub((servers:List<string>) => {
             this.knownServers = servers.toArray();
@@ -92,8 +84,8 @@ export class StoreService {
 
         /** (5) received station status **/
         this.appStore.sub((serversStatus:Map<string,any>) => {
-            // todo: enable in production and set poll value in settings
-            // this.initPollServices();
+            if (!Lib.DevMode())
+                this.initPollServices();
         }, 'appdb.serversStatus', false);
     }
 

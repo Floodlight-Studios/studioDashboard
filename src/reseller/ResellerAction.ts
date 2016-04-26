@@ -115,7 +115,6 @@ export class ResellerAction extends Actions {
         return (dispatch)=> {
             var appdb:Map<string,any> = this.appStore.getState().appdb;
             var url = appdb.get('appBaseUrlUser') + `&command=GetBusinessUserInfo`;
-            console.log(url);
             this._http.get(url)
                 .map(result => {
                     var xmlData:string = result.text()
