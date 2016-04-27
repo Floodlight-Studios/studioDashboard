@@ -1,0 +1,73 @@
+<tab [tabtitle]="'Branding (Flash)'">
+  <div class="tabStyle">
+           <pre><![CDATA[
+
+           <html>
+              <head>
+                <title>Reseller sample page</title>
+                <script src="http://galaxy.signage.me/WebService/install/DownloadUtils.js" language="javascript"></script>
+                <script src="http://galaxy.signage.me/WebService/install/AC_RunActiveContent.js" language="javascript"></script>
+              </head>
+              <body>
+                <h2>Install AirStudio</h2>
+                <div id="flashContent">
+                  <script language="JavaScript" type="text/javascript">
+                    var badgeDirectory = "http://galaxy.signage.me/WebService/install/"
+                    var airApplicationImage = 'http://galaxy.signage.me/WebService/install/AIRSudioInstall.png';
+                    var airApplicationArguments = 'YOUR_ERI_HERE';
+                    var airApplicationURL = "http://galaxy.signage.me/Code/Install/air/CloudSignageStudio.air";
+                    var airApplicationName = "Air Studio";
+                  </script>
+                  <script src="http://galaxy.signage.me/WebService/install/InstallBadge.js" language="javascript"></script>
+                  <!-- Noscript Block for users with JavaScript Disabled -->
+                  <noscript>
+                  <table id="AIRDownloadMessageTable">
+                    <tr>
+                      <td>
+                      Download <a href="http://galaxy.signage.me/Code/Install/air/CloudSignageStudio.air">Studio</a> now.<br /><br />
+                      <span id="AIRDownloadMessageRuntime">
+                      This application requires the Adobe&#174;&nbsp;AIR&#8482; runtime to be installed for
+                      <a href="http://get.adobe.com/air/thankyou/?installer=Adobe_AIR_3.0_for_MacOS_X">Mac OS</a> or
+                      <a href="http://get.adobe.com/air/thankyou/?installer=Adobe_AIR_3.0_for_Win32">Windows</a>.</span>
+                      </td>
+                    </tr>
+                  </table>
+                  </noscript>
+                </div>
+                <h2>Install AirPlayer ver. 4.20</h2>
+                <div id="flashContent">
+                  <script language="JavaScript" type="text/javascript">
+                    var airApplicationImage = 'http://galaxy.signage.me/WebService/install/AIRPlayerInstall.png';
+                    var airApplicationArguments = 'YOUR_ERI_HERE';
+                    var airApplicationURL = "http://galaxy.signage.me/Code/Install/air/CloudSignagePlayer.air";
+                    var airApplicationName = "Air Player";
+                  </script>
+                    <script src="http://galaxy.signage.me/WebService/install/InstallBadge.js" language="javascript"></script>
+                  <!-- Noscript Block for users with JavaScript Disabled -->
+                  <noscript>
+                  <table id="AIRDownloadMessageTable">
+                    <tr>
+                      <td>
+                      Download <a href="http://galaxy.signage.me/Code/Install/air/CloudSignagePlayer.air">Player</a> now.<br /><br />
+                      <span id="AIRDownloadMessageRuntime">
+                      This application requires the Adobe&#174;&nbsp;AIR&#8482; runtime to be installed for
+                      <a href="http://get.adobe.com/air/thankyou/?installer=Adobe_AIR_3.0_for_MacOS_X">Mac OS</a> or
+                      <a href="http://get.adobe.com/air/thankyou/?installer=Adobe_AIR_3.0_for_Win32">Windows</a>.</span>
+                      </td>
+                    </tr>
+                  </table>
+                  </noscript>
+                </div>
+                <h2>Open WebStudio</h2>
+                <a id="webStudio" onclick="openLoginApp('trial', 'http://galaxy.signage.me/WebService/', airApplicationArguments)">
+                  <image src="http://galaxy.signage.me/WebService/install/WebStudioInstall.png" />
+                </a>
+                <h2>Login WebStudio</h2>
+                <a id="login" onclick="openLoginApp('login', 'http://galaxy.signage.me/WebService/', airApplicationArguments)">
+                  <image src="http://galaxy.signage.me/WebService/install/Login.png" />
+                </a>
+                </body>
+            </html>
+          ]]></pre>
+  </div>
+</tab>

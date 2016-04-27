@@ -17,6 +17,7 @@ const bootbox = require('bootbox');
 
 @Component({
     selector: 'whitelabel',
+    styleUrls: [`../comps/app1/whitelabel/Whitelabel.css`],
     directives: [Tab, Tabs, FORM_DIRECTIVES, BlurForwarder, Loading],
     host: {
         '(input-blur)': 'onInputBlur($event)'
@@ -92,7 +93,6 @@ export class Whitelabel {
         // formData.append("filename", f);
 
 
-
         //formData.append("file", f);
         // var f2 = jQuery('#elemetFile')[0]['file'];
         // var f3 = document.getElementById("elemetFile").files[0].name;
@@ -161,6 +161,24 @@ export class Whitelabel {
         // formData.append("password", "123213");
         // httpRequest.open("POST", "https://galaxy.mediasignage.com/WebService/ResourceUpload.ashx");
         // httpRequest.send(formData);
+    }
+
+    private onBranding(value){
+        switch (value){
+            case 'video': {
+                window.open('http://www.digitalsignage.com/_html/video_tutorials.html?videoNumber=msgetstarted','_blank');
+                break;
+            }
+            case 'git': {
+                window.open('https://github.com/born2net/msgetstarted','_blank');
+                break;
+            }
+            case 'solution': {
+                bootbox.alert('At this point you can have your customers open accounts directly on your web site, track them and up-sale them... we make it easy for you to be successful in Digital Signage!');
+                break;
+            }
+        }
+        return false;
     }
 
     private renderFormInputs() {

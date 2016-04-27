@@ -34,7 +34,9 @@ var bootbox = require('bootbox');
                     <br/>
                     <br/>
                     <!--<hr class="hrThin"/>-->
-                    <a [routerLink]="['/ForgotPass', 'ForgotPass']"> forgot password </a>
+                   <a href="http://www.digitalsignage.com/_html/benefits.html" target="_blank">not an enterprise member? learn more</a>
+                    <!-- todo: add forgot password in v2-->
+                    <!--<a [routerLink]="['/ForgotPass', 'ForgotPass']"> forgot password </a>-->
                     <div id="languageSelectionLogin"></div>
                   </form>
                 </div>
