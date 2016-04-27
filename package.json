@@ -17,7 +17,7 @@
   "license": "MIT",
   "devDependencies": {
     "angular-cli": "0.0.*",
-    "angular2": "^2.0.0-beta.15",
+    "angular2": "^2.0.0-beta.16",
     "angular2-redux-util": "^0.8.43",
     "angular2-uuid": "^1.0.6",
     "autoprefixer": "^6.2.3",
@@ -89,7 +89,7 @@
   },
   "jspm": {
     "dependencies": {
-      "angular2": "npm:angular2@^2.0.0-beta.15",
+      "angular2": "npm:angular2@^2.0.0-beta.16",
       "angular2-polyfill": "npm:angular2-polyfill@^0.0.2",
       "angular2-redux-util": "npm:angular2-redux-util@^0.8.57",
       "angular2-uuid": "npm:angular2-uuid@^1.0.6",
@@ -120,7 +120,7 @@
     },
     "devDependencies": {
       "clean-css": "npm:clean-css@^3.4.9",
-      "ng2-bootstrap": "npm:ng2-bootstrap@1.0.7"
+      "ng2-bootstrap": "npm:ng2-bootstrap@1.0.14"
     }
   }
 }

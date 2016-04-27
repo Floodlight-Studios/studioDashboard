@@ -4,10 +4,12 @@ import {Pipe, PipeTransform} from 'angular2/core';
     name: 'FilterPipe'
 })
 export class FilterPipe implements PipeTransform {
-    transform(input, filter):boolean {
-        if (!input || filter[0] == "")
+    // transform(input, filter):boolean {
+    transform(input, ...args):boolean {
+        var filter = args[0];
+        if (!input || filter == "")
             return false;
-        if (input.indexOf(filter[0]) > -1)
+        if (input.indexOf(filter) > -1)
             return false;
         return true;
     }
