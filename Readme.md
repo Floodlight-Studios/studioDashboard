@@ -40,10 +40,12 @@ Links:
 - Angular2 docs: https://angular.io/docs/ts/latest/
 - Angular2 GitHub: https://github.com/angular/angular/tree/master/modules/angular2
 - TypeScript: https://www.typescriptlang.org/
+- jspm: http://jspm.io/ 
 
 
 Technical data:
 ------------------------------------------------------------------------
+- The application uses the jspm module / npm loaded
 - Use latest release of Angular2
 - Application is powered by TypeScript
 - App can be hosted to run locally (recommended on node.js) or on any hosted web server
