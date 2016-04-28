@@ -48,7 +48,13 @@ Technical data:
 
 Installation:
 ------------------------------------------------------------------------
-- git clone project 
+ 
+```
+git clone https://github.com/angular/angular/tree/master/modules/angular2
+cd studioDashboard
+npm install jspm -g
+npm install
+```
 
 
 Customization:
