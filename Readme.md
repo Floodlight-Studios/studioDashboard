@@ -68,7 +68,7 @@ Be sure to merge changes and subclass modules to be able to continue and receive
 
 License:
 ------------------------------------------------------------------------
-- StudioDashboard is available under GPL V3 3 https://github.com/born2net/signagestudio_web-lite/blob/master/LICENSE
+- StudioDashboard is available under GPL V3 https://github.com/born2net/signagestudio_web-lite/blob/master/LICENSE
 
 
 
