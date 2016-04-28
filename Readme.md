@@ -1,7 +1,7 @@
 studioDashboard
 =====================
 
-a DigitalSignage.com enterprise management studio   
+DigitalSignage.com enterprise management studio   
 ----------------
 
 <h5>by digitalsignage.com</h5> 
@@ -9,8 +9,8 @@ a DigitalSignage.com enterprise management studio
 
 ------------------------------------------------------------------------
 
-StudioDashboard is an open source, 100% FREE, Digital Signage Enterprise manager for subscribers of the Enterprise 
-edition of digitalsignage.com services.
+StudioDashboard is an open source, Digital Signage Enterprise manager for subscribers of the Enterprise 
+edition of MediaSignage Inc. services.
 
 Prerequisites:
 -----------------
@@ -36,12 +36,13 @@ Links:
 - Support: http://script.digitalsignage.com/forum/index.php/board,9.0.html
 - StudioDashboard video: TBA
 - Angular2: https://angular.io/
-- Angular2 docs: https://angular.io/docs/ts/latest/  
+- Angular2 docs: https://angular.io/docs/ts/latest/
+- Angular2 GitHub: https://github.com/angular/angular/tree/master/modules/angular2
 
 
 Technical data:
 ------------------------------------------------------------------------
-- Be sure to use the release of Angular2
+- Use latest release of Angular2
 - App can be hosted to run locally (recommended on node.js) or on any hosted web server
 - License is modified GPL V3
 
