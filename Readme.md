@@ -50,7 +50,7 @@ Installation:
 ------------------------------------------------------------------------
  
 ```
-git clone https://github.com/angular/angular/tree/master/modules/angular2
+git clone https://github.com/born2net/studioDashboard.git
 cd studioDashboard
 npm install jspm -g
 npm install
