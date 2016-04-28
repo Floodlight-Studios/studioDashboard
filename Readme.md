@@ -14,8 +14,9 @@ edition of MediaSignage Inc. services.
 
 Prerequisites:
 -----------------
- - An active DigitalSignage.com Enterprise account
- - Working knowledge of the Google Angular2 JavaScript framework
+- An active DigitalSignage.com Enterprise account
+- Working knowledge of the Google Angular2 JavaScript framework
+- Working knowledge of the Microsoft TypeScript 
  
 Features:
 ----------
@@ -38,11 +39,13 @@ Links:
 - Angular2: https://angular.io/
 - Angular2 docs: https://angular.io/docs/ts/latest/
 - Angular2 GitHub: https://github.com/angular/angular/tree/master/modules/angular2
+- TypeScript: https://www.typescriptlang.org/
 
 
 Technical data:
 ------------------------------------------------------------------------
 - Use latest release of Angular2
+- Application is powered by TypeScript
 - App can be hosted to run locally (recommended on node.js) or on any hosted web server
 - License is modified GPL V3
 
