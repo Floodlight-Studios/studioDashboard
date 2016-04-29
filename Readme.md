@@ -10,7 +10,7 @@ DigitalSignage.com enterprise management studio
 ------------------------------------------------------------------------
 
 StudioDashboard is an open source, Digital Signage Enterprise manager for subscribers of the Enterprise 
-edition of MediaSignage Inc. services.
+edition of MediaSignage Inc.
 
 Prerequisites:
 -----------------

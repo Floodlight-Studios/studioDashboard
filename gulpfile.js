@@ -86,21 +86,8 @@ gulp.task('development', function (done) {
     }
 });
 
-/**  Generate project documentation **/
-gulp.task("typedocs", function () {
-    return gulp
-        .src(["./src/*.ts"])
-        .pipe(typedoc({
-            module: "system",
-            target: "es5",
-            theme: "default",
-            experimentalDecorators: true,
-            ignoreCompilerErrors: true,
-            includeDeclarations: false,
-            out: "docs",
-            name: "studioDashboard",
-            version: true
-        }))
+gulp.task('typedocs', function (done) {
+    runSequence('x_typedocs', 'x_docs_rsync', 'x_docs_chown1', 'x_docs_chown2', done);
 });
 
 /** upload files to remote server for distribution **/
@@ -165,6 +152,23 @@ gulp.task('vanish***', function (done) {
  * private commands x_...
  *********************/
 
+/**  Generate project documentation **/
+gulp.task("x_typedocs", function () {
+    return gulp
+        .src(["./src/*.ts"])
+        .pipe(typedoc({
+            module: "system",
+            target: "es5",
+            theme: "default",
+            experimentalDecorators: true,
+            ignoreCompilerErrors: true,
+            includeDeclarations: false,
+            out: "docs",
+            name: "studioDashboard",
+            version: true
+        }))
+});
+
 /** Transpile TypeScript files **/
 gulp.task('x_build-ts', function () {
     return gulp.src('./src/**/*.ts')
@@ -178,6 +182,15 @@ gulp.task('x_build-ts', function () {
 gulp.task("x_bundle",
     shell.task(["jspm bundle-sfx src/App.js " + paths.dist + "/" + paths.targetJS + ' --skip-source-maps'])
 );
+
+gulp.task("x_docs_chown1",
+    shell.task(["ssh root@digitalsignage.com chown -R Sean /var/www/sites/mediasignage.com/htdocs/dashDocs/*"])
+);
+
+gulp.task("x_docs_chown2",
+    shell.task(["ssh root@digitalsignage.com chmod -R 777 /var/www/sites/mediasignage.com/htdocs/dashDocs/*"])
+);
+
 
 /** execute a hard reset on git head to latest **/
 gulp.task('x_gitReset', function () {
