@@ -3,6 +3,9 @@ src/**/*.js
 src/*.js
 src/*.map
 /src/*.js
+/docs
+/docs/*
+/docs/*.html
 /src/*.map
 /temp/*.js
 /temp/*.map

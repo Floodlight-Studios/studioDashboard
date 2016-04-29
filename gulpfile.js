@@ -87,7 +87,7 @@ gulp.task('development', function (done) {
 });
 
 /**  Generate project documentation **/
-gulp.task("sysdocs", function () {
+gulp.task("typedocs", function () {
     return gulp
         .src(["./src/*.ts"])
         .pipe(typedoc({
@@ -95,6 +95,7 @@ gulp.task("sysdocs", function () {
             target: "es5",
             theme: "default",
             experimentalDecorators: true,
+            ignoreCompilerErrors: true,
             includeDeclarations: false,
             out: "docs",
             name: "studioDashboard",
@@ -108,6 +109,27 @@ gulp.task('x_rsync', function () {
         source: '/cygdrive/c/msweb/studioDashboard/dist',
         destination: 'Sean@digitalsignage.com:/var/www/sites/monstersignage/htdocs',
         exclude: ['*.bat', '*.iml', '.gitignore', '.git', '.idea/']
+    });
+    rsync.set('progress');
+    rsync.flags('avzp');
+    console.log('running the command ' + rsync.command());
+    rsync.output(
+        function (data) {
+            console.log('sync: ' + data);
+        }, function (data) {
+            console.log('sync: ' + data);
+        }
+    );
+    rsync.execute(function (error, stdout, stderr) {
+        console.log('completed ' + error + ' ' + stdout + ' ' + stderr)
+    });
+});
+
+/** upload files to remote server for distribution **/
+gulp.task('x_docs_rsync', function () {
+    var rsync = Rsync.build({
+        source: '/cygdrive/c/msweb/studioDashboard/docs',
+        destination: 'Sean@digitalsignage.com:/var/www/sites/mediasignage.com/htdocs/dashDocs'
     });
     rsync.set('progress');
     rsync.flags('avzp');

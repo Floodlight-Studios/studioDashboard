@@ -32,6 +32,7 @@ Features:
 
 Links:
 ------------------------------------------------------------------------
+- Docs for StudioDashboard API: http://www.digitalsignage.com/dashDocs/docs/
 - Home: http://digitalsignage.com
 - Enterprise benefits: http://www.digitalsignage.com/_html/benefits.html
 - Support: http://script.digitalsignage.com/forum/index.php/board,9.0.html
