@@ -32,6 +32,7 @@ Features:
 
 Links:
 ------------------------------------------------------------------------
+- mediaCLOUD Dashboard login: http://dash.digitalsignage.com
 - Docs for StudioDashboard API: http://www.digitalsignage.com/dashDocs/docs/
 - Home: http://digitalsignage.com
 - Enterprise benefits: http://www.digitalsignage.com/_html/benefits.html

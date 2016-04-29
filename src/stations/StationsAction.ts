@@ -59,8 +59,7 @@ export class StationsAction extends Actions {
                 var businesses = i_businesses.join(',');
 
                 //todo: need to add user auth for getSocketStatusList
-                var url:string = `http://${i_source}/WebService/StationService.asmx/getSocketStatusList?i_businessList=${businesses}`;
-                // console.log(url);
+                var url:string = `https://${i_source}/WebService/StationService.asmx/getSocketStatusList?i_businessList=${businesses}`;
                 observables.push(this._http.get(url).retry(0).map((res) => {
                     return {xml: res.text(), source: i_source};
                 }));

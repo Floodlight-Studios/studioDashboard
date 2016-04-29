@@ -93,8 +93,8 @@ gulp.task('typedocs', function (done) {
 /** upload files to remote server for distribution **/
 gulp.task('x_rsync', function () {
     var rsync = Rsync.build({
-        source: '/cygdrive/c/msweb/studioDashboard/dist',
-        destination: 'Sean@digitalsignage.com:/var/www/sites/monstersignage/htdocs',
+        source: '/cygdrive/c/msweb/studioDashboard/dist/',
+        destination: 'Sean@digitalsignage.com:/var/www/sites/dynasite/htdocs/_msportal/_js/_node/public/',
         exclude: ['*.bat', '*.iml', '.gitignore', '.git', '.idea/']
     });
     rsync.set('progress');
@@ -217,7 +217,7 @@ gulp.task('x_open_server_bundle', function () {
         proxy: 'localhost:8003',
         reloadDelay: '5000'
     });
-    opn('http://monstersignage.com/public/index.html');
+    opn('https://secure.digitalsignage.com/_studiodash-dist/index.html');
 });
 
 // , '**/*.ts','**/*.html','**/*.css'
