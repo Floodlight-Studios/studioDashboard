@@ -32,6 +32,7 @@ const _ = require('underscore');
     let authService:AuthService = appInjService().get(AuthService);
     return authService.checkAccess(to, from, ['/Login/Login']);
 })
+
 export class Users {
 
     constructor(private appStore:AppStore, private businessAction:BusinessAction) {
