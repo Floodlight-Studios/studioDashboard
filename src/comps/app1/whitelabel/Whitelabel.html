@@ -1,161 +1,177 @@
 <br/>
 <form [ngFormModel]="contGroup">
   <label>
-    <div class="material-switch  pull-left">
-      <input id="whiteLabelCheckbox" #whiteLabelCheckbox type="checkbox" [(ngModel)]="whiteLabelEnabled" (change)="onWhiteLabelChange(whiteLabelCheckbox.checked)"/>
-      <label for="whiteLabelCheckbox" class="label-primary"></label>
-    </div>
-    <h4 style="padding-top: 6px">Business own branding</h4>
+	 <div class="material-switch  pull-left">
+		<input id="whiteLabelCheckbox" #whiteLabelCheckbox type="checkbox" [(ngModel)]="whiteLabelEnabled" (change)="onWhiteLabelChange(whiteLabelCheckbox.checked)"/>
+		<label for="whiteLabelCheckbox" class="label-primary"></label>
+	 </div>
+	 <h4 style="padding-top: 6px">Business own branding</h4>
   </label>
   <br/>
   <div>
-    <tabs *ngIf="whiteLabelEnabled">
-      <tab [tabtitle]="'Logo'" style="background-color: red">
-        <div class="tabStyle">
-          <div class="form-area">
-            <form role="form">
-              <br style="clear:both">
-              <h3 style="margin-bottom: 25px; text-align: center">custom application branding</h3>
-              <div class="form-group">
-                <input [ngFormControl]="contGroup.controls['companyName']" type="text" class="form-control" placeholder="Company name" required>
-              </div>
-              <div class="form-group">
-                <input [ngFormControl]="contGroup.controls['logoTooltip']" type="text" class="form-control" placeholder="logo tooltip" required>
-              </div>
-              <div class="form-group">
-                <input [ngFormControl]="contGroup.controls['logoLink']" type="text" class="form-control" placeholder="logo link" required>
-              </div>
-              <label>
-                <input [ngFormControl]="contGroup.controls['createAccountOption']" type="checkbox" checked> display create account option
-              </label>
-              <div class="clearfix"></div>
-              <div class="form-group">
+	 <tabs *ngIf="whiteLabelEnabled">
+		<tab [tabtitle]="'Logo'" style="background-color: red">
+		  <div class="tabStyle">
+			 <div class="form-area">
+				<form role="form">
+				  <br style="clear:both">
+				  <h3 style="margin-bottom: 25px; text-align: center">custom application branding</h3>
+				  <div class="form-group">
+					 <input [ngFormControl]="contGroup.controls['companyName']" type="text" class="form-control" placeholder="Company name" required>
+				  </div>
+				  <div class="form-group">
+					 <input [ngFormControl]="contGroup.controls['logoTooltip']" type="text" class="form-control" placeholder="logo tooltip" required>
+				  </div>
+				  <div class="form-group">
+					 <input [ngFormControl]="contGroup.controls['logoLink']" type="text" class="form-control" placeholder="logo link" required>
+				  </div>
+				  <label>
+					 <input [ngFormControl]="contGroup.controls['createAccountOption']" type="checkbox" checked> display
+					 create account option
+				  </label>
+				  <div class="clearfix"></div>
+				  <div class="form-group">
                 <span class="help-block">
                   <hr/>
-                  <h4>SignageStudio Logo</h4>
-                  <h6>file types: jpg, png, swf</h6>
-                  <h6>file size: 175 x 100 pixels</h6>
-                  <form id="formData">
-                    <input enctype="multipart/form-data" #fileName id="elementFile" name="file" value="Go" type="file"/>
-                    <input id="uploadButton" style="color: black; width: 92px; height: 22px; font-size: 13px; font-weight: 600" (click)="uploadLogos('logo')" type="button" value="Upload now"/>
-                  </form>
+                  <div class="row">
+                    <div class="col-xs-8">
+                      <h4>SignageStudio Logo</h4>
+                      <h6>file types: jpg, png, swf</h6>
+                      <h6>file size: 175 x 100 pixels</h6>
+                      <form id="formData">
+                        <input enctype="multipart/form-data" #fileName id="elementFile" name="file" value="Go" type="file"/>
+                        <input id="uploadButton" style="color: black; width: 92px; height: 22px; font-size: 13px; font-weight: 600" (click)="uploadLogos('logo')" type="button" value="Upload now"/>
+                      </form>
+                    </div>
+                    <div class="col-xs-4">
+                    <img src="assets/ng2.png" style="width: 175px; height: 100px"/>
+                    </div>
+                  </div>
                 </span>
-                <hr/>
+					 <hr/>
                 <span class="help-block">
                   <hr/>
-                  <h4>SignagePlayer Splash Logo</h4>
+						<div class="row">
+							<div class="col-xs-8">
+							  <h4>SignagePlayer Splash Logo</h4>
                   <h6>file types: jpg, png, swf</h6>
                   <h6>file size: any or use flash swf vector for best results</h6>
                   <form id="formData2">
                     <input enctype="multipart/form-data" #fileName id="elementFile2" name="file" value="Go" type="file"/>
                     <input id="uploadButton2" style="color: black; width: 92px; height: 22px; font-size: 13px; font-weight: 600" (click)="uploadLogos('splash')" type="button" value="Upload now"/>
                   </form>
+							</div>
+						  <div class="col-xs-4">
+							 <img src="assets/ng2.png" style="width: 175px; height: 100px"/>
+						  </div>
+						</div>
                 </span>
-              </div>
-            </form>
-          </div>
-        </div>
-      </tab>
-      <tab [tabtitle]="'Links'">
-        <div class="tabStyle">
-          <div class="form-area">
-            <form role="form">
-              <br style="clear:both">
-              <h3 style="margin-bottom: 25px; text-align: center;">StudioPro links</h3>
-              <div class="form-group">
-                <input [ngFormControl]="contGroup.controls['linksHome']" type="text" class="form-control" placeholder="home page" required>
-              </div>
-              <div class="form-group">
-                <input [ngFormControl]="contGroup.controls['linksDownload']" type="text" class="form-control" placeholder="download page" required>
-              </div>
-              <div class="form-group">
-                <input [ngFormControl]="contGroup.controls['linksContact']" type="text" class="form-control" placeholder="contact us" required>
-              </div>
-              <hr/>
-              <label>
-                <input [ngFormControl]="contGroup.controls['twitterShow']" type="checkbox" checked> show twitter button
-              </label>
-              <div class="clearfix"></div>
-              <div class="form-group">
-                <input [ngFormControl]="contGroup.controls['twitterLink']" type="text" class="form-control" placeholder="twitter link" required>
-              </div>
-              <hr/>
-              <label>
-                <input [ngFormControl]="contGroup.controls['chatShow']" type="checkbox" checked> show live chat button
-              </label>
-              <div class="clearfix"></div>
-              <div class="form-group">
-                <input [ngFormControl]="contGroup.controls['chatLink']" type="text" class="form-control" placeholder="live chat link" required>
-              </div>
-              <hr/>
-              <label>
-                <input [ngFormControl]="contGroup.controls['bannerEmbedReference']" type="checkbox" checked> show banner back links
-              </label>
-              <div class="clearfix"></div>
-            </form>
-          </div>
-        </div>
-      </tab>
-      <tab [tabtitle]="'Menu'">
-        <div class="tabStyle">
-          <div class="form-area">
-            <form role="form">
-              <br style="clear:both">
-              <h3 style="margin-bottom: 25px; text-align: center;">StudioPro custom menus</h3>
-              <div class="form-group">
-                <input [ngFormControl]="contGroup.controls['mainMenuLink0']" type="text" class="form-control" placeholder="visit site" required>
-              </div>
-              <div class="form-group">
-                <input [ngFormControl]="contGroup.controls['mainMenuLink1']" type="text" class="form-control" placeholder="video tutorials" required>
-              </div>
-              <div class="form-group">
-                <input [ngFormControl]="contGroup.controls['mainMenuLink2']" type="text" class="form-control" placeholder="support" required>
-              </div>
-              <div class="form-group">
-                <input [ngFormControl]="contGroup.controls['mainMenuLink3']" type="text" class="form-control" placeholder="report bugs" required>
-              </div>
-              <div class="form-group">
-                <input [ngFormControl]="contGroup.controls['mainMenuLabel4']" type="text" class="form-control" placeholder="about" required>
-              </div>
-            </form>
-          </div>
-        </div>
-      </tab>
-      <tab [tabtitle]="'Branding'">
-        <div class="tabStyle">
-          <center>
-            <h3>brand the entire solution as your own</h3>
-            <h4>customizable digital signage solution that fits your business model, not ours</h4>
-          </center>
-          <br/>
-          <br/>
-          <br/>
-          <div class="process">
-            <div class="process-row">
-              <div class="process-step">
-                <button (click)="onBranding('video')" type="button" class="btn btn-default btn-circle">
-                  <i class="fa fa-film fa-4x"></i>
-                </button>
-                <p>1. watch the online video tutorial</p>
-              </div>
-              <div class="process-step">
-                <button (click)="onBranding('git')" type="button" class="btn btn-default btn-circle">
-                  <i class="fa fa-github fa-4x"></i>
-                </button>
-                <p>2. get the code, it's easy to setup</p>
-              </div>
-              <div (click)="$event.preventDefault()" class="process-step">
-                <button (click)="onBranding('solution',$event)" type="button" class="btn btn-success btn-circle">
-                  <i class="fa fa-coffee fa-4x"></i>
-                </button>
-                <p>3. sit back and watch your business grow</p>
-              </div>
-            </div>
-          </div>
-          <br/>
-          <br/>
-        </div>
-      </tab>
-    </tabs>
+				  </div>
+				</form>
+			 </div>
+		  </div>
+		</tab>
+		<tab [tabtitle]="'Links'">
+		  <div class="tabStyle">
+			 <div class="form-area">
+				<form role="form">
+				  <br style="clear:both">
+				  <h3 style="margin-bottom: 25px; text-align: center;">StudioPro links</h3>
+				  <div class="form-group">
+					 <input [ngFormControl]="contGroup.controls['linksHome']" type="text" class="form-control" placeholder="home page" required>
+				  </div>
+				  <div class="form-group">
+					 <input [ngFormControl]="contGroup.controls['linksDownload']" type="text" class="form-control" placeholder="download page" required>
+				  </div>
+				  <div class="form-group">
+					 <input [ngFormControl]="contGroup.controls['linksContact']" type="text" class="form-control" placeholder="contact us" required>
+				  </div>
+				  <hr/>
+				  <label>
+					 <input [ngFormControl]="contGroup.controls['twitterShow']" type="checkbox" checked> show twitter button
+				  </label>
+				  <div class="clearfix"></div>
+				  <div class="form-group">
+					 <input [ngFormControl]="contGroup.controls['twitterLink']" type="text" class="form-control" placeholder="twitter link" required>
+				  </div>
+				  <hr/>
+				  <label>
+					 <input [ngFormControl]="contGroup.controls['chatShow']" type="checkbox" checked> show live chat button
+				  </label>
+				  <div class="clearfix"></div>
+				  <div class="form-group">
+					 <input [ngFormControl]="contGroup.controls['chatLink']" type="text" class="form-control" placeholder="live chat link" required>
+				  </div>
+				  <hr/>
+				  <label>
+					 <input [ngFormControl]="contGroup.controls['bannerEmbedReference']" type="checkbox" checked> show banner
+					 back links
+				  </label>
+				  <div class="clearfix"></div>
+				</form>
+			 </div>
+		  </div>
+		</tab>
+		<tab [tabtitle]="'Menu'">
+		  <div class="tabStyle">
+			 <div class="form-area">
+				<form role="form">
+				  <br style="clear:both">
+				  <h3 style="margin-bottom: 25px; text-align: center;">StudioPro custom menus</h3>
+				  <div class="form-group">
+					 <input [ngFormControl]="contGroup.controls['mainMenuLink0']" type="text" class="form-control" placeholder="visit site" required>
+				  </div>
+				  <div class="form-group">
+					 <input [ngFormControl]="contGroup.controls['mainMenuLink1']" type="text" class="form-control" placeholder="video tutorials" required>
+				  </div>
+				  <div class="form-group">
+					 <input [ngFormControl]="contGroup.controls['mainMenuLink2']" type="text" class="form-control" placeholder="support" required>
+				  </div>
+				  <div class="form-group">
+					 <input [ngFormControl]="contGroup.controls['mainMenuLink3']" type="text" class="form-control" placeholder="report bugs" required>
+				  </div>
+				  <div class="form-group">
+					 <input [ngFormControl]="contGroup.controls['mainMenuLabel4']" type="text" class="form-control" placeholder="about" required>
+				  </div>
+				</form>
+			 </div>
+		  </div>
+		</tab>
+		<tab [tabtitle]="'Branding'">
+		  <div class="tabStyle">
+			 <center>
+				<h3>brand the entire solution as your own</h3>
+				<h4>customizable digital signage solution that fits your business model, not ours</h4>
+			 </center>
+			 <br/>
+			 <br/>
+			 <br/>
+			 <div class="process">
+				<div class="process-row">
+				  <div class="process-step">
+					 <button (click)="onBranding('video')" type="button" class="btn btn-default btn-circle">
+						<i class="fa fa-film fa-4x"></i>
+					 </button>
+					 <p>1. watch the online video tutorial</p>
+				  </div>
+				  <div class="process-step">
+					 <button (click)="onBranding('git')" type="button" class="btn btn-default btn-circle">
+						<i class="fa fa-github fa-4x"></i>
+					 </button>
+					 <p>2. get the code, it's easy to setup</p>
+				  </div>
+				  <div (click)="$event.preventDefault()" class="process-step">
+					 <button (click)="onBranding('solution',$event)" type="button" class="btn btn-success btn-circle">
+						<i class="fa fa-coffee fa-4x"></i>
+					 </button>
+					 <p>3. sit back and watch your business grow</p>
+				  </div>
+				</div>
+			 </div>
+			 <br/>
+			 <br/>
+		  </div>
+		</tab>
+	 </tabs>
   </div>
 </form>

@@ -68,11 +68,12 @@ export class UsersDetails {
         let businessModel:BusinessModel = this.appStore.getState().business.getIn(['businesses']).get(index);
         var user = businessUser.getName()
         var pass = businessUser.getPassword()
-        if (businessModel.getKey('studioLite') == '0') {
-            window.open(`http://galaxy.mediasignage.com/WebService/signagestudio.aspx?user=${user}&pass=${pass}&local=en_US`, '_blank');
-        } else {
-            window.open('https://secure.digitalsignage.com/_studiolite-dist/studiolite.html', '_blank');
-        }
+        alert('Feature will be supported soon...');
+        // if (businessModel.getKey('studioLite') == '0') {
+        //     window.open(`http://galaxy.mediasignage.com/WebService/signagestudio.aspx?user=${user}&pass=${pass}&local=en_US`, '_blank');
+        // } else {
+        //     window.open('https://secure.digitalsignage.com/_studiolite-dist/studiolite.html', '_blank');
+        // }
     }
 
     private onModalClose(result:ModalResult) {
