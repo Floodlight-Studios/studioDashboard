@@ -77,103 +77,69 @@ export class Whitelabel {
         setTimeout(()=>this.appStore.dispatch(this.resellerAction.saveWhiteLabel(Lib.CleanCharForXml(this.contGroup.value))), 1);
     }
 
-    private loadNow() {
+    private uploadLogos(i_type) {
         var progressHandlingFunction = (e) => {
             console.log('progress ' + e);
         }
         var httpRequest = new XMLHttpRequest();
         httpRequest.onload = function (oEvent) {
             if (httpRequest.status == 200) {
-                alert(httpRequest.response);
+                if (httpRequest.response == 'true') {
+                    bootbox.alert('File uploaded successfully...');
+                } else {
+                    bootbox.alert('There was a problem uploading your file');
+                }
             }
         };
-        var f = this.fileName.nativeElement.value;
-        var form:any = jQuery('form')[0];
-        var formData:any = new FormData(form);
-        // formData.append("filename", f);
+        var formData = new FormData();
+        var fileName, file, fileExtension;
+        if (i_type == 'logo') {
+            file = document.getElementById("elementFile")['files'][0];
+            fileName = document.getElementById("elementFile")['files'][0]['name'];
+            fileExtension = fileName.substr((fileName.lastIndexOf('.') + 1))
+            if (!(/(jpg|png)$/i).test(fileExtension)) {
+                bootbox.alert('File extension must be .png or .jpg')
+                return
+            }
+            fileName = `Logo.${fileExtension}`;
+        }
+        if (i_type == 'splash') {
+            file = document.getElementById("elementFile2")['files'][0];
+            fileName = document.getElementById("elementFile2")['files'][0]['name'];
+            fileExtension = fileName.substr((fileName.lastIndexOf('.') + 1))
+            // if (!(/(swf)$/i).test(fileExtension)) {
+            //     bootbox.alert('File type must be Flash and extension to be .swf')
+            //     return
+            // }
+            fileName = `Update.swf`;
+        }
+        formData.append("filename", fileName);
 
-
-        //formData.append("file", f);
-        // var f2 = jQuery('#elemetFile')[0]['file'];
-        // var f3 = document.getElementById("elemetFile").files[0].name;
-        formData.append("file", f);
-        formData.append("filename", "Logo.jpg");
-        formData.append("userName", "reseller@ms.com");
-        formData.append("password", "123123");
-
-        // var formData = new FormData();
-        // formData.append("filename", "Logo.jpg");
-        // formData.append("file", "Logo.jpg");
-        // formData.append("userName", "reseller@ms.com");
-        // formData.append("password", "123123");
-
-        httpRequest.open("POST", "http://galaxy.mediasignage.com/WebService/ResourceUpload.ashx");
+        formData.append("file", file);
+        var user = this.appStore.getState().appdb.get('credentials').get('user');
+        var pass = this.appStore.getState().appdb.get('credentials').get('pass');
+        formData.append("userName", user);
+        formData.append("password", pass);
+        var appdb:Map<string,any> = this.appStore.getState().appdb;
+        var url = appdb.get('appBaseUrlUser').split('ResellerService')[0];
+        httpRequest.open("POST", `${url}/ResourceUpload.ashx`);
         httpRequest.send(formData);
-
-
-        // jQuery.ajaxSetup({
-        //     cache: false,
-        //     timeout: 8000,
-        //     crossDomain: true
-        // });
-        // jQuery.ajax({
-        //     url: 'http://galaxy.mediasignage.com/WebService/ResourceUpload.ashx',  //Server script to process data
-        //     type: 'POST',
-        //     xhr: function () {  // Custom XMLHttpRequest
-        //         var myXhr = jQuery.ajaxSettings.xhr();
-        //         if (myXhr.upload) { // Check if upload property exists
-        //             myXhr.upload.addEventListener('progress', progressHandlingFunction, false); // For handling the progress of the upload
-        //         }
-        //         return myXhr;
-        //     },
-        //     //Ajax events
-        //     // beforeSend: function (e) {
-        //     //     alert('before ' + e)
-        //     // },
-        //     success: function (e) {
-        //         alert('success ' + e)
-        //     },
-        //     error: function (e) {
-        //         alert('error ' + e)
-        //     },
-        //     // Form data
-        //     data: formData,
-        //     //Options to tell jQuery not to process data or worry about content-type.
-        //     cache: false,
-        //     contentType: false,
-        //     processData: false,
-        //     crossDomain: true
-        // });
-
-        // alert('loading');
-        // var httpRequest = new XMLHttpRequest();
-        // httpRequest.onload = function (oEvent) {
-        //     if (httpRequest.status == 200) {
-        //         alert('finish');
-        //     }
-        // };
-        // var formData = new FormData();
-        // formData.append("filename", "Logo.jpg");
-        // var f = jQuery('#elemetFile');
-        // // formData.append("file", elemetFile.file);
-        // formData.append("file", f);
-        // formData.append("userName", "reseller@ms.com");
-        // formData.append("password", "123213");
-        // httpRequest.open("POST", "https://galaxy.mediasignage.com/WebService/ResourceUpload.ashx");
-        // httpRequest.send(formData);
     }
 
-    private onBranding(value){
-        switch (value){
-            case 'video': {
-                window.open('http://www.digitalsignage.com/_html/video_tutorials.html?videoNumber=msgetstarted','_blank');
+    private onBranding(value) {
+        switch (value) {
+            case 'video':
+            {
+                window.open('http://www.digitalsignage.com/_html/video_tutorials.html?videoNumber=msgetstarted', '_blank');
                 break;
             }
-            case 'git': {
-                window.open('https://github.com/born2net/msgetstarted','_blank');
+            case 'git':
+            {
+                window.open('https://github.com/born2net/msgetstarted', '_blank');
                 break;
             }
-            case 'solution': {
+            case 'solution':
+            {
                 bootbox.alert('At this point you can have your customers open accounts directly on your web site, track them and up-sale them... we make it easy for you to be successful in Digital Signage!');
                 break;
             }

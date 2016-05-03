@@ -32,39 +32,24 @@
               <div class="form-group">
                 <span class="help-block">
                   <hr/>
-
-                  <!--<script>-->
-                  <!--var loadNow = function(){-->
-                  <!--alert('loading');-->
-                  <!--var httpRequest = new XMLHttpRequest();-->
-                  <!--httpRequest.onload = function (oEvent) {-->
-                  <!--if (httpRequest.status == 200) {-->
-                  <!--alert('finish');-->
-                  <!--}-->
-                  <!--};-->
-                  <!--var formData = new FormData();-->
-                  <!--formData.append("filename", "Logo.jpg");-->
-                  <!--formData.append("file", elemetFile.file);-->
-                  <!--formData.append("userName", "reseller@ms.com");-->
-                  <!--formData.append("password", "123213");-->
-                  <!--httpRequest.open("POST", "https://galaxy.mediasignage.com/WebService/ResourceUpload.ashx");-->
-                  <!--httpRequest.send(formData);-->
-                  <!--}-->
-                  <!--</script>-->
-                  <!--<form id="formData">-->
-                  <!--<input type="file" id="elemetFile" value="Go"/>-->
-                  <!--<button (click)="loadNow()">Load</button>-->
-                  <!--</form>-->
-
-                  <!--
-                  todo: enable once we update SSL on servers
-                  <h3>Upload Logo</h3>
+                  <h4>SignageStudio Logo</h4>
+                  <h6>file types: jpg, png, swf</h6>
+                  <h6>file size: 175 x 100 pixels</h6>
                   <form id="formData">
-                    <input enctype="multipart/form-data" #fileName id="elemetFile" name="file" value="Go" type="file"/>
-                    <input id="uploader" (click)="loadNow()" type="button" value="Upload"/>
+                    <input enctype="multipart/form-data" #fileName id="elementFile" name="file" value="Go" type="file"/>
+                    <input id="uploadButton" style="color: black; width: 92px; height: 22px; font-size: 13px; font-weight: 600" (click)="uploadLogos('logo')" type="button" value="Upload now"/>
                   </form>
-                  <progress></progress>
-                  -->
+                </span>
+                <hr/>
+                <span class="help-block">
+                  <hr/>
+                  <h4>SignagePlayer Splash Logo</h4>
+                  <h6>file types: jpg, png, swf</h6>
+                  <h6>file size: any or use flash swf vector for best results</h6>
+                  <form id="formData2">
+                    <input enctype="multipart/form-data" #fileName id="elementFile2" name="file" value="Go" type="file"/>
+                    <input id="uploadButton2" style="color: black; width: 92px; height: 22px; font-size: 13px; font-weight: 600" (click)="uploadLogos('splash')" type="button" value="Upload now"/>
+                  </form>
                 </span>
               </div>
             </form>
