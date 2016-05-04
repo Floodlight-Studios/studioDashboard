@@ -45,7 +45,7 @@
                     </div>
                     <div class="col-xs-4">
                     <!--<img src="assets/ng2.png" style="width: 175px; height: 100px"/>-->
-							 <imgLoader style="display: inline-block" [style]="stylesObj" [images]="getImageUrl('logo')" [defaultImage]="'assets/person.png'"></imgLoader>
+							 <imgLoader #imgLoaderLogo style="display: inline-block" [style]="stylesObj" [images]="getImageUrl('logo')" [defaultImage]="'assets/logo.png'"></imgLoader>
                     </div>
                   </div>
                 </span>
@@ -64,7 +64,7 @@
 							</div>
 						  <div class="col-xs-4">
 							 <!--<img src="assets/ng2.png" style="width: 175px; height: 100px"/>-->
-							 <imgLoader style="display: inline-block" [style]="stylesObj" [images]="getImageUrl('splash')" [defaultImage]="'assets/person.png'"></imgLoader>
+							 <imgLoader #imgLoaderSplash style="display: inline-block" [style]="stylesObj" [images]="getImageUrl('splash')" [defaultImage]="'assets/splash.png'"></imgLoader>
 						  </div>
 						</div>
                 </span>

@@ -20,7 +20,7 @@ import {ImgLoader} from "../imgloader/ImgLoader";
     template: `
             <div *ngIf="whitelabelModel"> 
               <span style="color: gainsboro; font-family: Roboto">{{getBusinessInfo('companyName')}}</span>
-              <imgLoader style="display: inline-block; padding-top: 8px" [style]="stylesObj" [circle]="true" [images]="getImageUrl()" [defaultImage]="'assets/person.png'"></imgLoader>
+              <imgLoader style="display: inline-block; padding-top: 4px" [style]="stylesObj" [circle]="true" [images]="getImageUrl()" [defaultImage]="'assets/person.png'"></imgLoader>
             </div>
     `
 })

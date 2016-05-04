@@ -40,7 +40,7 @@ export class ImgLoader {
         if (this.images[this.imageRetries] == undefined) {
             return this.defaultImage;
         }
-        return this.images[this.imageRetries];
+        return this.images[this.imageRetries] + '?random=' + Math.random();
     }
 
     private onImageLoaded() {
@@ -49,6 +49,12 @@ export class ImgLoader {
 
     private onImageError() {
         this.imageRetries++;
+    }
+
+    public reloadImage(){
+        this.imageRetries = 0;
+        this.cdr.reattach();
+
     }
 
 }

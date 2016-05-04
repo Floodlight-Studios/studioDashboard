@@ -1,4 +1,4 @@
-import {Component, ViewChild, ChangeDetectionStrategy, ElementRef, NgZone} from 'angular2/core'
+import {Component, ViewChild, ChangeDetectionStrategy, ElementRef, NgZone, ViewChildren, QueryList} from 'angular2/core'
 import {Router} from 'angular2/router';
 import {CanActivate, ComponentInstruction} from "angular2/router";
 import {AuthService} from "../../../services/AuthService";
@@ -77,6 +77,20 @@ export class Whitelabel {
     }
 
     @ViewChild('fileName') fileName:ElementRef;
+    @ViewChild('imgLoaderLogo') imgLoaderLogo:ImgLoader;
+    @ViewChild('imgLoaderSplash') imgLoaderSplash:ImgLoader;
+    @ViewChild('#imgLoaderSplash') a:any;
+    @ViewChild(ImgLoader) b:any;
+    @ViewChild('ImgLoader') c:any;
+
+    @ViewChildren('ImgLoader')
+    d:QueryList<any>;
+
+    @ViewChildren('imgLoader')
+    e:QueryList<any>;
+
+    @ViewChildren(ImgLoader)
+    f:QueryList<any>;
 
     private whiteLabelEnabled:any = true;
     private formInputs = {};
@@ -113,6 +127,7 @@ export class Whitelabel {
     }
 
     private uploadLogos(i_type) {
+        var self = this;
         var progressHandlingFunction = (e) => {
             console.log('progress ' + e);
         }
@@ -121,6 +136,10 @@ export class Whitelabel {
             if (httpRequest.status == 200) {
                 if (httpRequest.response == 'true') {
                     bootbox.alert('File uploaded successfully...');
+                    self.f.map((imgLoader:ImgLoader) => {
+                        imgLoader.reloadImage();
+                    });
+
                 } else {
                     bootbox.alert('There was a problem uploading your file');
                 }
