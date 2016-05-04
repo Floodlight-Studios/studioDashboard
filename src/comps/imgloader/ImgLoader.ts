@@ -10,7 +10,7 @@ import 'rxjs/add/operator/distinctUntilChanged';
     changeDetection: ChangeDetectionStrategy.Default,
     template: `
             <div *ngIf="defaultImage"> 
-              <img  [ngStyle]="_style.img" class="img-circle" [src]="getImageUrl()" (load)="onImageLoaded()" (error)="onImageError()" />
+              <img [ngStyle]="_style.img" [ngClass]="{'img-circle': circle}" [src]="getImageUrl()" (load)="onImageLoaded()" (error)="onImageError()" />
             </div>
     `
 })
@@ -25,6 +25,9 @@ export class ImgLoader {
 
     @Input()
     defaultImage:string = '';
+
+    @Input()
+    circle:boolean = false;
 
     @Input()
     images:Array<string> = [];

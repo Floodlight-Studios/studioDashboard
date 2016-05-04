@@ -12,13 +12,14 @@ import {FORM_DIRECTIVES, ControlGroup, FormBuilder, Control} from "angular2/comm
 import {BlurForwarder} from "../../blurforwarder/BlurForwarder";
 import {Loading} from "../../loading/Loading";
 import {Lib} from "../../../Lib";
+import {ImgLoader} from "../../imgloader/ImgLoader";
 const _ = require('underscore');
 const bootbox = require('bootbox');
 
 @Component({
     selector: 'whitelabel',
     styleUrls: [`../comps/app1/whitelabel/Whitelabel.css`],
-    directives: [Tab, Tabs, FORM_DIRECTIVES, BlurForwarder, Loading],
+    directives: [Tab, Tabs, FORM_DIRECTIVES, BlurForwarder, Loading, ImgLoader],
     host: {
         '(input-blur)': 'onInputBlur($event)'
     },
@@ -63,6 +64,16 @@ export class Whitelabel {
             this.formInputs[key] = this.contGroup.controls[key] as Control;
         })
         this.renderFormInputs();
+
+        this.stylesObj = {
+            img: {
+                'color': '#333333',
+                'overflow': 'hidden',
+                'white-space': 'nowrap',
+                'height': '100px',
+                'width': '175px'
+            }
+        }
     }
 
     @ViewChild('fileName') fileName:ElementRef;
@@ -72,9 +83,33 @@ export class Whitelabel {
     private contGroup:ControlGroup;
     private whitelabelModel:WhitelabelModel;
     private unsub;
+    private stylesObj;
 
     private onInputBlur(event) {
         setTimeout(()=>this.appStore.dispatch(this.resellerAction.saveWhiteLabel(Lib.CleanCharForXml(this.contGroup.value))), 1);
+    }
+
+    private getImageUrl(i_type):Array<string> {
+        if (!this.whitelabelModel)
+            return [];
+
+        switch (i_type) {
+            case 'logo':
+            {
+                return ['http://galaxy.signage.me/Resources/Resellers/' + this.getBusinessInfo('businessId') + '/Logo.png', 'http://galaxy.signage.me/Resources/Resellers/' + this.getBusinessInfo('businessId') + '/Logo.jpg'];
+            }
+            case 'splash':
+            {
+                console.log('http://galaxy.signage.me/Resources/Resellers/' + this.getBusinessInfo('businessId') + '/Update.swf');
+                return ['http://galaxy.signage.me/Resources/Resellers/' + this.getBusinessInfo('businessId') + '/Update.swf'];
+            }
+        }
+    }
+
+    private getBusinessInfo(field):string {
+        if (!this.whitelabelModel)
+            return '';
+        return this.appStore.getsKey('reseller', 'whitelabel', field);
     }
 
     private uploadLogos(i_type) {
