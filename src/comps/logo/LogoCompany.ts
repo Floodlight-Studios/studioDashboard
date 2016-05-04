@@ -1,5 +1,3 @@
-///<reference path="../../../typings/app.d.ts"/>
-
 import {Component, ChangeDetectionStrategy, ChangeDetectorRef} from 'angular2/core';
 import 'rxjs/add/observable/fromEvent';
 import 'rxjs/add/observable/fromArray';
@@ -8,6 +6,7 @@ import 'rxjs/add/operator/merge';
 import 'rxjs/add/operator/distinctUntilChanged';
 import {AppStore} from "angular2-redux-util/dist/index";
 import {WhitelabelModel} from "../../reseller/WhitelabelModel";
+import {ImgLoader} from "../imgloader/ImgLoader";
 
 /**
  * Logo component for Application header
@@ -16,12 +15,12 @@ import {WhitelabelModel} from "../../reseller/WhitelabelModel";
  **/
 @Component({
     selector: 'logoCompany',
+    directives: [ImgLoader],
     changeDetection: ChangeDetectionStrategy.Default,
     template: `
-            <div *ngIf="whitelabelModel" style="padding-top: 7px" > 
+            <div *ngIf="whitelabelModel"> 
               <span style="color: gainsboro; font-family: Roboto">{{getBusinessInfo('companyName')}}</span>
-              <!--<img style="width: 35px" class="img-circle" src="http://galaxy.signage.me/Resources/Resellers/{{getBusinessInfo('businessId')}}/{{getBusinessInfo('fileName')}}" />-->
-              <img style="width: 35px" class="img-circle" [src]="getImageUrl()" (load)="onImageLoaded()" (error)="onImageError()" />
+              <imgLoader style="display: inline-block" [style]="stylesObj" class="img-circle" [images]="getImageUrl()" [defaultImage]="'assets/person.png'"></imgLoader>
             </div>
     `
 })
@@ -34,38 +33,29 @@ export class LogoCompany {
         this.unsub = this.appStore.sub((whitelabelModel:WhitelabelModel) => {
             this.whitelabelModel = whitelabelModel;
         }, 'reseller.whitelabel');
-    }
 
-    private imageRetries:number = 0;
-    private unsub;
-
-    private getImageUrl() {
-        if (!this.whitelabelModel)
-            return '';
-        var url = '';
-        switch (this.imageRetries){
-            case 0: {
-                url = 'http://galaxy.signage.me/Resources/Resellers/' + this.getBusinessInfo('businessId') + '/Logo.jpg'
-                break;
-            }
-            case 1: {
-                url = 'http://galaxy.signage.me/Resources/Resellers/' + this.getBusinessInfo('businessId') + '/Logo.png'
-                break;
-            }
-            default: {
-                url = 'assets/person.png'
-                break;
+        this.stylesObj = {
+            img: {
+                'color': '#333333',
+                'overflow': 'hidden',
+                'white-space': 'nowrap',
+                'width': '35px'
             }
         }
-        return url;
     }
+    private unsub;
+    private stylesObj;
+    private images:Array<string> = [];
+    private whitelabelModel:WhitelabelModel;
 
-    private onImageLoaded() {
-        this.cdr.detach();
-    }
-
-    private onImageError() {
-        this.imageRetries++;
+    private getImageUrl():Array<string> {
+        if (!this.whitelabelModel)
+            return [];
+        if (this.images.length > 0)
+            return this.images;
+        this.images.push('http://galaxy.signage.me/Resources/Resellers/' + this.getBusinessInfo('businessId') + '/Logo.jpg')
+        this.images.push('http://galaxy.signage.me/Resources/Resellers/' + this.getBusinessInfo('businessId') + '/Logo.png')
+        return this.images;
     }
 
     private getBusinessInfo(field):string {
@@ -73,8 +63,6 @@ export class LogoCompany {
             return '';
         return this.appStore.getsKey('reseller', 'whitelabel', field);
     }
-
-    private whitelabelModel:WhitelabelModel;
 
     private ngOnDestroy() {
         this.unsub();
