@@ -66,14 +66,37 @@ export class UsersDetails {
         let businesses:List<BusinessModel> = this.appStore.getState().business.getIn(['businesses']);
         let index = this.businessActions.findBusinessIndexById(businessId, businesses);
         let businessModel:BusinessModel = this.appStore.getState().business.getIn(['businesses']).get(index);
-        var user = businessUser.getName()
-        var pass = businessUser.getPassword()
-        alert('Feature will be supported soon...');
-        // if (businessModel.getKey('studioLite') == '0') {
-        //     window.open(`http://galaxy.mediasignage.com/WebService/signagestudio.aspx?user=${user}&pass=${pass}&local=en_US`, '_blank');
-        // } else {
-        //     window.open('https://secure.digitalsignage.com/_studiolite-dist/studiolite.html', '_blank');
-        // }
+        if (businessModel.getKey('studioLite') == '0') {
+            this.businessActions.getStudioProUrl(businessUser.getName(), (url)=> {
+                var newWin = window.open(url, '_blank');
+                if (!newWin || newWin.closed || typeof newWin.closed == 'undefined')
+                    bootbox.alert('Popup blocked, please allow popups from this site in your browser settings');
+            });
+        } else {
+            alert('feature will be supported next week for StudioLite accounts...');
+            // var user = businessModel.getKey('name');
+            // var pass = businessModel.getKey('password');
+            // var credentials = `user=${user},pass=${pass}`;
+            // credentials = Lib.Base64().encode(credentials);
+            // var url = this.getStudioLiteURL();
+            // url = url + '?param=' + credentials;
+            // window.open(url, '_blank');
+        }
+    }
+
+    /**
+     Return the url address of StudioLite
+     @method getStudioLiteURL
+     @return {String} url address
+     **/
+    getStudioLiteURL() {
+        var origin = window.location.toString();
+        var pattern = '^(https|http)(:\/\/)(.*?)\/';
+        var re:any = new RegExp(pattern);
+        var server:any = origin.match(re)[3];
+        if (server.match(/gsignage.com/i) || server.match(/signage.me/i) || server.match(/localhost/i) || server.match(/digitalsignage.com/i))
+            return 'https://secure.digitalsignage.com/_studiolite-dist/studiolite.html';
+        return `${origin}/_studiolite-dist/studiolite.html`;
     }
 
     private onModalClose(result:ModalResult) {

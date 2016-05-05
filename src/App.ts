@@ -112,7 +112,7 @@ export class App {
         });
 
     }
-    private version = '1.055 beta';
+    private version = '1.065 beta';
 
     private checkPlatform(){
         switch (platform.name.toLowerCase()) {

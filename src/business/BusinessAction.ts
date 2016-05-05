@@ -104,7 +104,7 @@ export class BusinessAction extends Actions {
         return (dispatch)=> {
             var appdb:Map<string,any> = this.appStore.getState().appdb;
 
-            // Enable this later when we move sample list to a web service, for now we do it via static content
+            // todo: Enable this later when we move sample list to a web service, for now we do it via static content
             // this._http.get('http://galaxy.signage.me/WebService/getResellerTemplates.ashx?resellerId=1&ver=2')
             //     .map(result => {
             //         var sampleData:any = result.text().replace('templates','"templates"');
@@ -152,6 +152,23 @@ export class BusinessAction extends Actions {
                     }
                 }).subscribe();
         }
+    }
+
+    public getStudioProUrl(customerUserName:string, cb:(url:string)=>void) {
+        var appdb:Map<string,any> = this.appStore.getState().appdb;
+        var url;
+        url = appdb.get('appBaseUrlUser') + `&command=GetLoginKey&customerUserName=${customerUserName}`;
+        this._http.get(url)
+            .catch((err) => {
+                bootbox.alert('Problem launching StudioPro');
+                return Observable.throw(err);
+            })
+            .finally(() => {
+            })
+            .map(result => {
+                var reply:string = result.text();
+                cb(reply)
+            }).subscribe();
     }
 
     public removeBusiness(businessId:number) {
