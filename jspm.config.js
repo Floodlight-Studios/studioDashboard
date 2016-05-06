@@ -390,7 +390,6 @@ SystemJS.config({
   },
   map: {
     "core-js": "npm:core-js@1.2.6",
-    "crypto": "github:jspm/nodelibs-crypto@0.2.0-alpha",
     "gulp-util": "npm:gulp-util@3.0.7",
     "twbs/bootstrap": "github:twbs/bootstrap@3.3.6"
   }
