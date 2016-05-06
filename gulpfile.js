@@ -33,6 +33,7 @@ var util = require('gulp-util');
 var paths = {
     dist: "./dist",
     assets: "./dist/public/assets",
+    jspm: "./dist/jspm_packages",
     sources: "./src/**/*.ts",
     sourcesToCopy: ["index.html"],
     targetHTML: "./src/public/index.html",
@@ -50,6 +51,7 @@ gulp.task("production", function (callback) {
     runSequence(
         "x_clean",
         "x_assets",
+        "x_jspm",
         "x_copy_files",
         "x_build-ts",
         "x_copy",
@@ -58,7 +60,6 @@ gulp.task("production", function (callback) {
         "x_target",
         "x_rsync",
         //'x_open_server_bundle',
-        "x_rsync",
         function (error) {
             if (error) {
                 console.log(error.message);
@@ -90,7 +91,7 @@ gulp.task('typedocs', function (done) {
     runSequence('x_typedocs', 'x_docs_rsync', 'x_docs_chown1', 'x_docs_chown2', done);
 });
 
-/** upload files to remote server for distribution **/
+/** secure.digitalsignage.com **/
 gulp.task('x_rsync', function () {
     var rsync = Rsync.build({
         source: '/cygdrive/c/msweb/studioDashboard/dist/',
@@ -111,6 +112,29 @@ gulp.task('x_rsync', function () {
         console.log('completed ' + error + ' ' + stdout + ' ' + stderr)
     });
 });
+
+
+/** Monster Signage **/
+// gulp.task('x_rsync', function () {
+//     var rsync = Rsync.build({
+//         source: '/cygdrive/c/msweb/studioDashboard/dist/',
+//         destination: 'Sean@digitalsignage.com:/var/www/sites/monstersignage/htdocs',
+//         exclude: ['*.bat', '*.iml', '.gitignore', '.git', '.idea/']
+//     });
+//     rsync.set('progress');
+//     rsync.flags('avzp');
+//     console.log('running the command ' + rsync.command());
+//     rsync.output(
+//         function (data) {
+//             console.log('sync: ' + data);
+//         }, function (data) {
+//             console.log('sync: ' + data);
+//         }
+//     );
+//     rsync.execute(function (error, stdout, stderr) {
+//         console.log('completed ' + error + ' ' + stdout + ' ' + stderr)
+//     });
+// });
 
 /** upload files to remote server for distribution **/
 gulp.task('x_docs_rsync', function () {
@@ -182,7 +206,7 @@ gulp.task('x_build-ts', function () {
 // 0.16 jspm bundle-sfx src/App.js ./dist/index.js --skip-source-maps
 // 0.17 jspm bundle src/App.js ./dist/index.js --skip-source-maps
 gulp.task("x_bundle",
-    shell.task(["jspm bundle-sfx src/App.js " + paths.dist + "/" + paths.targetJS + ' --skip-source-maps'])
+    shell.task(["jspm bundle src/App.js " + paths.dist + "/" + paths.targetJS + ' --skip-source-maps'])
 );
 
 gulp.task("x_docs_chown1",
@@ -191,6 +215,10 @@ gulp.task("x_docs_chown1",
 
 gulp.task("x_docs_chown2",
     shell.task(["ssh root@digitalsignage.com chmod -R 777 /var/www/sites/mediasignage.com/htdocs/dashDocs/*"])
+);
+
+gulp.task("x_docs_chown3",
+    shell.task(["ssh root@digitalsignage.com chmod -R 777 /var/www/sites/monstersignage/htdocs"])
 );
 
 
@@ -208,19 +236,23 @@ gulp.task('x_gitPull', function () {
     });
 });
 
-/** launch the systemjs server to view the bundled final output  **/
 gulp.task('x_open_server_bundle', function () {
-    server = express();
-    server.use(express.static('./'));
-    server.listen(8003);
-    browserSync({
-        open: false,
-        port: 8080,
-        proxy: 'localhost:8003',
-        reloadDelay: '5000'
-    });
-    opn('https://secure.digitalsignage.com/_studiodash-dist/index.html');
+    opn('http://monstersignage.com/public/index.html');
 });
+
+
+// gulp.task('x_open_server_bundle', function () {
+//     server = express();
+//     server.use(express.static('./'));
+//     server.listen(8003);
+//     browserSync({
+//         open: false,
+//         port: 8080,
+//         proxy: 'localhost:8003',
+//         reloadDelay: '1000'
+//     });
+//     opn('https://secure.digitalsignage.com/_studiodash-dist/index.html');
+// });
 
 // , '**/*.ts','**/*.html','**/*.css'
 gulp.task('x_open_server_development', ['x_watch_source'], function () {
@@ -269,11 +301,21 @@ gulp.task('x_assets', function () {
     ]).pipe(gulp.dest(paths.assets));
 });
 
+gulp.task('x_jspm', function () {
+    return gulp.src([
+        './jspm_packages/sys*'
+    ]).pipe(gulp.dest(paths.jspm));
+});
+
 gulp.task('x_copy_files', function () {
     gulp.src(['./src/**/*.html', './src/**/*.woff2', './src/**/*.css'
     ]).pipe(gulp.dest(paths.dist));
 
-    gulp.src(['./src/public/world_data.js']).pipe(gulp.dest(paths.bundleHTML));
+    gulp.src([
+        './src/public/world_data.js',
+        './jspm.config.js',
+        './jspm.browser.js',
+    ]).pipe(gulp.dest(paths.bundleHTML));
 
     return gulp.src(['./**/*.html', './**/*.woff2', './**/*.css'
     ]).pipe(gulp.dest(paths.dist));
@@ -310,13 +352,24 @@ gulp.task("x_minify", function () {
         .pipe(gulp.dest(paths.bundleHTML));
 });
 
+var finalIndex = '' +
+    '<script src="../jspm_packages/system.js"></script>' +
+    '<script src="jspm.browser.js"></script>' +
+    '<script src="jspm.config.js"></script>' +
+    '<script src="./index.min.js"></script>' +
+    '<script>' +
+    'SystemJS.import("src/App.js")' +
+    '.catch(function (e) { console.error(e,"error system.js " + e); }) ' +
+    '</script>'
+
 // update index.html to point to the minified bundle
 gulp.task("x_target", function () {
     gulp.src([paths.targetHTML])
-        // remove script tags
-        .pipe(replace(/\.\.\/\.\.\/config.js/g, "index.min.js"))
+    // remove script tags
         .pipe(replace(/<!-- sys_import_start -->[^]+<!-- sys_import_end -->/, ""))
-        .pipe(replace(/<!-- sys_jspm_start -->[^]+<!-- sys_jspm_end -->/, ""))
+        .pipe(replace(/<!-- sys_import_start -->[^]+<!-- sys_import_end -->/, ""))
+        .pipe(replace(/<!-- config_start -->[^]+<!-- config_end -->/, ""))
+        .pipe(replace(/<!-- sys_jspm_start -->[^]+<!-- sys_jspm_end -->/, finalIndex))
         //.pipe(replace(/<script.*\n.*\n<\/script>/g, ""))
         //.pipe(replace(/\n\n/g, "\n"))
         //.pipe(insert.append("\n<script src='" + paths.targetMinifiedJS + "'></script>"))
