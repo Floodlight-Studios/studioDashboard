@@ -497,7 +497,7 @@ SystemJS.config({
     },
     "github:twbs/bootstrap@3.3.6": {
       "map": {
-        "jquery": "github:components/jquery@2.2.1"
+        "jquery": "npm:jquery@2.2.3"
       }
     },
     "npm:amdefine@1.0.0": {

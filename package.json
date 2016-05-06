@@ -98,7 +98,7 @@
       "angular2-redux-util": "npm:angular2-redux-util@^0.8.57",
       "angular2-uuid": "npm:angular2-uuid@^1.0.6",
       "bootbox": "npm:bootbox@^4.4.0",
-      "bootstrap": "github:twbs/bootstrap@^3.3.6",
+      "bootstrap": "github:twbs/bootstrap@3.3.6",
       "clean-css": "npm:clean-css@^3.4.12",
       "css": "github:systemjs/plugin-css@^0.1.20",
       "highcharts": "npm:highcharts@^4.2.2",
@@ -145,9 +145,6 @@
       "vm": "github:jspm/nodelibs-vm@^0.2.0-alpha"
     },
     "overrides": {
-      "github:components/jquery@2.2.1": {
-        "main": "jquery"
-      },
       "github:twbs/bootstrap@3.3.6": {
         "shim": {
           "js/bootstrap": {
@@ -260,11 +257,6 @@
           "isarray": "0.0.1",
           "string_decoder": "~0.10.0",
           "stream-browserify": "^1.0.0"
-        }
-      },
-      "npm:reflect-metadata@0.1.2": {
-        "map": {
-          "crypto": "@empty"
         }
       },
       "npm:reflect-metadata@0.1.3": {
