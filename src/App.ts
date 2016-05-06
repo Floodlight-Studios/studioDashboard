@@ -11,7 +11,8 @@ import Immutable = require('immutable');
 import 'zone.js/dist/zone';
 import 'zone.js/dist/long-stack-trace-zone'
 import "reflect-metadata";
-import 'twbs/bootstrap/css/bootstrap.css!';
+//import 'twbs/bootstrap/css/bootstrap.css!';
+import 'twbs/bootstrap/dist/css/bootstrap.css!';
 import './styles/style.css!';
 import {appInjService} from "./services/AppInjService";
 import {LocalStorage} from "./services/LocalStorage";
@@ -112,7 +113,7 @@ export class App {
         });
 
     }
-    private version = '1.065 beta';
+    private version = '1.069 beta';
 
     private checkPlatform(){
         switch (platform.name.toLowerCase()) {

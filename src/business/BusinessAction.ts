@@ -157,10 +157,28 @@ export class BusinessAction extends Actions {
     public getStudioProUrl(customerUserName:string, cb:(url:string)=>void) {
         var appdb:Map<string,any> = this.appStore.getState().appdb;
         var url;
-        url = appdb.get('appBaseUrlUser') + `&command=GetLoginKey&customerUserName=${customerUserName}`;
+        url = appdb.get('appBaseUrlUser') + `&command=GetLoginUrl&customerUserName=${customerUserName}`;
         this._http.get(url)
             .catch((err) => {
                 bootbox.alert('Problem launching StudioPro');
+                return Observable.throw(err);
+            })
+            .finally(() => {
+            })
+            .map(result => {
+                var reply:string = result.text();
+                cb(reply)
+            }).subscribe();
+    }
+
+    public getUserPass(customerUserName:string, cb:(url:string)=>void) {
+        var appdb:Map<string,any> = this.appStore.getState().appdb;
+        var url;
+        url = appdb.get('appBaseUrlUser') + `&command=GetUserPass&customerUserName=${customerUserName}`;
+        console.log(url);
+        this._http.get(url)
+            .catch((err) => {
+                bootbox.alert('Problem getting user password');
                 return Observable.throw(err);
             })
             .finally(() => {
