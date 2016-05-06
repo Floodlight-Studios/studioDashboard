@@ -58,8 +58,10 @@ gulp.task("production", function (callback) {
         "x_bundle",
         "x_minify",
         "x_target",
+        "x_clear_remote",
         "x_rsync",
         //'x_open_server_bundle',
+        "x_rsync",
         function (error) {
             if (error) {
                 console.log(error.message);
@@ -217,8 +219,8 @@ gulp.task("x_docs_chown2",
     shell.task(["ssh root@digitalsignage.com chmod -R 777 /var/www/sites/mediasignage.com/htdocs/dashDocs/*"])
 );
 
-gulp.task("x_docs_chown3",
-    shell.task(["ssh root@digitalsignage.com chmod -R 777 /var/www/sites/monstersignage/htdocs"])
+gulp.task("x_clear_remote",
+    shell.task(["ssh root@digitalsignage.com rm -r -f /var/www/sites/dynasite/htdocs/_msportal/_js/_node/public/src"])
 );
 
 

@@ -22,10 +22,11 @@ const _ = require('underscore');
 
 @Component({
     selector: 'Users',
+    moduleId: module.id,
     providers: [SimpleList],
     directives: [SimpleList, UsersDetails, Loading, Samplelist, DROPDOWN_DIRECTIVES, AddUser, MODAL_DIRECTIVES],
-    styleUrls: ['../comps/app1/users/Users.css'],
-    templateUrl: '/src/comps/app1/users/Users.html'
+    styleUrls: ['Users.css'],
+    templateUrl: 'Users.html'
 })
 
 @CanActivate((to:ComponentInstruction, from:ComponentInstruction) => {
