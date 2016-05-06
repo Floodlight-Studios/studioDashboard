@@ -22,9 +22,10 @@ const bootbox = require('bootbox');
     selector: 'UsersDetails',
     changeDetection: ChangeDetectionStrategy.OnPush,
     directives: [SIMPLEGRID_DIRECTIVES, UserInfo, AddUser, ChangePass, MODAL_DIRECTIVES],
+    moduleId: module.id,
     pipes: [OrderBy],
-    styleUrls: ['../comps/app1/users/UsersDetails.css'],
-    templateUrl: '/src/comps/app1/users/UsersDetails.html'
+    styleUrls: ['UsersDetails.css'],
+    templateUrl: 'UsersDetails.html'
 })
 
 export class UsersDetails {
