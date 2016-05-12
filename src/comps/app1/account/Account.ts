@@ -260,26 +260,78 @@ export class Account {
         payment = _.find(this.payments, (k)=> {
             return k.name == payment;
         })
-
-        if (payment.name == 'disable') {
-            var recurringMode = this.getRecurringValue('recurringMode');
-            bootbox.prompt(`are you sure you want to cancel your current subscription? type [DELETE_NOW] to cancel association of all your screens`, (result) => {
-                if (result == 'DELETE_NOW') {
-                    this.appStore.dispatch(this.resellerAction.updateAccountInfo({"recurring_recurringMode": 0}));
-                    this.onSubmit(null);
-                } else {
-                    this.appStore.dispatch(this.resellerAction.updateAccountInfo({"recurring_recurringMode": 0}));
-                    setTimeout(()=>{
-                        this.appStore.dispatch(this.resellerAction.updateAccountInfo({"recurring_recurringMode": recurringMode}));
+        var recurringMode = this.getRecurringValue('recurringMode');
+        switch (payment.name) {
+            case 'disable':
+            {
+                bootbox.prompt(`are you sure you want to cancel your current subscription? type [DELETE_NOW] to cancel association of all your screens`, (result) => {
+                    if (result == 'DELETE_NOW') {
+                        this.appStore.dispatch(this.resellerAction.updateAccountInfo({"recurring_recurringMode": 0}));
                         this.onSubmit(null);
-                    },1)
-                }
-            });
-        } else {
-            //todo: check if CC info available before re-enabling customer
-            //this.appStore.dispatch(this.resellerAction.updateResellerInfo({accountStatus: this.PAY_SUBSCRIBER}));
-            this.appStore.dispatch(this.resellerAction.updateAccountInfo({"recurring_recurringMode": payment.index}));
+                    } else {
+                        this.appStore.dispatch(this.resellerAction.updateAccountInfo({"recurring_recurringMode": 0}));
+                        setTimeout(()=> {
+                            this.appStore.dispatch(this.resellerAction.updateAccountInfo({"recurring_recurringMode": recurringMode}));
+                            this.onSubmit(null);
+                        }, 1)
+                    }
+                });
+                break;
+            }
+            case 'credit card':
+            {
+                this.appStore.dispatch(this.resellerAction.updateAccountInfo({"recurring_recurringMode": payment.index}));
+                this.onSubmit(null);
+                break;
+            }
+            case 'paypal':
+            {
+                bootbox.dialog({
+                    message: "for new accounts only, please allow 24 hours for your account to be activated",
+                    title: "Pay with PayPal",
+                    closeButton: false,
+                    buttons: {
+                        main: {
+                            label: "Cancel",
+                            callback: () => {
+                                this.appStore.dispatch(this.resellerAction.updateAccountInfo({"recurring_recurringMode": 0}));
+                                setTimeout(()=> {
+                                    this.appStore.dispatch(this.resellerAction.updateAccountInfo({"recurring_recurringMode": recurringMode}));
+                                    this.onSubmit(null);
+                                }, 1)
+                            }
+                        },
+                        success: {
+                            label: "Connect to Paypal now",
+                            className: "btn-success",
+                            callback: () => {
+                                if (!this.onPaypalConnect()) {
+                                    this.appStore.dispatch(this.resellerAction.updateAccountInfo({"recurring_recurringMode": 0}));
+                                    setTimeout(()=> {
+                                        this.appStore.dispatch(this.resellerAction.updateAccountInfo({"recurring_recurringMode": recurringMode}));
+                                        this.onSubmit(null);
+                                    }, 1)
+                                } else {
+                                    this.appStore.dispatch(this.resellerAction.updateAccountInfo({"recurring_recurringMode": payment.index}));
+                                    this.onSubmit(null);
+                                }
+                            }
+                        }
+                    }
+                });
+                break;
+            }
         }
+    }
+
+    private onPaypalConnect():boolean {
+        var url = `https://galaxy.signage.me/WebService/CreateResellerRecurring.aspx?resellerId=${this.businessId }`;
+        var newWin = window.open(url, '_blank');
+        if (!newWin || newWin.closed || typeof newWin.closed == 'undefined') {
+            bootbox.alert('Popup blocked, please allow popups from this site in your browser settings');
+            return false;
+        }
+        return true;
     }
 
     private getSelectedPayment(i_recurringMode) {
@@ -309,7 +361,7 @@ export class Account {
         var cardValidTest = this.creditService.validateCardNumber(cardNumber);
         var expirationTest = this.creditService.validateCardExpiry(this.contGroup.controls['billing_expirationMonth'].value, this.contGroup.controls['billing_expirationYear'].value);
 
-        if (cardNumber.match('XXX')){
+        if (cardNumber.match('XXX')) {
             bootbox.dialog({
                 message: 'The credit used is masked with XXX, to update enter full credit card details',
                 title: "Cant update credit card with XXX mask",
@@ -364,7 +416,8 @@ export class Account {
                 success: {
                     label: "thank you",
                     className: "btn-primary",
-                    callback: function () {
+                    callback: () => {
+                        this.onSubmit(null);
                     }
                 }
             }
@@ -401,3 +454,4 @@ export class Account {
 }
 // this.appStore.dispatch(this.resellerAction.updateResellerInfo({accountStatus: 2}));
 // this.appStore.dispatch(this.resellerAction.updateAccountInfo({"recurring_recurringMode": 0}));
+//this.appStore.dispatch(this.resellerAction.updateResellerInfo({accountStatus: this.PAY_SUBSCRIBER}));

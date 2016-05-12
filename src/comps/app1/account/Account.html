@@ -78,7 +78,7 @@
                 <center>
                   <br/>
                   <br/>
-                  <button class="btn btn-danger" style="padding: 10px 30px 10px 30px; font-size: 2em">Connect to Paypal
+                  <button (click)="onPaypalConnect()" class="btn btn-danger" style="padding: 10px 30px 10px 30px; font-size: 2em">Connect to Paypal
                     <span class="fa fa-paypal"></span>
                   </button>
                   <br/>
@@ -87,20 +87,6 @@
               </div>
               <div *ngIf="getRecurringValue('recurringMode') == '1'" role="form" id="payment-form">
                 <div class="row">
-                  <!--<div class="col-xs-12">-->
-                    <!--<div class="form-group">-->
-                      <!--<label for="newName">Pick a new enterprise user name</label>-->
-                      <!--<input id="upgUserName" [ngFormControl]="contGroup.controls['enterprise_login']" type="text" class="form-control" name="newName"/>-->
-                    <!--</div>-->
-                    <!--<div class="form-group">-->
-                      <!--<label for="newPass">Pick an enterprise password</label>-->
-                      <!--<input id="upgPass" [ngFormControl]="contGroup.controls['enterprise_pass1']" type="password" class="form-control" name="newPass"/>-->
-                    <!--</div>-->
-                    <!--<div class="form-group">-->
-                      <!--<label for="newPass2">Repeat your new password</label>-->
-                      <!--<input id="upgPass2" [ngFormControl]="contGroup.controls['enterprise_pass2']" type="password" class="form-control" name="newPass2"/>-->
-                    <!--</div>-->
-                  <!--</div>-->
                   <div class="col-xs-12">
                     <div class="form-group">
                       <label for="cardNumber">CARD NUMBER</label>
